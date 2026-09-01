@@ -43,28 +43,9 @@ document.addEventListener("DOMContentLoaded", function () {
         animateCounters();
     }
 
-    // 2. Sticky Glass Header
-    const brandBar = document.querySelector(".header-brand-bar");
-    window.addEventListener("scroll", function () {
-        if (brandBar) {
-            if (window.scrollY >= 80) {
-                brandBar.classList.add("sticky");
-            } else {
-                brandBar.classList.remove("sticky");
-            }
-        }
-    });
+    // 2. Master Sticky Header is handled smoothly via CSS .sticky-master-header
 
-    // 3. Mobile Navigation Toggle
-    const mobileToggle = document.getElementById("isToggle");
-    const navMenu = document.getElementById("navigation");
-    if (mobileToggle && navMenu) {
-        mobileToggle.addEventListener("click", function (e) {
-            e.preventDefault();
-            navMenu.classList.toggle("open");
-            mobileToggle.classList.toggle("open");
-        });
-    }
+    // 3. Mobile Navigation is handled uniformly by clone-enhancements.js
 
     // 4. Interactive SDG Matrix Tabs
     const sdgTabs = document.querySelectorAll(".sdg-tab-btn");

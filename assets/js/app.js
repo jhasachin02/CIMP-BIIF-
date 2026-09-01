@@ -124,14 +124,17 @@ function activateMenu() {
     }
 }
 
-// Clickable Menu
+// Clickable Menu (Safe fallback)
 if (document.getElementById("navigation")) {
     var elements = document.getElementById("navigation").getElementsByTagName("a");
     for (var i = 0, len = elements.length; i < len; i++) {
         elements[i].onclick = function (elem) {
             if (elem.target.getAttribute("href") === "javascript:void(0)") {
-                var submenu = elem.target.nextElementSibling.nextElementSibling;
-                submenu.classList.toggle('open');
+                var next1 = elem.target.nextElementSibling;
+                var submenu = next1 ? next1.nextElementSibling : null;
+                if (submenu && submenu.classList) {
+                    submenu.classList.toggle('open');
+                }
             }
         }
     }
@@ -193,7 +196,11 @@ function topFunction() {
 })();
 
 //Feather icon
-feather.replace();
+try {
+    if (typeof feather !== "undefined") {
+        feather.replace();
+    }
+} catch (e) {}
 
 // dd-menu
 var ddmenu = document.getElementsByClassName("dd-menu");
@@ -203,17 +210,20 @@ for (var i = 0, len = ddmenu.length; i < len; i++) {
     }
 }
 
-//Tooltip
-var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
-var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
-    return new bootstrap.Tooltip(tooltipTriggerEl)
-});
+//Tooltip & Popovers
+try {
+    if (typeof bootstrap !== "undefined") {
+        var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+        tooltipTriggerList.map(function (tooltipTriggerEl) {
+            return new bootstrap.Tooltip(tooltipTriggerEl);
+        });
 
-//Popovers
-var popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'))
-var popoverList = popoverTriggerList.map(function (popoverTriggerEl) {
-    return new bootstrap.Popover(popoverTriggerEl)
-})
+        var popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'));
+        popoverTriggerList.map(function (popoverTriggerEl) {
+            return new bootstrap.Popover(popoverTriggerEl);
+        });
+    }
+} catch (e) {}
 
 //small menu
 try {

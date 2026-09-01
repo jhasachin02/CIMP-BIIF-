@@ -41,7 +41,7 @@
     <!-- Icon Font CDN Fallbacks & Modern Enhancements -->
     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.8/css/line.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/MaterialDesign-Webfont/7.2.96/css/materialdesignicons.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="../assets/css/ui-enhancements.css">
 
     <link rel="stylesheet" href="../assets/css/design-system.css">
@@ -87,95 +87,124 @@
     </div>
 
     <!-- Institutional Brand Crest Header -->
-    <div class="header-brand-bar">
-        <div class="container">
-            <div class="d-flex align-items-center justify-content-between flex-wrap gap-3">
-                <div class="d-flex align-items-center gap-3">
-                    <a href="https://www.cimp.ac.in/" target="_blank" title="Chandragupt Institute of Management Patna">
-                        <img src="../assets/images/CIMP-Icon.png" height="74" alt="CIMP Logo" class="crest-cimp">
-                    </a>
-                    <div class="d-none d-sm-block border-start ps-3" style="border-color: #E2E8F0 !important; height: 50px;"></div>
-                    <a href="../index.html" class="d-flex align-items-center gap-2" title="CIMP - Business Incubation & Innovation Foundation">
-                        <img src="../assets/images/logo.png" height="66" alt="CIMP-BIIF Logo" class="crest-biif">
-                    </a>
+    <div class="sticky-master-header">
+        <div class="header-brand-bar">
+            <div class="container">
+                <div class="d-flex align-items-center justify-content-center justify-content-md-between flex-wrap gap-3">
+                    <div class="d-flex align-items-center gap-3">
+                        <a href="https://www.cimp.ac.in/" target="_blank" title="Chandragupt Institute of Management Patna">
+                            <img src="../assets/images/CIMP-Icon.png" height="74" alt="CIMP Logo" class="crest-cimp">
+                        </a>
+                        <div class="d-none d-sm-block border-start ps-3" style="border-color: #E2E8F0 !important; height: 50px;"></div>
+                        <a href="../index.html" class="d-flex align-items-center gap-2" title="CIMP - Business Incubation & Innovation Foundation">
+                            <img src="../assets/images/logo.png" height="66" alt="CIMP-BIIF Logo" class="crest-biif">
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
+
+        <!-- Sticky Glassmorphic Navigation Bar -->
+        <header id="topnav" class="iit-nav-bar defaultscroll sticky">
+            <div class="container">
+                <div class="iit-nav-container">
+                    <!-- Mobile Menu Toggle Button (Right Corner) -->
+                    <button class="iit-menu-toggle d-lg-none ms-auto" id="isToggle" type="button" aria-label="Toggle navigation">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </button>
+
+                    <!-- Navigation Menu Wrapper (Right-side Offcanvas Drawer on Mobile) -->
+                    <div class="iit-nav-menu-wrapper" id="navigation">
+                        <!-- Mobile Drawer Header -->
+                        <div class="mobile-drawer-header d-lg-none">
+                            <button class="mobile-drawer-close" id="mobileDrawerClose" type="button" aria-label="Close Menu">
+                                <i class="fa fa-times"></i>
+                            </button>
+                        </div>
+
+                        <div class="mobile-drawer-scrollable">
+                            <ul class="iit-menu">
+                                <li><a href="../index.html">Home</a></li>
+                                <li class="has-submenu ">
+                                    <a href="javascript:void(0)">About Us <i class="fa fa-chevron-down font-10 ms-1 opacity-75"></i></a>
+                                    <ul class="iit-dropdown">
+                                        <li><a href="about-cimp.html"><i class="fa fa-landmark text-primary font-12"></i> About CIMP</a></li>
+                                        <li><a href="about-us.html"><i class="fa fa-building text-primary font-12"></i> About CIMP-BIIF</a></li>
+                                        <li><a href="about-us.html#director-message"><i class="fa fa-user-tie text-primary font-12"></i> Director's Message</a></li>
+                                        <li><a href="about-us.html#ceo-message"><i class="fa fa-award text-primary font-12"></i> CEO's Message</a></li>
+                                        <li><a href="industry-partners.html"><i class="fa fa-handshake text-primary font-12"></i> Industry Partners</a></li>
+                                        <li><a href="nisp-policy.html"><i class="fa fa-file-contract text-primary font-12"></i> NISP Policy 2019</a></li>
+                                        <li><a href="expert-committee.html"><i class="fa fa-users-gear text-primary font-12"></i> Expert Committee</a></li>
+                                        <li><a href="cimp-i-e-policy.html"><i class="fa fa-scroll text-primary font-12"></i> CIMP I & E Policy</a></li>
+                                    </ul>
+                                </li>
+                                <li class="has-submenu ">
+                                    <a href="javascript:void(0)">Incubation <i class="fa fa-chevron-down font-10 ms-1 opacity-75"></i></a>
+                                    <ul class="iit-dropdown">
+                                        <li><a href="incubation-process.html"><i class="fa fa-diagram-project text-primary font-12"></i> Incubation Process</a></li>
+                                        <li><a href="incubation-bhub.html"><i class="fa fa-rocket text-primary font-12"></i> B-HUB Incubation</a></li>
+                                        <li><a href="../index.html#startup-opportunities"><i class="fa fa-award text-primary font-12"></i> Opportunities & Grants</a></li>
+                                    </ul>
+                                </li>
+                                <li class="has-submenu ">
+                                    <a href="javascript:void(0)">Our Team <i class="fa fa-chevron-down font-10 ms-1 opacity-75"></i></a>
+                                    <ul class="iit-dropdown">
+                                        <li><a href="biif-team.html"><i class="fa fa-id-badge text-primary font-12"></i> BIIF Core Team</a></li>
+                                        <li><a href="advisors.html"><i class="fa fa-user-shield text-primary font-12"></i> Board of Advisors</a></li>
+                                        <li><a href="mentors.html"><i class="fa fa-chalkboard-user text-primary font-12"></i> Expert Mentors</a></li>
+                                        <li><a href="mentor-registration.html"><i class="fa fa-user-plus text-primary font-12"></i> Apply as Mentor</a></li>
+                                    </ul>
+                                </li>
+                                <li class=""><a href="startups.html">Startups</a></li>
+                                <li class="has-submenu active">
+                                    <a href="javascript:void(0)">Activities <i class="fa fa-chevron-down font-10 ms-1 opacity-75"></i></a>
+                                    <ul class="iit-dropdown">
+                                        <li><a href="events.html"><i class="fa fa-calendar-days text-primary font-12"></i> Events & Workshops</a></li>
+                                        <li><a href="media-coverage.html"><i class="fa fa-newspaper text-primary font-12"></i> Media Coverage</a></li>
+                                        <li><a href="research.html"><i class="fa fa-flask text-primary font-12"></i> Innovation Research</a></li>
+                                        <li><a href="publications.html"><i class="fa fa-book-open text-primary font-12"></i> Publications</a></li>
+                                    </ul>
+                                </li>
+                                <li class="has-submenu ">
+                                    <a href="javascript:void(0)">Join CIMP BIIF <i class="fa fa-chevron-down font-10 ms-1 opacity-75"></i></a>
+                                    <ul class="iit-dropdown">
+                                        <li><a href="incubation-registration.html"><i class="fa fa-seedling text-primary font-12"></i> Startup Registration</a></li>
+                                        <li><a href="mentor-registration.html"><i class="fa fa-graduation-cap text-primary font-12"></i> Mentor Registration</a></li>
+                                        <li><a href="investor-registration.html"><i class="fa fa-sack-dollar text-primary font-12"></i> Investor Registration</a></li>
+                                        <li><a href="contact-us.html"><i class="fa fa-briefcase text-primary font-12"></i> Partner Registration</a></li>
+                                    </ul>
+                                </li>
+                                <li class=""><a href="contact-us.html">Contact Us</a></li>
+                            </ul>
+
+                            <!-- Mobile Drawer Quick Actions (Portal Login, Register, & Support) -->
+                            <div class="mobile-drawer-actions d-lg-none">
+                                <div class="d-grid gap-2 mb-2">
+                                    <a href="../login.html" class="mobile-drawer-btn-login">
+                                        <i class="fa fa-user-lock"></i> Portal Login
+                                    </a>
+                                    <a href="incubation-registration.html" class="mobile-drawer-btn-register">
+                                        <i class="fa fa-clipboard-check"></i> Register Startup
+                                    </a>
+                                </div>
+                                <div class="mobile-drawer-contact">
+                                    <a href="mailto:support@cimpbiif.com">
+                                        <i class="fa fa-envelope text-primary"></i> support@cimpbiif.com
+                                    </a>
+                                    <a href="tel:+919128912345">
+                                        <i class="fa fa-phone text-primary"></i> +91 9128912345
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
     </div>
-
-    <!-- Sticky Glassmorphic Navigation Bar -->
-        
-    <header id="topnav" class="iit-nav-bar defaultscroll sticky">
-        <div class="container">
-            <div class="iit-nav-container">
-                <!-- Mobile Menu Toggle Button -->
-                <button class="iit-menu-toggle d-lg-none" id="isToggle" aria-label="Toggle navigation">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </button>
-
-                <!-- Brand Title for Mobile -->
-                <span class="d-lg-none text-white fw-bold font-15">CIMP - BIIF</span>
-
-                <!-- Navigation Menu Wrapper -->
-                <div class="iit-nav-menu-wrapper" id="navigation">
-                    <ul class="iit-menu">
-                        <li class=""><a href="../index.html">Home</a></li>
-                        <li class="has-submenu ">
-                            <a href="javascript:void(0)">About Us <i class="fa fa-chevron-down font-10 ms-1 opacity-75"></i></a>
-                            <ul class="iit-dropdown">
-                                <li><a href="about-cimp.html"><i class="fa fa-landmark text-primary font-12"></i> About CIMP</a></li>
-                                <li><a href="about-us.html"><i class="fa fa-building text-primary font-12"></i> About CIMP-BIIF</a></li>
-                                <li><a href="about-us.html#director-message"><i class="fa fa-user-tie text-primary font-12"></i> Director's Message</a></li>
-                                <li><a href="about-us.html#ceo-message"><i class="fa fa-award text-primary font-12"></i> CEO's Message</a></li>
-                                <li><a href="industry-partners.html"><i class="fa fa-handshake text-primary font-12"></i> Industry Partners</a></li>
-                                <li><a href="nisp-policy.html"><i class="fa fa-file-contract text-primary font-12"></i> NISP Policy 2019</a></li>
-                                <li><a href="expert-committee.html"><i class="fa fa-users-gear text-primary font-12"></i> Expert Committee</a></li>
-                                <li><a href="cimp-i-e-policy.html"><i class="fa fa-scroll text-primary font-12"></i> CIMP I & E Policy</a></li>
-                            </ul>
-                        </li>
-                        <li class="has-submenu ">
-                            <a href="javascript:void(0)">Incubation <i class="fa fa-chevron-down font-10 ms-1 opacity-75"></i></a>
-                            <ul class="iit-dropdown">
-                                <li><a href="incubation-process.html"><i class="fa fa-diagram-project text-primary font-12"></i> Incubation Process</a></li>
-                                <li><a href="incubation-bhub.html"><i class="fa fa-rocket text-primary font-12"></i> B-HUB Incubation</a></li>
-                            </ul>
-                        </li>
-                        <li class="has-submenu ">
-                            <a href="javascript:void(0)">Our Team <i class="fa fa-chevron-down font-10 ms-1 opacity-75"></i></a>
-                            <ul class="iit-dropdown">
-                                <li><a href="biif-team.html"><i class="fa fa-id-badge text-primary font-12"></i> BIIF Core Team</a></li>
-                                <li><a href="advisors.html"><i class="fa fa-user-shield text-primary font-12"></i> Board of Advisors</a></li>
-                                <li><a href="mentors.html"><i class="fa fa-chalkboard-user text-primary font-12"></i> Expert Mentors</a></li>
-                                <li><a href="mentor-registration.html"><i class="fa fa-user-plus text-primary font-12"></i> Apply as Mentor</a></li>
-                            </ul>
-                        </li>
-                        <li class=""><a href="startups.html">Startups</a></li>
-                        <li class="has-submenu active">
-                            <a href="javascript:void(0)">Activities <i class="fa fa-chevron-down font-10 ms-1 opacity-75"></i></a>
-                            <ul class="iit-dropdown">
-                                <li><a href="events.html"><i class="fa fa-calendar-days text-primary font-12"></i> Events & Workshops</a></li>
-                                <li><a href="media-coverage.html"><i class="fa fa-newspaper text-primary font-12"></i> Media Coverage</a></li>
-                                <li><a href="research.html"><i class="fa fa-flask text-primary font-12"></i> Innovation Research</a></li>
-                                <li><a href="publications.html"><i class="fa fa-book-open text-primary font-12"></i> Publications</a></li>
-                            </ul>
-                        </li>
-                        <li class="has-submenu ">
-                            <a href="javascript:void(0)">Join CIMP BIIF <i class="fa fa-chevron-down font-10 ms-1 opacity-75"></i></a>
-                            <ul class="iit-dropdown">
-                                <li><a href="incubation-registration.html"><i class="fa fa-seedling text-primary font-12"></i> Startup Registration</a></li>
-                                <li><a href="mentor-registration.html"><i class="fa fa-graduation-cap text-primary font-12"></i> Mentor Registration</a></li>
-                                <li><a href="investor-registration.html"><i class="fa fa-sack-dollar text-primary font-12"></i> Investor Registration</a></li>
-                                <li><a href="contact-us.html"><i class="fa fa-briefcase text-primary font-12"></i> Partner Registration</a></li>
-                            </ul>
-                        </li>
-                        <li class=""><a href="contact-us.html">Contact Us</a></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </header><!--end header-->
+    <div class="mobile-nav-backdrop" id="navBackdrop"></div><!--end header-->
     <!-- Navbar End -->
         <!-- Hero Start -->
     <section class="page-title page-breadcrumb bg-img-enabled solid-bg py-5 d-table w-100" style="background-image: url('assets/images/poly.png');">
@@ -632,8 +661,7 @@
 
 
 
-<!-- Back to top -->
-<a href="#" onclick="topFunction()" id="back-to-top" class="back-to-top fs-5"><i data-feather="arrow-up" class="fea icon-sm icons align-middle"></i></a>
+
 <!-- Back to top -->
 
 <!-- JAVASCRIPT -->

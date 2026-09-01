@@ -1,4 +1,4 @@
-﻿/* ==========================================================================
+/* ==========================================================================
    CIMP - BIIF Modern Enhancements & Clean Styling
    ========================================================================== */
 
@@ -20,7 +20,7 @@ body {
     font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
     color: #334155;
     background-color: #ffffff;
-    overflow-x: hidden;
+    overflow-x: clip;
 }
 
 h1, h2, h3, h4, h5, h6, .heading {
@@ -88,14 +88,7 @@ h1, h2, h3, h4, h5, h6, .heading {
 /* Mobile Navbar Styles */
 @media (max-width: 991px) {
     #navigation {
-        display: none;
-        background: #1e3a8a;
-        max-height: 80vh;
-        overflow-y: auto;
-        padding: 15px 0;
-    }
-    #navigation.open {
-        display: block !important;
+        /* Handled comprehensively by design-system.css */
     }
     .navigation-menu {
         float: none;
@@ -106,7 +99,7 @@ h1, h2, h3, h4, h5, h6, .heading {
         border-bottom: 1px solid rgba(255, 255, 255, 0.08);
     }
     .navigation-menu > li > a {
-        padding: 12px 20px !important;
+        padding: 12px 10px !important;
         display: flex;
         justify-content: space-between;
         align-items: center;
@@ -115,11 +108,15 @@ h1, h2, h3, h4, h5, h6, .heading {
         display: none;
         position: static;
         box-shadow: none;
-        background: rgba(0, 0, 0, 0.15);
-        border: none;
-        padding: 5px 0 10px 15px;
+        background: rgba(0, 0, 0, 0.25);
+        border: 1px solid rgba(255, 255, 255, 0.05);
+        border-radius: 8px;
+        padding: 6px 12px;
+        margin: 4px 0 10px 0;
     }
-    .navigation-menu .submenu.open-submenu {
+    .navigation-menu .submenu.open-submenu,
+    .navigation-menu .submenu.open,
+    .navigation-menu .submenu.is-open {
         display: block !important;
     }
     .menu-arrow {
@@ -837,7 +834,28 @@ h1, h2, h3, h4, h5, h6, .heading {
 
 @media (max-width: 575px) {
   .about-homepage-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr 1fr !important;
+    gap: 10px !important;
+  }
+  .about-grid-card {
+    padding: 14px 10px !important;
+    border-radius: 12px !important;
+  }
+  .about-grid-card h3 {
+    font-size: 13.5px !important;
+    margin: 6px 0 4px !important;
+  }
+  .about-grid-card p {
+    font-size: 11px !important;
+    line-height: 1.35 !important;
+    margin-bottom: 8px !important;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  .about-grid-card .card-footer-link {
+    font-size: 11px !important;
   }
 }
 

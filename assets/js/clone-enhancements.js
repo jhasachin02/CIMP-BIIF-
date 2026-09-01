@@ -3,53 +3,116 @@
  */
 
 document.addEventListener("DOMContentLoaded", function () {
-    // 1. Sticky Navigation
-    const topnav = document.getElementById("topnav");
-    window.addEventListener("scroll", function () {
-        if (topnav) {
-            if (window.scrollY >= 50) {
-                topnav.classList.add("nav-sticky");
-            } else {
-                topnav.classList.remove("nav-sticky");
-            }
-        }
+    // 1. Master Sticky Header is managed via .sticky-master-header CSS
 
-        // Back to top button visibility
-        const backToTop = document.getElementById("back-to-top");
-        if (backToTop) {
-            if (window.scrollY >= 300) {
-                backToTop.style.display = "block";
-            } else {
-                backToTop.style.display = "none";
-            }
-        }
-    });
-
-    // 2. Mobile Menu Toggle
+    // 2. Mobile Menu Right Drawer & Backdrop System
     const toggleBtn = document.getElementById("isToggle");
     const navigation = document.getElementById("navigation");
-    if (toggleBtn && navigation) {
+    let navBackdrop = document.getElementById("navBackdrop");
+
+    if (!navBackdrop) {
+        navBackdrop = document.createElement("div");
+        navBackdrop.id = "navBackdrop";
+        navBackdrop.className = "mobile-nav-backdrop";
+        document.body.appendChild(navBackdrop);
+    }
+
+    const masterHeader = document.querySelector(".sticky-master-header");
+
+    function openMobileDrawer() {
+        if (masterHeader) masterHeader.classList.add("drawer-open");
+        if (topnav) topnav.classList.add("drawer-open");
+        if (navigation) navigation.classList.add("is-open", "open");
+        if (toggleBtn) toggleBtn.classList.add("is-active", "open");
+        if (navBackdrop) navBackdrop.classList.add("is-active");
+        document.body.style.overflow = "hidden";
+    }
+
+    function closeMobileDrawer() {
+        if (masterHeader) masterHeader.classList.remove("drawer-open");
+        if (topnav) topnav.classList.remove("drawer-open");
+        if (navigation) navigation.classList.remove("is-open", "open");
+        if (toggleBtn) toggleBtn.classList.remove("is-active", "open");
+        if (navBackdrop) navBackdrop.classList.remove("is-active");
+        document.body.style.overflow = "";
+    }
+
+    if (toggleBtn) {
         toggleBtn.addEventListener("click", function (e) {
             e.preventDefault();
-            navigation.classList.toggle("open");
-            toggleBtn.classList.toggle("open");
+            e.stopPropagation();
+            const isOpen = navigation && (navigation.classList.contains("is-open") || navigation.classList.contains("open"));
+            if (isOpen) {
+                closeMobileDrawer();
+            } else {
+                openMobileDrawer();
+            }
         });
     }
 
-    // 3. Mobile Submenu Dropdown Accordion
-    const parentMenuItems = document.querySelectorAll(".navigation-menu .has-submenu > a");
-    parentMenuItems.forEach(function (item) {
-        item.addEventListener("click", function (e) {
+    // Direct event listener on Close button and Backdrop
+    document.addEventListener("click", function (e) {
+        if (e.target.closest("#mobileDrawerClose")) {
+            e.preventDefault();
+            e.stopPropagation();
+            closeMobileDrawer();
+            return;
+        }
+
+        if (e.target.closest("#navBackdrop")) {
+            e.preventDefault();
+            e.stopPropagation();
+            closeMobileDrawer();
+            return;
+        }
+    });
+
+    if (navBackdrop) {
+        navBackdrop.addEventListener("click", function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+            closeMobileDrawer();
+        });
+    }
+
+    // Close on Escape key
+    document.addEventListener("keydown", function (e) {
+        if (e.key === "Escape") {
+            closeMobileDrawer();
+        }
+    });
+
+    // 3. Mobile Submenu Dropdowns (Accordion Behavior)
+    const submenuLinks = document.querySelectorAll(".iit-menu .has-submenu > a, .navigation-menu .has-submenu > a");
+    submenuLinks.forEach(function (parentLink) {
+        parentLink.addEventListener("click", function (e) {
             if (window.innerWidth <= 991) {
                 e.preventDefault();
-                const parent = item.parentElement;
-                const submenu = parent.querySelector(".submenu");
-                const arrow = parent.querySelector(".menu-arrow");
-                if (submenu) {
-                    submenu.classList.toggle("open-submenu");
-                }
-                if (arrow) {
-                    arrow.classList.toggle("rotate-arrow");
+                e.stopPropagation();
+                const parentLi = parentLink.parentElement;
+                const dropdown = parentLink.nextElementSibling;
+                
+                if (dropdown) {
+                    const isAlreadyOpen = dropdown.classList.contains("is-open") || dropdown.classList.contains("open") || dropdown.classList.contains("open-submenu");
+                    
+                    // Close sibling dropdowns in the same menu
+                    const siblingList = parentLi.parentElement.querySelectorAll(".has-submenu");
+                    siblingList.forEach(function (li) {
+                        if (li !== parentLi) {
+                            li.classList.remove("is-open", "open");
+                            const sub = li.querySelector(".iit-dropdown, .submenu");
+                            if (sub) sub.classList.remove("is-open", "open", "open-submenu");
+                        }
+                    });
+
+                    // Toggle current dropdown
+                    if (isAlreadyOpen) {
+                        dropdown.classList.remove("is-open", "open", "open-submenu");
+                        parentLi.classList.remove("is-open", "open");
+                    } else {
+                        dropdown.classList.add("is-open", "open", "open-submenu");
+                        parentLi.classList.add("is-open", "open");
+                    }
                 }
             }
         });
@@ -74,29 +137,6 @@ document.addEventListener("DOMContentLoaded", function () {
     if (modalEl) {
         modalEl.remove();
     }
-
-    // 5b. Modern Navbar Mobile Toggle & Dropdowns
-    const modernToggleBtn = document.getElementById("isToggle");
-    const modernNavWrapper = document.getElementById("navigation");
-    if (modernToggleBtn && modernNavWrapper) {
-        modernToggleBtn.addEventListener("click", function () {
-            modernToggleBtn.classList.toggle("is-active");
-            modernNavWrapper.classList.toggle("is-open");
-        });
-    }
-
-    const modernSubmenuParents = document.querySelectorAll(".iit-menu .has-submenu > a");
-    modernSubmenuParents.forEach(function (parentLink) {
-        parentLink.addEventListener("click", function (e) {
-            if (window.innerWidth <= 991) {
-                e.preventDefault();
-                const dropdown = parentLink.nextElementSibling;
-                if (dropdown && dropdown.classList.contains("iit-dropdown")) {
-                    dropdown.classList.toggle("is-open");
-                }
-            }
-        });
-    });
 
     // 6. Interactive Toast System
     let toast = document.getElementById("clone-toast");
