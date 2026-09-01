@@ -1,0 +1,336 @@
+﻿<!doctype html>
+<html lang="en" dir="ltr">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Institutional Portal Login | CIMP - BIIF</title>
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="assets/images/favicon.png">
+
+    <!-- Fonts & Icons -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Outfit:wght@600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Bootstrap & Styles -->
+    <link href="assets/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link href="assets/css/base-styles.css" rel="stylesheet" type="text/css">
+    <link href="assets/css/design-system.css" rel="stylesheet" type="text/css">
+
+    <style>
+        :root {
+            --portal-navy: #071326;
+            --portal-navy-card: #0B1E38;
+            --portal-blue: #1E3A8A;
+            --portal-accent: #EA580C;
+            --portal-border: #E2E8F0;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif !important;
+            background: #F8FAFC;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        /* Top Institutional Strip */
+        .portal-top-strip {
+            background: #0A192F;
+            border-bottom: 3px solid #EA580C;
+            padding: 14px 0;
+        }
+
+        /* Login Container Canvas */
+        .portal-main-area {
+            flex-grow: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 15px;
+            background: radial-gradient(circle at 50% 10%, rgba(30, 58, 138, 0.05) 0%, rgba(248, 250, 252, 1) 70%);
+        }
+
+        /* Enterprise Login Box */
+        .portal-auth-card {
+            width: 100%;
+            max-width: 460px;
+            background: #FFFFFF;
+            border-radius: 16px;
+            box-shadow: 0 20px 45px -10px rgba(15, 23, 42, 0.12), 0 0 1px 1px rgba(15, 23, 42, 0.04);
+            border: 1px solid #E2E8F0;
+            overflow: hidden;
+        }
+
+        .portal-card-header {
+            background: linear-gradient(135deg, #0A192F 0%, #1E3A8A 100%);
+            padding: 28px 30px;
+            color: #FFFFFF;
+            text-align: center;
+            position: relative;
+        }
+
+        .portal-card-header h2 {
+            font-family: 'Outfit', sans-serif !important;
+            font-size: 22px;
+            font-weight: 700;
+            margin: 0;
+            color: #FFFFFF;
+        }
+
+        .portal-card-header p {
+            font-size: 13px;
+            color: rgba(255, 255, 255, 0.8);
+            margin: 6px 0 0;
+        }
+
+        .portal-card-body {
+            padding: 32px 30px 24px;
+        }
+
+        .form-label-custom {
+            font-size: 11.5px;
+            font-weight: 750;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: #334155;
+            margin-bottom: 6px;
+            display: block;
+        }
+
+        .form-control-portal {
+            width: 100%;
+            padding: 12px 16px;
+            font-size: 14px;
+            font-weight: 500;
+            color: #0F172A;
+            background-color: #F8FAFC;
+            border: 1.5px solid #CBD5E1;
+            border-radius: 8px;
+            transition: all 0.2s ease;
+        }
+
+        .form-control-portal:focus {
+            background-color: #FFFFFF;
+            border-color: #2563EB;
+            box-shadow: 0 0 0 3.5px rgba(37, 99, 235, 0.12);
+            outline: none;
+        }
+
+        .btn-portal-submit {
+            width: 100%;
+            background: #1E3A8A;
+            color: #FFFFFF;
+            font-size: 14.5px;
+            font-weight: 700;
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            box-shadow: 0 4px 12px rgba(30, 58, 138, 0.25);
+        }
+
+        .btn-portal-submit:hover {
+            background: #172554;
+            transform: translateY(-1px);
+            box-shadow: 0 6px 16px rgba(30, 58, 138, 0.35);
+        }
+
+        .security-badge-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: #F1F5F9;
+            border: 1px solid #E2E8F0;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 11.5px;
+            font-weight: 600;
+            color: #475569;
+        }
+
+        /* Institutional Footer */
+        .portal-footer {
+            background: #071326;
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 12.5px;
+            padding: 18px 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Header Institutional Crest Bar -->
+    <header class="portal-top-strip">
+        <div class="container">
+            <div class="d-flex align-items-center justify-content-between">
+                <div class="d-flex align-items-center gap-3">
+                    <a href="https://www.cimp.ac.in/" target="_blank" title="CIMP">
+                        <img src="assets/images/CIMP-Icon.png" height="52" alt="CIMP" style="filter: brightness(0) invert(1);">
+                    </a>
+                    <div class="d-none d-sm-block border-start border-secondary opacity-50 ps-3" style="height: 36px;"></div>
+                    <a href="index.html" class="d-flex align-items-center gap-2">
+                        <img src="assets/images/logo-white.png" height="46" alt="CIMP - BIIF">
+                    </a>
+                </div>
+                <div>
+                    <a href="index.html" class="text-white-50 font-13 text-decoration-none d-flex align-items-center gap-2">
+                        <i class="fa-solid fa-arrow-left"></i>
+                        <span class="d-none d-sm-inline">Back to Public Portal</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Authentication Area -->
+    <main class="portal-main-area">
+        <div class="portal-auth-card">
+
+            <!-- Card Header -->
+            <div class="portal-card-header">
+                <h2>Ecosystem Single Sign-On</h2>
+                <p>Authorized Executive &amp; Member Portal</p>
+            </div>
+
+            <!-- Card Body Form -->
+            <div class="portal-card-body">
+
+                <!-- Alert Feedback -->
+                <div id="authAlert" class="alert alert-danger font-12 py-2 d-none mb-3" role="alert">
+                    <i class="fa-solid fa-triangle-exclamation me-1"></i>
+                    <span id="authAlertMsg">Invalid credentials. Please verify your details.</span>
+                </div>
+
+                <!-- Official SSO Form -->
+                <form id="institutionalLoginForm" autocomplete="on">
+                    
+                    <div class="mb-3">
+                        <label class="form-label-custom" for="userEmail">Official Email ID</label>
+                        <div class="position-relative">
+                            <input type="email" class="form-control-portal" id="userEmail" 
+                                   placeholder="name@cimp.ac.in or founder@abc.com" required autocomplete="username">
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <div class="d-flex align-items-center justify-content-between mb-1">
+                            <label class="form-label-custom mb-0" for="userPassword">Password</label>
+                            <a href="javascript:void(0)" onclick="handleForgotPassword()" class="font-12 text-decoration-none text-primary fw-semibold">
+                                Forgot password?
+                            </a>
+                        </div>
+                        <div class="position-relative">
+                            <input type="password" class="form-control-portal pe-5" id="userPassword" 
+                                   placeholder="Enter your security password" required autocomplete="current-password">
+                            <button type="button" class="btn position-absolute top-50 end-0 translate-middle-y text-muted border-0 me-1" 
+                                    onclick="togglePasswordVisibility()" id="btnToggle" style="background: transparent;">
+                                <i class="fa-regular fa-eye" id="toggleIcon"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="d-flex align-items-center justify-content-between mb-4">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="rememberMe" checked style="cursor: pointer;">
+                            <label class="form-check-label font-12 text-muted fw-semibold" for="rememberMe" style="cursor: pointer;">
+                                Keep session active
+                            </label>
+                        </div>
+                        <span class="font-11 text-muted"><i class="fa-solid fa-shield-halved text-success me-1"></i> 256-Bit SSL</span>
+                    </div>
+
+                    <button type="submit" class="btn-portal-submit" id="btnSubmitAuth">
+                        <i class="fa-solid fa-lock me-2 font-12"></i> Sign In to Authorized Workspace
+                    </button>
+                </form>
+
+                <!-- Security & Notice Footer -->
+                <div class="mt-4 pt-3 border-top text-center">
+                    <div class="security-badge-pill mb-2">
+                        <i class="fa-solid fa-fingerprint text-primary"></i>
+                        <span>Role-Based Access Control (RBAC Level-3)</span>
+                    </div>
+                    <p class="font-11 text-muted mb-0">
+                        This system is strictly monitored for authorized personnel of CIMP-BIIF, incubated startups, and empanelled mentors.
+                    </p>
+                </div>
+
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Institutional Compliance Footer -->
+    <footer class="portal-footer">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-md-6 text-md-start text-center mb-2 mb-md-0">
+                    <span>&copy; <script>document.write(new Date().getFullYear())</script> CIMP - Business Incubation &amp; Innovation Foundation</span>
+                </div>
+                <div class="col-md-6 text-md-end text-center">
+                    <span class="text-white-50">An Autonomous Institution Promoted by Govt. of Bihar</span>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="assets/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/js/cimp-db.js"></script>
+
+    <script>
+        function togglePasswordVisibility() {
+            const passField = document.getElementById('userPassword');
+            const icon = document.getElementById('toggleIcon');
+            if (passField.type === 'password') {
+                passField.type = 'text';
+                icon.classList.replace('fa-eye', 'fa-eye-slash');
+            } else {
+                passField.type = 'password';
+                icon.classList.replace('fa-eye-slash', 'fa-eye');
+            }
+        }
+
+        function handleForgotPassword() {
+            alert('For password resets or multi-factor recovery, please contact CIMP-BIIF IT Secretariat at support@cimpbiif.com.');
+        }
+
+        document.getElementById('institutionalLoginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const email = document.getElementById('userEmail').value.trim();
+            const pass = document.getElementById('userPassword').value.trim();
+            const alertBox = document.getElementById('authAlert');
+            const alertMsg = document.getElementById('authAlertMsg');
+            const btn = document.getElementById('btnSubmitAuth');
+
+            if (typeof window.CIMP_DB === 'undefined') {
+                alertMsg.textContent = 'Security handshake initializing. Please try again.';
+                alertBox.classList.remove('d-none');
+                return;
+            }
+
+            const res = window.CIMP_DB.login(email, pass);
+            if (res.success) {
+                alertBox.classList.add('d-none');
+                btn.disabled = true;
+                btn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin me-2"></i> Verifying Authorization...';
+                setTimeout(() => {
+                    window.location.href = res.redirectUrl;
+                }, 350);
+            } else {
+                alertMsg.textContent = res.message;
+                alertBox.classList.remove('d-none');
+            }
+        });
+    </script>
+</body>
+</html>

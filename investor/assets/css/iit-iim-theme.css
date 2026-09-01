@@ -1,0 +1,778 @@
+/* ==========================================================================
+   CIMP - BIIF: PREMIER IIT / IIM TIER INCUBATION DESIGN SYSTEM
+   Inspired by: SINE (IIT Bombay), CIIE.CO (IIM Ahmedabad), NSRCEL (IIM Bangalore)
+   ========================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
+
+:root {
+  /* Prestige Academic Venture Palette */
+  --iit-navy: #0A192F;
+  --iit-dark: #07111E;
+  --iit-card-dark: #0D213F;
+  --iit-blue: #2563EB;
+  --iit-blue-glow: rgba(37, 99, 235, 0.35);
+  --iit-cyan: #06B6D4;
+  --iit-gold: #F59E0B;
+  --iit-gold-glow: rgba(245, 158, 11, 0.3);
+  --iit-emerald: #10B981;
+  --iit-slate: #F8FAFC;
+  --iit-border: #E2E8F0;
+  --iit-border-dark: rgba(255, 255, 255, 0.12);
+  --iit-text: #0F172A;
+  --iit-muted: #64748B;
+  --iit-radius-sm: 8px;
+  --iit-radius-md: 14px;
+  --iit-radius-lg: 20px;
+  --iit-radius-xl: 28px;
+  --iit-shadow-sm: 0 4px 6px -1px rgba(10, 25, 47, 0.05);
+  --iit-shadow-md: 0 12px 24px -4px rgba(10, 25, 47, 0.08), 0 4px 6px -2px rgba(10, 25, 47, 0.04);
+  --iit-shadow-lg: 0 25px 50px -12px rgba(10, 25, 47, 0.16);
+  --iit-shadow-glow: 0 0 40px rgba(37, 99, 235, 0.22);
+  --iit-transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Typography & Reset */
+body {
+  font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+  color: var(--iit-text) !important;
+  background-color: #FFFFFF !important;
+  line-height: 1.65;
+  letter-spacing: -0.01em;
+  overflow-x: hidden;
+}
+
+h1, h2, h3, h4, h5, h6, .heading, .display-1, .display-2, .display-3, .display-4 {
+  font-family: 'Outfit', -apple-system, sans-serif !important;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  color: var(--iit-navy);
+}
+
+/* ==========================================================================
+   1. ELITE FLOATING HEADER & BRAND BAR
+   ========================================================================== */
+.topbar-elite {
+  background: var(--iit-dark);
+  color: #94A3B8;
+  font-size: 13px;
+  padding: 8px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.topbar-elite a {
+  color: #CBD5E1 !important;
+  text-decoration: none;
+  font-weight: 500;
+  transition: var(--iit-transition);
+}
+
+.topbar-elite a:hover {
+  color: #38BDF8 !important;
+}
+
+.topbar-badge {
+  background: rgba(245, 158, 11, 0.15);
+  color: #FBBF24;
+  border: 1px solid rgba(245, 158, 11, 0.3);
+  padding: 2px 10px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.header-brand-bar {
+  background: #FFFFFF;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--iit-border);
+  transition: var(--iit-transition);
+}
+
+.header-brand-bar.sticky {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  box-shadow: 0 10px 30px rgba(10, 25, 47, 0.08);
+  background: rgba(255, 255, 255, 0.94);
+  backdrop-filter: blur(16px);
+  padding: 10px 0;
+}
+
+.brand-crest-group {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.brand-crest-group .crest-cimp {
+  height: 64px;
+  width: auto;
+  transition: var(--iit-transition);
+}
+
+.brand-crest-group .crest-divider {
+  width: 1.5px;
+  height: 46px;
+  background: #E2E8F0;
+}
+
+.brand-crest-group .crest-biif {
+  height: 54px;
+  width: auto;
+}
+
+.brand-crest-group .crest-bihar {
+  height: 62px;
+  width: auto;
+}
+
+/* Nav Menu Bar */
+.iit-nav-bar {
+  background: var(--iit-navy);
+  border-bottom: 2px solid rgba(37, 99, 235, 0.4);
+}
+
+.iit-nav-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.iit-menu {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.iit-menu > li {
+  position: relative;
+}
+
+.iit-menu > li > a {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 16px 16px;
+  color: #F8FAFC !important;
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: var(--iit-transition);
+}
+
+.iit-menu > li > a:hover,
+.iit-menu > li.active > a {
+  color: #38BDF8 !important;
+  background: rgba(255, 255, 255, 0.05);
+}
+
+/* Submenu Dropdown */
+.iit-menu .iit-dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  min-width: 250px;
+  background: #FFFFFF;
+  border-radius: var(--iit-radius-md);
+  box-shadow: var(--iit-shadow-lg);
+  border: 1px solid var(--iit-border);
+  padding: 8px 0;
+  list-style: none;
+  display: none;
+  z-index: 1000;
+  animation: iitDropIn 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes iitDropIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.iit-menu > li:hover > .iit-dropdown {
+  display: block;
+}
+
+.iit-dropdown li a {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 20px;
+  color: #334155 !important;
+  font-size: 13.5px;
+  font-weight: 500;
+  text-decoration: none;
+  transition: var(--iit-transition);
+}
+
+.iit-dropdown li a:hover {
+  background: #F1F5F9;
+  color: var(--iit-blue) !important;
+  padding-left: 24px;
+}
+
+/* CTA Pill in Header */
+.iit-btn-apply {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: linear-gradient(135deg, #F59E0B 0%, #D97706 100%);
+  color: #FFFFFF !important;
+  font-weight: 700;
+  font-size: 13.5px;
+  padding: 9px 20px;
+  border-radius: 30px;
+  text-decoration: none;
+  box-shadow: 0 4px 15px rgba(245, 158, 11, 0.35);
+  transition: var(--iit-transition);
+}
+
+.iit-btn-apply:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(245, 158, 11, 0.5);
+  color: #FFFFFF !important;
+}
+
+/* ==========================================================================
+   2. HERO IMPACT ARENA (IIT/IIM Benchmark)
+   ========================================================================== */
+.hero-impact-arena {
+  position: relative;
+  min-height: 620px;
+  background: var(--iit-dark);
+  color: #FFFFFF;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  padding: 80px 0 100px 0;
+}
+
+.hero-ambient-mesh {
+  position: absolute;
+  inset: 0;
+  background: 
+    radial-gradient(circle at 15% 30%, rgba(37, 99, 235, 0.3) 0%, transparent 50%),
+    radial-gradient(circle at 85% 70%, rgba(245, 158, 11, 0.2) 0%, transparent 45%),
+    linear-gradient(180deg, rgba(7, 17, 30, 0.85) 0%, rgba(10, 25, 47, 0.95) 100%),
+    url('../images/CIMP-Building-02.jpg') center center / cover no-repeat;
+  z-index: 1;
+}
+
+.hero-particles {
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(rgba(255, 255, 255, 0.1) 1px, transparent 1px);
+  background-size: 32px 32px;
+  z-index: 2;
+  opacity: 0.6;
+}
+
+.hero-content-box {
+  position: relative;
+  z-index: 3;
+}
+
+.hero-pill-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 16px;
+  border-radius: 30px;
+  background: rgba(37, 99, 235, 0.15);
+  border: 1px solid rgba(56, 189, 248, 0.35);
+  color: #38BDF8;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  margin-bottom: 24px;
+}
+
+.hero-pill-badge span.pulse-dot {
+  width: 8px;
+  height: 8px;
+  background: #38BDF8;
+  border-radius: 50%;
+  display: inline-block;
+  box-shadow: 0 0 12px #38BDF8;
+  animation: iitPulse 2s infinite;
+}
+
+@keyframes iitPulse {
+  0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(56, 189, 248, 0.7); }
+  70% { transform: scale(1); box-shadow: 0 0 0 8px rgba(56, 189, 248, 0); }
+  100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(56, 189, 248, 0); }
+}
+
+.hero-headline {
+  font-size: 48px;
+  font-weight: 800;
+  line-height: 1.15;
+  color: #FFFFFF;
+  margin-bottom: 20px;
+}
+
+.hero-headline .text-highlight-gold {
+  background: linear-gradient(135deg, #FBBF24 0%, #F59E0B 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.hero-headline .text-highlight-cyan {
+  background: linear-gradient(135deg, #38BDF8 0%, #06B6D4 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.hero-subtext {
+  font-size: 18px;
+  color: #CBD5E1;
+  font-weight: 400;
+  line-height: 1.6;
+  max-width: 620px;
+  margin-bottom: 36px;
+}
+
+.hero-actions-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  align-items: center;
+}
+
+.btn-hero-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: linear-gradient(135deg, #2563EB 0%, #1D4ED8 100%);
+  color: #FFFFFF !important;
+  font-size: 16px;
+  font-weight: 700;
+  padding: 14px 32px;
+  border-radius: var(--iit-radius-lg);
+  box-shadow: 0 10px 25px rgba(37, 99, 235, 0.4);
+  text-decoration: none;
+  transition: var(--iit-transition);
+}
+
+.btn-hero-primary:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 15px 35px rgba(37, 99, 235, 0.6);
+  color: #FFFFFF !important;
+}
+
+.btn-hero-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
+  color: #FFFFFF !important;
+  font-size: 16px;
+  font-weight: 600;
+  padding: 14px 28px;
+  border-radius: var(--iit-radius-lg);
+  text-decoration: none;
+  transition: var(--iit-transition);
+}
+
+.btn-hero-secondary:hover {
+  background: rgba(255, 255, 255, 0.16);
+  border-color: #FFFFFF;
+  transform: translateY(-3px);
+}
+
+/* Hero Visual Showcase Card */
+.hero-visual-card {
+  background: rgba(13, 33, 63, 0.65);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: var(--iit-radius-xl);
+  padding: 24px;
+  backdrop-filter: blur(16px);
+  box-shadow: var(--iit-shadow-lg), var(--iit-shadow-glow);
+}
+
+.hero-visual-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding-bottom: 16px;
+  margin-bottom: 20px;
+}
+
+.hero-badge-tag {
+  background: rgba(16, 185, 129, 0.15);
+  color: #34D399;
+  border: 1px solid rgba(16, 185, 129, 0.3);
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+/* ==========================================================================
+   3. LIVE IMPACT COUNTER STRIP
+   ========================================================================== */
+.impact-strip-section {
+  position: relative;
+  z-index: 10;
+  margin-top: -50px;
+}
+
+.impact-strip-card {
+  background: #FFFFFF;
+  border-radius: var(--iit-radius-xl);
+  box-shadow: var(--iit-shadow-lg);
+  border: 1px solid var(--iit-border);
+  padding: 32px 40px;
+}
+
+.metric-item {
+  text-align: center;
+  position: relative;
+  padding: 10px 15px;
+}
+
+.metric-number {
+  font-family: 'Outfit', sans-serif;
+  font-size: 40px;
+  font-weight: 800;
+  color: var(--iit-navy);
+  line-height: 1.1;
+  margin-bottom: 6px;
+}
+
+.metric-number.highlight-blue {
+  color: var(--iit-blue);
+}
+
+.metric-number.highlight-gold {
+  color: var(--iit-gold);
+}
+
+.metric-number.highlight-emerald {
+  color: var(--iit-emerald);
+}
+
+.metric-label {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--iit-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  margin: 0;
+}
+
+/* ==========================================================================
+   4. FLAGSHIP PROGRAMS (BENTO GRID - IIT/IIM STYLE)
+   ========================================================================== */
+.bento-programs-grid {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 24px;
+  margin-top: 40px;
+}
+
+.bento-card {
+  background: #FFFFFF;
+  border-radius: var(--iit-radius-lg);
+  border: 1px solid var(--iit-border);
+  box-shadow: var(--iit-shadow-sm);
+  padding: 32px;
+  position: relative;
+  overflow: hidden;
+  transition: var(--iit-transition);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.bento-card:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--iit-shadow-md);
+  border-color: #93C5FD;
+}
+
+.bento-card.card-featured {
+  background: linear-gradient(145deg, #0A192F 0%, #0D213F 100%);
+  color: #FFFFFF;
+  border: 1px solid rgba(37, 99, 235, 0.4);
+}
+
+.bento-card.card-featured h3,
+.bento-card.card-featured h4 {
+  color: #FFFFFF;
+}
+
+.bento-card.card-featured p {
+  color: #CBD5E1;
+}
+
+.bento-col-7 { grid-column: span 7; }
+.bento-col-5 { grid-column: span 5; }
+.bento-col-4 { grid-column: span 4; }
+.bento-col-6 { grid-column: span 6; }
+.bento-col-12 { grid-column: span 12; }
+
+.bento-icon-bubble {
+  width: 52px;
+  height: 52px;
+  border-radius: 14px;
+  background: rgba(37, 99, 235, 0.1);
+  color: var(--iit-blue);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 26px;
+  margin-bottom: 20px;
+}
+
+.card-featured .bento-icon-bubble {
+  background: rgba(56, 189, 248, 0.18);
+  color: #38BDF8;
+}
+
+.bento-title {
+  font-size: 22px;
+  font-weight: 700;
+  margin-bottom: 12px;
+}
+
+.bento-desc {
+  font-size: 14.5px;
+  line-height: 1.6;
+  color: var(--iit-muted);
+  margin-bottom: 24px;
+}
+
+.bento-features-list {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 24px 0;
+}
+
+.bento-features-list li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 13.5px;
+  font-weight: 500;
+  margin-bottom: 8px;
+}
+
+.bento-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: 700;
+  font-size: 14px;
+  color: var(--iit-blue);
+  text-decoration: none;
+  transition: var(--iit-transition);
+}
+
+.bento-link:hover {
+  gap: 10px;
+  color: #1D4ED8;
+}
+
+.card-featured .bento-link {
+  color: #38BDF8;
+}
+
+/* ==========================================================================
+   5. PARTNERS & ECOSYSTEM INFINITE MARQUEE
+   ========================================================================== */
+.ecosystem-marquee-wrap {
+  padding: 40px 0;
+  background: #F8FAFC;
+  border-top: 1px solid var(--iit-border);
+  border-bottom: 1px solid var(--iit-border);
+  overflow: hidden;
+  position: relative;
+}
+
+.marquee-heading {
+  text-align: center;
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  font-weight: 700;
+  color: var(--iit-muted);
+  margin-bottom: 24px;
+}
+
+.marquee-track {
+  display: flex;
+  gap: 48px;
+  width: max-content;
+  animation: iitMarquee 35s linear infinite;
+}
+
+@keyframes iitMarquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.marquee-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 60px;
+  background: #FFFFFF;
+  padding: 10px 24px;
+  border-radius: var(--iit-radius-md);
+  border: 1px solid var(--iit-border);
+  box-shadow: var(--iit-shadow-sm);
+  font-weight: 700;
+  font-size: 15px;
+  color: var(--iit-navy);
+  white-space: nowrap;
+}
+
+/* ==========================================================================
+   6. INTERACTIVE SDG INNOVATION MATRIX
+   ========================================================================== */
+.sdg-filter-tabs {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 36px;
+}
+
+.sdg-tab-btn {
+  padding: 10px 22px;
+  border-radius: 30px;
+  border: 1px solid var(--iit-border);
+  background: #FFFFFF;
+  color: var(--iit-muted);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--iit-transition);
+}
+
+.sdg-tab-btn:hover,
+.sdg-tab-btn.active {
+  background: var(--iit-navy);
+  color: #FFFFFF;
+  border-color: var(--iit-navy);
+  box-shadow: 0 4px 12px rgba(10, 25, 47, 0.2);
+}
+
+/* ==========================================================================
+   7. LEADERSHIP & MENTORSHIP SPOTLIGHT
+   ========================================================================== */
+.leadership-quote-card {
+  background: linear-gradient(135deg, #0A192F 0%, #0F284E 100%);
+  border-radius: var(--iit-radius-xl);
+  padding: 48px;
+  color: #FFFFFF;
+  position: relative;
+  overflow: hidden;
+  box-shadow: var(--iit-shadow-lg);
+}
+
+.leadership-avatar-frame {
+  width: 220px;
+  height: 220px;
+  border-radius: 24px;
+  overflow: hidden;
+  border: 4px solid rgba(255, 255, 255, 0.15);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.35);
+  margin: 0 auto;
+}
+
+.leadership-avatar-frame img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.leadership-quote-text {
+  font-size: 17px;
+  line-height: 1.7;
+  color: #CBD5E1;
+  font-style: italic;
+  margin-bottom: 24px;
+}
+
+.leadership-name {
+  font-size: 22px;
+  font-weight: 700;
+  color: #FBBF24;
+  margin-bottom: 4px;
+}
+
+.leadership-title {
+  font-size: 14px;
+  color: #94A3B8;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* ==========================================================================
+   8. FOOTER ELEVATION
+   ========================================================================== */
+.footer-elite {
+  background: var(--iit-dark);
+  color: #94A3B8;
+  padding: 80px 0 30px 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.footer-elite h5 {
+  color: #FFFFFF;
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  margin-bottom: 24px;
+}
+
+.footer-elite ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.footer-elite ul li {
+  margin-bottom: 12px;
+}
+
+.footer-elite ul li a {
+  color: #94A3B8 !important;
+  text-decoration: none;
+  font-size: 14px;
+  transition: var(--iit-transition);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.footer-elite ul li a:hover {
+  color: #38BDF8 !important;
+  transform: translateX(4px);
+}
+
+.footer-bottom-bar {
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  padding: 24px 0 0 0;
+  margin-top: 60px;
+  font-size: 13.5px;
+}
+
+/* Responsive Overrides */
+@media (max-width: 991px) {
+  .hero-headline { font-size: 34px; }
+  .bento-col-7, .bento-col-5, .bento-col-4, .bento-col-6 { grid-column: span 12; }
+  .brand-crest-group { flex-wrap: wrap; gap: 10px; }
+  .brand-crest-group .crest-cimp { height: 48px; }
+  .brand-crest-group .crest-biif { height: 42px; }
+  .brand-crest-group .crest-bihar { height: 48px; }
+  .metric-item { margin-bottom: 20px; }
+  .impact-strip-card { padding: 24px; }
+}

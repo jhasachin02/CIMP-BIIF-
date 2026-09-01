@@ -1,0 +1,957 @@
+﻿<!doctype html>
+<html lang="en" dir="ltr">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Startup Incubation Application - CIMP BIIF</title>
+    <meta name="description" content="Apply for CIMP-BIIF 16-Week Incubation Cohort.">
+    <meta name="author" content="CIMP-BIIF">
+
+    <!-- favicon -->
+    <link rel="shortcut icon" href="../assets/images/favicon.png">
+
+    <!-- Css -->
+    <link href="../assets/libs/animate.css/animate.min.css" rel="stylesheet" type="text/css">
+    <link href="../assets/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    
+    <!-- Icons Css -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.8/css/line.css">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Base Styles -->
+    <link href="../assets/css/base-styles.css" rel="stylesheet" type="text/css">
+    <link href="../assets/css/site-overrides.css" rel="stylesheet">
+    <link rel="stylesheet" href="../assets/css/ui-enhancements.css">
+    <link rel="stylesheet" href="../assets/css/design-system.css">
+
+    <style>
+        :root {
+            --app-navy-dark: #0F172A;
+            --app-navy-header: #1E3A8A;
+            --app-accent-orange: #EA580C;
+            --app-accent-orange-hover: #D9480F;
+            --app-accent-orange-glow: rgba(234, 88, 12, 0.35);
+            --app-accent-green: #10B981;
+            --app-border-color: #E2E8F0;
+            --app-bg-slate: #F8FAFC;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif !important;
+            background-color: #F1F5F9 !important;
+            color: #0F172A;
+        }
+
+        /* Application Page Canvas */
+        .app-page-wrapper {
+            min-height: 80vh;
+            padding: 40px 0 60px;
+            background: radial-gradient(circle at 50% 20%, rgba(30, 58, 138, 0.08) 0%, rgba(241, 245, 249, 1) 70%);
+        }
+
+        /* Modal Application Card */
+        .app-modal-card {
+            width: 100%;
+            background: #FFFFFF;
+            border-radius: 16px;
+            box-shadow: 0 15px 35px -10px rgba(15, 23, 42, 0.12), 0 0 1px 1px rgba(15, 23, 42, 0.05);
+            overflow: hidden;
+            border: 1px solid rgba(226, 232, 240, 0.8);
+            position: relative;
+        }
+
+        /* Header (Exact Match to Screenshot) */
+        .app-modal-header {
+            background: #1E3A8A;
+            padding: 24px 30px;
+            color: #FFFFFF;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .app-modal-title {
+            font-family: 'Outfit', sans-serif !important;
+            font-size: 22px;
+            font-weight: 700;
+            color: #FFFFFF;
+            margin: 0;
+            letter-spacing: -0.02em;
+        }
+        .app-modal-subtitle {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 13px;
+            font-weight: 400;
+            margin-top: 4px;
+            margin-bottom: 0;
+        }
+        .btn-modal-close {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.15);
+            color: #FFFFFF;
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            text-decoration: none;
+            transition: all 0.2s ease;
+        }
+        .btn-modal-close:hover {
+            background: rgba(255, 255, 255, 0.3);
+            color: #FFFFFF;
+        }
+
+        /* Orange Stripe */
+        .app-orange-bar {
+            height: 4px;
+            background: #EA580C;
+            width: 100%;
+        }
+
+        /* Stepper Navigation */
+        .app-stepper-bar {
+            background: #FFFFFF;
+            border-bottom: 1px solid #F1F5F9;
+            padding: 18px 30px;
+        }
+        .app-stepper-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            max-width: 520px;
+            margin: 0 auto;
+        }
+        .stepper-pill {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            user-select: none;
+        }
+        .stepper-num {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 11.5px;
+            font-weight: 700;
+            background: #CBD5E1;
+            color: #FFFFFF;
+            transition: all 0.25s ease;
+        }
+        .stepper-txt {
+            font-size: 13px;
+            font-weight: 600;
+            color: #64748B;
+            transition: all 0.25s ease;
+        }
+
+        /* Stepper States */
+        .stepper-pill.active .stepper-num {
+            background: #1E3A8A;
+            color: #FFFFFF;
+        }
+        .stepper-pill.active .stepper-txt {
+            color: #0F172A;
+            font-weight: 700;
+        }
+        .stepper-pill.completed .stepper-num {
+            background: #10B981;
+            color: #FFFFFF;
+        }
+        .stepper-pill.completed .stepper-txt {
+            color: #0F172A;
+        }
+
+        /* Form Body */
+        .app-form-content {
+            padding: 28px 32px 20px;
+        }
+        .step-heading {
+            font-family: 'Outfit', sans-serif !important;
+            font-size: 18px;
+            font-weight: 700;
+            color: #0F172A;
+            margin-bottom: 20px;
+        }
+
+        /* Form Labels & Controls */
+        .form-label-tag {
+            font-size: 11px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.6px;
+            color: #334155;
+            margin-bottom: 6px;
+            display: block;
+        }
+        .form-label-tag .req {
+            color: #EA580C;
+            margin-left: 2px;
+        }
+        .input-clean {
+            display: block;
+            width: 100%;
+            padding: 11px 14px;
+            font-size: 13.5px;
+            font-weight: 500;
+            color: #0F172A;
+            background-color: #F8FAFC;
+            border: 1.5px solid #E2E8F0;
+            border-radius: 8px;
+            transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+        }
+        .input-clean:focus {
+            background-color: #FFFFFF;
+            border-color: #2563EB;
+            outline: 0;
+            box-shadow: 0 0 0 3.5px rgba(37, 99, 235, 0.12);
+        }
+        .input-clean::placeholder {
+            color: #94A3B8;
+            font-weight: 400;
+        }
+        .select-clean {
+            cursor: pointer;
+        }
+        textarea.input-clean {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        /* Error States */
+        .input-clean.is-invalid {
+            border-color: #EF4444 !important;
+            background-color: #FEF2F2 !important;
+        }
+        .field-err-text {
+            color: #DC2626;
+            font-size: 11px;
+            font-weight: 600;
+            margin-top: 4px;
+            display: none;
+        }
+
+        /* Form Footer Buttons */
+        .app-form-actions {
+            padding: 16px 32px 28px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .btn-clean-back {
+            background: #F8FAFC;
+            border: 1px solid #CBD5E1;
+            color: #475569;
+            font-size: 13.5px;
+            font-weight: 600;
+            padding: 9px 24px;
+            border-radius: 8px;
+            transition: all 0.2s ease;
+            cursor: pointer;
+        }
+        .btn-clean-back:hover {
+            background: #F1F5F9;
+            color: #0F172A;
+        }
+        .btn-clean-orange {
+            background: #EA580C;
+            border: none;
+            color: #FFFFFF;
+            font-size: 13.5px;
+            font-weight: 700;
+            padding: 9px 28px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px var(--app-accent-orange-glow);
+            transition: all 0.2s ease;
+            cursor: pointer;
+        }
+        .btn-clean-orange:hover {
+            background: var(--app-accent-orange-hover);
+            box-shadow: 0 6px 16px rgba(234, 88, 12, 0.45);
+            transform: translateY(-1px);
+            color: #FFFFFF;
+        }
+
+        /* Step Panels */
+        .app-step-pane {
+            display: none;
+            animation: paneFadeIn 0.3s ease;
+        }
+        .app-step-pane.active {
+            display: block;
+        }
+        @keyframes paneFadeIn {
+            from { opacity: 0; transform: translateY(6px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Guidelines & Process Cards */
+        .app-guidelines-wrap {
+            width: 100%;
+            max-width: 680px;
+            margin-top: 24px;
+        }
+        .guidelines-card {
+            background: #FFFFFF;
+            border-radius: 14px;
+            border: 1px solid #E2E8F0;
+            padding: 22px 24px;
+            box-shadow: 0 4px 15px rgba(15, 23, 42, 0.04);
+        }
+        .guidelines-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 14px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #F1F5F9;
+        }
+        .guidelines-title {
+            font-size: 15px;
+            font-weight: 700;
+            color: #0F172A;
+            margin: 0;
+            font-family: 'Outfit', sans-serif !important;
+        }
+        .guidelines-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .guidelines-list li {
+            font-size: 12.5px;
+            color: #334155;
+            margin-bottom: 11px;
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            line-height: 1.5;
+        }
+        .guidelines-list li strong {
+            color: #0F172A;
+        }
+        .process-steps-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .process-step-item {
+            position: relative;
+            padding-left: 34px;
+            margin-bottom: 14px;
+        }
+        .process-step-item:last-child {
+            margin-bottom: 0;
+        }
+        .process-step-num {
+            position: absolute;
+            left: 0;
+            top: 2px;
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            background: #1E3A8A;
+            color: #FFFFFF;
+            font-size: 11px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .process-step-title {
+            font-size: 13px;
+            font-weight: 700;
+            color: #0F172A;
+            margin-bottom: 2px;
+            font-family: 'Outfit', sans-serif !important;
+        }
+        .process-step-desc {
+            font-size: 12px;
+            color: #64748B;
+            line-height: 1.45;
+            margin: 0;
+        }
+
+        @media (max-width: 576px) {
+            .app-modal-header { padding: 18px 20px; }
+            .app-stepper-bar { padding: 14px 16px; }
+            .app-form-content { padding: 20px 20px 14px; }
+            .app-form-actions { padding: 12px 20px 24px; }
+            .guidelines-card { padding: 18px 18px; }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Institutional Brand Crest Header -->
+    <div class="header-brand-bar">
+        <div class="container">
+            <div class="d-flex align-items-center justify-content-between flex-wrap gap-3">
+                <div class="d-flex align-items-center gap-3">
+                    <a href="https://www.cimp.ac.in/" target="_blank" title="Chandragupt Institute of Management Patna">
+                        <img src="../assets/images/CIMP-Icon.png" height="66" alt="CIMP Logo" class="crest-cimp">
+                    </a>
+                    <div class="d-none d-sm-block border-start ps-3" style="border-color: #E2E8F0 !important; height: 44px;"></div>
+                    <a href="../index.html" class="d-flex align-items-center gap-2" title="CIMP - Business Incubation & Innovation Foundation">
+                        <img src="../assets/images/logo.png" height="58" alt="CIMP-BIIF Logo" class="crest-biif">
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navigation Bar -->
+    <header id="topnav" class="iit-nav-bar defaultscroll sticky">
+        <div class="container">
+            <div class="iit-nav-container">
+                <button class="iit-menu-toggle d-lg-none" id="isToggle" aria-label="Toggle navigation">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+
+                <span class="d-lg-none text-white fw-bold font-15">CIMP - BIIF</span>
+
+                <div class="iit-nav-menu-wrapper" id="navigation">
+                    <ul class="iit-menu">
+                        <li><a href="../index.html">Home</a></li>
+                        <li class="has-submenu">
+                            <a href="javascript:void(0)">About Us <i class="fa fa-chevron-down font-10 ms-1 opacity-75"></i></a>
+                            <ul class="iit-dropdown">
+                                <li><a href="about-cimp.html">About CIMP</a></li>
+                                <li><a href="about-us.html">About CIMP-BIIF</a></li>
+                                <li><a href="industry-partners.html">Industry Partners</a></li>
+                                <li><a href="nisp-policy.html">NISP Policy 2019</a></li>
+                            </ul>
+                        </li>
+                        <li class="has-submenu">
+                            <a href="javascript:void(0)">Incubation <i class="fa fa-chevron-down font-10 ms-1 opacity-75"></i></a>
+                            <ul class="iit-dropdown">
+                                <li><a href="incubation-process.html">Incubation Process</a></li>
+                                <li><a href="incubation-bhub.html">B-HUB Incubation</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="startups.html">Startups</a></li>
+                        <li class="has-submenu active">
+                            <a href="javascript:void(0)">Join CIMP BIIF <i class="fa fa-chevron-down font-10 ms-1 opacity-75"></i></a>
+                            <ul class="iit-dropdown">
+                                <li><a href="incubation-registration.html" class="active">Startup Registration</a></li>
+                                <li><a href="mentor-registration.html">Mentor Registration</a></li>
+                                <li><a href="investor-registration.html">Investor Registration</a></li>
+                                <li><a href="contact-us.html">Partner Registration</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="contact-us.html">Contact Us</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Clean Application View (2-Column Structured Layout) -->
+    <main class="app-page-wrapper">
+        <div class="container">
+            <div class="row g-4 align-items-start justify-content-center">
+                
+                <!-- Left Column: Application Form Modal Card (7 Cols) -->
+                <div class="col-lg-7 col-md-12">
+                    <div class="app-modal-card">
+
+                        <!-- Card Header (Exact screenshot match) -->
+                        <div class="app-modal-header">
+                            <div>
+                                <h1 class="app-modal-title">Startup Incubation Application</h1>
+                                <p class="app-modal-subtitle">CIMPâ€“BIIF 16â€“Week Incubation Cohort</p>
+                            </div>
+                            <a href="../index.html" class="btn-modal-close" title="Close">
+                                <i class="fa-solid fa-xmark"></i>
+                            </a>
+                        </div>
+
+                        <!-- Orange Stripe -->
+                        <div class="app-orange-bar"></div>
+
+                        <!-- Stepper (1 Basic Info, 2 Proposition, 3 Parameters) -->
+                        <div class="app-stepper-bar">
+                            <div class="app-stepper-inner">
+                                <div class="stepper-pill active" id="stepPill1" onclick="jumpStep(1)">
+                                    <div class="stepper-num" id="stepNum1">1</div>
+                                    <span class="stepper-txt">Basic Info</span>
+                                </div>
+
+                                <div class="stepper-pill" id="stepPill2" onclick="jumpStep(2)">
+                                    <div class="stepper-num" id="stepNum2">2</div>
+                                    <span class="stepper-txt">Proposition</span>
+                                </div>
+
+                                <div class="stepper-pill" id="stepPill3" onclick="jumpStep(3)">
+                                    <div class="stepper-num" id="stepNum3">3</div>
+                                    <span class="stepper-txt">Parameters</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Form Start -->
+                        <form id="applicationForm" novalidate>
+
+                            <!-- STEP 1: Basic Info -->
+                            <div class="app-step-pane active" id="pane1">
+                                <div class="app-form-content">
+                                    <h2 class="step-heading">Basic Information</h2>
+
+                                    <div class="mb-3">
+                                        <label class="form-label-tag" for="startup_name">
+                                            Startup Name <span class="req">*</span>
+                                        </label>
+                                        <input type="text" class="input-clean" id="startup_name" placeholder="Enter your startup name" required>
+                                        <div class="field-err-text" id="err_startup_name">Startup name is required.</div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-md-6 mb-3">
+                                            <label class="form-label-tag" for="founder_name">
+                                                Founder Full Name <span class="req">*</span>
+                                            </label>
+                                            <input type="text" class="input-clean" id="founder_name" placeholder="Lead founder name" required>
+                                            <div class="field-err-text" id="err_founder_name">Founder name is required.</div>
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <label class="form-label-tag" for="email">
+                                                Email Address <span class="req">*</span>
+                                            </label>
+                                            <input type="email" class="input-clean" id="email" placeholder="founder@startup.com" required>
+                                            <div class="field-err-text" id="err_email">Valid email address is required.</div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-md-6 mb-3">
+                                            <label class="form-label-tag" for="mobile">
+                                                Mobile Number <span class="req">*</span>
+                                            </label>
+                                            <input type="tel" class="input-clean" id="mobile" placeholder="10â€“digit mobile number" maxlength="10" required>
+                                            <div class="field-err-text" id="err_mobile">Valid 10-digit mobile number required.</div>
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <label class="form-label-tag" for="city">
+                                                City <span class="req">*</span>
+                                            </label>
+                                            <input type="text" class="input-clean" id="city" placeholder="City (e.g. Patna)" required>
+                                            <div class="field-err-text" id="err_city">City is required.</div>
+                                        </div>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label class="form-label-tag" for="state">
+                                            State <span class="req">*</span>
+                                        </label>
+                                        <select class="input-clean select-clean" id="state" required>
+                                            <option value="Bihar" selected>Bihar</option>
+                                            <option value="Jharkhand">Jharkhand</option>
+                                            <option value="Uttar Pradesh">Uttar Pradesh</option>
+                                            <option value="West Bengal">West Bengal</option>
+                                            <option value="Delhi NCR">Delhi NCR</option>
+                                            <option value="Maharashtra">Maharashtra</option>
+                                            <option value="Karnataka">Karnataka</option>
+                                            <option value="Other">Other State</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="app-form-actions">
+                                    <button type="button" class="btn-clean-orange" onclick="handleNext(1)">
+                                        Next: Value Proposition &rarr;
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- STEP 2: Proposition -->
+                            <div class="app-step-pane" id="pane2">
+                                <div class="app-form-content">
+                                    <h2 class="step-heading">Value Proposition &amp; Innovation</h2>
+
+                                    <div class="mb-3">
+                                        <label class="form-label-tag" for="sector">
+                                            PRIMARY SECTOR / DOMAIN <span class="req">*</span>
+                                        </label>
+                                        <select class="input-clean select-clean" id="sector" required>
+                                            <option value="" disabled selected>Select primary sector</option>
+                                            <option value="AgriTech & Food Processing">AgriTech &amp; Food Processing</option>
+                                            <option value="EdTech & Skill Development">EdTech &amp; Skill Development</option>
+                                            <option value="HealthTech & BioTech">HealthTech &amp; BioTech</option>
+                                            <option value="FinTech & Financial Inclusion">FinTech &amp; Financial Inclusion</option>
+                                            <option value="CleanTech, Renewable & EV">CleanTech, Renewable &amp; EV</option>
+                                            <option value="Enterprise SaaS & AI">Enterprise SaaS &amp; AI</option>
+                                            <option value="D2C & Retail Innovation">D2C &amp; Retail Innovation</option>
+                                            <option value="Social Impact & Rural Tech">Social Impact &amp; Rural Tech</option>
+                                            <option value="Other">Other Innovation Sector</option>
+                                        </select>
+                                        <div class="field-err-text" id="err_sector">Please select a sector.</div>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label class="form-label-tag" for="problem_statement">
+                                            PROBLEM STATEMENT &amp; TARGET AUDIENCE <span class="req">*</span>
+                                        </label>
+                                        <textarea class="input-clean" id="problem_statement" placeholder="Describe the critical problem your startup solves and who your target users are..." required></textarea>
+                                        <div class="field-err-text" id="err_problem_statement">Please describe the problem statement.</div>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label class="form-label-tag" for="solution">
+                                            YOUR PROPOSED SOLUTION &amp; USP <span class="req">*</span>
+                                        </label>
+                                        <textarea class="input-clean" id="solution" placeholder="What is your product or service, and why is it unique compared to competitors?" required></textarea>
+                                        <div class="field-err-text" id="err_solution">Please describe your proposed solution.</div>
+                                    </div>
+                                </div>
+
+                                <div class="app-form-actions">
+                                    <button type="button" class="btn-clean-back" onclick="goToStep(1)">
+                                        Back
+                                    </button>
+                                    <button type="button" class="btn-clean-orange" onclick="handleNext(2)">
+                                        Next: Parameters &rarr;
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- STEP 3: Parameters -->
+                            <div class="app-step-pane" id="pane3">
+                                <div class="app-form-content">
+                                    <h2 class="step-heading">Team, Stage &amp; Parameters</h2>
+
+                                    <div class="row">
+                                        <div class="col-md-6 mb-3">
+                                            <label class="form-label-tag" for="team_size">
+                                                TEAM SIZE <span class="req">*</span>
+                                            </label>
+                                            <select class="input-clean select-clean" id="team_size" required>
+                                                <option value="Solo Founder">Solo Founder (1)</option>
+                                                <option value="2-3 Co-Founders" selected>2-3 Co-Founders</option>
+                                                <option value="4-9 Members">4-9 Members</option>
+                                                <option value="10+ Members">10+ Members</option>
+                                            </select>
+                                        </div>
+
+                                        <div class="col-md-6 mb-3">
+                                            <label class="form-label-tag" for="stage">
+                                                CURRENT BUSINESS STAGE <span class="req">*</span>
+                                            </label>
+                                            <select class="input-clean select-clean" id="stage" required>
+                                                <option value="Idea Stage" selected>Idea Stage</option>
+                                                <option value="Proof of Concept">Proof of Concept</option>
+                                                <option value="MVP / Prototype">MVP / Prototype</option>
+                                                <option value="Early Traction">Early Traction</option>
+                                                <option value="Scaling">Scaling</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="mb-2">
+                                        <label class="form-label-tag" for="pitch_deck_url">
+                                            LINK TO PITCH DECK / PROTOTYPE URL (OPTIONAL)
+                                        </label>
+                                        <input type="url" class="input-clean" id="pitch_deck_url" placeholder="https://drive.google.com/.../pitchdeck.pdf">
+                                    </div>
+                                </div>
+
+                                <div class="app-form-actions">
+                                    <button type="button" class="btn-clean-back" onclick="goToStep(2)">
+                                        Back
+                                    </button>
+                                    <button type="submit" class="btn-clean-orange" id="btnSubmit">
+                                        Submit Proposal
+                                    </button>
+                                </div>
+                            </div>
+
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Right Column: Documents & Process Sidebar (5 Cols) -->
+                <div class="col-lg-5 col-md-12">
+                    <div class="d-flex flex-column gap-3">
+                        <!-- Box 1: Required Documents & Prerequisites -->
+                        <div class="guidelines-card">
+                            <div class="guidelines-header">
+                                <i class="fa-solid fa-folder-open text-orange font-16"></i>
+                                <h3 class="guidelines-title">Documents &amp; Info Needed to Apply</h3>
+                            </div>
+                            <ul class="guidelines-list">
+                                <li>
+                                    <i class="fa-solid fa-file-pdf text-danger font-14 mt-1"></i>
+                                    <div>
+                                        <strong>Startup Pitch Deck (PDF / Link):</strong> Problem statement, proposed solution, market size, business model, and milestones.
+                                    </div>
+                                </li>
+                                <li>
+                                    <i class="fa-solid fa-id-card text-primary font-14 mt-1"></i>
+                                    <div>
+                                        <strong>Founder KYC &amp; Profile:</strong> Government ID (PAN/Aadhaar) and updated LinkedIn/CV of the founding team.
+                                    </div>
+                                </li>
+                                <li>
+                                    <i class="fa-solid fa-building text-success font-14 mt-1"></i>
+                                    <div>
+                                        <strong>Company Registration (If Incorporated):</strong> CIN, DPIIT Recognition, or MSME Udyam (Early ideation teams can apply as un-incorporated).
+                                    </div>
+                                </li>
+                                <li>
+                                    <i class="fa-solid fa-link text-warning font-14 mt-1"></i>
+                                    <div>
+                                        <strong>Product Demo / Prototype Link:</strong> Video walkthrough, live website, or architecture diagram (if available).
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <!-- Box 2: Post-Application Process -->
+                        <div class="guidelines-card">
+                            <div class="guidelines-header">
+                                <i class="fa-solid fa-timeline text-primary font-16"></i>
+                                <h3 class="guidelines-title">Process After Submitting Application</h3>
+                            </div>
+                            <div class="process-steps-list">
+                                <div class="process-step-item">
+                                    <span class="process-step-num">1</span>
+                                    <h4 class="process-step-title">Desk Screening &amp; Review</h4>
+                                    <p class="process-step-desc">Initial scrutiny of submission completeness, sector alignment, and novelty by the BIIF team (3â€“5 working days).</p>
+                                </div>
+                                <div class="process-step-item">
+                                    <span class="process-step-num">2</span>
+                                    <h4 class="process-step-title">Screening Committee Pitch</h4>
+                                    <p class="process-step-desc">Shortlisted applicants are invited to present their pitch before the CIMP-BIIF Screening Committee (Online/In-person).</p>
+                                </div>
+                                <div class="process-step-item">
+                                    <span class="process-step-num">3</span>
+                                    <h4 class="process-step-title">Due Diligence &amp; Selection</h4>
+                                    <p class="process-step-desc">Committee evaluation on business viability, market scalability, and incubation cohort fitment.</p>
+                                </div>
+                                <div class="process-step-item">
+                                    <span class="process-step-num">4</span>
+                                    <h4 class="process-step-title">Incubation MoU &amp; Onboarding</h4>
+                                    <p class="process-step-desc">Formal incubation agreement signing, Incubation ID issuance, mentor allocation, and B-HUB facility access.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </main>
+
+    <!-- Institutional Footer -->
+    <footer class="footer">    
+        <div class="footer-bar py-3" style="background: #04070D; border-top: 1px solid rgba(255,255,255,0.08);">
+            <div class="container text-center">
+                <div class="row align-items-center">
+                    <div class="col-sm-6 text-sm-start text-center">
+                        <p class="mb-0 text-white-50 font-13">
+                            &copy; <script>document.write(new Date().getFullYear())</script> CIMP - Business Incubation &amp; Innovation Foundation.
+                        </p>
+                    </div>
+                    <div class="col-sm-6 text-sm-end text-center mt-2 mt-sm-0">
+                        <span class="text-white-50 font-13">An Autonomous Institution Promoted by Govt. of Bihar</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="../assets/libs/jquery/dist/jquery.min.js"></script>
+    <script src="../assets/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="../assets/js/cimp-db.js"></script>
+
+    <script>
+        let currentStep = 1;
+
+        function goToStep(step) {
+            currentStep = step;
+            for (let i = 1; i <= 3; i++) {
+                const pill = document.getElementById('stepPill' + i);
+                const num = document.getElementById('stepNum' + i);
+                const pane = document.getElementById('pane' + i);
+
+                pill.classList.remove('active', 'completed');
+                pane.classList.remove('active');
+
+                if (i < step) {
+                    pill.classList.add('completed');
+                    num.innerHTML = '&#10003;';
+                } else if (i === step) {
+                    pill.classList.add('active');
+                    num.innerText = i;
+                    pane.classList.add('active');
+                } else {
+                    num.innerText = i;
+                }
+            }
+        }
+
+        function jumpStep(target) {
+            if (target < currentStep) {
+                goToStep(target);
+            } else if (target === 2 && validateStep1()) {
+                goToStep(2);
+            } else if (target === 3 && validateStep1() && validateStep2()) {
+                goToStep(3);
+            }
+        }
+
+        function validateStep1() {
+            let ok = true;
+            const fields = [
+                { id: 'startup_name', err: 'err_startup_name', check: v => v.trim().length > 0 },
+                { id: 'founder_name', err: 'err_founder_name', check: v => v.trim().length > 0 },
+                { id: 'email', err: 'err_email', check: v => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.trim()) },
+                { id: 'mobile', err: 'err_mobile', check: v => v.trim().length >= 10 },
+                { id: 'city', err: 'err_city', check: v => v.trim().length > 0 }
+            ];
+
+            fields.forEach(f => {
+                const el = document.getElementById(f.id);
+                const errEl = document.getElementById(f.err);
+                if (!f.check(el.value)) {
+                    el.classList.add('is-invalid');
+                    if (errEl) errEl.style.display = 'block';
+                    ok = false;
+                } else {
+                    el.classList.remove('is-invalid');
+                    if (errEl) errEl.style.display = 'none';
+                }
+            });
+            return ok;
+        }
+
+        function validateStep2() {
+            let ok = true;
+            const desc = document.getElementById('product_description');
+            const errDesc = document.getElementById('err_product_description');
+            if (desc.value.trim().length < 5) {
+                desc.classList.add('is-invalid');
+                if (errDesc) errDesc.style.display = 'block';
+                ok = false;
+            } else {
+                desc.classList.remove('is-invalid');
+                if (errDesc) errDesc.style.display = 'none';
+            }
+            return ok;
+        }
+
+        function nextToStep(target) {
+            if (target === 2 && validateStep1()) goToStep(2);
+            else if (target === 3 && validateStep2()) goToStep(3);
+        }
+
+        // Input error removal
+        document.querySelectorAll('.input-clean').forEach(inp => {
+            inp.addEventListener('input', function () {
+                this.classList.remove('is-invalid');
+                const err = document.getElementById('err_' + this.id);
+                if (err) err.style.display = 'none';
+            });
+        });
+
+        // Submit Handler
+        document.getElementById('applicationForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+            if (!validateStep1()) { goToStep(1); return; }
+            if (!validateStep2()) { goToStep(2); return; }
+
+            const btn = document.getElementById('btnSubmit');
+            btn.disabled = true;
+            btn.innerText = 'Submitting...';
+
+            const appData = {
+                startup_name: document.getElementById('startup_name').value.trim(),
+                founderName: document.getElementById('founder_name').value.trim(),
+                email: document.getElementById('email').value.trim(),
+                mobile: document.getElementById('mobile').value.trim(),
+                city: document.getElementById('city').value.trim(),
+                state: document.getElementById('state').value,
+                sector: document.getElementById('sector').value,
+                product_description: document.getElementById('product_description').value.trim(),
+                teamMembers: document.getElementById('team_members').value,
+                stage: document.getElementById('stage').value,
+                pitchDeckUrl: document.getElementById('pitch_deck_url').value.trim() || '#'
+            };
+
+            setTimeout(() => {
+                let newApp;
+                if (window.CIMP_DB && typeof window.CIMP_DB.submitApplication === 'function') {
+                    newApp = window.CIMP_DB.submitApplication(appData);
+                } else {
+                    newApp = {
+                        id: 'APP-2026-' + Math.floor(100 + Math.random() * 900),
+                        startupName: appData.startup_name,
+                        founderName: appData.founderName
+                    };
+                }
+
+                // Modal
+                const modalHtml = `
+                    <div class="modal fade show" id="successModal" tabindex="-1" style="display:block; background:rgba(7,17,30,0.85); backdrop-filter:blur(6px); z-index:9999;" aria-modal="true" role="dialog">
+                        <div class="modal-dialog modal-dialog-centered" style="max-width: 520px;">
+                            <div class="modal-content border-0 shadow-lg rounded-4 overflow-hidden">
+                                <div class="modal-header border-0 bg-primary text-white p-4" style="background:#1E3A8A !important;">
+                                    <h5 class="modal-title fw-bold font-18 mb-0"><i class="fa-solid fa-circle-check text-success me-2"></i> Application Submitted!</h5>
+                                    <button type="button" class="btn-close btn-close-white" onclick="document.getElementById('successModal').remove()"></button>
+                                </div>
+                                <div style="height:3px; background:#EA580C;"></div>
+                                <div class="modal-body p-4 bg-white text-center">
+                                    <span class="text-muted font-11 text-uppercase fw-bold">Application Tracking ID</span>
+                                    <h2 class="text-primary fw-bold my-2">${newApp.id}</h2>
+                                    <p class="font-13 text-muted mb-4">
+                                        Thank you <strong>${newApp.founderName}</strong>! Your application for <strong>"${newApp.startupName}"</strong> has been successfully submitted to the CIMP-BIIF Incubation Cohort.
+                                    </p>
+                                    <div class="d-flex flex-column gap-2">
+                                        <a href="../admin/incubation-manager/index.html" class="btn btn-primary py-2 font-13 fw-semibold" style="background:#1E3A8A; border:none;">
+                                            Open Incubation Manager Portal
+                                        </a>
+                                        <a href="../index.html" class="btn btn-light py-2 font-13 border">
+                                            Return to Homepage
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+
+                const existing = document.getElementById('successModal');
+                if (existing) existing.remove();
+
+                const wrap = document.createElement('div');
+                wrap.innerHTML = modalHtml;
+                document.body.appendChild(wrap.firstElementChild);
+
+                document.getElementById('applicationForm').reset();
+                goToStep(1);
+                btn.disabled = false;
+                btn.innerText = 'Submit Proposal';
+            }, 500);
+        });
+    </script>
+    <script src="../assets/js/plugins.init.js"></script>
+    <script src="../assets/js/app.js"></script>
+</body>
+</html>
+

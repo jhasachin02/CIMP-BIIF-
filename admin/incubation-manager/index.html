@@ -1,0 +1,579 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Incubation Manager Operations Hub | CIMP - BIIF</title>
+    
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="../../assets/images/favicon.png">
+
+    <!-- Fonts & Icons -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Outfit:wght@600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Bootstrap CSS -->
+    <link href="../../assets/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    
+    <!-- Unified Admin CSS -->
+    <link href="../../assets/css/admin-dashboard.css" rel="stylesheet" type="text/css">
+    
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body class="admin-unified-body">
+
+    <!-- 1. Left Sidebar Navigation -->
+    <aside class="app-sidebar">
+        <div>
+            <!-- Institutional Brand Header -->
+            <div class="app-sidebar-brand">
+                <div class="app-sidebar-emblem">
+                    <img src="../../assets/images/CIMP-Icon.png" height="32" alt="CIMP Logo" style="object-fit: contain;">
+                    <div style="border-left: 1.5px solid #CBD5E1; height: 24px;"></div>
+                    <img src="../../assets/images/logo.png" height="28" alt="CIMP-BIIF Logo" style="object-fit: contain;">
+                </div>
+                <h4>CIMP - BIIF</h4>
+                <span>Incubation Operations</span>
+            </div>
+
+            <!-- Page-Wise Structured Nav Tabs -->
+            <div class="app-nav-group">
+                <span class="app-nav-header">Workspaces</span>
+                
+                <button class="app-nav-btn active" onclick="switchMgrView('tab-mgr-overview', this)">
+                    <span class="left-grp">
+                        <i class="fa-solid fa-chart-line font-14"></i>
+                        <span>Intake Overview</span>
+                    </span>
+                </button>
+
+                <button class="app-nav-btn" onclick="switchMgrView('tab-mgr-queue', this)">
+                    <span class="left-grp">
+                        <i class="fa-solid fa-clipboard-check font-14"></i>
+                        <span>Scrutiny Queue</span>
+                    </span>
+                    <span class="app-nav-badge" id="navMgrPendingBadge">0</span>
+                </button>
+
+                <button class="app-nav-btn" onclick="switchMgrView('tab-mgr-milestones', this)">
+                    <span class="left-grp">
+                        <i class="fa-solid fa-rocket font-14"></i>
+                        <span>Portfolio Milestones</span>
+                    </span>
+                </button>
+
+                <button class="app-nav-btn" onclick="switchMgrView('tab-mgr-mentors', this)">
+                    <span class="left-grp">
+                        <i class="fa-solid fa-handshake-angle font-14"></i>
+                        <span>Mentorship Allocations</span>
+                    </span>
+                </button>
+
+                <span class="app-nav-header mt-3">Operations</span>
+
+                <button class="app-nav-btn" onclick="openBroadcastModal()">
+                    <span class="left-grp">
+                        <i class="fa-solid fa-bullhorn font-14"></i>
+                        <span>Post Circular</span>
+                    </span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Logged In User Strip with Profile Edit -->
+        <div class="app-user-profile">
+            <div class="d-flex align-items-center gap-2" style="cursor: pointer;" onclick="CIMP_DB.openProfileModal()" title="Click to Edit Profile &amp; Change Password">
+                <div class="d-flex align-items-center justify-content-center rounded-circle" style="width: 34px; height: 34px; background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.2);">
+                    <i class="fa-solid fa-user-check text-white font-14"></i>
+                </div>
+                <div>
+                    <div class="font-12 fw-bold text-white" id="sidebarUserName">Kumod Kumar</div>
+                    <div class="font-11 text-white-50" id="sidebarUserTitle">Incubation Manager</div>
+                </div>
+            </div>
+            <div class="d-flex align-items-center gap-2">
+                <button class="btn btn-link p-0 text-white-50 font-13" onclick="CIMP_DB.openProfileModal()" title="Edit Profile &amp; Password">
+                    <i class="fa-solid fa-user-pen"></i>
+                </button>
+                <a href="../../login.html" class="text-white-50 font-14" title="Sign Out">
+                    <i class="fa-solid fa-arrow-right-from-bracket"></i>
+                </a>
+            </div>
+        </div>
+    </aside>
+
+    <!-- 2. Main Workspace Viewport -->
+    <div class="app-main-wrap">
+        
+        <!-- Topbar Header -->
+        <header class="app-topbar">
+            <!-- Omnisearch -->
+            <div class="app-top-search">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <input type="text" id="mgrSearchInp" placeholder="Search applications, founders, pitch decks..." oninput="handleMgrSearch(this.value)">
+            </div>
+
+            <!-- Right Controls: Manager Info -->
+            <div class="d-flex align-items-center gap-3">
+                <div class="d-none d-md-flex flex-column align-items-end" style="cursor: pointer;" onclick="CIMP_DB.openProfileModal()" title="Click to Edit Profile &amp; Password">
+                    <span class="font-13 fw-bold text-dark" id="topbarUserName" style="line-height:1.2;">Kumod Kumar</span>
+                    <span class="font-11 text-muted" id="topbarUserTitle" style="line-height:1.1;">Incubation Manager &amp; CEO <i class="fa-solid fa-pen-to-square ms-1 text-primary font-10"></i></span>
+                </div>
+            </div>
+        </header>
+
+        <!-- Viewport Container -->
+        <main class="app-viewport-container">
+
+            <!-- VIEW 1: INTAKE OVERVIEW -->
+            <div class="app-tab-pane active" id="tab-mgr-overview">
+                <div class="mb-4">
+                    <h3 class="fw-bold font-20 mb-1" style="font-family: 'Outfit', sans-serif;">Incubation Operations Overview</h3>
+                    <p class="text-muted font-13 mb-0">Operational KPIs, intake pipeline progression, and portfolio compliance metrics.</p>
+                </div>
+
+                <!-- 6 Clean Stats -->
+                <div class="row g-3 mb-4">
+                    <div class="col-md-4 col-lg-2">
+                        <div class="app-kpi-card">
+                            <span class="app-kpi-lbl">Total Intake</span>
+                            <div class="app-kpi-val" id="ovMgrTotal">128</div>
+                            <div class="app-kpi-sub"><i class="fa-solid fa-inbox text-primary"></i> FY 2026</div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-lg-2">
+                        <div class="app-kpi-card">
+                            <span class="app-kpi-lbl">Scrutiny Queue</span>
+                            <div class="app-kpi-val text-warning" id="ovMgrPending">3</div>
+                            <div class="app-kpi-sub"><i class="fa-solid fa-clock"></i> Awaiting Score</div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-lg-2">
+                        <div class="app-kpi-card">
+                            <span class="app-kpi-lbl">Active Incubatees</span>
+                            <div class="app-kpi-val" id="ovMgrActive">30</div>
+                            <div class="app-kpi-sub" style="color:#059669;"><i class="fa-solid fa-seedling"></i> In Hub</div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-lg-2">
+                        <div class="app-kpi-card">
+                            <span class="app-kpi-lbl">Avg Evaluation</span>
+                            <div class="app-kpi-val">89.4</div>
+                            <div class="app-kpi-sub text-primary"><i class="fa-solid fa-award"></i> Quality Index</div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-lg-2">
+                        <div class="app-kpi-card">
+                            <span class="app-kpi-lbl">Mentoring Hours</span>
+                            <div class="app-kpi-val">420 Hrs</div>
+                            <div class="app-kpi-sub text-dark"><i class="fa-solid fa-calendar-check"></i> Delivered</div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-lg-2">
+                        <div class="app-kpi-card">
+                            <span class="app-kpi-lbl">Seed Grants</span>
+                            <div class="app-kpi-val">â‚¹3.8 Cr</div>
+                            <div class="app-kpi-sub text-success"><i class="fa-solid fa-check"></i> Disbursed</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Recent Filings Table -->
+                <div class="app-table-card">
+                    <div class="app-table-header">
+                        <h5>Recent Intake Applications</h5>
+                        <button class="btn btn-sm btn-outline-secondary font-12" onclick="switchMgrView('tab-mgr-queue', document.querySelectorAll('.app-nav-btn')[1])">
+                            Open Scrutiny Queue <i class="fa-solid fa-arrow-right font-11 ms-1"></i>
+                        </button>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="app-table">
+                            <thead>
+                                <tr>
+                                    <th>Ref ID</th>
+                                    <th>Startup Enterprise</th>
+                                    <th>Founder &amp; Location</th>
+                                    <th>Sector</th>
+                                    <th>Stage</th>
+                                    <th>Funding Req.</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tblMgrRecentIntakeBody">
+                                <!-- Populated dynamically -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- VIEW 2: SCRUTINY QUEUE -->
+            <div class="app-tab-pane" id="tab-mgr-queue">
+                <div class="d-flex align-items-center justify-content-between mb-4 flex-wrap gap-2">
+                    <div>
+                        <h3 class="fw-bold font-20 mb-1" style="font-family: 'Outfit', sans-serif;">Level-1 Scrutiny &amp; Scoring Matrix</h3>
+                        <p class="text-muted font-13 mb-0">Evaluate innovation novelty, market readiness, and escalate recommended ventures to Director.</p>
+                    </div>
+                </div>
+
+                <div class="app-table-card">
+                    <div class="table-responsive">
+                        <table class="app-table">
+                            <thead>
+                                <tr>
+                                    <th>App ID</th>
+                                    <th>Startup Enterprise</th>
+                                    <th>Founder &amp; Contact</th>
+                                    <th>Sector</th>
+                                    <th>Stage</th>
+                                    <th>Funding Req.</th>
+                                    <th>Manager Score</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tblMgrScrutinyBody">
+                                <!-- Loaded dynamically -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- VIEW 3: PORTFOLIO MILESTONES -->
+            <div class="app-tab-pane" id="tab-mgr-milestones">
+                <div class="d-flex align-items-center justify-content-between mb-4 flex-wrap gap-2">
+                    <div>
+                        <h3 class="fw-bold font-20 mb-1" style="font-family: 'Outfit', sans-serif;">Portfolio Milestones &amp; Compliance</h3>
+                        <p class="text-muted font-13 mb-0">Track sprint deliverables, compliance audit scores, and revenue progression.</p>
+                    </div>
+                    <select class="app-filter-select" id="filterMgrCohort" onchange="renderMilestonesTable()">
+                        <option value="">All Cohorts</option>
+                        <option value="Cohort 2026">Cohort 2026</option>
+                        <option value="Cohort 2022">Cohort 2022</option>
+                        <option value="Cohort 2021">Cohort 2021</option>
+                    </select>
+                </div>
+
+                <div class="app-table-card">
+                    <div class="table-responsive">
+                        <table class="app-table">
+                            <thead>
+                                <tr>
+                                    <th>Startup Enterprise</th>
+                                    <th>Cohort</th>
+                                    <th>Sector &amp; Stage</th>
+                                    <th>Current Milestone</th>
+                                    <th>Assigned Mentor</th>
+                                    <th>Compliance Score</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tblMgrMilestonesBody">
+                                <!-- Loaded dynamically -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- VIEW 4: MENTORSHIP ALLOCATIONS -->
+            <div class="app-tab-pane" id="tab-mgr-mentors">
+                <div class="mb-4">
+                    <h3 class="fw-bold font-20 mb-1" style="font-family: 'Outfit', sans-serif;">Mentorship Allocations &amp; Advisory Hours</h3>
+                    <p class="text-muted font-13 mb-0">Empaneled domain mentors and startup advisory pairing.</p>
+                </div>
+
+                <div class="app-table-card">
+                    <div class="table-responsive">
+                        <table class="app-table">
+                            <thead>
+                                <tr>
+                                    <th>Mentor Name</th>
+                                    <th>Affiliation</th>
+                                    <th>Domain Expertise</th>
+                                    <th>Allotted Ventures</th>
+                                    <th>Advisory Delivery</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tblMgrMentorsBody">
+                                <!-- Loaded dynamically -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+        </main>
+    </div>
+
+    <!-- Manager Scoring & Escalation Modal -->
+    <div class="modal fade" id="mgrScoreModal" tabindex="-1" style="background: rgba(10,25,47,0.7); backdrop-filter:blur(4px);">
+        <div class="modal-dialog modal-dialog-centered" style="max-width: 580px;">
+            <div class="modal-content border-0 shadow-lg rounded-4 overflow-hidden">
+                <div class="modal-header bg-primary text-white p-4" style="background:#1E40AF !important;">
+                    <h5 class="modal-title font-16 fw-bold mb-0"><i class="fa-solid fa-clipboard-check me-2"></i> Scrutiny &amp; Director Escalation</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body p-4 bg-white">
+                    <input type="hidden" id="modalScoreAppId">
+                    <div class="mb-3">
+                        <label class="form-label font-11 text-uppercase fw-bold text-muted mb-1">Venture Name</label>
+                        <h5 class="fw-bold text-dark mb-0 font-16" id="modalScoreStartupName">Startup Name</h5>
+                        <p class="font-12 text-muted mb-0" id="modalScoreFounder">Founder Name</p>
+                    </div>
+
+                    <div class="p-3 bg-light rounded-3 border mb-3 font-13 text-secondary" id="modalScoreDesc">
+                        Product Description
+                    </div>
+
+                    <div class="mb-3">
+                        <div class="d-flex justify-content-between align-items-center mb-1">
+                            <label class="form-label font-11 text-uppercase fw-bold text-muted mb-0">Evaluation Score (0â€“100)</label>
+                            <span class="fw-bold text-primary font-14" id="scoreValueDisp">88/100</span>
+                        </div>
+                        <input type="range" class="form-range" min="50" max="100" value="88" id="modalScoreRange" oninput="document.getElementById('scoreValueDisp').innerText = this.value + '/100'">
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label font-11 text-uppercase fw-bold text-muted mb-1">Manager Recommendations / Scrutiny Remarks</label>
+                        <textarea class="form-control font-13" id="modalScoreNotes" rows="3" placeholder="Technical and KYC feasibility verified. Recommended for Director final approval.">Technical KYC and pitch viability verified. Recommended for Level-2 incubation grant.</textarea>
+                    </div>
+                </div>
+                <div class="modal-footer bg-light p-3 border-top d-flex justify-content-between">
+                    <button type="button" class="btn btn-sm btn-outline-secondary font-12" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-sm btn-primary font-12 fw-bold" style="background:#1E40AF; border:none;" onclick="submitManagerScore()">
+                        <i class="fa-solid fa-arrow-up-right-from-square me-1"></i> Escalate to Director
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="../../assets/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="../../assets/js/cimp-db.js"></script>
+
+    <script>
+        function switchMgrView(tabId, btnEl) {
+            document.querySelectorAll('.app-tab-pane').forEach(p => p.classList.remove('active'));
+            document.querySelectorAll('.app-nav-btn').forEach(b => b.classList.remove('active'));
+            
+            const targetPane = document.getElementById(tabId);
+            if (targetPane) targetPane.classList.add('active');
+            if (btnEl) btnEl.classList.add('active');
+
+            if (tabId === 'tab-mgr-overview') renderMgrOverview();
+            if (tabId === 'tab-mgr-queue') renderScrutinyQueue();
+            if (tabId === 'tab-mgr-milestones') renderMilestonesTable();
+            if (tabId === 'tab-mgr-mentors') renderMgrMentors();
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            if (window.CIMP_DB) {
+                window.CIMP_DB.setCurrentUser('usr-mgr');
+                window.CIMP_DB.syncDOMUserProfile('usr-mgr');
+            }
+            refreshMgrData();
+
+            window.addEventListener('cimp:db_updated', refreshMgrData);
+        });
+
+        function refreshMgrData() {
+            if (window.CIMP_DB) window.CIMP_DB.syncDOMUserProfile('usr-mgr');
+            renderMgrOverview();
+            renderScrutinyQueue();
+            renderMilestonesTable();
+            renderMgrMentors();
+        }
+
+        function renderMgrOverview() {
+            if (!window.CIMP_DB) return;
+            const apps = window.CIMP_DB.getApplications();
+            const pending = apps.filter(a => a.status === 'Pending Director Approval' || a.status === 'Under Evaluation');
+            
+            document.getElementById('ovMgrPending').innerText = pending.length;
+            const badge = document.getElementById('navMgrPendingBadge');
+            if (badge) badge.innerText = pending.length;
+
+            const tbody = document.getElementById('tblMgrRecentIntakeBody');
+            if (tbody) {
+                let html = '';
+                apps.slice(0, 5).forEach(a => {
+                    html += `
+                        <tr>
+                            <td><code>${a.id}</code></td>
+                            <td><strong>${a.startupName}</strong></td>
+                            <td>${a.founderName} &bull; <span class="text-muted font-11">${a.city}</span></td>
+                            <td>${a.sector}</td>
+                            <td>${a.stage}</td>
+                            <td><strong>${a.fundingRequired || 'â‚¹ 25 Lakhs'}</strong></td>
+                            <td><span class="font-12 fw-semibold text-primary"><i class="fa-solid fa-circle font-8 me-1"></i> ${a.status}</span></td>
+                        </tr>
+                    `;
+                });
+                tbody.innerHTML = html;
+            }
+        }
+
+        function renderScrutinyQueue() {
+            if (!window.CIMP_DB) return;
+            const apps = window.CIMP_DB.getApplications();
+            const queue = apps.filter(a => a.status === 'Under Evaluation' || a.status === 'Pending Director Approval' || a.status === 'Intake Submitted');
+            
+            const tbody = document.getElementById('tblMgrScrutinyBody');
+            if (!tbody) return;
+
+            if (queue.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="8" class="text-center py-4 text-muted font-13"><i class="fa-solid fa-circle-check text-success me-2"></i> All intake applications evaluated.</td></tr>';
+                return;
+            }
+
+            let html = '';
+            queue.forEach(a => {
+                html += `
+                    <tr>
+                        <td><code>${a.id}</code></td>
+                        <td>
+                            <strong class="font-14 text-dark">${a.startupName}</strong>
+                            <div class="font-11 text-muted" style="max-width:230px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">${a.productDescription}</div>
+                        </td>
+                        <td>${a.founderName}<div class="font-11 text-muted">${a.email}</div></td>
+                        <td>${a.sector}</td>
+                        <td>${a.stage}</td>
+                        <td><strong class="text-primary">${a.fundingRequired || 'â‚¹ 25 Lakhs'}</strong></td>
+                        <td><span class="font-12 fw-bold text-dark"><i class="fa-solid fa-circle font-8 text-warning me-1"></i> ${a.managerScore || 88}/100</span></td>
+                        <td>
+                            <button class="app-btn-action" onclick="openScoreModal('${a.id}')">
+                                <i class="fa-solid fa-pen-to-square me-1"></i> Score &amp; Escalate
+                            </button>
+                        </td>
+                    </tr>
+                `;
+            });
+            tbody.innerHTML = html;
+        }
+
+        function openScoreModal(appId) {
+            const app = window.CIMP_DB.getApplicationById(appId);
+            if (!app) return;
+
+            document.getElementById('modalScoreAppId').value = app.id;
+            document.getElementById('modalScoreStartupName').innerText = app.startupName + ' [' + app.id + ']';
+            document.getElementById('modalScoreFounder').innerText = app.founderName + ' (' + app.city + ', ' + app.state + ')';
+            document.getElementById('modalScoreDesc').innerText = app.productDescription;
+            document.getElementById('modalScoreRange').value = app.managerScore || 88;
+            document.getElementById('scoreValueDisp').innerText = (app.managerScore || 88) + '/100';
+            
+            const modal = new bootstrap.Modal(document.getElementById('mgrScoreModal'));
+            modal.show();
+        }
+
+        function submitManagerScore() {
+            const appId = document.getElementById('modalScoreAppId').value;
+            const score = document.getElementById('modalScoreRange').value;
+            const notes = document.getElementById('modalScoreNotes').value;
+
+            window.CIMP_DB.managerApprove(appId, score, notes);
+            
+            const modalEl = document.getElementById('mgrScoreModal');
+            const modalInstance = bootstrap.Modal.getInstance(modalEl);
+            if (modalInstance) modalInstance.hide();
+
+            alert('âœ… Application scored (' + score + '/100) and escalated to Executive Director!');
+            refreshMgrData();
+        }
+
+        function renderMilestonesTable() {
+            if (!window.CIMP_DB) return;
+            const cohortFilter = document.getElementById('filterMgrCohort') ? document.getElementById('filterMgrCohort').value : '';
+            let startups = window.CIMP_DB.getStartups();
+            if (cohortFilter) startups = startups.filter(s => (s.cohort || '').includes(cohortFilter));
+
+            const tbody = document.getElementById('tblMgrMilestonesBody');
+            if (!tbody) return;
+
+            let html = '';
+            startups.forEach(s => {
+                const ms = (s.milestones && s.milestones[0]) ? s.milestones[0].title : 'Onboarding';
+                html += `
+                    <tr>
+                        <td><strong>${s.name}</strong><div class="font-11 text-muted">${s.founder}</div></td>
+                        <td>${s.cohort || 'Cohort 2022'}</td>
+                        <td><span class="font-12 fw-semibold">${s.sector}</span><div class="font-11 text-muted">${s.stage}</div></td>
+                        <td><span class="font-12 fw-semibold text-dark"><i class="fa-solid fa-flag-checkered text-warning me-1"></i> ${ms}</span></td>
+                        <td>${s.assignedMentor || 'Dr. Alok Kumar'}</td>
+                        <td><strong>${s.complianceScore || 90}%</strong></td>
+                        <td><span class="font-12 fw-semibold text-success"><i class="fa-solid fa-circle font-8 me-1"></i> Active</span></td>
+                    </tr>
+                `;
+            });
+            tbody.innerHTML = html;
+        }
+
+        function renderMgrMentors() {
+            if (!window.CIMP_DB) return;
+            const mentors = window.CIMP_DB.getMentors();
+            const tbody = document.getElementById('tblMgrMentorsBody');
+            if (!tbody) return;
+
+            let html = '';
+            mentors.forEach(m => {
+                const assigned = (m.assignedStartups || []).join(', ') || 'Available on request';
+                html += `
+                    <tr>
+                        <td><strong>${m.name}</strong></td>
+                        <td class="text-muted font-12">${m.title || 'Senior Advisory Faculty'}</td>
+                        <td><span class="font-12 fw-semibold">${m.expertise || 'Strategy'}</span></td>
+                        <td class="font-12 text-primary">${assigned}</td>
+                        <td><strong>12 Hours / Mo</strong></td>
+                        <td>
+                            <button class="btn btn-sm btn-outline-primary font-11 py-1" onclick="alert('Pairing request sent to mentor.')">Pair Startup</button>
+                        </td>
+                    </tr>
+                `;
+            });
+            tbody.innerHTML = html;
+        }
+
+        function openBroadcastModal() {
+            const msg = prompt("Enter circular / ecosystem announcement to broadcast to all incubatees:", "Important: Quarterly compliance review submission due on Friday.");
+            if (msg) {
+                alert("âœ… Broadcast circular published to all startup founder portals.");
+            }
+        }
+
+        function handleMgrSearch(query) {
+            const q = query.trim().toLowerCase();
+            if (!q) { renderScrutinyQueue(); return; }
+            switchMgrView('tab-mgr-queue', document.querySelectorAll('.app-nav-btn')[1]);
+            const apps = window.CIMP_DB.getApplications().filter(a => a.startupName.toLowerCase().includes(q) || a.founderName.toLowerCase().includes(q));
+            const tbody = document.getElementById('tblMgrScrutinyBody');
+            if (tbody) {
+                let html = '';
+                apps.forEach(a => {
+                    html += `
+                        <tr>
+                            <td><code>${a.id}</code></td>
+                            <td><strong class="font-14 text-dark">${a.startupName}</strong></td>
+                            <td>${a.founderName}</td>
+                            <td>${a.sector}</td>
+                            <td>${a.stage}</td>
+                            <td><strong class="text-primary">${a.fundingRequired || 'â‚¹ 25 Lakhs'}</strong></td>
+                            <td><span class="font-12 fw-bold text-dark">${a.managerScore || 88}/100</span></td>
+                            <td><button class="app-btn-action" onclick="openScoreModal('${a.id}')">Score</button></td>
+                        </tr>
+                    `;
+                });
+                tbody.innerHTML = html || '<tr><td colspan="8" class="text-center py-3 text-muted">No applications found.</td></tr>';
+            }
+        }
+    </script>
+</body>
+</html>
+

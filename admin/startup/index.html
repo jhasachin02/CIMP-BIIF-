@@ -1,0 +1,329 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Startup Founder Workspace | CIMP - BIIF</title>
+    
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="../../assets/images/favicon.png">
+
+    <!-- Fonts & Icons -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Outfit:wght@600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Bootstrap CSS -->
+    <link href="../../assets/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    
+    <!-- Unified Admin CSS -->
+    <link href="../../assets/css/admin-dashboard.css" rel="stylesheet" type="text/css">
+</head>
+
+<body class="admin-unified-body">
+
+    <!-- 1. Left Sidebar Navigation -->
+    <aside class="app-sidebar">
+        <div>
+            <!-- Institutional Brand Header -->
+            <div class="app-sidebar-brand">
+                <div class="app-sidebar-emblem">
+                    <img src="../../assets/images/CIMP-Icon.png" height="32" alt="CIMP Logo" style="object-fit: contain;">
+                    <div style="border-left: 1.5px solid #CBD5E1; height: 24px;"></div>
+                    <img src="../../assets/images/logo.png" height="28" alt="CIMP-BIIF Logo" style="object-fit: contain;">
+                </div>
+                <h4>CIMP - BIIF</h4>
+                <span>Founder Desk</span>
+            </div>
+
+            <!-- Page-Wise Structured Nav Tabs -->
+            <div class="app-nav-group">
+                <span class="app-nav-header">Venture Workspace</span>
+                
+                <button class="app-nav-btn active" onclick="switchStView('tab-st-overview', this)">
+                    <span class="left-grp">
+                        <i class="fa-solid fa-gauge-high font-14"></i>
+                        <span>Venture Overview</span>
+                    </span>
+                </button>
+
+                <button class="app-nav-btn" onclick="switchStView('tab-st-traction', this)">
+                    <span class="left-grp">
+                        <i class="fa-solid fa-chart-line font-14"></i>
+                        <span>Monthly Traction</span>
+                    </span>
+                </button>
+
+                <button class="app-nav-btn" onclick="switchStView('tab-st-mentors', this)">
+                    <span class="left-grp">
+                        <i class="fa-solid fa-handshake-simple font-14"></i>
+                        <span>Book Mentor</span>
+                    </span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Logged In User Strip with Profile Edit -->
+        <div class="app-user-profile">
+            <div class="d-flex align-items-center gap-2" style="cursor: pointer;" onclick="CIMP_DB.openProfileModal()" title="Click to Edit Profile &amp; Change Password">
+                <div class="d-flex align-items-center justify-content-center rounded-circle" style="width: 34px; height: 34px; background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.2);">
+                    <i class="fa-solid fa-rocket text-white font-14"></i>
+                </div>
+                <div>
+                    <div class="font-12 fw-bold text-white" id="sidebarUserName">Chandrashekhar Mandal</div>
+                    <div class="font-11 text-white-50" id="sidebarUserTitle">Founder &amp; CEO</div>
+                </div>
+            </div>
+            <div class="d-flex align-items-center gap-2">
+                <button class="btn btn-link p-0 text-white-50 font-13" onclick="CIMP_DB.openProfileModal()" title="Edit Profile &amp; Password">
+                    <i class="fa-solid fa-user-pen"></i>
+                </button>
+                <a href="../../login.html" class="text-white-50 font-14" title="Sign Out">
+                    <i class="fa-solid fa-arrow-right-from-bracket"></i>
+                </a>
+            </div>
+        </div>
+    </aside>
+
+    <!-- 2. Main Workspace Viewport -->
+    <div class="app-main-wrap">
+        
+        <!-- Topbar Header -->
+        <header class="app-topbar">
+            <div class="d-flex align-items-center gap-2">
+                <h5 class="mb-0 fw-bold font-15 text-dark"><i class="fa-solid fa-rocket text-primary me-2"></i> Digital Labour Chowk (DLC Tech Solutions Pvt Ltd)</h5>
+            </div>
+
+            <div class="d-flex align-items-center gap-3">
+                <button class="app-btn-action" onclick="fileMonthlyTraction()">
+                    <i class="fa-solid fa-plus me-1"></i> File Monthly Traction
+                </button>
+
+                <div class="d-none d-md-flex flex-column align-items-end" style="cursor: pointer;" onclick="CIMP_DB.openProfileModal()" title="Click to Edit Profile &amp; Password">
+                    <span class="font-13 fw-bold text-dark" id="topbarUserName" style="line-height:1.2;">Chandrashekhar Mandal</span>
+                    <span class="font-11 text-muted" id="topbarUserTitle" style="line-height:1.1;">Founder &amp; CEO (Cohort 2022) <i class="fa-solid fa-pen-to-square ms-1 text-primary font-10"></i></span>
+                </div>
+            </div>
+        </header>
+
+        <!-- Viewport Container -->
+        <main class="app-viewport-container">
+
+            <!-- TAB 1: OVERVIEW -->
+            <div class="app-tab-pane active" id="tab-st-overview">
+                <div class="mb-4">
+                    <h3 class="fw-bold font-20 mb-1" style="font-family: 'Outfit', sans-serif;">Incubatee Venture Dashboard</h3>
+                    <p class="text-muted font-13 mb-0">Track commercial metrics, milestone completion rate, and incubation grant utilization.</p>
+                </div>
+
+                <!-- 4 Clean Stats -->
+                <div class="row g-3 mb-4">
+                    <div class="col-md-6 col-lg-3">
+                        <div class="app-kpi-card">
+                            <span class="app-kpi-lbl">Annual Revenue Run-Rate</span>
+                            <div class="app-kpi-val text-dark">â‚¹42.5 Lakhs</div>
+                            <div class="app-kpi-sub" style="color:#059669;"><i class="fa-solid fa-arrow-trend-up"></i> +34% YoY Growth</div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-3">
+                        <div class="app-kpi-card">
+                            <span class="app-kpi-lbl">Grant / Funding Raised</span>
+                            <div class="app-kpi-val text-primary">â‚¹25 Lakhs</div>
+                            <div class="app-kpi-sub"><i class="fa-solid fa-vault"></i> Seed Grant Disbursed</div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-3">
+                        <div class="app-kpi-card">
+                            <span class="app-kpi-lbl">Workers Onboarded</span>
+                            <div class="app-kpi-val">5,000+</div>
+                            <div class="app-kpi-sub"><i class="fa-solid fa-users text-dark"></i> Active Profiles</div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-3">
+                        <div class="app-kpi-card">
+                            <span class="app-kpi-lbl">Assigned Advisor</span>
+                            <div class="app-kpi-val font-18 text-dark" style="font-size:18px;">Dr. Alok Kumar</div>
+                            <div class="app-kpi-sub text-success"><i class="fa-solid fa-circle-check"></i> Strategy &amp; GTM</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Milestones Table -->
+                <div class="app-table-card mb-4">
+                    <div class="p-3 border-bottom d-flex justify-content-between align-items-center bg-white">
+                        <h5 class="fw-bold font-15 mb-0">Incubation Milestones Tracker</h5>
+                        <span class="font-12 text-muted">Cohort Sprint 2026</span>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="app-table">
+                            <thead>
+                                <tr>
+                                    <th>Sprint Goal / Deliverable</th>
+                                    <th>Target Date</th>
+                                    <th>Evaluation Status</th>
+                                    <th>Verification</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>1. MVP Platform Launch &amp; PlayStore Deployment</strong></td>
+                                    <td>Jul 2022</td>
+                                    <td><span class="font-12 fw-semibold text-success"><i class="fa-solid fa-circle font-8 me-1"></i> Completed</span></td>
+                                    <td><span class="font-12 text-muted">Audited by Incubation Manager</span></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>2. 1,000 Daily Wage Workers Verification &amp; KYC</strong></td>
+                                    <td>Dec 2022</td>
+                                    <td><span class="font-12 fw-semibold text-success"><i class="fa-solid fa-circle font-8 me-1"></i> Completed</span></td>
+                                    <td><span class="font-12 text-muted">Field Data Verified</span></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>3. Series Seed Grant Tranche-1 Utilization</strong></td>
+                                    <td>Mar 2023</td>
+                                    <td><span class="font-12 fw-semibold text-success"><i class="fa-solid fa-circle font-8 me-1"></i> Completed</span></td>
+                                    <td><span class="font-12 text-muted">UC Submitted &amp; Approved</span></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>4. Expansion to 5 North Bihar Districts &amp; Contractor App</strong></td>
+                                    <td>Target Q3 2026</td>
+                                    <td><span class="font-12 fw-semibold text-primary"><i class="fa-solid fa-circle font-8 me-1"></i> In Progress</span></td>
+                                    <td><span class="font-12 text-muted">Under Mentorship Review</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB 2: MONTHLY TRACTION -->
+            <div class="app-tab-pane" id="tab-st-traction">
+                <div class="d-flex align-items-center justify-content-between mb-4 flex-wrap gap-2">
+                    <div>
+                        <h3 class="fw-bold font-20 mb-1" style="font-family: 'Outfit', sans-serif;">Monthly Commercial Traction Records</h3>
+                        <p class="text-muted font-13 mb-0">Financial and operational reporting filed with CIMP-BIIF Secretariat.</p>
+                    </div>
+                    <button class="app-btn-action" onclick="fileMonthlyTraction()">
+                        <i class="fa-solid fa-plus me-1"></i> File New Month
+                    </button>
+                </div>
+
+                <div class="app-table-card">
+                    <div class="table-responsive">
+                        <table class="app-table">
+                            <thead>
+                                <tr>
+                                    <th>Reporting Month</th>
+                                    <th>Monthly Revenue</th>
+                                    <th>Active Users / Workers</th>
+                                    <th>Full-Time Jobs</th>
+                                    <th>Audit Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>August 2026</strong></td>
+                                    <td><strong>â‚¹ 4,20,000</strong></td>
+                                    <td>5,200</td>
+                                    <td>28</td>
+                                    <td><span class="font-12 fw-semibold text-success"><i class="fa-solid fa-circle font-8 me-1"></i> Verified</span></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>July 2026</strong></td>
+                                    <td><strong>â‚¹ 3,95,000</strong></td>
+                                    <td>4,850</td>
+                                    <td>26</td>
+                                    <td><span class="font-12 fw-semibold text-success"><i class="fa-solid fa-circle font-8 me-1"></i> Verified</span></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>June 2026</strong></td>
+                                    <td><strong>â‚¹ 3,70,000</strong></td>
+                                    <td>4,400</td>
+                                    <td>24</td>
+                                    <td><span class="font-12 fw-semibold text-success"><i class="fa-solid fa-circle font-8 me-1"></i> Verified</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB 3: BOOK MENTOR -->
+            <div class="app-tab-pane" id="tab-st-mentors">
+                <div class="mb-4">
+                    <h3 class="fw-bold font-20 mb-1" style="font-family: 'Outfit', sans-serif;">Assigned Mentors &amp; Advisory Booking</h3>
+                    <p class="text-muted font-13 mb-0">Schedule 1-on-1 strategy sessions with your empaneled mentors.</p>
+                </div>
+
+                <div class="app-table-card">
+                    <div class="table-responsive">
+                        <table class="app-table">
+                            <thead>
+                                <tr>
+                                    <th>Advisor Name</th>
+                                    <th>Institutional Title</th>
+                                    <th>Specialization</th>
+                                    <th>Monthly Availability</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>Dr. Alok Kumar</strong></td>
+                                    <td class="text-muted font-12">Senior Advisory Faculty, CIMP</td>
+                                    <td><span class="font-12 fw-semibold">Strategy &amp; GTM Scaling</span></td>
+                                    <td>12 Hours / Month</td>
+                                    <td><button class="btn btn-sm btn-outline-primary font-11 py-1" onclick="alert('Advisory session booked! Meeting link sent to your registered email.')">Book 1-on-1 Session</button></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>CA Ramesh Sharma</strong></td>
+                                    <td class="text-muted font-12">Financial Controller &amp; Partner</td>
+                                    <td><span class="font-12 fw-semibold">Taxation &amp; Valuation</span></td>
+                                    <td>8 Hours / Month</td>
+                                    <td><button class="btn btn-sm btn-outline-primary font-11 py-1" onclick="alert('Advisory session booked! Meeting link sent to your registered email.')">Book 1-on-1 Session</button></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+        </main>
+    </div>
+
+    <!-- Scripts -->
+    <script src="../../assets/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="../../assets/js/cimp-db.js"></script>
+
+    <script>
+        function switchStView(tabId, btnEl) {
+            document.querySelectorAll('.app-tab-pane').forEach(p => p.classList.remove('active'));
+            document.querySelectorAll('.app-nav-btn').forEach(b => b.classList.remove('active'));
+            
+            const targetPane = document.getElementById(tabId);
+            if (targetPane) targetPane.classList.add('active');
+            if (btnEl) btnEl.classList.add('active');
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            if (window.CIMP_DB) {
+                window.CIMP_DB.setCurrentUser('usr-founder');
+                window.CIMP_DB.syncDOMUserProfile('usr-founder');
+            }
+
+            window.addEventListener('cimp:db_updated', function() {
+                if (window.CIMP_DB) window.CIMP_DB.syncDOMUserProfile('usr-founder');
+            });
+        });
+
+        function fileMonthlyTraction() {
+            const rev = prompt("Enter Gross Revenue for the month (e.g. â‚¹ 4,50,000):", "â‚¹ 4,50,000");
+            if (rev) {
+                alert("âœ… Monthly traction filing submitted successfully to Incubation Secretariat.");
+            }
+        }
+    </script>
+</body>
+</html>
+

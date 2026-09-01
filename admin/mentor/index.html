@@ -1,0 +1,317 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mentor Advisory Hub | CIMP - BIIF</title>
+    
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="../../assets/images/favicon.png">
+
+    <!-- Fonts & Icons -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Outfit:wght@600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Bootstrap CSS -->
+    <link href="../../assets/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    
+    <!-- Unified Admin CSS -->
+    <link href="../../assets/css/admin-dashboard.css" rel="stylesheet" type="text/css">
+</head>
+
+<body class="admin-unified-body">
+
+    <!-- 1. Left Sidebar Navigation -->
+    <aside class="app-sidebar">
+        <div>
+            <!-- Institutional Brand Header -->
+            <div class="app-sidebar-brand">
+                <div class="app-sidebar-emblem">
+                    <img src="../../assets/images/CIMP-Icon.png" height="32" alt="CIMP Logo" style="object-fit: contain;">
+                    <div style="border-left: 1.5px solid #CBD5E1; height: 24px;"></div>
+                    <img src="../../assets/images/logo.png" height="28" alt="CIMP-BIIF Logo" style="object-fit: contain;">
+                </div>
+                <h4>CIMP - BIIF</h4>
+                <span>Mentor Advisory</span>
+            </div>
+
+            <!-- Page-Wise Structured Nav Tabs -->
+            <div class="app-nav-group">
+                <span class="app-nav-header">Advisory Workspace</span>
+                
+                <button class="app-nav-btn active" onclick="switchMenView('tab-men-overview', this)">
+                    <span class="left-grp">
+                        <i class="fa-solid fa-chalkboard-user font-14"></i>
+                        <span>Advisory Overview</span>
+                    </span>
+                </button>
+
+                <button class="app-nav-btn" onclick="switchMenView('tab-men-mentees', this)">
+                    <span class="left-grp">
+                        <i class="fa-solid fa-cubes font-14"></i>
+                        <span>Allotted Mentee Startups</span>
+                    </span>
+                </button>
+
+                <button class="app-nav-btn" onclick="switchMenView('tab-men-sessions', this)">
+                    <span class="left-grp">
+                        <i class="fa-solid fa-calendar-check font-14"></i>
+                        <span>Completed Sessions</span>
+                    </span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Logged In User Strip with Profile Edit -->
+        <div class="app-user-profile">
+            <div class="d-flex align-items-center gap-2" style="cursor: pointer;" onclick="CIMP_DB.openProfileModal()" title="Click to Edit Profile &amp; Change Password">
+                <div class="d-flex align-items-center justify-content-center rounded-circle" style="width: 34px; height: 34px; background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.2);">
+                    <i class="fa-solid fa-graduation-cap text-white font-14"></i>
+                </div>
+                <div>
+                    <div class="font-12 fw-bold text-white" id="sidebarUserName">Dr. Alok Kumar</div>
+                    <div class="font-11 text-white-50" id="sidebarUserTitle">Faculty Mentor</div>
+                </div>
+            </div>
+            <div class="d-flex align-items-center gap-2">
+                <button class="btn btn-link p-0 text-white-50 font-13" onclick="CIMP_DB.openProfileModal()" title="Edit Profile &amp; Password">
+                    <i class="fa-solid fa-user-pen"></i>
+                </button>
+                <a href="../../login.html" class="text-white-50 font-14" title="Sign Out">
+                    <i class="fa-solid fa-arrow-right-from-bracket"></i>
+                </a>
+            </div>
+        </div>
+    </aside>
+
+    <!-- 2. Main Workspace Viewport -->
+    <div class="app-main-wrap">
+        
+        <!-- Topbar Header -->
+        <header class="app-topbar">
+            <div class="d-flex align-items-center gap-2">
+                <h5 class="mb-0 fw-bold font-15 text-dark"><i class="fa-solid fa-graduation-cap text-primary me-2"></i> Faculty Advisory &amp; Venture Mentoring Console</h5>
+            </div>
+
+            <div class="d-flex align-items-center gap-3">
+                <button class="app-btn-action" onclick="logAdvisorySession()">
+                    <i class="fa-solid fa-plus me-1"></i> Log Mentoring Session
+                </button>
+
+                <div class="d-none d-md-flex flex-column align-items-end" style="cursor: pointer;" onclick="CIMP_DB.openProfileModal()" title="Click to Edit Profile &amp; Password">
+                    <span class="font-13 fw-bold text-dark" id="topbarUserName" style="line-height:1.2;">Dr. Alok Kumar</span>
+                    <span class="font-11 text-muted" id="topbarUserTitle" style="line-height:1.1;">Professor &amp; Senior Venture Advisor <i class="fa-solid fa-pen-to-square ms-1 text-primary font-10"></i></span>
+                </div>
+            </div>
+        </header>
+
+        <!-- Viewport Container -->
+        <main class="app-viewport-container">
+
+            <!-- TAB 1: OVERVIEW -->
+            <div class="app-tab-pane active" id="tab-men-overview">
+                <div class="mb-4">
+                    <h3 class="fw-bold font-20 mb-1" style="font-family: 'Outfit', sans-serif;">Mentor Advisory Summary</h3>
+                    <p class="text-muted font-13 mb-0">Overview of allotted ventures, advisory sprint commitments, and guidance deliverables.</p>
+                </div>
+
+                <!-- 4 Clean Stats -->
+                <div class="row g-3 mb-4">
+                    <div class="col-md-6 col-lg-3">
+                        <div class="app-kpi-card">
+                            <span class="app-kpi-lbl">Allotted Startups</span>
+                            <div class="app-kpi-val text-dark">4 Ventures</div>
+                            <div class="app-kpi-sub"><i class="fa-solid fa-rocket text-primary"></i> Active Cohort 2026</div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-3">
+                        <div class="app-kpi-card">
+                            <span class="app-kpi-lbl">Advisory Hours Delivered</span>
+                            <div class="app-kpi-val text-primary">48 Hours</div>
+                            <div class="app-kpi-sub text-success"><i class="fa-solid fa-circle-check"></i> 100% Target Met</div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-3">
+                        <div class="app-kpi-card">
+                            <span class="app-kpi-lbl">Total Mentee Valuation</span>
+                            <div class="app-kpi-val">â‚¹ 14.8 Cr</div>
+                            <div class="app-kpi-sub" style="color:#059669;"><i class="fa-solid fa-arrow-trend-up"></i> Aggregated</div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-3">
+                        <div class="app-kpi-card">
+                            <span class="app-kpi-lbl">Next Scheduled Session</span>
+                            <div class="app-kpi-val font-18 text-dark" style="font-size:18px;">Tomorrow, 3 PM</div>
+                            <div class="app-kpi-sub text-muted"><i class="fa-solid fa-clock"></i> Digital Labour Chowk</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Mentees Quick Table -->
+                <div class="app-table-card">
+                    <div class="p-3 border-bottom d-flex justify-content-between align-items-center bg-white">
+                        <h5 class="fw-bold font-15 mb-0">Allotted Mentee Portfolio</h5>
+                        <span class="font-12 text-muted">Strategy &amp; Market Advisory</span>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="app-table">
+                            <thead>
+                                <tr>
+                                    <th>Startup Enterprise</th>
+                                    <th>Founder</th>
+                                    <th>Sector &amp; Stage</th>
+                                    <th>Current Sprint Focus</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>Patna AgriDrone Hub</strong><div class="font-11 text-muted">Patna, Bihar</div></td>
+                                    <td>Vikramaditya Roy</td>
+                                    <td><span class="font-12 fw-semibold">AgriTech</span><div class="font-11 text-muted">Pre-Seed</div></td>
+                                    <td><span class="font-12 text-dark">DGCA Drone Type Certification &amp; Farmer Pilot</span></td>
+                                    <td><button class="btn btn-sm btn-outline-primary font-11 py-1" onclick="logAdvisorySession()">Log Session</button></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Digital Labour Chowk</strong><div class="font-11 text-muted">Maurya Lok, Patna</div></td>
+                                    <td>Chandrashekhar Mandal</td>
+                                    <td><span class="font-12 fw-semibold">Technology</span><div class="font-11 text-muted">Scaling</div></td>
+                                    <td><span class="font-12 text-dark">GTM Expansion &amp; Contractor Monetization</span></td>
+                                    <td><button class="btn btn-sm btn-outline-primary font-11 py-1" onclick="logAdvisorySession()">Log Session</button></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB 2: MENTEES -->
+            <div class="app-tab-pane" id="tab-men-mentees">
+                <div class="mb-4">
+                    <h3 class="fw-bold font-20 mb-1" style="font-family: 'Outfit', sans-serif;">Allotted Mentee Directory</h3>
+                    <p class="text-muted font-13 mb-0">Detailed view of startups assigned for your domain guidance.</p>
+                </div>
+
+                <div class="app-table-card">
+                    <div class="table-responsive">
+                        <table class="app-table">
+                            <thead>
+                                <tr>
+                                    <th>Enterprise</th>
+                                    <th>Founder &amp; Contact</th>
+                                    <th>Sector</th>
+                                    <th>Annual Revenue</th>
+                                    <th>Funding Raised</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>Patna AgriDrone Hub</strong></td>
+                                    <td>Vikramaditya Roy<div class="font-11 text-muted">vikram@agridrone.in</div></td>
+                                    <td><span class="font-12 fw-semibold">AgriTech</span></td>
+                                    <td>â‚¹ 0 (Pre-Seed)</td>
+                                    <td><strong class="text-primary">â‚¹ 35,00,000</strong></td>
+                                    <td><button class="app-btn-action" style="padding:4px 10px; font-size:11px;" onclick="logAdvisorySession()">Log Session</button></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Digital Labour Chowk</strong></td>
+                                    <td>Chandrashekhar Mandal<div class="font-11 text-muted">founder@abc.com</div></td>
+                                    <td><span class="font-12 fw-semibold">Technology</span></td>
+                                    <td>â‚¹ 42.5 Lakhs / yr</td>
+                                    <td><strong class="text-primary">â‚¹ 25,00,000</strong></td>
+                                    <td><button class="app-btn-action" style="padding:4px 10px; font-size:11px;" onclick="logAdvisorySession()">Log Session</button></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB 3: SESSIONS -->
+            <div class="app-tab-pane" id="tab-men-sessions">
+                <div class="d-flex align-items-center justify-content-between mb-4 flex-wrap gap-2">
+                    <div>
+                        <h3 class="fw-bold font-20 mb-1" style="font-family: 'Outfit', sans-serif;">Completed Mentoring Sessions</h3>
+                        <p class="text-muted font-13 mb-0">Record of 1-on-1 consultations and strategic guidance meetings.</p>
+                    </div>
+                    <button class="app-btn-action" onclick="logAdvisorySession()">
+                        <i class="fa-solid fa-plus me-1"></i> Log New Session
+                    </button>
+                </div>
+
+                <div class="app-table-card">
+                    <div class="table-responsive">
+                        <table class="app-table">
+                            <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Startup Enterprise</th>
+                                    <th>Duration</th>
+                                    <th>Agenda &amp; Action Items</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>28 Aug 2026</strong></td>
+                                    <td><strong>Digital Labour Chowk</strong></td>
+                                    <td>90 Mins</td>
+                                    <td class="font-12 text-muted">Reviewed contractor onboarding unit economics and institutional pricing structure.</td>
+                                    <td><span class="font-12 fw-semibold text-success"><i class="fa-solid fa-circle font-8 me-1"></i> Logged &amp; Verified</span></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>21 Aug 2026</strong></td>
+                                    <td><strong>Patna AgriDrone Hub</strong></td>
+                                    <td>60 Mins</td>
+                                    <td class="font-12 text-muted">Formulated pilot spray demonstration roadmap for Gaya &amp; Nalanda farmer clusters.</td>
+                                    <td><span class="font-12 fw-semibold text-success"><i class="fa-solid fa-circle font-8 me-1"></i> Logged &amp; Verified</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+        </main>
+    </div>
+
+    <!-- Scripts -->
+    <script src="../../assets/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="../../assets/js/cimp-db.js"></script>
+
+    <script>
+        function switchMenView(tabId, btnEl) {
+            document.querySelectorAll('.app-tab-pane').forEach(p => p.classList.remove('active'));
+            document.querySelectorAll('.app-nav-btn').forEach(b => b.classList.remove('active'));
+            
+            const targetPane = document.getElementById(tabId);
+            if (targetPane) targetPane.classList.add('active');
+            if (btnEl) btnEl.classList.add('active');
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            if (window.CIMP_DB) {
+                window.CIMP_DB.setCurrentUser('usr-mentor');
+                window.CIMP_DB.syncDOMUserProfile('usr-mentor');
+            }
+
+            window.addEventListener('cimp:db_updated', function() {
+                if (window.CIMP_DB) window.CIMP_DB.syncDOMUserProfile('usr-mentor');
+            });
+        });
+
+        function logAdvisorySession() {
+            const venture = prompt("Enter Mentee Venture Name (e.g. Digital Labour Chowk):", "Digital Labour Chowk");
+            const duration = prompt("Enter Session Duration (e.g. 60 Mins):", "60 Mins");
+            if (venture && duration) {
+                alert(`âœ… Mentoring session (${duration}) with ${venture} logged successfully to Incubation Secretariat!`);
+            }
+        }
+    </script>
+</body>
+</html>
+

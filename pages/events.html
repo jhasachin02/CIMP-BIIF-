@@ -1,0 +1,455 @@
+﻿<!doctype html>
+<html lang="en" dir="ltr">
+
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <title>Events - CIMP-BIIF</title>        
+        <meta name="description" content="">
+        <meta name="keywords" content="">
+        <meta name="author" content="">
+        <meta name="email" content="">
+        <meta name="website" content="">
+        <meta name="Version" content="">
+
+        <!-- favicon -->
+<link rel="shortcut icon" href="../assets/images/favicon.png">
+
+<!-- Css -->
+<link href="../assets/libs/animate.css/animate.min.css" id="bootstrap-style" rel="stylesheet" type="text/css">
+<link href="../assets/libs/aos/aos.css" rel="stylesheet" type="text/css">
+<link href="../assets/css/bootstrap.min.css" id="bootstrap-style" class="theme-opt" rel="stylesheet" type="text/css">
+<!-- Icons Css -->
+<link href="../assets/libs/@mdi/font/css/materialdesignicons.min.css" rel="stylesheet" type="text/css">
+<link href="../assets/libs/@iconscout/unicons/css/line.css" type="text/css" rel="stylesheet">
+        <!-- Style Css-->
+<link href="../assets/css/base-styles.css" id="color-opt" class="theme-opt" rel="stylesheet" type="text/css">
+<link href="../assets/css/site-overrides.css" rel="stylesheet">
+
+<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+
+<script src="../assets/libs/jquery/dist/jquery.min.js"></script>
+
+    <!-- Icon Font CDN Fallbacks & Modern Enhancements -->
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.8/css/line.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/MaterialDesign-Webfont/7.2.96/css/materialdesignicons.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../assets/css/ui-enhancements.css">
+
+    <link rel="stylesheet" href="../assets/css/design-system.css">
+</head>
+
+<body>
+    <!-- Loader -->
+    <!-- <div id="preloader">
+        <div id="status">
+            <div class="spinner">
+                <div class="double-bounce1"></div>
+                <div class="double-bounce2"></div>
+            </div>
+        </div>
+    </div> -->
+    <!-- Loader -->
+
+
+        <!-- Top Utility Bar (High Contrast & Sharp Typography) -->
+    <div class="topbar-elite">
+        <div class="container">
+            <div class="d-flex align-items-center justify-content-between flex-wrap gap-2">
+                <div class="d-flex align-items-center gap-3 font-13">
+                    <a href="mailto:support@cimpbiif.com" class="d-flex align-items-center gap-2">
+                        <i class="fa fa-envelope text-primary"></i> support@cimpbiif.com
+                    </a>
+                    <span class="text-white-50 opacity-25">|</span>
+                    <a href="tel:+919128912345" class="d-flex align-items-center gap-2">
+                        <i class="fa fa-phone text-primary"></i> +91 9128912345
+                    </a>
+                </div>
+                <div class="d-flex align-items-center gap-3 font-13">
+                    <a href="../login.html" class="d-flex align-items-center gap-1">
+                        <i class="fa fa-user-lock text-warning"></i> Portal Login
+                    </a>
+                    <span class="text-white-50 opacity-25">|</span>
+                    <a href="incubation-registration.html" class="text-info fw-semibold">
+                        <i class="fa fa-clipboard-check"></i> Register
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Institutional Brand Crest Header -->
+    <div class="header-brand-bar">
+        <div class="container">
+            <div class="d-flex align-items-center justify-content-between flex-wrap gap-3">
+                <div class="d-flex align-items-center gap-3">
+                    <a href="https://www.cimp.ac.in/" target="_blank" title="Chandragupt Institute of Management Patna">
+                        <img src="../assets/images/CIMP-Icon.png" height="74" alt="CIMP Logo" class="crest-cimp">
+                    </a>
+                    <div class="d-none d-sm-block border-start ps-3" style="border-color: #E2E8F0 !important; height: 50px;"></div>
+                    <a href="../index.html" class="d-flex align-items-center gap-2" title="CIMP - Business Incubation & Innovation Foundation">
+                        <img src="../assets/images/logo.png" height="66" alt="CIMP-BIIF Logo" class="crest-biif">
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sticky Glassmorphic Navigation Bar -->
+        
+    <header id="topnav" class="iit-nav-bar defaultscroll sticky">
+        <div class="container">
+            <div class="iit-nav-container">
+                <!-- Mobile Menu Toggle Button -->
+                <button class="iit-menu-toggle d-lg-none" id="isToggle" aria-label="Toggle navigation">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+
+                <!-- Brand Title for Mobile -->
+                <span class="d-lg-none text-white fw-bold font-15">CIMP - BIIF</span>
+
+                <!-- Navigation Menu Wrapper -->
+                <div class="iit-nav-menu-wrapper" id="navigation">
+                    <ul class="iit-menu">
+                        <li class=""><a href="../index.html">Home</a></li>
+                        <li class="has-submenu ">
+                            <a href="javascript:void(0)">About Us <i class="fa fa-chevron-down font-10 ms-1 opacity-75"></i></a>
+                            <ul class="iit-dropdown">
+                                <li><a href="about-cimp.html"><i class="fa fa-landmark text-primary font-12"></i> About CIMP</a></li>
+                                <li><a href="about-us.html"><i class="fa fa-building text-primary font-12"></i> About CIMP-BIIF</a></li>
+                                <li><a href="about-us.html#director-message"><i class="fa fa-user-tie text-primary font-12"></i> Director's Message</a></li>
+                                <li><a href="about-us.html#ceo-message"><i class="fa fa-award text-primary font-12"></i> CEO's Message</a></li>
+                                <li><a href="industry-partners.html"><i class="fa fa-handshake text-primary font-12"></i> Industry Partners</a></li>
+                                <li><a href="nisp-policy.html"><i class="fa fa-file-contract text-primary font-12"></i> NISP Policy 2019</a></li>
+                                <li><a href="expert-committee.html"><i class="fa fa-users-gear text-primary font-12"></i> Expert Committee</a></li>
+                                <li><a href="cimp-i-e-policy.html"><i class="fa fa-scroll text-primary font-12"></i> CIMP I & E Policy</a></li>
+                            </ul>
+                        </li>
+                        <li class="has-submenu ">
+                            <a href="javascript:void(0)">Incubation <i class="fa fa-chevron-down font-10 ms-1 opacity-75"></i></a>
+                            <ul class="iit-dropdown">
+                                <li><a href="incubation-process.html"><i class="fa fa-diagram-project text-primary font-12"></i> Incubation Process</a></li>
+                                <li><a href="incubation-bhub.html"><i class="fa fa-rocket text-primary font-12"></i> B-HUB Incubation</a></li>
+                            </ul>
+                        </li>
+                        <li class="has-submenu ">
+                            <a href="javascript:void(0)">Our Team <i class="fa fa-chevron-down font-10 ms-1 opacity-75"></i></a>
+                            <ul class="iit-dropdown">
+                                <li><a href="biif-team.html"><i class="fa fa-id-badge text-primary font-12"></i> BIIF Core Team</a></li>
+                                <li><a href="advisors.html"><i class="fa fa-user-shield text-primary font-12"></i> Board of Advisors</a></li>
+                                <li><a href="mentors.html"><i class="fa fa-chalkboard-user text-primary font-12"></i> Expert Mentors</a></li>
+                                <li><a href="mentor-registration.html"><i class="fa fa-user-plus text-primary font-12"></i> Apply as Mentor</a></li>
+                            </ul>
+                        </li>
+                        <li class=""><a href="startups.html">Startups</a></li>
+                        <li class="has-submenu active">
+                            <a href="javascript:void(0)">Activities <i class="fa fa-chevron-down font-10 ms-1 opacity-75"></i></a>
+                            <ul class="iit-dropdown">
+                                <li><a href="events.html"><i class="fa fa-calendar-days text-primary font-12"></i> Events & Workshops</a></li>
+                                <li><a href="media-coverage.html"><i class="fa fa-newspaper text-primary font-12"></i> Media Coverage</a></li>
+                                <li><a href="research.html"><i class="fa fa-flask text-primary font-12"></i> Innovation Research</a></li>
+                                <li><a href="publications.html"><i class="fa fa-book-open text-primary font-12"></i> Publications</a></li>
+                            </ul>
+                        </li>
+                        <li class="has-submenu ">
+                            <a href="javascript:void(0)">Join CIMP BIIF <i class="fa fa-chevron-down font-10 ms-1 opacity-75"></i></a>
+                            <ul class="iit-dropdown">
+                                <li><a href="incubation-registration.html"><i class="fa fa-seedling text-primary font-12"></i> Startup Registration</a></li>
+                                <li><a href="mentor-registration.html"><i class="fa fa-graduation-cap text-primary font-12"></i> Mentor Registration</a></li>
+                                <li><a href="investor-registration.html"><i class="fa fa-sack-dollar text-primary font-12"></i> Investor Registration</a></li>
+                                <li><a href="contact-us.html"><i class="fa fa-briefcase text-primary font-12"></i> Partner Registration</a></li>
+                            </ul>
+                        </li>
+                        <li class=""><a href="contact-us.html">Contact Us</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </header><!--end header-->
+    <!-- Navbar End -->
+        <!-- Hero Start -->
+    <section class="page-title page-breadcrumb bg-img-enabled solid-bg py-5 d-table w-100" style="background-image: url('assets/images/poly.png');">
+        <div class="container">
+            <div class="row my-3 justify-content-center">
+                <div class="col-lg-12 text-left">
+                    <div class="title-heading">
+                        <h1 class="font-weight-600 letter-spacing-1 mb-0 text-uppercase text-white">Events</h1>
+                    </div>
+                </div>  <!--end col-->
+            </div><!--end row-->
+        </div> <!--end container-->
+    </section><!--end section-->
+    <!-- Hero End -->
+
+    <section class="section-two">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 col-md-6 mt-2 pt-2">
+                    <div class="card event-schedule event-primary border-0 ">
+                        <div class="card-body p-3">
+                            <a href="#tickets">
+                                <div class="event-img mb-2 pb-2">
+                                    <img src="../assets/images/events/Event-04.jpg" class="img-fluid" alt="">
+                                </div>
+                                <div class="content">
+                                    <h4 class="text-dark title">Digital Conference Event Intro</h4>
+                                    <div class="text-muted location-time m-0">
+                                        <span class="text-dark h6">Address</span>: Queen Victoria Market, Melbourne, Australia
+                                    </div>
+                                    <div class="text-muted location-time m-0">
+                                        <span class="text-dark h6">Date: </span> Wednesday, March 15, 2023 – Tuesday, March 21, 2023
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-6 col-md-6 mt-2 pt-2">
+                    <div class="card event-schedule event-primary border-0 ">
+                        <div class="card-body p-3">
+                            <a href="#tickets">
+                                <div class="event-img mb-2 pb-2">
+                                    <img src="../assets/images/events/Event-03.jpg" class="img-fluid" alt="">
+                                </div>
+                                <div class="content">
+                                    <h4 class="text-dark title">Digital Conference Event Intro</h4>
+                                    <div class="text-muted location-time m-0">
+                                        <span class="text-dark h6">Address</span>: Queen Victoria Market, Melbourne, Australia
+                                    </div>
+                                    <div class="text-muted location-time m-0">
+                                        <span class="text-dark h6">Date: </span> Wednesday, March 15, 2023 – Tuesday, March 21, 2023
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-6 col-md-6 mt-2 pt-2">
+                    <div class="card event-schedule event-primary border-0 ">
+                        <div class="card-body p-3">
+                            <a href="#tickets">
+                                <div class="event-img mb-2 pb-2">
+                                    <img src="../assets/images/events/Event-02.jpg" class="img-fluid" alt="">
+                                </div>
+                                <div class="content">
+                                    <h4 class="text-dark title">Digital Conference Event Intro</h4>
+                                    <div class="text-muted location-time m-0">
+                                        <span class="text-dark h6">Address</span>: Queen Victoria Market, Melbourne, Australia
+                                    </div>
+                                    <div class="text-muted location-time m-0">
+                                        <span class="text-dark h6">Date: </span> Wednesday, March 15, 2023 – Tuesday, March 21, 2023
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-6 col-md-6 mt-2 pt-2">
+                    <div class="card event-schedule event-primary border-0 ">
+                        <div class="card-body p-3">
+                            <a href="#tickets">
+                                <div class="event-img mb-2 pb-2">
+                                    <img src="../assets/images/events/Event-01.jpg" class="img-fluid" alt="">
+                                </div>
+                                <div class="content">
+                                    <h4 class="text-dark title font-weight-600">Digital Conference Event Intro</h4>
+                                    <div class="text-muted location-time m-0">
+                                        <span class="text-dark h6">Address</span>: Queen Victoria Market, Melbourne, Australia
+                                    </div>
+                                    <div class="text-muted location-time m-0">
+                                        <span class="text-dark h6">Date: </span> Wednesday, March 15, 2023 – Tuesday, March 21, 2023
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer Start -->
+    <!-- Institutional Footer -->
+    <footer class="footer">    
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="footer-py-60">
+                        <div class="row g-4">
+                            <!-- Left Column: Identity & Mission -->
+                            <div class="col-lg-4 col-12">
+                                <a href="../index.html" class="logo-footer">
+                                    <img src="../assets/images/logo-white.png" height="85" alt="CIMP-BIIF White Logo">
+                                </a>
+                                <p class="mt-4 text-white-50 font-14" style="line-height: 1.7;">
+                                    Chandragupt Institute of Management Patna - Business Incubation & Innovation Foundation (CIMP-BIIF) brings together entrepreneurs, researchers, students, business leaders, and investors to foster a vibrant culture of innovation and venture building.
+                                </p>
+                                <div class="footer-social-links mt-4">
+                                    <a href="https://www.facebook.com/CIMPBIIF/" target="_blank" class="footer-social-btn btn-facebook" aria-label="Facebook" title="Facebook">
+                                        <i class="fab fa-facebook-f"></i>
+                                    </a>
+                                    <a href="https://twitter.com/CIMPBIIF" target="_blank" class="footer-social-btn btn-twitter" aria-label="Twitter / X" title="Twitter / X">
+                                        <i class="fab fa-x-twitter"></i>
+                                    </a>
+                                    <a href="https://www.linkedin.com/company/cimp-biif/" target="_blank" class="footer-social-btn btn-linkedin" aria-label="LinkedIn" title="LinkedIn">
+                                        <i class="fab fa-linkedin-in"></i>
+                                    </a>
+                                    <a href="https://www.youtube.com/channel/UCf5w9oVw-vX-9m9Z8x-h_8g" target="_blank" class="footer-social-btn btn-youtube" aria-label="YouTube" title="YouTube">
+                                        <i class="fab fa-youtube"></i>
+                                    </a>
+                                    <a href="https://www.instagram.com/cimpbiif/" target="_blank" class="footer-social-btn btn-instagram" aria-label="Instagram" title="Instagram">
+                                        <i class="fab fa-instagram"></i>
+                                    </a>
+                                </div>
+                            </div>
+
+                            <!-- Middle Column 1: Organization & Governance -->
+                            <div class="col-lg-2 col-md-4 col-6">
+                                <h5 class="footer-head text-white fw-bold mb-3 font-16">CIMP BIIF</h5>
+                                <ul class="list-unstyled footer-list mt-3">
+                                    <li><a href="about-cimp.html" class="text-foot"><i class="uil uil-angle-right-b me-1"></i> About CIMP</a></li>
+                                    <li><a href="about-us.html" class="text-foot"><i class="uil uil-angle-right-b me-1"></i> About CIMP-BIIF</a></li>
+                                    <li><a href="about-us.html#director-message" class="text-foot"><i class="uil uil-angle-right-b me-1"></i> Director's Message</a></li>
+                                    <li><a href="about-us.html#ceo-message" class="text-foot"><i class="uil uil-angle-right-b me-1"></i> CEO's Message</a></li>
+                                    <li><a href="industry-partners.html" class="text-foot"><i class="uil uil-angle-right-b me-1"></i> Industry Partners</a></li>
+                                    <li><a href="nisp-policy.html" class="text-foot"><i class="uil uil-angle-right-b me-1"></i> NISP Policy 2019</a></li>
+                                    <li><a href="biif-team.html" class="text-foot"><i class="uil uil-angle-right-b me-1"></i> Core Team</a></li>
+                                </ul>
+                            </div>
+
+                            <!-- Middle Column 2: Useful Links -->
+                            <div class="col-lg-2 col-md-4 col-6">
+                                <h5 class="footer-head text-white fw-bold mb-3 font-16">Useful Links</h5>
+                                <ul class="list-unstyled footer-list mt-3">
+                                    <li><a href="incubation-process.html" class="text-foot"><i class="uil uil-angle-right-b me-1"></i> Incubation Process</a></li>
+                                    <li><a href="incubation-bhub.html" class="text-foot"><i class="uil uil-angle-right-b me-1"></i> B-HUB Incubation</a></li>
+                                    <li><a href="events.html" class="text-foot"><i class="uil uil-angle-right-b me-1"></i> Events & Workshops</a></li>
+                                    <li><a href="media-coverage.html" class="text-foot"><i class="uil uil-angle-right-b me-1"></i> Media Coverage</a></li>
+                                    <li><a href="research.html" class="text-foot"><i class="uil uil-angle-right-b me-1"></i> Innovation Research</a></li>
+                                    <li><a href="publications.html" class="text-foot"><i class="uil uil-angle-right-b me-1"></i> Publications</a></li>
+                                    <li><a href="startups.html" class="text-foot"><i class="uil uil-angle-right-b me-1"></i> Portfolio Startups</a></li>
+                                </ul>
+                            </div>
+
+                            <!-- Right Column: Contact & Official Address -->
+                            <div class="col-lg-4 col-md-4 col-12">
+                                <h5 class="footer-head text-white fw-bold mb-3 font-16">Official Address</h5>
+                                <p class="text-white-50 font-14 mt-3 mb-2">
+                                    <i class="fa fa-map-marker-alt text-warning me-2"></i>
+                                    <strong>CIMP - BIIF</strong>, Chandragupt Institute of Management Patna, Mithapur, Patna - 800001, Bihar, India.
+                                </p>
+                                <p class="text-white-50 font-14 mb-2">
+                                    <i class="fa fa-envelope text-info me-2"></i>
+                                    <a href="mailto:support@cimpbiif.com" class="text-white-50 text-decoration-none">support@cimpbiif.com</a>
+                                </p>
+                                <p class="text-white-50 font-14 mb-3">
+                                    <i class="fa fa-phone text-success me-2"></i>
+                                    <a href="tel:+919128912345" class="text-white-50 text-decoration-none">+91 9128912345</a>
+                                </p>
+                                
+                                <!-- Footer Interactive Map -->
+                                <div class="footer-map-wrapper mt-3">
+                                    <div class="footer-map-container position-relative overflow-hidden rounded-3 border border-secondary border-opacity-25" style="height: 140px; box-shadow: 0 4px 15px rgba(0,0,0,0.3);">
+                                        <iframe 
+                                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3598.5022836043227!2d85.12931327611834!3d25.588220615750473!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39ed5844d270601f%3A0x82f4ea8834b07bee!2sChandragupt%20Institute%20of%20Management%20Patna!5e0!3m2!1sen!2sin!4v1698387420556!5m2!1sen!2sin" 
+                                            width="100%" 
+                                            height="100%" 
+                                            style="border:0;" 
+                                            allowfullscreen="" 
+                                            loading="lazy" 
+                                            referrerpolicy="no-referrer-when-downgrade">
+                                        </iframe>
+                                    </div>
+                                    <div class="mt-2 d-flex align-items-center justify-content-between">
+                                        <span class="text-white-50 font-12"><i class="fa fa-location-dot text-danger me-1"></i> Mithapur Campus</span>
+                                        <a href="https://maps.google.com/?q=Chandragupt+Institute+of+Management+Patna" target="_blank" class="text-white-50 font-12 text-decoration-none footer-map-direct-link">
+                                            <i class="fa fa-external-link-alt me-1 text-primary"></i> View Full Map
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-bar py-3" style="background: #04070D; border-top: 1px solid rgba(255,255,255,0.08);">
+            <div class="container text-center">
+                <div class="row align-items-center">
+                    <div class="col-sm-6 text-sm-start text-center">
+                        <p class="mb-0 text-white-50 font-13">
+                            &copy; <script>document.write(new Date().getFullYear())</script> CIMP - Business Incubation &amp; Innovation Foundation. All Rights Reserved.
+                        </p>
+                    </div>
+                    <div class="col-sm-6 text-sm-end text-center mt-2 mt-sm-0">
+                        <span class="text-white-50 font-13">An Autonomous Institution Promoted by Govt. of Bihar</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+
+
+
+
+
+</div>
+
+
+
+<style>
+    .popup-modal .btn-close {
+    position: absolute;
+    right: 15px;
+    top: 15px;
+    color: #8d97ad;
+    font-size: 30px;
+    background: #ffffff;
+    width: 32px;
+    height: 32px;
+    text-align: center;
+    display: block;
+    border-radius: 100%;
+    line-height: 24px;
+    opacity: 1;
+}
+</style>
+
+
+
+<!-- Back to top -->
+<a href="#" onclick="topFunction()" id="back-to-top" class="back-to-top fs-5"><i data-feather="arrow-up" class="fea icon-sm icons align-middle"></i></a>
+<!-- Back to top -->
+
+<!-- JAVASCRIPT -->
+<script src="../assets/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
+<!-- Main Js -->
+<script src="../assets/libs/aos/aos.js"></script>
+<script src="../assets/libs/intl-tel-input/js/intlTelInput.min.js"></script>
+<script src="../assets/libs/feather-icons/feather.min.js"></script>
+
+
+<script src="../assets/js/plugins.init.js"></script><!--Note: All init js like tiny slider, counter, countdown, maintenance, lightbox, gallery, swiper slider, aos animation etc.-->
+<script src="../assets/js/app.js"></script><!--Note: All important javascript like page loader, menu, sticky menu, menu-toggler, one page menu etc. -->
+    
+
+    <!-- Clone Enhancements JS -->
+    <script src="../assets/js/clone-enhancements.js"></script>
+
+    <script src="../assets/js/iit-iim-interactions.js"></script>
+</body>
+</html>        
+

@@ -1,0 +1,31 @@
+# CIMP-BIIF Website Robots Configuration
+# Allow search engines to crawl public pages
+# Block admin and private sections
+
+User-agent: *
+Allow: /
+Allow: /pages/
+Allow: /startup/
+Allow: /mentor/
+Allow: /investor/
+Allow: /assets/
+
+# Block admin portals from indexing
+Disallow: /admin/
+Disallow: /_redirects
+Disallow: /_raw_scraped/
+Disallow: /includes/
+Disallow: /uploads/
+
+# Sitemap location
+Sitemap: https://yourdomain.com/sitemap.xml
+
+# Crawl delay (be nice to servers)
+Crawl-delay: 1
+
+# Specific bot rules
+User-agent: GPTBot
+Disallow: /
+
+User-agent: ChatGPT-User
+Disallow: /

@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 110" width="100%" height="100%">
+  <!-- MoE IIC / Innovation Cell Logo -->
+  <defs>
+    <linearGradient id="moeGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0284C7"/>
+      <stop offset="100%" stop-color="#0369A1"/>
+    </linearGradient>
+    <linearGradient id="bulbGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#F59E0B"/>
+      <stop offset="100%" stop-color="#D97706"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Stylized IIC Bulb / Innovation Emblem -->
+  <g transform="translate(15, 10)">
+    <circle cx="45" cy="45" r="42" fill="#F0FDF4" stroke="#BBF7D0" stroke-width="2"/>
+    <circle cx="45" cy="45" r="36" fill="#FFFFFF" stroke="#059669" stroke-width="1.5"/>
+
+    <!-- Lightbulb + Book Nodes -->
+    <path d="M45,20 C36,20 29,27 29,36 C29,42 33,47 36,50 L36,54 L54,54 L54,50 C57,47 61,42 61,36 C61,27 54,20 45,20 Z" fill="url(#bulbGrad)"/>
+    <rect x="38" y="55" width="14" height="3" rx="1.5" fill="#475569"/>
+    <rect x="40" y="59" width="10" height="3" rx="1.5" fill="#475569"/>
+    <path d="M45,63 L45,65" stroke="#475569" stroke-width="2" stroke-linecap="round"/>
+
+    <!-- Rays -->
+    <circle cx="45" cy="35" r="5" fill="#FFFFFF" opacity="0.6"/>
+    <path d="M45,14 L45,17 M23,36 L26,36 M64,36 L67,36 M30,23 L32,25 M60,23 L58,25" stroke="#F59E0B" stroke-width="2" stroke-linecap="round"/>
+    
+    <!-- Council Leaves Base -->
+    <path d="M30,68 C38,72 45,74 45,74 C45,74 52,72 60,68 C55,73 45,76 45,76 C45,76 35,73 30,68 Z" fill="#059669"/>
+  </g>
+
+  <!-- Typography -->
+  <text x="115" y="30" font-family="'Plus Jakarta Sans', 'Segoe UI', sans-serif" font-size="12.5" font-weight="700" fill="#047857" letter-spacing="0.2">
+    शिक्षा मंत्रालय (Ministry of Education)
+  </text>
+  <text x="115" y="50" font-family="'Plus Jakarta Sans', 'Segoe UI', sans-serif" font-size="15.5" font-weight="800" fill="#0F172A" letter-spacing="-0.3">
+    INSTITUTION'S INNOVATION COUNCIL
+  </text>
+  <text x="115" y="68" font-family="'Plus Jakarta Sans', 'Segoe UI', sans-serif" font-size="12" font-weight="600" fill="#0284C7" letter-spacing="0.4">
+    MoE's INNOVATION CELL (MIC)
+  </text>
+  <text x="115" y="86" font-family="'Plus Jakarta Sans', 'Segoe UI', sans-serif" font-size="10.5" font-weight="600" fill="#64748B" letter-spacing="0.3">
+    Yukti Innovation Challenge • AICTE Fellowship
+  </text>
+</svg>

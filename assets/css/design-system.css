@@ -1,0 +1,1525 @@
+/* ==========================================================================
+   CIMP - BIIF: PREMIER IIT / IIM TIER INCUBATION DESIGN SYSTEM
+   Inspired by: SINE (IIT Bombay), CIIE.CO (IIM Ahmedabad), NSRCEL (IIM Bangalore)
+   ========================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
+
+:root {
+  /* Prestige Academic Venture Palette */
+  --iit-navy: #0A192F;
+  --iit-dark: #07111E;
+  --iit-card-dark: #0D213F;
+  --iit-blue: #2563EB;
+  --iit-blue-glow: rgba(37, 99, 235, 0.35);
+  --iit-cyan: #06B6D4;
+  --iit-gold: #F59E0B;
+  --iit-gold-glow: rgba(245, 158, 11, 0.3);
+  --iit-emerald: #10B981;
+  --iit-slate: #F8FAFC;
+  --iit-border: #E2E8F0;
+  --iit-border-dark: rgba(255, 255, 255, 0.12);
+  --iit-text: #0F172A;
+  --iit-muted: #64748B;
+  --iit-radius-sm: 8px;
+  --iit-radius-md: 14px;
+  --iit-radius-lg: 20px;
+  --iit-radius-xl: 28px;
+  --iit-shadow-sm: 0 4px 6px -1px rgba(10, 25, 47, 0.05);
+  --iit-shadow-md: 0 12px 24px -4px rgba(10, 25, 47, 0.08), 0 4px 6px -2px rgba(10, 25, 47, 0.04);
+  --iit-shadow-lg: 0 25px 50px -12px rgba(10, 25, 47, 0.16);
+  --iit-shadow-glow: 0 0 40px rgba(37, 99, 235, 0.22);
+  --iit-transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Typography & Reset */
+body {
+  font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+  color: var(--iit-text) !important;
+  background-color: #FFFFFF !important;
+  line-height: 1.65;
+  letter-spacing: -0.01em;
+  overflow-x: hidden;
+}
+
+h1, h2, h3, h4, h5, h6, .heading, .display-1, .display-2, .display-3, .display-4 {
+  font-family: 'Outfit', -apple-system, sans-serif !important;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  color: var(--iit-navy);
+}
+
+/* ==========================================================================
+   1. ELITE FLOATING HEADER & BRAND BAR
+   ========================================================================== */
+.topbar-elite {
+  background: var(--iit-dark);
+  color: #94A3B8;
+  font-size: 13px;
+  padding: 8px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.topbar-elite a {
+  color: #CBD5E1 !important;
+  text-decoration: none;
+  font-weight: 500;
+  transition: var(--iit-transition);
+}
+
+.topbar-elite a:hover {
+  color: #38BDF8 !important;
+}
+
+.topbar-badge {
+  background: rgba(245, 158, 11, 0.15);
+  color: #FBBF24;
+  border: 1px solid rgba(245, 158, 11, 0.3);
+  padding: 2px 10px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.header-brand-bar {
+  background: #FFFFFF;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--iit-border);
+  transition: var(--iit-transition);
+}
+
+.header-brand-bar.sticky {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  box-shadow: 0 10px 30px rgba(10, 25, 47, 0.08);
+  background: rgba(255, 255, 255, 0.94);
+  backdrop-filter: blur(16px);
+  padding: 10px 0;
+}
+
+.brand-crest-group {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.brand-crest-group .crest-cimp {
+  height: 64px;
+  width: auto;
+  transition: var(--iit-transition);
+}
+
+.brand-crest-group .crest-divider {
+  width: 1.5px;
+  height: 46px;
+  background: #E2E8F0;
+}
+
+.brand-crest-group .crest-biif {
+  height: 54px;
+  width: auto;
+}
+
+.brand-crest-group .crest-bihar {
+  height: 62px;
+  width: auto;
+}
+
+/* Nav Menu Bar */
+#topnav.iit-nav-bar {
+  background: var(--iit-navy) !important;
+  border-bottom: 2px solid rgba(37, 99, 235, 0.4);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+}
+
+#topnav.iit-nav-bar.nav-sticky {
+  background: rgba(10, 25, 47, 0.96) !important;
+  backdrop-filter: blur(16px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+}
+
+.section-pill-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 18px;
+  border-radius: 30px;
+  background: rgba(37, 99, 235, 0.1) !important;
+  border: 1px solid rgba(37, 99, 235, 0.25) !important;
+  color: #2563EB !important;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+}
+
+.iit-nav-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.iit-nav-menu-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+@media (max-width: 991px) {
+  .iit-nav-container {
+    justify-content: space-between;
+  }
+  .iit-nav-menu-wrapper {
+    display: none;
+  }
+  .iit-nav-menu-wrapper.is-open,
+  .iit-nav-menu-wrapper.open {
+    display: block;
+  }
+}
+
+.iit-menu {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  list-style: none;
+  margin: 0 auto;
+  padding: 0;
+  gap: 4px;
+}
+
+.iit-menu > li {
+  position: relative;
+}
+
+.iit-menu > li > a {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 16px 18px;
+  color: #F8FAFC !important;
+  font-size: 14.5px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: var(--iit-transition);
+}
+
+.iit-menu > li > a:hover,
+.iit-menu > li.active > a {
+  color: #38BDF8 !important;
+  background: rgba(255, 255, 255, 0.06);
+}
+
+/* Submenu Dropdown */
+.iit-menu .iit-dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  min-width: 250px;
+  background: #FFFFFF;
+  border-radius: var(--iit-radius-md);
+  box-shadow: var(--iit-shadow-lg);
+  border: 1px solid var(--iit-border);
+  padding: 8px 0;
+  list-style: none;
+  display: none;
+  z-index: 1000;
+  animation: iitDropIn 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes iitDropIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.iit-menu > li:hover > .iit-dropdown {
+  display: block;
+}
+
+.iit-dropdown li a {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 20px;
+  color: #334155 !important;
+  font-size: 13.5px;
+  font-weight: 500;
+  text-decoration: none;
+  transition: var(--iit-transition);
+}
+
+.iit-dropdown li a:hover {
+  background: #F1F5F9;
+  color: var(--iit-blue) !important;
+  padding-left: 24px;
+}
+
+/* CTA Pill in Header */
+.iit-btn-apply {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: linear-gradient(135deg, #F59E0B 0%, #D97706 100%);
+  color: #FFFFFF !important;
+  font-weight: 700;
+  font-size: 13.5px;
+  padding: 9px 20px;
+  border-radius: 30px;
+  text-decoration: none;
+  box-shadow: 0 4px 15px rgba(245, 158, 11, 0.35);
+  transition: var(--iit-transition);
+}
+
+.iit-btn-apply:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(245, 158, 11, 0.5);
+  color: #FFFFFF !important;
+}
+
+/* ==========================================================================
+   2. HERO IMPACT ARENA (IIT/IIM Benchmark)
+   ========================================================================== */
+.hero-impact-arena {
+  position: relative;
+  min-height: 620px;
+  background: var(--iit-dark);
+  color: #FFFFFF;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  padding: 80px 0 100px 0;
+}
+
+.hero-ambient-mesh {
+  position: absolute;
+  inset: 0;
+  background: 
+    radial-gradient(circle at 15% 30%, rgba(37, 99, 235, 0.3) 0%, transparent 50%),
+    radial-gradient(circle at 85% 70%, rgba(245, 158, 11, 0.2) 0%, transparent 45%),
+    linear-gradient(180deg, rgba(7, 17, 30, 0.85) 0%, rgba(10, 25, 47, 0.95) 100%),
+    url('../images/CIMP-Building-02.jpg') center center / cover no-repeat;
+  z-index: 1;
+}
+
+.hero-particles {
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(rgba(255, 255, 255, 0.1) 1px, transparent 1px);
+  background-size: 32px 32px;
+  z-index: 2;
+  opacity: 0.6;
+}
+
+.hero-content-box {
+  position: relative;
+  z-index: 3;
+}
+
+.hero-pill-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 16px;
+  border-radius: 30px;
+  background: rgba(37, 99, 235, 0.15);
+  border: 1px solid rgba(56, 189, 248, 0.35);
+  color: #38BDF8;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  margin-bottom: 24px;
+}
+
+.hero-pill-badge span.pulse-dot {
+  width: 8px;
+  height: 8px;
+  background: #38BDF8;
+  border-radius: 50%;
+  display: inline-block;
+  box-shadow: 0 0 12px #38BDF8;
+  animation: iitPulse 2s infinite;
+}
+
+@keyframes iitPulse {
+  0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(56, 189, 248, 0.7); }
+  70% { transform: scale(1); box-shadow: 0 0 0 8px rgba(56, 189, 248, 0); }
+  100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(56, 189, 248, 0); }
+}
+
+.hero-headline {
+  font-size: 48px;
+  font-weight: 800;
+  line-height: 1.15;
+  color: #FFFFFF;
+  margin-bottom: 20px;
+}
+
+.hero-headline .text-highlight-gold {
+  background: linear-gradient(135deg, #FBBF24 0%, #F59E0B 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.hero-headline .text-highlight-cyan {
+  background: linear-gradient(135deg, #38BDF8 0%, #06B6D4 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.hero-subtext {
+  font-size: 18px;
+  color: #CBD5E1;
+  font-weight: 400;
+  line-height: 1.6;
+  max-width: 620px;
+  margin-bottom: 36px;
+}
+
+.hero-actions-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  align-items: center;
+}
+
+.btn-hero-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: linear-gradient(135deg, #2563EB 0%, #1D4ED8 100%);
+  color: #FFFFFF !important;
+  font-size: 16px;
+  font-weight: 700;
+  padding: 14px 32px;
+  border-radius: var(--iit-radius-lg);
+  box-shadow: 0 10px 25px rgba(37, 99, 235, 0.4);
+  text-decoration: none;
+  transition: var(--iit-transition);
+}
+
+.btn-hero-primary:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 15px 35px rgba(37, 99, 235, 0.6);
+  color: #FFFFFF !important;
+}
+
+.btn-hero-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
+  color: #FFFFFF !important;
+  font-size: 16px;
+  font-weight: 600;
+  padding: 14px 28px;
+  border-radius: var(--iit-radius-lg);
+  text-decoration: none;
+  transition: var(--iit-transition);
+}
+
+.btn-hero-secondary:hover {
+  background: rgba(255, 255, 255, 0.16);
+  border-color: #FFFFFF;
+  transform: translateY(-3px);
+}
+
+/* Hero Visual Showcase Card */
+.hero-visual-card {
+  background: rgba(13, 33, 63, 0.65);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: var(--iit-radius-xl);
+  padding: 24px;
+  backdrop-filter: blur(16px);
+  box-shadow: var(--iit-shadow-lg), var(--iit-shadow-glow);
+}
+
+.hero-visual-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding-bottom: 16px;
+  margin-bottom: 20px;
+}
+
+.hero-badge-tag {
+  background: rgba(16, 185, 129, 0.15);
+  color: #34D399;
+  border: 1px solid rgba(16, 185, 129, 0.3);
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+/* ==========================================================================
+   3. LIVE IMPACT COUNTER STRIP
+   ========================================================================== */
+.impact-strip-section {
+  position: relative;
+  z-index: 10;
+  margin-top: -50px;
+}
+
+.impact-strip-card {
+  background: #FFFFFF;
+  border-radius: var(--iit-radius-xl);
+  box-shadow: var(--iit-shadow-lg);
+  border: 1px solid var(--iit-border);
+  padding: 32px 40px;
+}
+
+.metric-item {
+  text-align: center;
+  position: relative;
+  padding: 10px 15px;
+}
+
+.metric-number {
+  font-family: 'Outfit', sans-serif;
+  font-size: 40px;
+  font-weight: 800;
+  color: var(--iit-navy);
+  line-height: 1.1;
+  margin-bottom: 6px;
+}
+
+.metric-number.highlight-blue {
+  color: var(--iit-blue);
+}
+
+.metric-number.highlight-gold {
+  color: var(--iit-gold);
+}
+
+.metric-number.highlight-emerald {
+  color: var(--iit-emerald);
+}
+
+.metric-label {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--iit-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  margin: 0;
+}
+
+/* ==========================================================================
+   4. FLAGSHIP PROGRAMS (BENTO GRID - IIT/IIM STYLE)
+   ========================================================================== */
+.bento-programs-grid {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 24px;
+  margin-top: 40px;
+}
+
+.bento-card {
+  background: #FFFFFF;
+  border-radius: var(--iit-radius-lg);
+  border: 1px solid var(--iit-border);
+  box-shadow: var(--iit-shadow-sm);
+  padding: 32px;
+  position: relative;
+  overflow: hidden;
+  transition: var(--iit-transition);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.bento-card:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--iit-shadow-md);
+  border-color: #93C5FD;
+}
+
+.bento-card.card-featured {
+  background: linear-gradient(145deg, #0A192F 0%, #0D213F 100%);
+  color: #FFFFFF;
+  border: 1px solid rgba(37, 99, 235, 0.4);
+}
+
+.bento-card.card-featured h3,
+.bento-card.card-featured h4 {
+  color: #FFFFFF;
+}
+
+.bento-card.card-featured p {
+  color: #CBD5E1;
+}
+
+.bento-col-7 { grid-column: span 7; }
+.bento-col-5 { grid-column: span 5; }
+.bento-col-4 { grid-column: span 4; }
+.bento-col-6 { grid-column: span 6; }
+.bento-col-12 { grid-column: span 12; }
+
+.bento-icon-bubble {
+  width: 52px;
+  height: 52px;
+  border-radius: 14px;
+  background: rgba(37, 99, 235, 0.1);
+  color: var(--iit-blue);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 26px;
+  margin-bottom: 20px;
+}
+
+.card-featured .bento-icon-bubble {
+  background: rgba(56, 189, 248, 0.18);
+  color: #38BDF8;
+}
+
+.bento-title {
+  font-size: 22px;
+  font-weight: 700;
+  margin-bottom: 12px;
+}
+
+.bento-desc {
+  font-size: 14.5px;
+  line-height: 1.6;
+  color: var(--iit-muted);
+  margin-bottom: 24px;
+}
+
+.bento-features-list {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 24px 0;
+}
+
+.bento-features-list li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 13.5px;
+  font-weight: 500;
+  margin-bottom: 8px;
+}
+
+.bento-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: 700;
+  font-size: 14px;
+  color: var(--iit-blue);
+  text-decoration: none;
+  transition: var(--iit-transition);
+}
+
+.bento-link:hover {
+  gap: 10px;
+  color: #1D4ED8;
+}
+
+.card-featured .bento-link {
+  color: #38BDF8;
+}
+
+/* ==========================================================================
+   5. PARTNERS & ECOSYSTEM INFINITE MARQUEE
+   ========================================================================== */
+.ecosystem-marquee-wrap {
+  padding: 40px 0;
+  background: #F8FAFC;
+  border-top: 1px solid var(--iit-border);
+  border-bottom: 1px solid var(--iit-border);
+  overflow: hidden;
+  position: relative;
+}
+
+.marquee-heading {
+  text-align: center;
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  font-weight: 700;
+  color: var(--iit-muted);
+  margin-bottom: 24px;
+}
+
+.marquee-track {
+  display: flex;
+  gap: 48px;
+  width: max-content;
+  animation: iitMarquee 35s linear infinite;
+}
+
+@keyframes iitMarquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.marquee-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 60px;
+  background: #FFFFFF;
+  padding: 10px 24px;
+  border-radius: var(--iit-radius-md);
+  border: 1px solid var(--iit-border);
+  box-shadow: var(--iit-shadow-sm);
+  font-weight: 700;
+  font-size: 15px;
+  color: var(--iit-navy);
+  white-space: nowrap;
+}
+
+/* ==========================================================================
+   6. INTERACTIVE SDG INNOVATION MATRIX
+   ========================================================================== */
+.sdg-filter-tabs {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 36px;
+}
+
+.sdg-tab-btn {
+  padding: 10px 22px;
+  border-radius: 30px;
+  border: 1px solid var(--iit-border);
+  background: #FFFFFF;
+  color: var(--iit-muted);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--iit-transition);
+}
+
+.sdg-tab-btn:hover,
+.sdg-tab-btn.active {
+  background: var(--iit-navy);
+  color: #FFFFFF;
+  border-color: var(--iit-navy);
+  box-shadow: 0 4px 12px rgba(10, 25, 47, 0.2);
+}
+
+/* ==========================================================================
+   7. LEADERSHIP & MENTORSHIP SPOTLIGHT
+   ========================================================================== */
+.leadership-quote-card {
+  background: linear-gradient(135deg, #0A192F 0%, #0F284E 100%);
+  border-radius: var(--iit-radius-xl);
+  padding: 48px;
+  color: #FFFFFF;
+  position: relative;
+  overflow: hidden;
+  box-shadow: var(--iit-shadow-lg);
+}
+
+.leadership-avatar-frame {
+  width: 220px;
+  height: 220px;
+  border-radius: 24px;
+  overflow: hidden;
+  border: 4px solid rgba(255, 255, 255, 0.15);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.35);
+  margin: 0 auto;
+}
+
+.leadership-avatar-frame img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.leadership-quote-text {
+  font-size: 17px;
+  line-height: 1.7;
+  color: #CBD5E1;
+  font-style: italic;
+  margin-bottom: 24px;
+}
+
+.leadership-name {
+  font-size: 22px;
+  font-weight: 700;
+  color: #FBBF24;
+  margin-bottom: 4px;
+}
+
+.leadership-title {
+  font-size: 14px;
+  color: #94A3B8;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* ==========================================================================
+   8. FOOTER ELEVATION
+   ========================================================================== */
+.footer-elite {
+  background: var(--iit-dark);
+  color: #94A3B8;
+  padding: 80px 0 30px 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.footer-elite h5 {
+  color: #FFFFFF;
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  margin-bottom: 24px;
+}
+
+.footer-elite ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.footer-elite ul li {
+  margin-bottom: 12px;
+}
+
+.footer-elite ul li a {
+  color: #94A3B8 !important;
+  text-decoration: none;
+  font-size: 14px;
+  transition: var(--iit-transition);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.footer-elite ul li a:hover {
+  color: #38BDF8 !important;
+  transform: translateX(4px);
+}
+
+.footer-bottom-bar {
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  padding: 24px 0 0 0;
+  margin-top: 60px;
+  font-size: 13.5px;
+}
+
+/* Responsive Overrides */
+@media (max-width: 991px) {
+  .hero-headline { font-size: 34px; }
+  .bento-col-7, .bento-col-5, .bento-col-4, .bento-col-6 { grid-column: span 12; }
+  .brand-crest-group { flex-wrap: wrap; gap: 10px; }
+  .brand-crest-group .crest-cimp { height: 48px; }
+  .brand-crest-group .crest-biif { height: 42px; }
+  .brand-crest-group .crest-bihar { height: 48px; }
+  .metric-item { margin-bottom: 20px; }
+  .impact-strip-card { padding: 24px; }
+}
+
+/* ==========================================================================
+   9. MOBILE NAVIGATION & APP DRAWER
+   ========================================================================== */
+.iit-menu-toggle {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+}
+
+.iit-menu-toggle span {
+  display: block;
+  width: 26px;
+  height: 2px;
+  background: #FFFFFF;
+  border-radius: 2px;
+  transition: var(--iit-transition);
+}
+
+.iit-menu-toggle.is-active span:nth-child(1) {
+  transform: rotate(45deg) translate(5px, 5px);
+}
+.iit-menu-toggle.is-active span:nth-child(2) {
+  opacity: 0;
+}
+.iit-menu-toggle.is-active span:nth-child(3) {
+  transform: rotate(-45deg) translate(5px, -5px);
+}
+
+@media (max-width: 991px) {
+  .iit-menu-toggle {
+    display: flex;
+  }
+  .iit-nav-menu-wrapper {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background: var(--iit-navy);
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+    z-index: 9999;
+    max-height: 80vh;
+    overflow-y: auto;
+    padding: 16px 20px;
+  }
+  .iit-nav-menu-wrapper.is-open {
+    display: block !important;
+  }
+  .iit-menu {
+    flex-direction: column;
+    gap: 0;
+  }
+  .iit-menu > li {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  }
+  .iit-menu > li > a {
+    padding: 12px 0;
+    display: flex;
+    justify-content: space-between;
+  }
+  .iit-menu .iit-dropdown {
+    position: static;
+    display: none;
+    background: rgba(0, 0, 0, 0.2);
+    border: none;
+    box-shadow: none;
+    padding: 4px 0 12px 16px;
+  }
+  .iit-menu .iit-dropdown.is-open {
+    display: block !important;
+  }
+  .iit-menu .iit-dropdown li a {
+    color: #CBD5E1 !important;
+    padding: 8px 12px;
+  }
+  .iit-menu-actions {
+    margin-top: 16px;
+    padding-top: 16px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+  }
+}
+
+/* ==========================================================================
+   10. ENDEAVOURS COURSE CARDS
+   ========================================================================== */
+.endeavours-section {
+  padding: 90px 0;
+  background: #FFFFFF;
+}
+
+.endeavour-card {
+  background: #FFFFFF;
+  border-radius: var(--iit-radius-lg);
+  border: 1px solid var(--iit-border);
+  overflow: hidden;
+  box-shadow: var(--iit-shadow-sm);
+  transition: var(--iit-transition);
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.endeavour-card:hover {
+  transform: translateY(-8px);
+  box-shadow: var(--iit-shadow-lg);
+  border-color: #93C5FD;
+}
+
+.endeavour-img-wrap {
+  position: relative;
+  height: 200px;
+  overflow: hidden;
+  background: #F1F5F9;
+}
+
+.endeavour-img-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.endeavour-card:hover .endeavour-img-wrap img {
+  transform: scale(1.08);
+}
+
+.endeavour-badge {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  background: rgba(15, 23, 42, 0.85);
+  color: #FBBF24;
+  border: 1px solid rgba(245, 158, 11, 0.35);
+  backdrop-filter: blur(8px);
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+.endeavour-body {
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  justify-content: space-between;
+}
+
+.endeavour-title {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--iit-navy);
+  margin-bottom: 10px;
+  line-height: 1.35;
+}
+
+.endeavour-desc {
+  font-size: 13.5px;
+  color: var(--iit-muted);
+  line-height: 1.6;
+  margin-bottom: 20px;
+}
+
+.endeavour-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: 700;
+  font-size: 13.5px;
+  color: var(--iit-blue);
+  text-decoration: none;
+  transition: var(--iit-transition);
+}
+
+.endeavour-btn:hover {
+  color: #1D4ED8;
+  gap: 10px;
+}
+
+/* ==========================================================================
+   11. INCUBATION STAGES (4-STAGE PIPELINE)
+   ========================================================================== */
+.incubation-stages-section {
+  background: #FFFFFF;
+  position: relative;
+  overflow: hidden;
+  padding: 90px 0;
+  border-top: 1px solid var(--iit-border);
+}
+
+.stage-card {
+  background: #FFFFFF;
+  border: 1px solid var(--iit-border);
+  border-radius: var(--iit-radius-lg);
+  overflow: hidden;
+  box-shadow: var(--iit-shadow-sm);
+  transition: var(--iit-transition);
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.stage-card:hover {
+  transform: translateY(-8px);
+  border-color: #93C5FD;
+  box-shadow: var(--iit-shadow-lg);
+}
+
+.stage-card-img-wrap {
+  position: relative;
+  height: 200px;
+  overflow: hidden;
+  background: #F1F5F9;
+}
+
+.stage-card-img-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.stage-card:hover .stage-card-img-wrap img {
+  transform: scale(1.08);
+}
+
+.stage-badge {
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  background: rgba(15, 23, 42, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(8px);
+  color: #38BDF8;
+  font-size: 11.5px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  padding: 4px 12px;
+  border-radius: 20px;
+}
+
+.stage-card-body {
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  justify-content: space-between;
+}
+
+.stage-card-title {
+  color: var(--iit-navy);
+  font-size: 19px;
+  font-weight: 700;
+  margin-bottom: 12px;
+  line-height: 1.3;
+}
+
+.stage-card-desc {
+  color: var(--iit-muted);
+  font-size: 14px;
+  line-height: 1.6;
+  margin-bottom: 20px;
+}
+
+.stage-card-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--iit-blue);
+  font-size: 13.5px;
+  font-weight: 700;
+  text-decoration: none;
+  transition: var(--iit-transition);
+}
+
+.stage-card-link:hover {
+  color: #1D4ED8;
+  gap: 12px;
+}
+
+/* ==========================================================================
+   12. MEDIA & SOCIAL FEED SECTION
+   ========================================================================== */
+.media-showcase-section {
+  padding: 90px 0 110px 0;
+  background: #FFFFFF;
+  border-top: 1px solid var(--iit-border);
+}
+
+.media-card-frame {
+  background: #FFFFFF;
+  border-radius: var(--iit-radius-lg);
+  border: 1px solid var(--iit-border);
+  box-shadow: var(--iit-shadow-md);
+  overflow: hidden;
+  height: 100%;
+}
+
+.media-card-header {
+  padding: 18px 24px;
+  border-bottom: 1px solid var(--iit-border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #FFFFFF;
+}
+
+.media-card-header h4 {
+  font-size: 17px;
+  font-weight: 700;
+  margin: 0;
+  color: var(--iit-navy);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.video-preview-box {
+  position: relative;
+  height: 420px;
+  background: linear-gradient(135deg, #0A192F 0%, #07111E 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.video-preview-box img.video-poster {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.55;
+  transition: transform 0.6s ease, opacity 0.6s ease;
+}
+
+.video-preview-box:hover img.video-poster {
+  transform: scale(1.05);
+  opacity: 0.65;
+}
+
+.video-play-pulse-btn {
+  position: relative;
+  z-index: 2;
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  background: var(--iit-blue);
+  color: #FFFFFF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28px;
+  box-shadow: 0 0 30px rgba(37, 99, 235, 0.6);
+  cursor: pointer;
+  transition: var(--iit-transition);
+  border: 3px solid rgba(255, 255, 255, 0.4);
+  text-decoration: none;
+}
+
+.video-play-pulse-btn:hover {
+  transform: scale(1.12);
+  background: #1D4ED8;
+  box-shadow: 0 0 45px rgba(37, 99, 235, 0.9);
+  color: #FFFFFF;
+}
+
+.video-info-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 24px;
+  background: linear-gradient(0deg, rgba(7, 17, 30, 0.95) 0%, transparent 100%);
+  z-index: 2;
+}
+
+.video-info-overlay h5 {
+  color: #FFFFFF;
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+
+.video-info-overlay p {
+  color: #94A3B8;
+  font-size: 13.5px;
+  margin: 0;
+}
+
+/* ==========================================================================
+   13. PREMIER HERO BANNER CAROUSEL SLIDER
+   ========================================================================== */
+.hero-slider {
+  position: relative;
+  overflow: hidden;
+  background: var(--iit-navy);
+}
+
+.hero-slider .carousel-item {
+  min-height: 560px;
+  position: relative;
+  overflow: hidden;
+}
+
+@media (min-width: 992px) {
+  .hero-slider .carousel-item {
+    min-height: 620px;
+  }
+}
+
+.hero-slide-bg {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background-size: cover;
+  background-position: center;
+  transform: scale(1);
+  transition: transform 7s ease-in-out;
+  z-index: 1;
+}
+
+.carousel-item.active .hero-slide-bg {
+  transform: scale(1.06);
+}
+
+.hero-slide-overlay {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: linear-gradient(90deg, rgba(10, 25, 47, 0.94) 0%, rgba(10, 25, 47, 0.82) 55%, rgba(10, 25, 47, 0.45) 100%);
+  z-index: 2;
+}
+
+.hero-slide-content {
+  position: relative;
+  z-index: 3;
+  padding: 80px 0 60px;
+  color: #FFFFFF;
+}
+
+.hero-tag {
+  display: inline-block;
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1.2px;
+  color: #38BDF8;
+  padding: 4px 14px;
+  background: rgba(56, 189, 248, 0.12);
+  border: 1px solid rgba(56, 189, 248, 0.3);
+  border-radius: 20px;
+}
+
+.hero-title {
+  font-family: 'Outfit', sans-serif;
+  font-size: 32px;
+  font-weight: 800;
+  color: #FFFFFF;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+}
+
+@media (min-width: 992px) {
+  .hero-title {
+    font-size: 46px;
+  }
+}
+
+.hero-desc {
+  font-size: 16px;
+  line-height: 1.65;
+  color: #CBD5E1;
+  max-width: 680px;
+}
+
+.btn-primary-custom {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 13px 28px;
+  background: #2563EB;
+  color: #FFFFFF !important;
+  font-weight: 700;
+  font-size: 14.5px;
+  border-radius: 8px;
+  border: none;
+  box-shadow: 0 4px 14px rgba(37, 99, 235, 0.4);
+  transition: var(--iit-transition);
+  text-decoration: none;
+}
+
+.btn-primary-custom:hover {
+  background: #1D4ED8;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(37, 99, 235, 0.6);
+  color: #FFFFFF !important;
+}
+
+.btn-outline-custom {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 26px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1.5px solid rgba(255, 255, 255, 0.35);
+  color: #FFFFFF !important;
+  font-weight: 600;
+  font-size: 14.5px;
+  border-radius: 8px;
+  backdrop-filter: blur(8px);
+  transition: var(--iit-transition);
+  text-decoration: none;
+}
+
+.btn-outline-custom:hover {
+  background: rgba(255, 255, 255, 0.2);
+  border-color: #FFFFFF;
+  color: #FFFFFF !important;
+  transform: translateY(-2px);
+}
+
+.carousel-nav-btn {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: rgba(15, 23, 42, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(8px);
+  color: #FFFFFF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  transition: var(--iit-transition);
+}
+
+.carousel-control-prev:hover .carousel-nav-btn,
+.carousel-control-next:hover .carousel-nav-btn {
+  background: #2563EB;
+  border-color: #2563EB;
+  transform: scale(1.1);
+}
+
+.hero-slider .carousel-indicators [data-bs-target] {
+  width: 28px;
+  height: 4px;
+  border-radius: 2px;
+  background-color: rgba(255, 255, 255, 0.4);
+  border: none;
+  margin: 0 4px 20px;
+  transition: var(--iit-transition);
+}
+
+.hero-slider .carousel-indicators .active {
+  width: 44px;
+  background-color: #38BDF8;
+}
+
+/* ==========================================================================
+   14. SUPPORT PILLARS & INSTITUTIONAL VALUES
+   ========================================================================== */
+.support-pillar-card {
+  background: #FFFFFF;
+  border: 1px solid var(--iit-border);
+  border-radius: var(--iit-radius-md);
+  padding: 24px 20px;
+  text-align: center;
+  transition: var(--iit-transition);
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.support-pillar-card:hover {
+  border-color: #93C5FD;
+  transform: translateY(-6px);
+  box-shadow: var(--iit-shadow-md);
+}
+
+.support-pillar-card img {
+  height: 48px;
+  width: auto;
+  margin-bottom: 14px;
+}
+
+.support-pillar-card h5 {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--iit-navy);
+  margin: 0;
+  line-height: 1.35;
+}
+
+/* ==========================================================================
+   15. LEADERSHIP SECTION (DIRECTOR & CEO)
+   ========================================================================== */
+.leadership-card {
+  background: #FFFFFF;
+  border: 1px solid var(--iit-border);
+  border-radius: var(--iit-radius-lg);
+  padding: 32px;
+  box-shadow: var(--iit-shadow-sm);
+  transition: var(--iit-transition);
+  height: 100%;
+}
+
+.leadership-card:hover {
+  border-color: #93C5FD;
+  box-shadow: var(--iit-shadow-md);
+}
+
+.leadership-header {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  margin-bottom: 20px;
+  border-bottom: 1px solid var(--iit-border);
+  padding-bottom: 18px;
+}
+
+.leadership-photo {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid #2563EB;
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2);
+  flex-shrink: 0;
+}
+
+.leadership-info h4 {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--iit-navy);
+  margin-bottom: 4px;
+}
+
+.leadership-info .leadership-role {
+  font-size: 13px;
+  font-weight: 600;
+  color: #2563EB;
+  margin-bottom: 4px;
+}
+
+.leadership-quote {
+  font-size: 14.5px;
+  line-height: 1.7;
+  color: var(--iit-muted);
+  font-style: italic;
+  position: relative;
+  padding-left: 20px;
+  border-left: 3px solid #E2E8F0;
+  margin-bottom: 20px;
+}
+
+/* ==========================================================================
+   16. CAMPUS INFRASTRUCTURE GALLERY
+   ========================================================================== */
+.campus-gallery-item {
+  position: relative;
+  border-radius: var(--iit-radius-md);
+  overflow: hidden;
+  height: 220px;
+  border: 1px solid var(--iit-border);
+}
+
+.campus-gallery-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.campus-gallery-item:hover img {
+  transform: scale(1.08);
+}
+
+.campus-gallery-overlay {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  padding: 16px 20px;
+  background: linear-gradient(0deg, rgba(10, 25, 47, 0.9) 0%, transparent 100%);
+  color: #FFFFFF;
+}
+
+.campus-gallery-overlay span {
+  font-size: 14px;
+  font-weight: 700;
+}
+

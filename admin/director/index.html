@@ -1,0 +1,712 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Director Command Center | CIMP - BIIF</title>
+    
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="../../assets/images/favicon.png">
+
+    <!-- Fonts & Icons -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Outfit:wght@600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Bootstrap CSS -->
+    <link href="../../assets/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    
+    <!-- Unified Admin CSS -->
+    <link href="../../assets/css/admin-dashboard.css" rel="stylesheet" type="text/css">
+    
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body class="admin-unified-body">
+
+    <!-- 1. Left Sidebar Navigation -->
+    <aside class="app-sidebar">
+        <div>
+            <!-- Institutional Brand Header -->
+            <div class="app-sidebar-brand">
+                <div class="app-sidebar-emblem">
+                    <img src="../../assets/images/CIMP-Icon.png" height="32" alt="CIMP Logo" style="object-fit: contain;">
+                    <div style="border-left: 1.5px solid #CBD5E1; height: 24px;"></div>
+                    <img src="../../assets/images/logo.png" height="28" alt="CIMP-BIIF Logo" style="object-fit: contain;">
+                </div>
+                <h4>CIMP - BIIF</h4>
+                <span>Director Command</span>
+            </div>
+
+            <!-- Page-Wise Structured Nav Tabs -->
+            <div class="app-nav-group">
+                <span class="app-nav-header">Workspaces</span>
+                
+                <button class="app-nav-btn active" onclick="switchView('tab-overview', this)">
+                    <span class="left-grp">
+                        <i class="fa-solid fa-chart-pie font-14"></i>
+                        <span>Executive Overview</span>
+                    </span>
+                </button>
+
+                <button class="app-nav-btn" onclick="switchView('tab-approvals', this)">
+                    <span class="left-grp">
+                        <i class="fa-solid fa-stamp font-14"></i>
+                        <span>Final Approvals</span>
+                    </span>
+                    <span class="app-nav-badge" id="navPendingBadge">0</span>
+                </button>
+
+                <button class="app-nav-btn" onclick="switchView('tab-startups', this)">
+                    <span class="left-grp">
+                        <i class="fa-solid fa-cubes font-14"></i>
+                        <span>Incubated Startups</span>
+                    </span>
+                </button>
+
+                <button class="app-nav-btn" onclick="switchView('tab-mentors', this)">
+                    <span class="left-grp">
+                        <i class="fa-solid fa-chalkboard-user font-14"></i>
+                        <span>Mentors &amp; Advisors</span>
+                    </span>
+                </button>
+
+                <span class="app-nav-header mt-3">Governance &amp; Reports</span>
+
+                <button class="app-nav-btn" onclick="switchView('tab-audit', this)">
+                    <span class="left-grp">
+                        <i class="fa-solid fa-shield-halved font-14"></i>
+                        <span>Audit &amp; Logs</span>
+                    </span>
+                </button>
+
+                <a href="javascript:void(0)" onclick="window.print()" class="app-nav-btn">
+                    <span class="left-grp">
+                        <i class="fa-solid fa-file-pdf font-14"></i>
+                        <span>Export Board Report</span>
+                    </span>
+                </a>
+            </div>
+        </div>
+
+        <!-- Logged In User Strip with Profile Edit -->
+        <div class="app-user-profile">
+            <div class="d-flex align-items-center gap-2" style="cursor: pointer;" onclick="CIMP_DB.openProfileModal()" title="Click to Edit Profile &amp; Change Password">
+                <div class="d-flex align-items-center justify-content-center rounded-circle" style="width: 34px; height: 34px; background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.2);">
+                    <i class="fa-solid fa-user-tie text-white font-14"></i>
+                </div>
+                <div>
+                    <div class="font-12 fw-bold text-white" id="sidebarUserName">Dr. Rana Singh</div>
+                    <div class="font-11 text-white-50" id="sidebarUserTitle">Executive Director</div>
+                </div>
+            </div>
+            <div class="d-flex align-items-center gap-2">
+                <button class="btn btn-link p-0 text-white-50 font-13" onclick="CIMP_DB.openProfileModal()" title="Edit Profile &amp; Password">
+                    <i class="fa-solid fa-user-pen"></i>
+                </button>
+                <a href="../../login.html" class="text-white-50 font-14" title="Sign Out">
+                    <i class="fa-solid fa-arrow-right-from-bracket"></i>
+                </a>
+            </div>
+        </div>
+    </aside>
+
+    <!-- 2. Main Workspace Viewport -->
+    <div class="app-main-wrap">
+        
+        <!-- Topbar Header -->
+        <header class="app-topbar">
+            <!-- Global Omnisearch -->
+            <div class="app-top-search">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <input type="text" id="dirSearchInp" placeholder="Search startups, founders, sector, mentors..." oninput="handleOmniSearch(this.value)">
+            </div>
+
+            <!-- Right Controls: Executive Profile -->
+            <div class="d-flex align-items-center gap-3">
+                <div class="d-none d-md-flex flex-column align-items-end" style="cursor: pointer;" onclick="CIMP_DB.openProfileModal()" title="Click to Edit Profile &amp; Password">
+                    <span class="font-13 fw-bold text-dark" id="topbarUserName" style="line-height:1.2;">Dr. Rana Singh</span>
+                    <span class="font-11 text-muted" id="topbarUserTitle" style="line-height:1.1;">Executive Director <i class="fa-solid fa-pen-to-square ms-1 text-primary font-10"></i></span>
+                </div>
+            </div>
+        </header>
+
+        <!-- Viewport Container -->
+        <main class="app-viewport-container">
+
+            <!-- VIEW 1: EXECUTIVE OVERVIEW -->
+            <div class="app-tab-pane active" id="tab-overview">
+                
+                <div class="mb-4">
+                    <h3 class="fw-bold font-20 mb-1" style="font-family: 'Outfit', sans-serif;">Executive Overview</h3>
+                    <p class="text-muted font-13 mb-0">High-level institutional traction, revenue growth, and incubation metrics.</p>
+                </div>
+
+                <!-- 6 Extended Executive Metric Cards -->
+                <div class="row g-3 mb-4">
+                    <div class="col-md-4 col-lg-2">
+                        <div class="app-kpi-card">
+                            <span class="app-kpi-lbl">Total Incubated</span>
+                            <div class="app-kpi-val" id="ovTotalStartups">52</div>
+                            <div class="app-kpi-sub"><i class="fa-solid fa-check text-success"></i> All Cohorts</div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-lg-2">
+                        <div class="app-kpi-card">
+                            <span class="app-kpi-lbl">Active In Hub</span>
+                            <div class="app-kpi-val" id="ovActiveStartups">30</div>
+                            <div class="app-kpi-sub"><i class="fa-solid fa-circle-dot text-primary"></i> Cohort 2026</div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-lg-2">
+                        <div class="app-kpi-card">
+                            <span class="app-kpi-lbl">Portfolio Revenue</span>
+                            <div class="app-kpi-val" id="ovRevenue">â‚¹21.49 Cr</div>
+                            <div class="app-kpi-sub" style="color:#059669;"><i class="fa-solid fa-arrow-trend-up"></i> +28% YoY</div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-lg-2">
+                        <div class="app-kpi-card">
+                            <span class="app-kpi-lbl">Capital Disbursed</span>
+                            <div class="app-kpi-val" id="ovCapital">â‚¹7.20 Cr</div>
+                            <div class="app-kpi-sub"><i class="fa-solid fa-vault text-primary"></i> Grants + Seed</div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-lg-2">
+                        <div class="app-kpi-card">
+                            <span class="app-kpi-lbl">Jobs Created</span>
+                            <div class="app-kpi-val" id="ovJobs">397+</div>
+                            <div class="app-kpi-sub"><i class="fa-solid fa-users text-dark"></i> Direct Roles</div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-lg-2">
+                        <div class="app-kpi-card">
+                            <span class="app-kpi-lbl">IPR &amp; Patents</span>
+                            <div class="app-kpi-val">14</div>
+                            <div class="app-kpi-sub"><i class="fa-solid fa-award text-success"></i> Filed &amp; Granted</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Charts Section -->
+                <div class="row g-3 mb-4">
+                    <div class="col-lg-8">
+                        <div class="app-table-card p-3">
+                            <div class="d-flex align-items-center justify-content-between mb-3">
+                                <h5 class="fw-bold font-14 mb-0">Portfolio Valuation &amp; Revenue Run-Rate (â‚¹ Lakhs)</h5>
+                                <span class="font-11 text-muted">FY 2024â€“2026</span>
+                            </div>
+                            <div style="height: 230px;">
+                                <canvas id="chartRevenue"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="app-table-card p-3">
+                            <div class="d-flex align-items-center justify-content-between mb-3">
+                                <h5 class="fw-bold font-14 mb-0">Sector Distribution</h5>
+                                <span class="font-11 text-muted">Active Portfolio</span>
+                            </div>
+                            <div style="height: 230px;">
+                                <canvas id="chartSector"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tabular Recent Activity Summary -->
+                <div class="app-table-card">
+                    <div class="app-table-header">
+                        <h5>Recent Portfolio Highlights</h5>
+                        <button class="btn btn-sm btn-outline-secondary font-12" onclick="switchView('tab-startups', document.querySelectorAll('.app-nav-btn')[2])">
+                            View All Ventures <i class="fa-solid fa-arrow-right font-11 ms-1"></i>
+                        </button>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="app-table">
+                            <thead>
+                                <tr>
+                                    <th>Enterprise</th>
+                                    <th>Founder</th>
+                                    <th>Sector &amp; Stage</th>
+                                    <th>Annual Revenue</th>
+                                    <th>Funding</th>
+                                    <th>Assigned Mentor</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tblRecentOverviewBody">
+                                <!-- Populated dynamically -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- VIEW 2: FINAL APPROVALS -->
+            <div class="app-tab-pane" id="tab-approvals">
+                
+                <div class="d-flex align-items-center justify-content-between mb-4 flex-wrap gap-2">
+                    <div>
+                        <h3 class="fw-bold font-20 mb-1" style="font-family: 'Outfit', sans-serif;">Executive Final Approval Queue</h3>
+                        <p class="text-muted font-13 mb-0">Review intake applications evaluated by the Incubation Manager for final executive sign-off.</p>
+                    </div>
+                    <div class="d-flex align-items-center gap-2">
+                        <select class="app-filter-select" id="filterApprovalSector" onchange="renderApprovalsTable()">
+                            <option value="">All Sectors</option>
+                            <option value="AgriTech">AgriTech</option>
+                            <option value="Technology">Technology</option>
+                            <option value="HealthTech">HealthTech</option>
+                            <option value="E-commerce">E-commerce</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="app-table-card">
+                    <div class="table-responsive">
+                        <table class="app-table">
+                            <thead>
+                                <tr>
+                                    <th>App Ref</th>
+                                    <th>Startup Enterprise</th>
+                                    <th>Founder &amp; Location</th>
+                                    <th>Sector</th>
+                                    <th>Manager Score</th>
+                                    <th>Funding Req.</th>
+                                    <th>Manager Evaluation Notes</th>
+                                    <th>Executive Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tblApprovalsBody">
+                                <!-- Loaded dynamically from CIMP_DB -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- VIEW 3: INCUBATED STARTUPS -->
+            <div class="app-tab-pane" id="tab-startups">
+                
+                <div class="d-flex align-items-center justify-content-between mb-4 flex-wrap gap-2">
+                    <div>
+                        <h3 class="fw-bold font-20 mb-1" style="font-family: 'Outfit', sans-serif;">Incubated Startups Directory</h3>
+                        <p class="text-muted font-13 mb-0">Complete roster of active and graduated ventures supported by CIMP-BIIF.</p>
+                    </div>
+                    <div class="d-flex align-items-center gap-2">
+                        <input type="text" class="app-filter-select" id="searchStartupTbl" placeholder="Filter by name..." oninput="renderStartupsView()" style="width: 170px;">
+                        <select class="app-filter-select" id="filterSectorSelect" onchange="renderStartupsView()">
+                            <option value="">All Sectors</option>
+                            <option value="AgriTech">AgriTech</option>
+                            <option value="Technology">Technology</option>
+                            <option value="HealthTech">HealthTech</option>
+                            <option value="E-commerce">E-commerce</option>
+                            <option value="CleanTech">CleanTech</option>
+                        </select>
+                        <select class="app-filter-select" id="filterStageSelect" onchange="renderStartupsView()">
+                            <option value="">All Stages</option>
+                            <option value="Revenue Stage">Revenue Stage</option>
+                            <option value="Scaling">Scaling</option>
+                            <option value="Idea Stage">Idea Stage</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="app-table-card">
+                    <div class="table-responsive">
+                        <table class="app-table">
+                            <thead>
+                                <tr>
+                                    <th>Startup Enterprise</th>
+                                    <th>Founder</th>
+                                    <th>Sector &amp; Stage</th>
+                                    <th>Annual Revenue</th>
+                                    <th>Funding Raised</th>
+                                    <th>Assigned Mentor</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tblStartupsBody">
+                                <!-- Loaded dynamically -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- VIEW 4: MENTORS & ADVISORS -->
+            <div class="app-tab-pane" id="tab-mentors">
+                
+                <div class="d-flex align-items-center justify-content-between mb-4 flex-wrap gap-2">
+                    <div>
+                        <h3 class="fw-bold font-20 mb-1" style="font-family: 'Outfit', sans-serif;">Empaneled Mentors &amp; Advisory Council</h3>
+                        <p class="text-muted font-13 mb-0">Advisory council members guiding incubated enterprises across domains.</p>
+                    </div>
+                    <div class="d-flex align-items-center gap-2">
+                        <input type="text" class="app-filter-select" id="searchMentorTbl" placeholder="Filter mentors..." oninput="renderMentorsView()" style="width: 180px;">
+                    </div>
+                </div>
+
+                <div class="app-table-card">
+                    <div class="table-responsive">
+                        <table class="app-table">
+                            <thead>
+                                <tr>
+                                    <th>Mentor Name</th>
+                                    <th>Affiliation / Title</th>
+                                    <th>Domain Expertise</th>
+                                    <th>Assigned Ventures</th>
+                                    <th>Advisory Hours</th>
+                                    <th>Empanelment Status</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tblMentorsBody">
+                                <!-- Loaded dynamically -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- VIEW 5: AUDIT & LOGS -->
+            <div class="app-tab-pane" id="tab-audit">
+                
+                <div class="d-flex align-items-center justify-content-between mb-4 flex-wrap gap-2">
+                    <div>
+                        <h3 class="fw-bold font-20 mb-1" style="font-family: 'Outfit', sans-serif;">System Audit &amp; Governance Trail</h3>
+                        <p class="text-muted font-13 mb-0">Immutable chronological record of logins, approvals, and administrative actions.</p>
+                    </div>
+                    <button class="btn btn-sm btn-outline-secondary font-12" onclick="exportAuditCSV()">
+                        <i class="fa-solid fa-file-csv me-1"></i> Export CSV
+                    </button>
+                </div>
+
+                <div class="app-table-card">
+                    <div class="table-responsive">
+                        <table class="app-table">
+                            <thead>
+                                <tr>
+                                    <th>Timestamp</th>
+                                    <th>Actor</th>
+                                    <th>Role</th>
+                                    <th>Action Type</th>
+                                    <th>Audit Details</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tblAuditBody">
+                                <!-- Loaded dynamically -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+
+        </main>
+    </div>
+
+    <!-- Scripts -->
+    <script src="../../assets/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="../../assets/js/cimp-db.js"></script>
+
+    <script>
+        let revChartInstance = null;
+        let secChartInstance = null;
+
+        function switchView(tabId, btnEl) {
+            document.querySelectorAll('.app-tab-pane').forEach(p => p.classList.remove('active'));
+            document.querySelectorAll('.app-nav-btn').forEach(b => b.classList.remove('active'));
+            
+            const targetPane = document.getElementById(tabId);
+            if (targetPane) targetPane.classList.add('active');
+            if (btnEl) btnEl.classList.add('active');
+
+            if (tabId === 'tab-overview') renderOverviewKPIs();
+            if (tabId === 'tab-startups') renderStartupsView();
+            if (tabId === 'tab-mentors') renderMentorsView();
+            if (tabId === 'tab-audit') renderAuditView();
+            if (tabId === 'tab-approvals') renderApprovalsTable();
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            if (window.CIMP_DB) {
+                window.CIMP_DB.setCurrentUser('usr-dir');
+                window.CIMP_DB.syncDOMUserProfile('usr-dir');
+            }
+            refreshAllData();
+            initExecutiveCharts();
+
+            window.addEventListener('cimp:db_updated', refreshAllData);
+        });
+
+        function refreshAllData() {
+            if (window.CIMP_DB) window.CIMP_DB.syncDOMUserProfile('usr-dir');
+            renderOverviewKPIs();
+            renderApprovalsTable();
+            renderStartupsView();
+            renderMentorsView();
+            renderAuditView();
+        }
+
+        function renderOverviewKPIs() {
+            if (!window.CIMP_DB) return;
+            const analytics = window.CIMP_DB.getAnalytics ? window.CIMP_DB.getAnalytics() : { totalIncubated: 52, activeCount: 30, totalRevenueFormatted: 'â‚¹ 21.49 Cr', totalFundingFormatted: 'â‚¹ 7.20 Cr', totalJobs: 397 };
+            
+            document.getElementById('ovTotalStartups').innerText = analytics.totalIncubated || 52;
+            document.getElementById('ovActiveStartups').innerText = analytics.activeCount || 30;
+            document.getElementById('ovRevenue').innerText = analytics.totalRevenueFormatted || 'â‚¹21.49 Cr';
+            document.getElementById('ovCapital').innerText = analytics.totalFundingFormatted || 'â‚¹7.20 Cr';
+            document.getElementById('ovJobs').innerText = (analytics.totalJobs || 397) + '+';
+
+            const tbody = document.getElementById('tblRecentOverviewBody');
+            if (tbody) {
+                const startups = window.CIMP_DB.getStartups().slice(0, 4);
+                let html = '';
+                startups.forEach(s => {
+                    html += `
+                        <tr>
+                            <td><strong>${s.name}</strong><div class="font-11 text-muted">${s.location || 'Patna'}</div></td>
+                            <td>${s.founder}</td>
+                            <td><span class="font-12 fw-semibold">${s.sector}</span><div class="font-11 text-muted">${s.stage}</div></td>
+                            <td><strong>${s.revenue}</strong></td>
+                            <td><span class="text-primary fw-bold">${s.fundingRaised}</span></td>
+                            <td>${s.assignedMentor || 'Dr. Alok Kumar'}</td>
+                            <td><span class="font-12 fw-semibold text-success"><i class="fa-solid fa-circle font-8 me-1"></i> Active</span></td>
+                        </tr>
+                    `;
+                });
+                tbody.innerHTML = html;
+            }
+        }
+
+        function renderApprovalsTable() {
+            if (!window.CIMP_DB) return;
+            const sectorFilter = document.getElementById('filterApprovalSector') ? document.getElementById('filterApprovalSector').value : '';
+            let apps = window.CIMP_DB.getApplications();
+            let pendingApps = apps.filter(a => a.status === 'Pending Director Approval' || a.status === 'Under Evaluation');
+
+            if (sectorFilter) pendingApps = pendingApps.filter(a => a.sector === sectorFilter);
+            
+            const badge = document.getElementById('navPendingBadge');
+            if (badge) badge.innerText = pendingApps.length;
+
+            const tbody = document.getElementById('tblApprovalsBody');
+            if (!tbody) return;
+
+            if (pendingApps.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="8" class="text-center py-4 text-muted font-13"><i class="fa-solid fa-circle-check text-success me-2"></i> All intake applications have been processed and signed off.</td></tr>';
+                return;
+            }
+
+            let html = '';
+            pendingApps.forEach(app => {
+                html += `
+                    <tr>
+                        <td><code>${app.id}</code></td>
+                        <td>
+                            <strong class="font-14 text-dark">${app.startupName}</strong>
+                            <div class="font-11 text-muted" style="max-width:240px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">${app.productDescription}</div>
+                        </td>
+                        <td>${app.founderName}<div class="font-11 text-muted">${app.city}, ${app.state}</div></td>
+                        <td><span class="font-12 fw-semibold text-dark">${app.sector}</span></td>
+                        <td><span class="font-12 fw-bold text-dark"><i class="fa-solid fa-circle font-8 text-warning me-1"></i> ${app.managerScore || 88}/100</span></td>
+                        <td><strong class="text-primary font-12">${app.fundingRequired || 'â‚¹ 25 Lakhs'}</strong></td>
+                        <td style="max-width: 250px;"><div class="font-12 text-muted" style="line-height:1.4;">${app.managerNotes || 'Recommended for Level-2 seed incubation.'}</div></td>
+                        <td>
+                            <div class="d-flex align-items-center gap-2">
+                                <button class="app-btn-action" onclick="approveApp('${app.id}')">
+                                    <i class="fa-solid fa-check me-1"></i> Approve
+                                </button>
+                                <button class="btn btn-sm btn-outline-danger font-11 py-1" onclick="rejectApp('${app.id}')">
+                                    Reject
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                `;
+            });
+            tbody.innerHTML = html;
+        }
+
+        function approveApp(appId) {
+            if (!confirm("Grant Executive Sign-Off for this venture? It will automatically be converted to an Active Incubatee and published live to the Startups Directory.")) return;
+            const res = window.CIMP_DB.directorApprove(appId, "Executive sign-off granted by Director.");
+            if (res) {
+                alert(`âœ… Final approval granted! "${res.app.startupName}" is now active in the Startups Directory.`);
+                refreshAllData();
+            }
+        }
+
+        function rejectApp(appId) {
+            const reason = prompt("Enter feedback / rejection reason for the applicant:", "Does not meet current cohort criteria.");
+            if (reason) {
+                window.CIMP_DB.rejectApplication(appId, reason);
+                refreshAllData();
+            }
+        }
+
+        function renderStartupsView() {
+            if (!window.CIMP_DB) return;
+            const searchVal = document.getElementById('searchStartupTbl') ? document.getElementById('searchStartupTbl').value.toLowerCase().trim() : '';
+            const filterSector = document.getElementById('filterSectorSelect') ? document.getElementById('filterSectorSelect').value : '';
+            const filterStage = document.getElementById('filterStageSelect') ? document.getElementById('filterStageSelect').value : '';
+
+            let startups = window.CIMP_DB.getStartups();
+            if (searchVal) startups = startups.filter(s => s.name.toLowerCase().includes(searchVal) || s.founder.toLowerCase().includes(searchVal));
+            if (filterSector) startups = startups.filter(s => s.sector === filterSector);
+            if (filterStage) startups = startups.filter(s => s.stage === filterStage);
+
+            const tbody = document.getElementById('tblStartupsBody');
+            if (!tbody) return;
+
+            let html = '';
+            startups.forEach(s => {
+                html += `
+                    <tr>
+                        <td><strong>${s.name}</strong><div class="font-11 text-muted">${s.location || 'Patna, Bihar'}</div></td>
+                        <td>${s.founder}</td>
+                        <td><span class="font-12 fw-semibold">${s.sector}</span><div class="font-11 text-muted">${s.stage}</div></td>
+                        <td><strong>${s.revenue || 'â‚¹ 42 Lakhs'}</strong></td>
+                        <td><span class="text-primary fw-bold">${s.fundingRaised || 'â‚¹ 25 Lakhs'}</span></td>
+                        <td>${s.assignedMentor || 'Dr. Alok Kumar'}</td>
+                        <td><span class="font-12 fw-semibold text-success"><i class="fa-solid fa-circle font-8 me-1"></i> ${s.status || 'Active'}</span></td>
+                    </tr>
+                `;
+            });
+            tbody.innerHTML = html || '<tr><td colspan="7" class="text-center py-4 text-muted">No matching startups found.</td></tr>';
+        }
+
+        function renderMentorsView() {
+            if (!window.CIMP_DB) return;
+            const searchVal = document.getElementById('searchMentorTbl') ? document.getElementById('searchMentorTbl').value.toLowerCase().trim() : '';
+            let mentors = window.CIMP_DB.getMentors();
+            if (searchVal) mentors = mentors.filter(m => m.name.toLowerCase().includes(searchVal) || (m.expertise && m.expertise.toLowerCase().includes(searchVal)));
+
+            const tbody = document.getElementById('tblMentorsBody');
+            if (!tbody) return;
+
+            let html = '';
+            mentors.forEach(m => {
+                const assigned = (m.assignedStartups || []).join(', ') || 'Available on demand';
+                html += `
+                    <tr>
+                        <td><strong class="font-13">${m.name}</strong></td>
+                        <td class="text-muted font-12">${m.title || 'Senior Advisory Faculty'}</td>
+                        <td><span class="font-12 fw-semibold text-dark">${m.expertise || 'Strategy'}</span></td>
+                        <td class="font-12 text-primary">${assigned}</td>
+                        <td><strong>12 Hours / Mo</strong></td>
+                        <td><span class="font-12 fw-semibold text-success"><i class="fa-solid fa-circle font-8 me-1"></i> Empaneled</span></td>
+                    </tr>
+                `;
+            });
+            tbody.innerHTML = html || '<tr><td colspan="6" class="text-center py-4 text-muted">No matching mentors found.</td></tr>';
+        }
+
+        function renderAuditView() {
+            if (!window.CIMP_DB) return;
+            const logs = window.CIMP_DB.getAuditLogs ? window.CIMP_DB.getAuditLogs() : [];
+            const tbody = document.getElementById('tblAuditBody');
+            if (!tbody) return;
+
+            let html = '';
+            logs.slice(0, 20).forEach(l => {
+                html += `
+                    <tr>
+                        <td><code>${new Date(l.timestamp).toLocaleTimeString()}</code></td>
+                        <td><strong>${l.actor}</strong></td>
+                        <td><span class="font-11 text-muted fw-semibold">${l.role}</span></td>
+                        <td><code>${l.action}</code></td>
+                        <td class="font-12 text-muted">${l.details}</td>
+                    </tr>
+                `;
+            });
+            tbody.innerHTML = html;
+        }
+
+        function exportAuditCSV() {
+            const logs = window.CIMP_DB.getAuditLogs ? window.CIMP_DB.getAuditLogs() : [];
+            let csv = "Timestamp,Actor,Role,Action,Details\n";
+            logs.forEach(l => {
+                csv += `"${l.timestamp}","${l.actor}","${l.role}","${l.action}","${l.details.replace(/"/g, '""')}"\n`;
+            });
+            const blob = new Blob([csv], { type: 'text/csv' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.setAttribute('href', url);
+            a.setAttribute('download', 'CIMP_BIIF_Audit_Trail.csv');
+            a.click();
+        }
+
+        function handleOmniSearch(query) {
+            const q = query.trim().toLowerCase();
+            if (!q) { renderStartupsView(); return; }
+            switchView('tab-startups', document.querySelectorAll('.app-nav-btn')[2]);
+            const input = document.getElementById('searchStartupTbl');
+            if (input) input.value = q;
+            renderStartupsView();
+        }
+
+        function initExecutiveCharts() {
+            const revCanvas = document.getElementById('chartRevenue');
+            if (revCanvas) {
+                if (revChartInstance) revChartInstance.destroy();
+                revChartInstance = new Chart(revCanvas, {
+                    type: 'line',
+                    data: {
+                        labels: ['Q1 24', 'Q2 24', 'Q3 24', 'Q4 24', 'Q1 25', 'Q2 25', 'Q3 25', 'Q4 25', 'Q1 26', 'Q2 26'],
+                        datasets: [{
+                            label: 'Quarterly Revenue (â‚¹ Lakhs)',
+                            data: [120, 165, 210, 280, 390, 480, 620, 810, 1150, 1480],
+                            borderColor: '#1E3A8A',
+                            backgroundColor: 'rgba(30, 58, 138, 0.05)',
+                            fill: true,
+                            tension: 0.3,
+                            pointRadius: 3
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: { legend: { display: false } },
+                        scales: {
+                            y: { grid: { color: '#F1F5F9' }, ticks: { font: { size: 10 } } },
+                            x: { grid: { display: false }, ticks: { font: { size: 10 } } }
+                        }
+                    }
+                });
+            }
+
+            const secCanvas = document.getElementById('chartSector');
+            if (secCanvas) {
+                if (secChartInstance) secChartInstance.destroy();
+                secChartInstance = new Chart(secCanvas, {
+                    type: 'doughnut',
+                    data: {
+                        labels: ['AgriTech', 'Technology', 'HealthTech', 'CleanTech', 'E-commerce'],
+                        datasets: [{
+                            data: [35, 30, 15, 10, 10],
+                            backgroundColor: ['#1E3A8A', '#0D9488', '#EA580C', '#10B981', '#64748B'],
+                            borderWidth: 2,
+                            borderColor: '#FFFFFF'
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: { legend: { position: 'bottom', labels: { boxWidth: 10, font: { size: 10 } } } },
+                        cutout: '72%'
+                    }
+                });
+            }
+        }
+    </script>
+</body>
+</html>
+

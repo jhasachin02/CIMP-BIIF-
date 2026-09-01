@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 90" width="100%" height="100%">
+  <!-- Exact Authentic IIC (Institution's Innovation Council) Ministry of Education Logo -->
+  <g transform="translate(10, 5)">
+    <!-- Yellow/Orange Head & Arm Left -->
+    <circle cx="28" cy="20" r="10" fill="#FDB813"/>
+    <path d="M22,33 C32,37 42,47 42,65 C32,58 20,50 15,38 Z" fill="#FDB813"/>
+
+    <!-- Blue Head & Body Right -->
+    <circle cx="58" cy="18" r="10" fill="#2E3192"/>
+    <path d="M58,30 C62,45 52,65 24,78 C35,62 46,45 42,32 Z" fill="#2E3192"/>
+
+    <!-- Red Crescent Swoop Bottom -->
+    <path d="M20,60 C26,72 38,78 48,78 C36,82 22,78 15,66 Z" fill="#ED1C24"/>
+  </g>
+
+  <!-- Official Typography -->
+  <text x="90" y="32" font-family="'Outfit', 'Plus Jakarta Sans', Arial, sans-serif" font-size="16" font-weight="900" fill="#2E3192" letter-spacing="0.5">
+    INSTITUTION'S
+  </text>
+  <text x="90" y="52" font-family="'Outfit', 'Plus Jakarta Sans', Arial, sans-serif" font-size="16" font-weight="900" fill="#2E3192" letter-spacing="0.5">
+    INNOVATION COUNCIL
+  </text>
+  <text x="90" y="70" font-family="'Plus Jakarta Sans', Arial, sans-serif" font-size="11.5" font-weight="600" fill="#475569" letter-spacing="0.2">
+    (Ministry of Education Initiative)
+  </text>
+</svg>

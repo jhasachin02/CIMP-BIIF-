@@ -1,0 +1,96 @@
+﻿<!DOCTYPE html>
+<html dir="ltr">
+
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <!-- Tell the browser to be responsive to screen width -->
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="">
+        <title>Mentor Login | CIMP Business Incubation and Innovation Foundation</title>
+
+        <!-- Favicon icon -->
+        <link rel="icon" type="image/png" sizes="16x16" href="assets/images/favicon.png">
+
+        <!-- Custom CSS -->
+        <link href="assets/css/style.min.css" rel="stylesheet">
+        <link href="assets/css/site-overrides.css" rel="stylesheet">
+        <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+        <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    
+    <!-- Icon Font CDN Fallbacks & Modern Enhancements -->
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.8/css/line.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/MaterialDesign-Webfont/7.2.96/css/materialdesignicons.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="assets/css/ui-enhancements.css">
+
+</head>
+
+    <body>
+        <div class="main-wrapper" style="background-color: #f5f8fa;
+             background-image: url(assets/images/mentor-login-bg-01.png);
+             background-repeat: no-repeat;
+             background-position: bottom center;
+             background-size: cover;">
+
+            <!-- Login box.scss -->
+            <!-- ============================================================== -->
+            <div class="auth-wrapper d-flex no-block justify-content-center align-items-center">
+                <div class="auth-box">
+                    <div id="loginform">
+                        <div class="logo">
+                            <span class="db">
+                                <img src="assets/images/CIMP-logo.png" height="120" class="mb-2" alt="logo" />
+                            </span>
+                            <h3 class="font-medium mt-3">Mentor Sign In</h3>
+                        </div>
+                        <!-- Form -->
+                        <div class="row">
+                            <div class="col-12">
+                                <form method="POST" class="form w-100 form-horizontal mt-2 pt-1 needs-validation" novalidate="novalidate" id="loginForm" action="/mentor/index.php" data-toggle="validate" role="form">
+                                    <div class="form-group mb-3">
+                                        <label>Username</label>
+                                        <input type="text" name="username" class="form-control" id="tb-email" placeholder="Username" autocomplete="off" required />
+                                    </div>
+                                    <div class="form-group mb-3">
+                                        <label>Password</label>
+                                        <input type="password" name="password" class="form-control" id="password" placeholder="******" autocomplete="off" required />
+                                    </div>
+                                    <div class="d-flex align-items-stretch button-group mt-2 pt-2">
+                                        <button type="submit" name="login" value="Login" class="btn btn-info btn-lg btn-block">Sign in</button>                                            
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- ============================================================== -->
+            <!-- Login box.scss -->
+            <!-- ============================================================== -->
+        </div>
+
+        <!-- ============================================================== -->
+        <!-- All Required js -->
+        <!-- ============================================================== -->
+        <script src="assets/libs/jquery/dist/jquery.min.js"></script>
+        <!-- Core JavaScript -->
+        <script src="assets/libs/popper.js/dist/umd/popper.min.js"></script>
+        <script src="assets/libs/bootstrap/dist/js/bootstrap.min.js"></script>
+
+        <script src="assets/libs/jquery-validation/jquery.validate.min.js"></script>
+        <script src="assets/libs/jquery-validation/additional-methods.min.js"></script>
+
+        <!--begin::Custom Javascript(used for this page only)-->
+        <script src="assets/js/validation/form-validation.js"></script>
+        <!--end::Custom Javascript-->
+    
+    <!-- Clone Enhancements JS -->
+    <script src="assets/js/clone-enhancements.js"></script>
+
+</body>
+</html>

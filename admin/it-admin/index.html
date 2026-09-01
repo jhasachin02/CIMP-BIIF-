@@ -1,0 +1,775 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IT &amp; System Administration | CIMP - BIIF</title>
+    
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="../../assets/images/favicon.png">
+
+    <!-- Fonts & Icons -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Outfit:wght@600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Bootstrap CSS -->
+    <link href="../../assets/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    
+    <!-- Unified Admin CSS -->
+    <link href="../../assets/css/admin-dashboard.css" rel="stylesheet" type="text/css">
+</head>
+
+<body class="admin-unified-body">
+
+    <!-- 1. Left Sidebar Navigation -->
+    <aside class="app-sidebar">
+        <div>
+            <!-- Institutional Brand Header -->
+            <div class="app-sidebar-brand">
+                <div class="app-sidebar-emblem">
+                    <img src="../../assets/images/CIMP-Icon.png" height="32" alt="CIMP Logo" style="object-fit: contain;">
+                    <div style="border-left: 1.5px solid #CBD5E1; height: 24px;"></div>
+                    <img src="../../assets/images/logo.png" height="28" alt="CIMP-BIIF Logo" style="object-fit: contain;">
+                </div>
+                <h4>CIMP - BIIF</h4>
+                <span>IT &amp; Security Stack</span>
+            </div>
+
+            <!-- Page-Wise Structured Nav Tabs -->
+            <div class="app-nav-group">
+                <span class="app-nav-header">Administration</span>
+                
+                <button class="app-nav-btn active" onclick="switchItView('tab-it-users', this)">
+                    <span class="left-grp">
+                        <i class="fa-solid fa-users-gear font-14"></i>
+                        <span>RBAC &amp; System Users</span>
+                    </span>
+                </button>
+
+                <button class="app-nav-btn" onclick="switchItView('tab-it-audit', this)">
+                    <span class="left-grp">
+                        <i class="fa-solid fa-shield-halved font-14"></i>
+                        <span>Audit &amp; Security Trail</span>
+                    </span>
+                </button>
+
+                <button class="app-nav-btn" onclick="switchItView('tab-it-backup', this)">
+                    <span class="left-grp">
+                        <i class="fa-solid fa-database font-14"></i>
+                        <span>Database &amp; Backups</span>
+                    </span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Logged In User Strip with Profile Edit -->
+        <div class="app-user-profile">
+            <div class="d-flex align-items-center gap-2" style="cursor: pointer;" onclick="CIMP_DB.openProfileModal()" title="Click to Edit Profile &amp; Change Password">
+                <div class="d-flex align-items-center justify-content-center rounded-circle" style="width: 34px; height: 34px; background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.2);">
+                    <i class="fa-solid fa-user-shield text-white font-14"></i>
+                </div>
+                <div>
+                    <div class="font-12 fw-bold text-white" id="sidebarUserName">IT Admin</div>
+                    <div class="font-11 text-white-50" id="sidebarUserTitle">Lead IT Admin</div>
+                </div>
+            </div>
+            <div class="d-flex align-items-center gap-2">
+                <button class="btn btn-link p-0 text-white-50 font-13" onclick="CIMP_DB.openProfileModal()" title="Edit Profile &amp; Password">
+                    <i class="fa-solid fa-user-pen"></i>
+                </button>
+                <a href="../../login.html" class="text-white-50 font-14" title="Sign Out">
+                    <i class="fa-solid fa-arrow-right-from-bracket"></i>
+                </a>
+            </div>
+        </div>
+    </aside>
+
+    <!-- 2. Main Workspace Viewport -->
+    <div class="app-main-wrap">
+        
+        <!-- Topbar Header -->
+        <header class="app-topbar">
+            <div class="d-flex align-items-center gap-2">
+                <h5 class="mb-0 fw-bold font-15 text-dark"><i class="fa-solid fa-shield-halved text-primary me-2"></i> Central IT Security &amp; Access Governance</h5>
+            </div>
+
+            <div class="d-flex align-items-center gap-3">
+                <button class="btn btn-sm btn-outline-danger font-12 fw-semibold" onclick="confirmResetDB()">
+                    <i class="fa-solid fa-rotate-left me-1"></i> Reset Seed DB
+                </button>
+                <button class="app-btn-action" onclick="exportDatabaseJson()">
+                    <i class="fa-solid fa-download me-1"></i> Backup JSON
+                </button>
+
+                <div class="d-none d-md-flex flex-column align-items-end" style="cursor: pointer;" onclick="CIMP_DB.openProfileModal()" title="Click to Edit Profile &amp; Password">
+                    <span class="font-13 fw-bold text-dark" id="topbarUserName" style="line-height:1.2;">IT Admin</span>
+                    <span class="font-11 text-muted" id="topbarUserTitle" style="line-height:1.1;">Lead System Administrator <i class="fa-solid fa-pen-to-square ms-1 text-primary font-10"></i></span>
+                </div>
+            </div>
+        </header>
+
+        <!-- Viewport Container -->
+        <main class="app-viewport-container">
+
+            <!-- TAB 1: USERS & RBAC TABLE -->
+            <div class="app-tab-pane active" id="tab-it-users">
+                <div class="d-flex align-items-center justify-content-between mb-4 flex-wrap gap-3">
+                    <div>
+                        <h3 class="fw-bold font-20 mb-1" style="font-family: 'Outfit', sans-serif;">Authorized Ecosystem Users &amp; Credentials</h3>
+                        <p class="text-muted font-13 mb-0">Role-Based Access Control (RBAC), User ID &amp; Password provisioning, and security management.</p>
+                    </div>
+                    <div class="d-flex align-items-center gap-2 flex-wrap">
+                        <div class="input-group input-group-sm" style="width: 220px;">
+                            <span class="input-group-text bg-white border-end-0"><i class="fa-solid fa-magnifying-glass text-muted font-11"></i></span>
+                            <input type="text" id="itUserFilterInp" class="form-control border-start-0 font-12" placeholder="Search user by name, email..." oninput="filterItUsers()">
+                        </div>
+                        <select id="itRoleFilterSel" class="form-select form-select-sm font-12" style="width: 140px;" onchange="filterItUsers()">
+                            <option value="">All Roles</option>
+                            <option value="Director">Director</option>
+                            <option value="Incubation Manager">Incubation Manager</option>
+                            <option value="IT Admin">IT Admin</option>
+                            <option value="Startup">Startup Founder</option>
+                            <option value="Mentor">Faculty Mentor</option>
+                        </select>
+                        <button class="app-btn-action" onclick="openCreateUserModal()">
+                            <i class="fa-solid fa-user-plus me-1"></i> Create User &amp; Password
+                        </button>
+                    </div>
+                </div>
+
+                <div class="app-table-card">
+                    <div class="table-responsive">
+                        <table class="app-table">
+                            <thead>
+                                <tr>
+                                    <th>User Profile</th>
+                                    <th>Official Email (Login ID)</th>
+                                    <th>Assigned Persona</th>
+                                    <th>Institutional Title</th>
+                                    <th>Credentials (Password)</th>
+                                    <th>Access Status</th>
+                                    <th class="text-end">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tblItUsersBody">
+                                <!-- Populated dynamically -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB 2: AUDIT LOGS TABLE -->
+            <div class="app-tab-pane" id="tab-it-audit">
+                <div class="d-flex align-items-center justify-content-between mb-4 flex-wrap gap-2">
+                    <div>
+                        <h3 class="fw-bold font-20 mb-1" style="font-family: 'Outfit', sans-serif;">Real-Time Governance Audit Trail</h3>
+                        <p class="text-muted font-13 mb-0">Security event logging, login timestamps, and administrative operations history.</p>
+                    </div>
+                    <button class="btn btn-sm btn-outline-secondary font-12" onclick="exportAuditCSV()">
+                        <i class="fa-solid fa-file-csv me-1"></i> Export Logs CSV
+                    </button>
+                </div>
+
+                <div class="app-table-card">
+                    <div class="table-responsive">
+                        <table class="app-table">
+                            <thead>
+                                <tr>
+                                    <th>Timestamp</th>
+                                    <th>Actor</th>
+                                    <th>Role</th>
+                                    <th>Action Type</th>
+                                    <th>Audit Details</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tblItAuditBody">
+                                <!-- Populated dynamically -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB 3: BACKUPS & STORAGE -->
+            <div class="app-tab-pane" id="tab-it-backup">
+                <div class="mb-4">
+                    <h3 class="fw-bold font-20 mb-1" style="font-family: 'Outfit', sans-serif;">Database Maintenance &amp; State Backups</h3>
+                    <p class="text-muted font-13 mb-0">Export JSON snapshot backups of all startups, applications, users, and mentors.</p>
+                </div>
+
+                <div class="app-table-card p-4">
+                    <div class="row g-4">
+                        <div class="col-md-6">
+                            <div class="p-3 bg-light border rounded-3 h-100">
+                                <h6 class="fw-bold font-14 mb-2"><i class="fa-solid fa-file-export text-primary me-2"></i> Snapshot Backup</h6>
+                                <p class="font-13 text-muted mb-3">Download complete database state containing startups directory, applications pipeline, users, and mentor mappings as a single JSON file.</p>
+                                <button class="app-btn-action" onclick="exportDatabaseJson()">
+                                    Download JSON Backup
+                                </button>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="p-3 bg-light border rounded-3 h-100">
+                                <h6 class="fw-bold font-14 mb-2 text-danger"><i class="fa-solid fa-triangle-exclamation me-2"></i> Factory State Reset</h6>
+                                <p class="font-13 text-muted mb-3">Restore all seed records to default institutional state. Use this before demonstration rehearsals.</p>
+                                <button class="btn btn-sm btn-outline-danger font-12 fw-bold" onclick="confirmResetDB()">
+                                    Reset to Default Data
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </main>
+    </div>
+
+    <!-- MODAL 1: CREATE USER & PASSWORD -->
+    <div class="modal fade" id="createUserModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content border-0 shadow-lg" style="border-radius: 16px; overflow: hidden;">
+                <div class="modal-header bg-dark text-white p-4 border-0">
+                    <div>
+                        <h5 class="modal-title fw-bold text-white mb-0"><i class="fa-solid fa-user-shield text-warning me-2"></i> Provision New User &amp; Credentials</h5>
+                        <span class="font-11 text-white-50">Create institutional login ID and temporary or custom password</span>
+                    </div>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body p-4 bg-light">
+                    <form id="formCreateUser" onsubmit="saveNewUser(event)">
+                        <div class="mb-3">
+                            <label class="form-label font-12 fw-bold text-muted text-uppercase">Full Name</label>
+                            <input type="text" class="form-control font-13" id="cuName" required placeholder="e.g. Dr. Rajesh Verma / Ananya Jha" style="border-radius: 8px;">
+                        </div>
+                        <div class="row g-2 mb-3">
+                            <div class="col-md-7">
+                                <label class="form-label font-12 fw-bold text-muted text-uppercase">Official Email (User ID)</label>
+                                <input type="email" class="form-control font-13" id="cuEmail" required placeholder="user@cimp.ac.in" style="border-radius: 8px;">
+                            </div>
+                            <div class="col-md-5">
+                                <label class="form-label font-12 fw-bold text-muted text-uppercase">Assigned Persona</label>
+                                <select class="form-select font-13" id="cuRole" required style="border-radius: 8px;">
+                                    <option value="Startup">Startup Founder</option>
+                                    <option value="Mentor">Faculty Mentor</option>
+                                    <option value="Incubation Manager">Incubation Manager</option>
+                                    <option value="Director">Executive Director</option>
+                                    <option value="IT Admin">IT Administrator</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row g-2 mb-3">
+                            <div class="col-md-7">
+                                <label class="form-label font-12 fw-bold text-muted text-uppercase">Institutional Title / Role</label>
+                                <input type="text" class="form-control font-13" id="cuTitle" placeholder="e.g. Founder, CEO / Advisory Mentor" style="border-radius: 8px;">
+                            </div>
+                            <div class="col-md-5">
+                                <label class="form-label font-12 fw-bold text-muted text-uppercase">Contact Mobile</label>
+                                <input type="tel" class="form-control font-13" id="cuPhone" placeholder="+91 98765..." style="border-radius: 8px;">
+                            </div>
+                        </div>
+                        
+                        <!-- Password & Generator Section -->
+                        <div class="p-3 bg-white border rounded-3 mb-3">
+                            <div class="d-flex align-items-center justify-content-between mb-2">
+                                <label class="form-label font-12 fw-bold text-dark mb-0"><i class="fa-solid fa-key text-primary me-1"></i> Account Password</label>
+                                <button type="button" class="btn btn-sm btn-outline-primary py-0 px-2 font-11 fw-bold" onclick="generateRandomPassword('cuPassword')">
+                                    <i class="fa-solid fa-wand-magic-sparkles me-1"></i> Auto-Generate
+                                </button>
+                            </div>
+                            <div class="input-group">
+                                <input type="password" class="form-control font-13" id="cuPassword" required placeholder="Enter or auto-generate password">
+                                <button class="btn btn-outline-secondary font-12" type="button" onclick="CIMP_DB.togglePassVisibility('cuPassword', this)">
+                                    <i class="fa-solid fa-eye"></i>
+                                </button>
+                            </div>
+                            <span class="font-10 text-muted mt-1 d-block">User can log in immediately at Portal Login with this email &amp; password.</span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label font-12 fw-bold text-muted text-uppercase">Access Status</label>
+                            <select class="form-select font-13" id="cuStatus" style="border-radius: 8px;">
+                                <option value="Active">Active (Full Portal Access)</option>
+                                <option value="Suspended">Suspended / Deactivated</option>
+                            </select>
+                        </div>
+
+                        <div class="d-flex align-items-center justify-content-end gap-2 mt-4">
+                            <button type="button" class="btn btn-sm btn-light font-12 px-3" data-bs-dismiss="modal">Cancel</button>
+                            <button type="submit" class="btn btn-sm btn-primary font-12 fw-bold px-4 shadow-sm" style="border-radius: 8px;">
+                                <i class="fa-solid fa-shield-halved me-1"></i> Create User &amp; Credentials
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL 2: EDIT USER -->
+    <div class="modal fade" id="editUserModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content border-0 shadow-lg" style="border-radius: 16px; overflow: hidden;">
+                <div class="modal-header bg-dark text-white p-4 border-0">
+                    <div>
+                        <h5 class="modal-title fw-bold text-white mb-0"><i class="fa-solid fa-user-pen text-warning me-2"></i> Edit Ecosystem User</h5>
+                        <span class="font-11 text-white-50" id="euSubtitle">Modify role, title, email, or credentials</span>
+                    </div>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body p-4 bg-light">
+                    <form id="formEditUser" onsubmit="saveEditUser(event)">
+                        <input type="hidden" id="euUserId">
+                        <div class="mb-3">
+                            <label class="form-label font-12 fw-bold text-muted text-uppercase">Full Name</label>
+                            <input type="text" class="form-control font-13" id="euName" required style="border-radius: 8px;">
+                        </div>
+                        <div class="row g-2 mb-3">
+                            <div class="col-md-7">
+                                <label class="form-label font-12 fw-bold text-muted text-uppercase">Official Email</label>
+                                <input type="email" class="form-control font-13" id="euEmail" required style="border-radius: 8px;">
+                            </div>
+                            <div class="col-md-5">
+                                <label class="form-label font-12 fw-bold text-muted text-uppercase">Persona / Role</label>
+                                <select class="form-select font-13" id="euRole" required style="border-radius: 8px;">
+                                    <option value="Startup">Startup</option>
+                                    <option value="Mentor">Mentor</option>
+                                    <option value="Incubation Manager">Incubation Manager</option>
+                                    <option value="Director">Director</option>
+                                    <option value="IT Admin">IT Admin</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row g-2 mb-3">
+                            <div class="col-md-7">
+                                <label class="form-label font-12 fw-bold text-muted text-uppercase">Institutional Title</label>
+                                <input type="text" class="form-control font-13" id="euTitle" style="border-radius: 8px;">
+                            </div>
+                            <div class="col-md-5">
+                                <label class="form-label font-12 fw-bold text-muted text-uppercase">Mobile Phone</label>
+                                <input type="tel" class="form-control font-13" id="euPhone" style="border-radius: 8px;">
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label font-12 fw-bold text-muted text-uppercase">Access Status</label>
+                            <select class="form-select font-13" id="euStatus" style="border-radius: 8px;">
+                                <option value="Active">Active</option>
+                                <option value="Suspended">Suspended</option>
+                            </select>
+                        </div>
+                        <div class="d-flex align-items-center justify-content-end gap-2 mt-4">
+                            <button type="button" class="btn btn-sm btn-light font-12 px-3" data-bs-dismiss="modal">Cancel</button>
+                            <button type="submit" class="btn btn-sm btn-primary font-12 fw-bold px-4 shadow-sm" style="border-radius: 8px;">
+                                <i class="fa-solid fa-floppy-disk me-1"></i> Save Changes
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL 3: RESET PASSWORD -->
+    <div class="modal fade" id="resetPassModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content border-0 shadow-lg" style="border-radius: 16px; overflow: hidden;">
+                <div class="modal-header bg-dark text-white p-4 border-0">
+                    <div>
+                        <h5 class="modal-title fw-bold text-white mb-0"><i class="fa-solid fa-key text-warning me-2"></i> Reset User Password</h5>
+                        <span class="font-11 text-white-50" id="rpSubtitle">Generate or enter a new password for this user</span>
+                    </div>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body p-4 bg-light">
+                    <form id="formResetPass" onsubmit="saveResetPassword(event)">
+                        <input type="hidden" id="rpUserId">
+                        <div class="p-3 bg-white border rounded-3 mb-3">
+                            <div class="font-13 fw-bold text-dark mb-1" id="rpUserName">User Name</div>
+                            <div class="font-12 text-muted" id="rpUserEmail">user@cimp.ac.in</div>
+                        </div>
+
+                        <div class="mb-3">
+                            <div class="d-flex align-items-center justify-content-between mb-2">
+                                <label class="form-label font-12 fw-bold text-dark mb-0">New Password</label>
+                                <button type="button" class="btn btn-sm btn-outline-primary py-0 px-2 font-11 fw-bold" onclick="generateRandomPassword('rpNewPass')">
+                                    <i class="fa-solid fa-wand-magic-sparkles me-1"></i> Auto-Generate
+                                </button>
+                            </div>
+                            <div class="input-group">
+                                <input type="password" class="form-control font-13" id="rpNewPass" required placeholder="Enter or auto-generate new password">
+                                <button class="btn btn-outline-secondary font-12" type="button" onclick="CIMP_DB.togglePassVisibility('rpNewPass', this)">
+                                    <i class="fa-solid fa-eye"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="d-flex align-items-center justify-content-end gap-2 mt-4">
+                            <button type="button" class="btn btn-sm btn-light font-12 px-3" data-bs-dismiss="modal">Cancel</button>
+                            <button type="submit" class="btn btn-sm btn-primary font-12 fw-bold px-4 shadow-sm" style="border-radius: 8px;">
+                                <i class="fa-solid fa-check me-1"></i> Update Password
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="../../assets/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="../../assets/js/cimp-db.js"></script>
+
+    <script>
+        function switchItView(tabId, btnEl) {
+            document.querySelectorAll('.app-tab-pane').forEach(p => p.classList.remove('active'));
+            document.querySelectorAll('.app-nav-btn').forEach(b => b.classList.remove('active'));
+            
+            const targetPane = document.getElementById(tabId);
+            if (targetPane) targetPane.classList.add('active');
+            if (btnEl) btnEl.classList.add('active');
+
+            if (tabId === 'tab-it-users') renderItUsers();
+            if (tabId === 'tab-it-audit') renderItAudit();
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            if (window.CIMP_DB) {
+                window.CIMP_DB.setCurrentUser('usr-it');
+                window.CIMP_DB.syncDOMUserProfile('usr-it');
+            }
+            renderItUsers();
+            renderItAudit();
+
+            window.addEventListener('cimp:db_updated', function() {
+                if (window.CIMP_DB) window.CIMP_DB.syncDOMUserProfile('usr-it');
+                renderItUsers();
+                renderItAudit();
+            });
+        });
+
+        function getRoleBadge(role, userObj) {
+            const r = (role || (userObj && (userObj.title || userObj.email)) || '').toLowerCase().trim();
+            if (r.includes('dir')) {
+                return '<span class="badge bg-danger-subtle text-danger border border-danger-subtle px-2 py-1 font-11 fw-bold"><i class="fa-solid fa-user-tie me-1"></i> Executive Director</span>';
+            }
+            if (r.includes('man') || r.includes('mgr') || r.includes('incubation') || r.includes('ceo')) {
+                return '<span class="badge bg-primary-subtle text-primary border border-primary-subtle px-2 py-1 font-11 fw-bold"><i class="fa-solid fa-user-check me-1"></i> Incubation Manager</span>';
+            }
+            if (r.includes('it') || r.includes('admin') || r.includes('system') || r.includes('sachan')) {
+                return '<span class="badge bg-info-subtle text-info-emphasis border border-info-subtle px-2 py-1 font-11 fw-bold"><i class="fa-solid fa-shield-halved me-1"></i> IT Admin</span>';
+            }
+            if (r.includes('men') || r.includes('advis') || r.includes('faculty') || r.includes('alok')) {
+                return '<span class="badge bg-warning-subtle text-warning-emphasis border border-warning-subtle px-2 py-1 font-11 fw-bold"><i class="fa-solid fa-graduation-cap me-1"></i> Faculty Mentor</span>';
+            }
+            return '<span class="badge bg-success-subtle text-success border border-success-subtle px-2 py-1 font-11 fw-bold"><i class="fa-solid fa-rocket me-1"></i> Startup Founder</span>';
+        }
+
+        function getRoleIcon(role, userObj) {
+            const r = (role || (userObj && (userObj.title || userObj.email)) || '').toLowerCase();
+            if (r.includes('dir')) return '<i class="fa-solid fa-user-tie text-danger font-14"></i>';
+            if (r.includes('man') || r.includes('mgr') || r.includes('incubation') || r.includes('ceo')) return '<i class="fa-solid fa-user-check text-primary font-14"></i>';
+            if (r.includes('it') || r.includes('admin') || r.includes('system') || r.includes('sachan')) return '<i class="fa-solid fa-shield-halved text-info font-14"></i>';
+            if (r.includes('men') || r.includes('advis') || r.includes('faculty') || r.includes('alok')) return '<i class="fa-solid fa-graduation-cap text-warning font-14"></i>';
+            return '<i class="fa-solid fa-rocket text-success font-14"></i>';
+        }
+
+        function filterItUsers() {
+            renderItUsers();
+        }
+
+        function renderItUsers() {
+            if (!window.CIMP_DB) return;
+            const users = window.CIMP_DB.getUsers();
+            const tbody = document.getElementById('tblItUsersBody');
+            if (!tbody) return;
+
+            const q = (document.getElementById('itUserFilterInp')?.value || '').toLowerCase().trim();
+            const roleFilter = document.getElementById('itRoleFilterSel')?.value || '';
+
+            const filtered = users.filter(u => {
+                const matchQ = !q || (u.name && u.name.toLowerCase().includes(q)) || (u.email && u.email.toLowerCase().includes(q)) || (u.title && u.title.toLowerCase().includes(q));
+                const matchRole = !roleFilter || (u.role && u.role.toLowerCase().includes(roleFilter.toLowerCase()));
+                return matchQ && matchRole;
+            });
+
+            if (filtered.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="7" class="text-center py-4 text-muted font-13">No matching accounts found. Click "+ Create User &amp; Password" to add one.</td></tr>`;
+                return;
+            }
+
+            let html = '';
+            filtered.forEach(u => {
+                const pass = u.password || 'â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢';
+                const statusBadge = (u.status === 'Suspended') 
+                    ? '<span class="badge bg-secondary font-11">Suspended</span>' 
+                    : '<span class="badge bg-success font-11"><i class="fa-solid fa-circle font-8 me-1"></i> Active</span>';
+
+                html += `
+                    <tr>
+                        <td>
+                            <div class="d-flex align-items-center gap-2">
+                                <div class="d-flex align-items-center justify-content-center rounded-circle bg-light border shadow-2xs" style="width:34px; height:34px; flex-shrink: 0;">
+                                    ${getRoleIcon(u.role, u)}
+                                </div>
+                                <div>
+                                    <div class="fw-bold font-13 text-dark">${u.name}</div>
+                                    <div class="font-10 text-muted">ID: <code>${u.id}</code></div>
+                                </div>
+                            </div>
+                        </td>
+                        <td><code class="font-12 text-primary fw-semibold">${u.email}</code></td>
+                        <td>${getRoleBadge(u.role, u)}</td>
+                        <td class="font-12 text-muted fw-medium">${u.title || u.role}</td>
+                        <td>
+                            <div class="d-flex align-items-center gap-1">
+                                <input type="password" readonly value="${pass}" id="pass_${u.id}" class="form-control form-control-sm font-12 bg-light border-0 py-0" style="width: 100px; letter-spacing: 2px;" />
+                                <button class="btn btn-sm btn-link text-muted p-0 ms-1" onclick="toggleTblPass('pass_${u.id}', this)" title="Show/Hide Password">
+                                    <i class="fa-solid fa-eye font-12"></i>
+                                </button>
+                                <button class="btn btn-sm btn-link text-muted p-0 ms-1" onclick="copyPassword('${pass}')" title="Copy Password">
+                                    <i class="fa-solid fa-copy font-12"></i>
+                                </button>
+                            </div>
+                        </td>
+                        <td>${statusBadge}</td>
+                        <td class="text-end">
+                            <div class="btn-group btn-group-sm">
+                                <button class="btn btn-outline-secondary font-11" onclick="openEditUserModal('${u.id}')" title="Edit Profile">
+                                    <i class="fa-solid fa-user-pen"></i> Edit
+                                </button>
+                                <button class="btn btn-outline-primary font-11" onclick="openResetPasswordModal('${u.id}')" title="Reset Password">
+                                    <i class="fa-solid fa-key"></i> Key
+                                </button>
+                                <button class="btn btn-outline-danger font-11" onclick="deleteUserPrompt('${u.id}', '${u.name.replace(/'/g, "\\'")}')" title="Delete User">
+                                    <i class="fa-solid fa-trash"></i>
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                `;
+            });
+            tbody.innerHTML = html;
+        }
+
+        function toggleTblPass(inputId, btnEl) {
+            const inp = document.getElementById(inputId);
+            if (!inp) return;
+            if (inp.type === 'password') {
+                inp.type = 'text';
+                btnEl.innerHTML = '<i class="fa-solid fa-eye-slash font-12"></i>';
+            } else {
+                inp.type = 'password';
+                btnEl.innerHTML = '<i class="fa-solid fa-eye font-12"></i>';
+            }
+        }
+
+        function copyPassword(pass) {
+            navigator.clipboard.writeText(pass).then(() => {
+                if (window.CIMP_DB) window.CIMP_DB.showToast('Password copied to clipboard!', 'success');
+                else alert('Password copied!');
+            });
+        }
+
+        function generateRandomPassword(targetInputId) {
+            const prefixes = ['CIMP@', 'Biif#', 'Startup$', 'Innovate!', 'Bihar@'];
+            const randomPrefix = prefixes[Math.floor(Math.random() * prefixes.length)];
+            const randomNum = Math.floor(1000 + Math.random() * 9000);
+            const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ';
+            const randomChar = chars[Math.floor(Math.random() * chars.length)];
+            const generated = `${randomPrefix}${randomNum}${randomChar}`;
+            
+            const inp = document.getElementById(targetInputId);
+            if (inp) {
+                inp.value = generated;
+                inp.type = 'text'; // Show clearly when generated
+                if (window.CIMP_DB) window.CIMP_DB.showToast('Generated password: ' + generated, 'success');
+            }
+        }
+
+        function openCreateUserModal() {
+            document.getElementById('formCreateUser').reset();
+            generateRandomPassword('cuPassword');
+            const modalEl = document.getElementById('createUserModal');
+            const bsModal = new bootstrap.Modal(modalEl);
+            bsModal.show();
+        }
+
+        function saveNewUser(e) {
+            e.preventDefault();
+            const name = document.getElementById('cuName').value.trim();
+            const email = document.getElementById('cuEmail').value.trim();
+            const role = document.getElementById('cuRole').value;
+            const title = document.getElementById('cuTitle').value.trim();
+            const phone = document.getElementById('cuPhone').value.trim();
+            const password = document.getElementById('cuPassword').value.trim();
+            const status = document.getElementById('cuStatus').value;
+
+            const res = window.CIMP_DB.createUser({
+                name, email, role, title, phone, password, status
+            });
+
+            if (res.success) {
+                const modalEl = document.getElementById('createUserModal');
+                const bsModal = bootstrap.Modal.getInstance(modalEl);
+                if (bsModal) bsModal.hide();
+                renderItUsers();
+                window.CIMP_DB.showToast(`User ${name} created with credentials!`, 'success');
+            } else {
+                alert(res.message || 'Could not create user.');
+            }
+        }
+
+        function openEditUserModal(userId) {
+            const user = window.CIMP_DB.getUserById(userId);
+            if (!user) return;
+
+            document.getElementById('euUserId').value = user.id;
+            document.getElementById('euName').value = user.name || '';
+            document.getElementById('euEmail').value = user.email || '';
+            document.getElementById('euRole').value = user.role || 'Startup';
+            document.getElementById('euTitle').value = user.title || '';
+            document.getElementById('euPhone').value = user.phone || '';
+            document.getElementById('euStatus').value = user.status || 'Active';
+
+            const modalEl = document.getElementById('editUserModal');
+            const bsModal = new bootstrap.Modal(modalEl);
+            bsModal.show();
+        }
+
+        function saveEditUser(e) {
+            e.preventDefault();
+            const userId = document.getElementById('euUserId').value;
+            const name = document.getElementById('euName').value.trim();
+            const email = document.getElementById('euEmail').value.trim();
+            const role = document.getElementById('euRole').value;
+            const title = document.getElementById('euTitle').value.trim();
+            const phone = document.getElementById('euPhone').value.trim();
+            const status = document.getElementById('euStatus').value;
+
+            const res = window.CIMP_DB.updateUser(userId, {
+                name, email, role, title, phone, status
+            });
+
+            if (res.success) {
+                const modalEl = document.getElementById('editUserModal');
+                const bsModal = bootstrap.Modal.getInstance(modalEl);
+                if (bsModal) bsModal.hide();
+                renderItUsers();
+                window.CIMP_DB.showToast('User profile updated successfully!', 'success');
+            } else {
+                alert(res.message || 'Update failed.');
+            }
+        }
+
+        function openResetPasswordModal(userId) {
+            const user = window.CIMP_DB.getUserById(userId);
+            if (!user) return;
+
+            document.getElementById('rpUserId').value = user.id;
+            document.getElementById('rpUserName').textContent = user.name + ` (${user.role})`;
+            document.getElementById('rpUserEmail').textContent = user.email;
+            document.getElementById('rpNewPass').value = '';
+            generateRandomPassword('rpNewPass');
+
+            const modalEl = document.getElementById('resetPassModal');
+            const bsModal = new bootstrap.Modal(modalEl);
+            bsModal.show();
+        }
+
+        function saveResetPassword(e) {
+            e.preventDefault();
+            const userId = document.getElementById('rpUserId').value;
+            const newPass = document.getElementById('rpNewPass').value.trim();
+
+            if (!newPass) {
+                alert('Password cannot be empty.');
+                return;
+            }
+
+            const res = window.CIMP_DB.resetUserPassword(userId, newPass);
+            if (res.success) {
+                const modalEl = document.getElementById('resetPassModal');
+                const bsModal = bootstrap.Modal.getInstance(modalEl);
+                if (bsModal) bsModal.hide();
+                renderItUsers();
+                window.CIMP_DB.showToast('Password updated successfully!', 'success');
+            } else {
+                alert(res.message || 'Password update failed.');
+            }
+        }
+
+        function deleteUserPrompt(userId, userName) {
+            if (confirm(`Are you sure you want to permanently revoke access and delete user "${userName}"?`)) {
+                const res = window.CIMP_DB.deleteUser(userId);
+                if (res.success) {
+                    renderItUsers();
+                    window.CIMP_DB.showToast(`User ${userName} deleted.`, 'danger');
+                } else {
+                    alert(res.message || 'Failed to delete user.');
+                }
+            }
+        }
+
+        function renderItAudit() {
+            if (!window.CIMP_DB) return;
+            const logs = window.CIMP_DB.getAuditLogs ? window.CIMP_DB.getAuditLogs() : [];
+            const tbody = document.getElementById('tblItAuditBody');
+            if (!tbody) return;
+
+            let html = '';
+            logs.slice(0, 25).forEach(l => {
+                html += `
+                    <tr>
+                        <td><code>${new Date(l.timestamp).toLocaleTimeString()}</code></td>
+                        <td><strong>${l.actor}</strong></td>
+                        <td><span class="font-11 text-muted fw-semibold">${l.role}</span></td>
+                        <td><code>${l.action}</code></td>
+                        <td class="font-12 text-muted">${l.details}</td>
+                    </tr>
+                `;
+            });
+            tbody.innerHTML = html;
+        }
+
+        function exportDatabaseJson() {
+            const dump = {
+                startups: window.CIMP_DB.getStartups(),
+                applications: window.CIMP_DB.getApplications(),
+                mentors: window.CIMP_DB.getMentors(),
+                users: window.CIMP_DB.getUsers(),
+                audit_logs: window.CIMP_DB.getAuditLogs()
+            };
+            const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(dump, null, 2));
+            const a = document.createElement('a');
+            a.setAttribute("href", dataStr);
+            a.setAttribute("download", "CIMP_BIIF_Backup.json");
+            a.click();
+        }
+
+        function confirmResetDB() {
+            if (confirm("Reset database to clean factory default state?")) {
+                window.CIMP_DB.resetToDefaults();
+                location.reload();
+            }
+        }
+
+        function exportAuditCSV() {
+            const logs = window.CIMP_DB.getAuditLogs ? window.CIMP_DB.getAuditLogs() : [];
+            let csv = "Timestamp,Actor,Role,Action,Details\n";
+            logs.forEach(l => {
+                csv += `"${l.timestamp}","${l.actor}","${l.role}","${l.action}","${l.details.replace(/"/g, '""')}"\n`;
+            });
+            const blob = new Blob([csv], { type: 'text/csv' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.setAttribute("href", url);
+            a.setAttribute("download", "CIMP_BIIF_Audit_Trail.csv");
+            a.click();
+        }
+    </script>
+</body>
+</html>
+
