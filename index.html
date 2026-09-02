@@ -1690,7 +1690,7 @@
                         <span id="modalAuthAlertMsg">Invalid credentials. Please verify your details.</span>
                     </div>
 
-                    <form id="modalLoginForm" autocomplete="on">
+                    <form id="modalLoginForm" onsubmit="event.preventDefault(); executePortalLogin();" autocomplete="on">
                         <div class="mb-3">
                             <label class="form-label font-12 fw-bold text-dark text-uppercase tracking-wider mb-1"
                                 for="modalUserEmail">Official Email ID</label>
@@ -1701,6 +1701,7 @@
                                 </span>
                                 <input type="email" class="form-control rounded-3 py-2 ps-5 font-14" id="modalUserEmail"
                                     placeholder="Enter Your Registered Email" required autocomplete="username"
+                                    onkeydown="if(event.key==='Enter'){event.preventDefault(); executePortalLogin();}"
                                     style="border: 1.5px solid #CBD5E1; color: #0F172A;">
                             </div>
                         </div>
@@ -1722,6 +1723,7 @@
                                 <input type="password" class="form-control rounded-3 py-2 ps-5 pe-5 font-14"
                                     id="modalUserPassword" placeholder="Enter your password" required
                                     autocomplete="current-password"
+                                    onkeydown="if(event.key==='Enter'){event.preventDefault(); executePortalLogin();}"
                                     style="border: 1.5px solid #CBD5E1; color: #0F172A;">
                                 <button type="button"
                                     class="btn position-absolute top-50 end-0 translate-middle-y text-muted border-0 me-1"
@@ -1741,7 +1743,7 @@
                             </label>
                         </div>
 
-                        <button type="submit"
+                        <button type="button" onclick="executePortalLogin()"
                             class="btn w-100 py-2 rounded-3 text-white fw-bold d-flex align-items-center justify-content-center"
                             id="btnSubmitModalAuth"
                             style="background: #1E3A8A; font-size: 14.5px; box-shadow: 0 4px 14px rgba(30, 58, 138, 0.25);">
@@ -1762,12 +1764,14 @@
     <script src="assets/js/app.js"></script>
     <script src="assets/js/clone-enhancements.js"></script>
     <script src="assets/js/iit-iim-interactions.js"></script>
-    <script src="assets/js/cimp-db.js"></script>
+    <script src="assets/js/cimp-db.js?v=2.2"></script>
 
     <script>
         function openPortalLoginModal() {
             const modalEl = document.getElementById('portalLoginModal');
             if (!modalEl) return;
+            const alertBox = document.getElementById('modalAuthAlert');
+            if (alertBox) alertBox.classList.add('d-none');
             const modalInstance = bootstrap.Modal.getOrCreateInstance(modalEl);
             modalInstance.show();
             setTimeout(() => {
@@ -1793,6 +1797,52 @@
             alert('For password resets or credential recovery, please contact CIMP-BIIF Secretariat at support@cimpbiif.com.');
         }
 
+        function executePortalLogin() {
+            const emailInp = document.getElementById('modalUserEmail');
+            const passInp = document.getElementById('modalUserPassword');
+            const email = (emailInp ? emailInp.value : '').trim();
+            const pass = (passInp ? passInp.value : '').trim();
+            const alertBox = document.getElementById('modalAuthAlert');
+            const alertMsg = document.getElementById('modalAuthAlertMsg');
+            const btn = document.getElementById('btnSubmitModalAuth');
+
+            if (alertBox) alertBox.classList.add('d-none');
+
+            if (!email) {
+                if (alertMsg) alertMsg.textContent = 'Please enter your registered email address.';
+                if (alertBox) alertBox.classList.remove('d-none');
+                if (emailInp) emailInp.focus();
+                return;
+            }
+            if (!pass) {
+                if (alertMsg) alertMsg.textContent = 'Please enter your password.';
+                if (alertBox) alertBox.classList.remove('d-none');
+                if (passInp) passInp.focus();
+                return;
+            }
+
+            if (typeof window.CIMP_DB === 'undefined') {
+                if (alertMsg) alertMsg.textContent = 'System initializing. Please try again in a moment.';
+                if (alertBox) alertBox.classList.remove('d-none');
+                return;
+            }
+
+            const res = window.CIMP_DB.login(email, pass);
+            if (res.success) {
+                if (alertBox) alertBox.classList.add('d-none');
+                if (btn) {
+                    btn.disabled = true;
+                    btn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin me-2"></i> Signing In...';
+                }
+                setTimeout(() => {
+                    window.location.href = res.redirectUrl;
+                }, 300);
+            } else {
+                if (alertMsg) alertMsg.textContent = res.message;
+                if (alertBox) alertBox.classList.remove('d-none');
+            }
+        }
+
         // Auto open modal if URL has ?login=1 or #login
         document.addEventListener('DOMContentLoaded', function () {
             const urlParams = new URLSearchParams(window.location.search);
@@ -1800,36 +1850,13 @@
                 setTimeout(openPortalLoginModal, 300);
             }
 
-            const form = document.getElementById('modalLoginForm');
-            if (form) {
-                form.addEventListener('submit', function (e) {
-                    e.preventDefault();
-                    const email = document.getElementById('modalUserEmail').value.trim();
-                    const pass = document.getElementById('modalUserPassword').value.trim();
-                    const alertBox = document.getElementById('modalAuthAlert');
-                    const alertMsg = document.getElementById('modalAuthAlertMsg');
-                    const btn = document.getElementById('btnSubmitModalAuth');
+            const emailInp = document.getElementById('modalUserEmail');
+            const passInp = document.getElementById('modalUserPassword');
+            const alertBox = document.getElementById('modalAuthAlert');
 
-                    if (typeof window.CIMP_DB === 'undefined') {
-                        alertMsg.textContent = 'System initializing. Please try again in a moment.';
-                        alertBox.classList.remove('d-none');
-                        return;
-                    }
-
-                    const res = window.CIMP_DB.login(email, pass);
-                    if (res.success) {
-                        alertBox.classList.add('d-none');
-                        btn.disabled = true;
-                        btn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin me-2"></i> Verifying...';
-                        setTimeout(() => {
-                            window.location.href = res.redirectUrl;
-                        }, 350);
-                    } else {
-                        alertMsg.textContent = res.message;
-                        alertBox.classList.remove('d-none');
-                    }
-                });
-            }
+            // Automatically clear error banner when user types
+            if (emailInp && alertBox) emailInp.addEventListener('input', () => alertBox.classList.add('d-none'));
+            if (passInp && alertBox) passInp.addEventListener('input', () => alertBox.classList.add('d-none'));
         });
     </script>
 </body>

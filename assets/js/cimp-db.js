@@ -637,18 +637,51 @@
 
         // Authentication & Login
         login: function (email, password) {
-            const users = this.getUsers();
             const cleanEmail = (email || '').trim().toLowerCase();
             const cleanPass = (password || '').trim();
 
-            let user = users.find(u => u.email.toLowerCase() === cleanEmail);
-            // Allow mentor to login with either mentor@cimp.ac.in or legacy alok.kumar@cimp.ac.in
-            if (!user && (cleanEmail === 'mentor@cimp.ac.in' || cleanEmail === 'alok.kumar@cimp.ac.in')) {
-                user = users.find(u => u.id === 'usr-mentor');
+            if (!cleanEmail) {
+                return { success: false, message: 'Please enter your registered email address.' };
             }
+            if (!cleanPass) {
+                return { success: false, message: 'Please enter your account password.' };
+            }
+
+            let users = this.getUsers();
+            if (!Array.isArray(users) || users.length === 0) {
+                users = SEED_USERS;
+                this._set('users', SEED_USERS);
+            }
+
+            // Match by exact email or ID
+            let user = users.find(u => (u.email && u.email.toLowerCase() === cleanEmail) || (u.id && u.id.toLowerCase() === cleanEmail));
+
+            // Smart shorthand alias matching (e.g. director, manager, admin, founder, mentor)
             if (!user) {
-                return { success: false, message: 'No account found with email: ' + email };
+                if (cleanEmail === 'director' || cleanEmail === 'director@cimp.ac.in') user = users.find(u => u.id === 'usr-dir');
+                else if (cleanEmail === 'manager' || cleanEmail === 'incubation' || cleanEmail === 'incubation@cimpbiif.com') user = users.find(u => u.id === 'usr-mgr');
+                else if (cleanEmail === 'admin' || cleanEmail === 'it' || cleanEmail === 'itadmin' || cleanEmail === 'itadmin@cimpbiif.com') user = users.find(u => u.id === 'usr-it');
+                else if (cleanEmail === 'founder' || cleanEmail === 'startup' || cleanEmail === 'founder@abc.com') user = users.find(u => u.id === 'usr-founder');
+                else if (cleanEmail === 'mentor' || cleanEmail === 'mentor@cimp.ac.in' || cleanEmail === 'alok.kumar@cimp.ac.in') user = users.find(u => u.id === 'usr-mentor');
             }
+
+            // Auto-heal from SEED_USERS if localStorage was modified or missing user
+            if (!user) {
+                const seedMatch = SEED_USERS.find(su => 
+                    (su.email && su.email.toLowerCase() === cleanEmail) ||
+                    (su.id && su.id.toLowerCase() === cleanEmail)
+                );
+                if (seedMatch) {
+                    user = seedMatch;
+                    users.push(seedMatch);
+                    this._set('users', users);
+                }
+            }
+
+            if (!user) {
+                return { success: false, message: `No account found with email: ${email}` };
+            }
+
             if (user.password && user.password !== cleanPass) {
                 return { success: false, message: 'Invalid password. Please enter the correct password.' };
             }
@@ -836,8 +869,17 @@
 
             const elTopbarTitle = document.getElementById('topbarUserTitle');
             if (elTopbarTitle) {
-                elTopbarTitle.innerHTML = (user.title || user.role) + ' <i class="fa-solid fa-pen-to-square ms-1 text-primary font-10"></i>';
+                elTopbarTitle.textContent = user.title || user.role;
             }
+
+            const elDropdownName = document.getElementById('dropdownUserName');
+            if (elDropdownName) elDropdownName.textContent = user.name;
+
+            const elDropdownEmail = document.getElementById('dropdownUserEmail');
+            if (elDropdownEmail) elDropdownEmail.textContent = user.email;
+
+            const elDropdownRole = document.getElementById('dropdownUserRole');
+            if (elDropdownRole) elDropdownRole.textContent = user.role;
 
             // Generic fallback updates only for user profile widgets
             document.querySelectorAll('.app-user-profile #sidebarUserName').forEach(el => {

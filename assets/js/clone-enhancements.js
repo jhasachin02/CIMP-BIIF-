@@ -164,8 +164,8 @@ document.addEventListener("DOMContentLoaded", function () {
         }, 4000);
     };
 
-    // 7. Form Handlers (Registration, Contact, Mentors, Investors)
-    const forms = document.querySelectorAll("form");
+    // 7. Form Handlers (Registration, Contact, Mentors, Investors - excluding login forms)
+    const forms = document.querySelectorAll("form:not(#modalLoginForm):not(#institutionalLoginForm)");
     forms.forEach(function (form) {
         form.addEventListener("submit", function (e) {
             e.preventDefault();

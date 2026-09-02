@@ -72,21 +72,19 @@
         </div>
 
         <!-- Logged In User Strip with Profile Edit -->
+        <!-- Logged In User Strip (Minimal Clean Workspace Identity) -->
         <div class="app-user-profile">
-            <div class="d-flex align-items-center gap-2" style="cursor: pointer;" onclick="CIMP_DB.openProfileModal()" title="Click to Edit Profile &amp; Change Password">
-                <div class="d-flex align-items-center justify-content-center rounded-circle" style="width: 34px; height: 34px; background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.2);">
+            <div class="d-flex align-items-center gap-2 overflow-hidden">
+                <div class="d-flex align-items-center justify-content-center rounded-circle flex-shrink-0" style="width: 34px; height: 34px; background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.2);">
                     <i class="fa-solid fa-rocket text-white font-14"></i>
                 </div>
-                <div>
-                    <div class="font-12 fw-bold text-white" id="sidebarUserName">Founder</div>
-                    <div class="font-11 text-white-50" id="sidebarUserTitle">Founder &amp; CEO</div>
+                <div class="overflow-hidden">
+                    <div class="font-12 fw-bold text-white text-truncate" id="sidebarUserName">Founder</div>
+                    <div class="font-11 text-white-50 text-truncate" id="sidebarUserTitle">Founder &amp; CEO</div>
                 </div>
             </div>
-            <div class="d-flex align-items-center gap-2">
-                <button class="btn btn-link p-0 text-white-50 font-13" onclick="CIMP_DB.openProfileModal()" title="Edit Profile &amp; Password">
-                    <i class="fa-solid fa-user-pen"></i>
-                </button>
-                <a href="../../login.html" class="text-white-50 font-14" title="Sign Out">
+            <div>
+                <a href="../../login.html" class="text-white-50 font-14 p-1 text-decoration-none" title="Sign Out">
                     <i class="fa-solid fa-arrow-right-from-bracket"></i>
                 </a>
             </div>
@@ -121,16 +119,42 @@
                     <i class="fa-solid fa-plus me-1"></i> File Monthly Traction
                 </button>
 
-                <!-- Desktop Profile Name & Title -->
-                <div class="d-none d-md-flex flex-column align-items-end" style="cursor: pointer;" onclick="CIMP_DB.openProfileModal()" title="Click to Edit Profile &amp; Password">
-                    <span class="font-13 fw-bold text-dark" id="topbarUserName" style="line-height:1.2;">Founder</span>
-                    <span class="font-11 text-muted" id="topbarUserTitle" style="line-height:1.1;">Founder &amp; CEO (Cohort 2022) <i class="fa-solid fa-pen-to-square ms-1 text-primary font-10"></i></span>
+                <!-- Executive Profile Dropdown (Desktop & Mobile) -->
+                <div class="dropdown">
+                    <button class="btn p-1 d-flex align-items-center gap-2 rounded-pill border bg-white shadow-xs" type="button" id="userProfileDropdownBtn" data-bs-toggle="dropdown" aria-expanded="false" style="transition: all 0.2s ease;">
+                        <div class="position-relative">
+                            <div class="d-flex align-items-center justify-content-center rounded-circle text-white fw-bold shadow-xs" style="width: 34px; height: 34px; background: linear-gradient(135deg, #2563EB 0%, #3B82F6 100%); font-size: 13px;">
+                                <i class="fa-solid fa-rocket"></i>
+                            </div>
+                            <span class="position-absolute bottom-0 end-0 bg-success border border-white rounded-circle" style="width: 9px; height: 9px;"></span>
+                        </div>
+                        <div class="d-none d-md-flex flex-column align-items-start pe-2 text-start" style="line-height: 1.15;">
+                            <span class="font-12 fw-bold text-dark text-truncate" style="max-width: 130px;" id="topbarUserName">Founder</span>
+                            <span class="font-10 text-muted text-truncate" style="max-width: 130px;" id="topbarUserTitle">Founder &amp; CEO</span>
+                        </div>
+                        <i class="fa-solid fa-chevron-down font-10 text-muted me-1 d-none d-md-inline-block"></i>
+                    </button>
+                    <div class="dropdown-menu dropdown-menu-end shadow-lg border-0 p-2 mt-2" style="width: 260px; border-radius: 12px; z-index: 1060; box-shadow: 0 12px 32px rgba(15,23,42,0.14) !important;">
+                        <div class="px-3 py-2 bg-light rounded-3 mb-2">
+                            <div class="fw-bold font-13 text-dark text-truncate" id="dropdownUserName">Founder</div>
+                            <div class="font-11 text-muted text-truncate" id="dropdownUserEmail">founder@abc.com</div>
+                            <span class="badge bg-primary-subtle text-primary font-10 px-2 py-0.5 mt-1" id="dropdownUserRole">Startup Founder</span>
+                        </div>
+                        <a class="dropdown-item d-flex align-items-center gap-2 py-2 rounded-2 font-12 fw-semibold text-dark" href="javascript:void(0)" onclick="CIMP_DB.openProfileModal()">
+                            <i class="fa-regular fa-id-badge text-primary font-14"></i>
+                            <span>Edit Profile &amp; Password</span>
+                        </a>
+                        <a class="dropdown-item d-flex align-items-center gap-2 py-2 rounded-2 font-12 text-secondary" href="../../index.html" target="_blank">
+                            <i class="fa-solid fa-arrow-up-right-from-square font-12 text-muted"></i>
+                            <span>Public Website</span>
+                        </a>
+                        <hr class="dropdown-divider my-1">
+                        <a class="dropdown-item d-flex align-items-center gap-2 py-2 rounded-2 font-12 fw-semibold text-danger" href="../../login.html">
+                            <i class="fa-solid fa-arrow-right-from-bracket font-13"></i>
+                            <span>Sign Out</span>
+                        </a>
+                    </div>
                 </div>
-
-                <!-- Mobile Profile Avatar Button -->
-                <button class="btn btn-light d-md-none p-0 rounded-circle border shadow-sm d-flex align-items-center justify-content-center" style="width: 38px; height: 38px;" onclick="CIMP_DB.openProfileModal()" title="Edit Profile">
-                    <i class="fa-solid fa-rocket text-primary font-15"></i>
-                </button>
             </div>
         </header>
 

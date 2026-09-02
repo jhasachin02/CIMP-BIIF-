@@ -149,8 +149,8 @@ document.addEventListener("DOMContentLoaded", function () {
         }, 4500);
     };
 
-    // 6. Form Interception
-    const forms = document.querySelectorAll("form");
+    // 6. Form Interception (excluding login authentication forms)
+    const forms = document.querySelectorAll("form:not(#modalLoginForm):not(#institutionalLoginForm)");
     forms.forEach(form => {
         form.addEventListener("submit", function (e) {
             e.preventDefault();
