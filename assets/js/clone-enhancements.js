@@ -37,6 +37,9 @@ document.addEventListener("DOMContentLoaded", function () {
         document.body.style.overflow = "";
     }
 
+    window.openMobileDrawer = openMobileDrawer;
+    window.closeMobileDrawer = closeMobileDrawer;
+
     if (toggleBtn) {
         toggleBtn.addEventListener("click", function (e) {
             e.preventDefault();

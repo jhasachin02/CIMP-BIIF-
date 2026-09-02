@@ -124,20 +124,19 @@ function activateMenu() {
     }
 }
 
-// Clickable Menu (Safe fallback)
+// Clickable Menu (Safe fallback for submenus only)
 if (document.getElementById("navigation")) {
-    var elements = document.getElementById("navigation").getElementsByTagName("a");
-    for (var i = 0, len = elements.length; i < len; i++) {
-        elements[i].onclick = function (elem) {
-            if (elem.target.getAttribute("href") === "javascript:void(0)") {
-                var next1 = elem.target.nextElementSibling;
-                var submenu = next1 ? next1.nextElementSibling : null;
-                if (submenu && submenu.classList) {
-                    submenu.classList.toggle('open');
+    var subMenuLinks = document.querySelectorAll("#navigation .has-submenu > a");
+    subMenuLinks.forEach(function (link) {
+        link.addEventListener("click", function (e) {
+            if (this.getAttribute("href") === "javascript:void(0)") {
+                var next1 = this.nextElementSibling;
+                if (next1 && next1.classList) {
+                    next1.classList.toggle('open');
                 }
             }
-        }
-    }
+        });
+    });
 }
 
 // Menu sticky

@@ -218,10 +218,10 @@
                             <!-- Mobile Drawer Quick Actions (Portal Login, Register, & Support) -->
                             <div class="mobile-drawer-actions d-lg-none">
                                 <div class="d-grid gap-2 mb-3">
-                                    <a href="javascript:void(0)" onclick="openPortalLoginModal()"
-                                        class="mobile-drawer-btn-login text-center" style="cursor: pointer;">
+                                    <button type="button" onclick="openPortalLoginModal()"
+                                        class="mobile-drawer-btn-login text-center w-100 border-0" style="cursor: pointer;">
                                         <i class="fa fa-user-lock"></i> Portal Login
-                                    </a>
+                                    </button>
                                     <a href="pages/incubation-registration.html" class="mobile-drawer-btn-register">
                                         <i class="fa fa-clipboard-check"></i> Register Startup
                                     </a>
@@ -1768,6 +1768,21 @@
 
     <script>
         function openPortalLoginModal() {
+            // Close mobile navigation drawer if open
+            if (typeof window.closeMobileDrawer === 'function') {
+                window.closeMobileDrawer();
+            } else {
+                const nav = document.getElementById('navigation');
+                const toggle = document.getElementById('isToggle');
+                const backdrop = document.getElementById('navBackdrop');
+                const masterHeader = document.querySelector('.sticky-master-header');
+                if (nav) nav.classList.remove('is-open', 'open');
+                if (toggle) toggle.classList.remove('is-active', 'open');
+                if (backdrop) backdrop.classList.remove('is-active');
+                if (masterHeader) masterHeader.classList.remove('drawer-open');
+                document.body.style.overflow = '';
+            }
+
             const modalEl = document.getElementById('portalLoginModal');
             if (!modalEl) return;
             const alertBox = document.getElementById('modalAuthAlert');
