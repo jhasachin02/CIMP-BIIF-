@@ -80,6 +80,14 @@
                     </span>
                 </button>
 
+                <button class="app-nav-btn" id="mgrNavGrants" onclick="switchMgrView('tab-mgr-grants', this)">
+                    <span class="left-grp">
+                        <i class="fa-solid fa-coins font-14"></i>
+                        <span>Seed Capital &amp; Grants</span>
+                    </span>
+                    <span class="badge bg-success-subtle text-success font-10 px-2 py-0.5 rounded-pill">₹10L Cap</span>
+                </button>
+
                 <span class="app-nav-header mt-3">Operations</span>
 
                 <button class="app-nav-btn" onclick="openBroadcastModal()">
@@ -365,6 +373,77 @@
                 </div>
             </div>
 
+            <!-- VIEW 5: BIHAR SEED CAPITAL & GRANT TRANCHES -->
+            <div class="app-tab-pane" id="tab-mgr-grants">
+                <div class="d-flex align-items-start justify-content-between flex-wrap gap-3 mb-4">
+                    <div>
+                        <div class="d-flex align-items-center gap-2">
+                            <h3 class="fw-bold font-20 mb-0" style="font-family: 'Outfit', sans-serif;">Bihar Startup Policy 2022 — Seed Capital &amp; Grants Tracker</h3>
+                            <span class="badge bg-success-subtle text-success font-11 px-2.5 py-1 rounded-pill">₹10 Lakhs Interest-Free</span>
+                        </div>
+                        <p class="text-muted font-13 mb-0 mt-1">Milestone-linked tranche disbursement tracker, Utilization Certificate (UC) records, and grant verification.</p>
+                    </div>
+                    <div>
+                        <button class="btn btn-sm btn-outline-primary font-12 fw-semibold shadow-xs" onclick="renderMgrGrants()">
+                            <i class="fa-solid fa-rotate me-1"></i> Refresh Grants
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Grant Stats Ribbon -->
+                <div class="row g-3 mb-4">
+                    <div class="col-6 col-md-3">
+                        <div class="p-3 bg-white border rounded-3 shadow-xs">
+                            <span class="font-11 text-muted text-uppercase fw-bold">Total Sanctioned</span>
+                            <h3 class="fw-bold font-22 mb-0 text-dark mt-1">₹ 30.0 L</h3>
+                            <span class="font-10 text-muted">Across 3 Seed Incubatees</span>
+                        </div>
+                    </div>
+                    <div class="col-6 col-md-3">
+                        <div class="p-3 bg-white border rounded-3 shadow-xs">
+                            <span class="font-11 text-muted text-uppercase fw-bold">Released Tranches</span>
+                            <h3 class="fw-bold font-22 mb-0 text-success mt-1" id="mgrGrantsDisbursedTotal">₹ 20.0 L</h3>
+                            <span class="font-10 text-success"><i class="fa-solid fa-check-double me-1"></i> UCs Verified</span>
+                        </div>
+                    </div>
+                    <div class="col-6 col-md-3">
+                        <div class="p-3 bg-white border rounded-3 shadow-xs">
+                            <span class="font-11 text-muted text-uppercase fw-bold">Under Scrutiny</span>
+                            <h3 class="fw-bold font-22 mb-0 text-warning mt-1" id="mgrGrantsScrutinyTotal">₹ 5.0 L</h3>
+                            <span class="font-10 text-muted">Awaiting milestone audit</span>
+                        </div>
+                    </div>
+                    <div class="col-6 col-md-3">
+                        <div class="p-3 bg-white border rounded-3 shadow-xs">
+                            <span class="font-11 text-muted text-uppercase fw-bold">Tenure Terms</span>
+                            <h3 class="fw-bold font-22 mb-0 text-primary mt-1">10 Yrs</h3>
+                            <span class="font-10 text-primary">0% Interest Soft Loan</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Disbursements Table -->
+                <div class="app-table-card">
+                    <div class="table-responsive">
+                        <table class="app-table align-middle">
+                            <thead>
+                                <tr>
+                                    <th>Venture &amp; Founder</th>
+                                    <th>Policy Scheme</th>
+                                    <th>Tranche 1 (₹2.5L)</th>
+                                    <th>Tranche 2 (₹5.0L)</th>
+                                    <th>Tranche 3 (₹2.5L)</th>
+                                    <th class="text-end pe-3">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tblMgrGrantsBody">
+                                <!-- Loaded dynamically -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
         </main>
 
         <!-- Native Mobile Bottom Navigation Bar -->
@@ -391,7 +470,7 @@
 
     <!-- Manager Scoring & Escalation Modal -->
     <div class="modal fade" id="mgrScoreModal" tabindex="-1" style="background: rgba(10,25,47,0.7); backdrop-filter:blur(4px);">
-        <div class="modal-dialog modal-dialog-centered" style="max-width: 580px;">
+        <div class="modal-dialog modal-dialog-centered" style="max-width: 620px;">
             <div class="modal-content border-0 shadow-lg rounded-4 overflow-hidden">
                 <div class="modal-header bg-primary text-white p-4" style="background:#1E40AF !important;">
                     <h5 class="modal-title font-16 fw-bold mb-0"><i class="fa-solid fa-clipboard-check me-2"></i> Scrutiny &amp; Director Escalation</h5>
@@ -408,6 +487,9 @@
                     <div class="p-3 bg-light rounded-3 border mb-3 font-13 text-secondary" id="modalScoreDesc">
                         Product Description
                     </div>
+
+                    <!-- Dynamic Form Question Responses Section -->
+                    <div id="modalScoreDynamicFields" class="mb-3"></div>
 
                     <div class="mb-3">
                         <div class="d-flex justify-content-between align-items-center mb-1">
@@ -427,6 +509,56 @@
                     <button type="button" class="btn btn-sm btn-primary font-12 fw-bold" onclick="submitManagerScore()">
                         <i class="fa-solid fa-paper-plane me-1"></i> Submit &amp; Escalate
                     </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL: UPDATE TRANCHE / DISBURSEMENT -->
+    <div class="modal fade" id="modalUpdateTranche" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content border-0 shadow-lg rounded-4 overflow-hidden">
+                <div class="modal-header bg-dark text-white p-3 border-0">
+                    <h6 class="modal-title font-14 fw-bold mb-0 text-white"><i class="fa-solid fa-coins text-warning me-2"></i> Update Grant Tranche Status</h6>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body p-4 bg-light">
+                    <form id="formUpdateTranche" onsubmit="saveTrancheUpdate(event)">
+                        <input type="hidden" id="trancheDsbId">
+                        <input type="hidden" id="trancheNo">
+                        
+                        <div class="mb-3">
+                            <label class="font-11 text-muted text-uppercase fw-bold">Beneficiary Venture</label>
+                            <h6 class="fw-bold text-dark font-15 mb-0" id="trancheStartupName">Startup</h6>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="font-11 text-muted text-uppercase fw-bold">Tranche Milestone</label>
+                            <div class="p-2.5 bg-white border rounded-2 font-13 fw-semibold text-primary" id="trancheLabel">Tranche 1</div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label font-12 fw-bold text-muted text-uppercase">Disbursement Status</label>
+                            <select class="form-select font-13" id="trancheStatusSel" required style="border-radius: 8px;">
+                                <option value="Pending">Pending (Not Initiated)</option>
+                                <option value="Approved">Approved (Awaiting Funds Release)</option>
+                                <option value="Under Scrutiny">Under Scrutiny / Audit</option>
+                                <option value="Disbursed">Disbursed (Funds Credited &amp; UC Validated)</option>
+                            </select>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label font-12 fw-bold text-muted text-uppercase">Milestone Remarks / UC Details</label>
+                            <textarea class="form-control font-13" id="trancheRemarks" rows="2" placeholder="e.g., Milestone verified: MVP launched & 1,000 workers onboarded." style="border-radius: 8px;"></textarea>
+                        </div>
+
+                        <div class="d-flex align-items-center justify-content-end gap-2 mt-4">
+                            <button type="button" class="btn btn-sm btn-light font-12 px-3" data-bs-dismiss="modal">Cancel</button>
+                            <button type="submit" class="btn btn-sm btn-primary font-12 fw-bold px-4" style="background:#1E3A8A; border:none;">
+                                <i class="fa-solid fa-check me-1"></i> Save Tranche Status
+                            </button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
@@ -460,6 +592,7 @@
             else if (tabId === 'tab-mgr-queue') desktopBtn = document.getElementById('mgrNavQueue');
             else if (tabId === 'tab-mgr-milestones') desktopBtn = document.getElementById('mgrNavMilestones');
             else if (tabId === 'tab-mgr-mentors') desktopBtn = document.getElementById('mgrNavMentors');
+            else if (tabId === 'tab-mgr-grants') desktopBtn = document.getElementById('mgrNavGrants');
 
             switchMgrView(tabId, desktopBtn);
             closeMobileSidebarIfOpen();
@@ -483,6 +616,7 @@
             if (tabId === 'tab-mgr-queue') renderScrutinyQueue();
             if (tabId === 'tab-mgr-milestones') renderMilestonesTable();
             if (tabId === 'tab-mgr-mentors') renderMgrMentors();
+            if (tabId === 'tab-mgr-grants') renderMgrGrants();
         }
 
         document.addEventListener('DOMContentLoaded', function () {
@@ -501,6 +635,7 @@
             renderScrutinyQueue();
             renderMilestonesTable();
             renderMgrMentors();
+            renderMgrGrants();
         }
 
         function renderMgrOverview() {
@@ -586,6 +721,34 @@
             document.getElementById('modalScoreRange').value = app.managerScore || 88;
             document.getElementById('scoreValueDisp').innerText = (app.managerScore || 88) + '/100';
             
+            // Display dynamic responses & extra metadata
+            const dynEl = document.getElementById('modalScoreDynamicFields');
+            if (dynEl) {
+                let dynHtml = `
+                    <div class="p-3 bg-light border rounded-3 mb-3 font-12">
+                        <div class="row g-2">
+                            <div class="col-6"><span class="text-muted font-11 text-uppercase fw-bold">Sector:</span> <span class="fw-semibold text-dark">${app.sector || 'General'}</span></div>
+                            <div class="col-6"><span class="text-muted font-11 text-uppercase fw-bold">Stage:</span> <span class="fw-semibold text-dark">${app.stage || 'Idea Stage'}</span></div>
+                            <div class="col-6"><span class="text-muted font-11 text-uppercase fw-bold">Team Size:</span> <span class="fw-semibold text-dark">${app.teamMembers || '2-5 Members'}</span></div>
+                            <div class="col-6"><span class="text-muted font-11 text-uppercase fw-bold">Capital Needed:</span> <span class="fw-semibold text-primary">${app.fundingRequired || '₹ 10-25L'}</span></div>
+                        </div>
+                `;
+
+                if (app.pitchDeckUrl && app.pitchDeckUrl !== '#') {
+                    dynHtml += `<div class="mt-2 pt-2 border-top"><a href="${app.pitchDeckUrl}" target="_blank" class="btn btn-sm btn-outline-primary py-1 px-2 font-11"><i class="fa-solid fa-arrow-up-right-from-square me-1"></i> Open Pitch Deck Link</a></div>`;
+                }
+
+                if (app.dynamicResponses && Object.keys(app.dynamicResponses).length > 0) {
+                    dynHtml += `<div class="mt-2 pt-2 border-top"><span class="fw-bold text-dark font-11 text-uppercase"><i class="fa-solid fa-list-check text-primary me-1"></i> Custom Form Responses:</span><div class="row g-2 mt-1">`;
+                    for (const [k, v] of Object.entries(app.dynamicResponses)) {
+                        dynHtml += `<div class="col-6"><span class="text-muted font-11">${k}:</span> <strong class="text-dark">${v}</strong></div>`;
+                    }
+                    dynHtml += `</div></div>`;
+                }
+                dynHtml += `</div>`;
+                dynEl.innerHTML = dynHtml;
+            }
+
             const modal = new bootstrap.Modal(document.getElementById('mgrScoreModal'));
             modal.show();
         }
@@ -601,8 +764,122 @@
             const modalInstance = bootstrap.Modal.getInstance(modalEl);
             if (modalInstance) modalInstance.hide();
 
-            alert('âœ… Application scored (' + score + '/100) and escalated to Executive Director!');
+            alert('✅ Application scored (' + score + '/100) and escalated to Executive Director!');
             refreshMgrData();
+        }
+
+        // ==========================================
+        // BIHAR SEED CAPITAL & GRANT TRANCHE LOGIC
+        // ==========================================
+        function renderMgrGrants() {
+            if (!window.CIMP_DB) return;
+            const disbursements = window.CIMP_DB.getDisbursements ? window.CIMP_DB.getDisbursements() : [];
+            const tbody = document.getElementById('tblMgrGrantsBody');
+            if (!tbody) return;
+
+            let totalDisbursed = 0;
+            let totalScrutiny = 0;
+
+            let html = '';
+            disbursements.forEach(d => {
+                const t1 = d.tranches.find(t => t.trancheNo === 1) || {};
+                const t2 = d.tranches.find(t => t.trancheNo === 2) || {};
+                const t3 = d.tranches.find(t => t.trancheNo === 3) || {};
+
+                d.tranches.forEach(t => {
+                    if (t.status === 'Disbursed') totalDisbursed += (t.amount || 0);
+                    if (t.status === 'Under Scrutiny') totalScrutiny += (t.amount || 0);
+                });
+
+                html += `
+                    <tr>
+                        <td>
+                            <strong class="font-14 text-dark">${d.startupName}</strong>
+                            <div class="font-11 text-muted"><i class="fa-solid fa-user me-1"></i> ${d.founderName}</div>
+                        </td>
+                        <td>
+                            <span class="badge bg-light text-dark border font-11">${d.scheme}</span>
+                            <div class="font-10 text-muted mt-0.5">Sanctioned: ₹ ${(d.totalSanctioned / 100000).toFixed(1)} Lakhs</div>
+                        </td>
+                        <td>${renderTranchePill(d.id, 1, t1)}</td>
+                        <td>${renderTranchePill(d.id, 2, t2)}</td>
+                        <td>${renderTranchePill(d.id, 3, t3)}</td>
+                        <td class="text-end pe-3">
+                            <button class="btn btn-sm btn-outline-primary py-1 px-2 font-11" onclick="openUpdateTrancheModal('${d.id}', 1)">
+                                <i class="fa-solid fa-pen-to-square me-1"></i> Update
+                            </button>
+                        </td>
+                    </tr>
+                `;
+            });
+
+            tbody.innerHTML = html;
+
+            const dEl = document.getElementById('mgrGrantsDisbursedTotal');
+            const sEl = document.getElementById('mgrGrantsScrutinyTotal');
+            if (dEl) dEl.innerText = `₹ ${(totalDisbursed / 100000).toFixed(1)} L`;
+            if (sEl) sEl.innerText = `₹ ${(totalScrutiny / 100000).toFixed(1)} L`;
+        }
+
+        function renderTranchePill(dsbId, tNo, trancheObj) {
+            if (!trancheObj || !trancheObj.status) return '<span class="text-muted font-11">N/A</span>';
+            let badgeClass = 'bg-secondary-subtle text-secondary';
+            let icon = 'fa-clock';
+            if (trancheObj.status === 'Disbursed') {
+                badgeClass = 'bg-success-subtle text-success border border-success-subtle';
+                icon = 'fa-circle-check';
+            } else if (trancheObj.status === 'Under Scrutiny') {
+                badgeClass = 'bg-warning-subtle text-warning-emphasis border border-warning-subtle';
+                icon = 'fa-hourglass-half';
+            } else if (trancheObj.status === 'Approved') {
+                badgeClass = 'bg-primary-subtle text-primary border border-primary-subtle';
+                icon = 'fa-stamp';
+            }
+
+            return `
+                <div style="cursor: pointer;" onclick="openUpdateTrancheModal('${dsbId}', ${tNo})" title="Click to update status">
+                    <span class="badge ${badgeClass} font-11 fw-bold">
+                        <i class="fa-solid ${icon} me-1 font-10"></i> ${trancheObj.status}
+                    </span>
+                    <div class="font-10 text-muted mt-0.5">
+                        ${trancheObj.ucSubmitted ? '<span class="text-success"><i class="fa-solid fa-file-check me-0.5"></i> UC Verified</span>' : '<span class="text-muted">Pending UC</span>'}
+                    </div>
+                </div>
+            `;
+        }
+
+        function openUpdateTrancheModal(dsbId, tNo) {
+            if (!window.CIMP_DB) return;
+            const disbursements = window.CIMP_DB.getDisbursements();
+            const d = disbursements.find(item => item.id === dsbId);
+            if (!d) return;
+
+            const t = d.tranches.find(tr => tr.trancheNo === Number(tNo));
+            if (!t) return;
+
+            document.getElementById('trancheDsbId').value = d.id;
+            document.getElementById('trancheNo').value = t.trancheNo;
+            document.getElementById('trancheStartupName').innerText = `${d.startupName} (${d.founderName})`;
+            document.getElementById('trancheLabel').innerText = `${t.label} — Amount: ₹ ${(t.amount).toLocaleString('en-IN')}`;
+            document.getElementById('trancheStatusSel').value = t.status || 'Pending';
+            document.getElementById('trancheRemarks').value = t.remarks || '';
+
+            const modal = new bootstrap.Modal(document.getElementById('modalUpdateTranche'));
+            modal.show();
+        }
+
+        function saveTrancheUpdate(e) {
+            e.preventDefault();
+            if (!window.CIMP_DB) return;
+
+            const dsbId = document.getElementById('trancheDsbId').value;
+            const tNo = document.getElementById('trancheNo').value;
+            const status = document.getElementById('trancheStatusSel').value;
+            const remarks = document.getElementById('trancheRemarks').value;
+
+            window.CIMP_DB.updateTrancheStatus(dsbId, tNo, status, remarks);
+            bootstrap.Modal.getInstance(document.getElementById('modalUpdateTranche')).hide();
+            renderMgrGrants();
         }
 
         function renderMilestonesTable() {

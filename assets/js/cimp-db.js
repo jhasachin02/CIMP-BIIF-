@@ -561,6 +561,127 @@
         { id: 'usr-mentor', name: 'Mentor', email: 'mentor@cimp.ac.in', password: 'mentor123', role: 'Mentor', mentorId: 'MEN-001', title: 'Senior Incubation Advisor', portalUrl: 'admin/mentor/index.html' }
     ];
 
+    // Seed Form Schemas for Dynamic Form Studio & Zero-Code Builder
+    const SEED_FORM_SCHEMAS = {
+        'startup-incubation': {
+            id: 'startup-incubation',
+            title: 'Startup Incubation Intake Application',
+            slug: 'incubation-registration',
+            description: 'Official intake application form for early-stage and growth startups applying for CIMP-BIIF Cohort Incubation.',
+            lastUpdated: new Date().toISOString(),
+            steps: [
+                { num: 1, title: 'Identity & Founder', description: 'Personal, contact & institutional background' },
+                { num: 2, title: 'Venture & Pitch', description: 'Product idea, innovation & market potential' },
+                { num: 3, title: 'Stage & Pitch Deck', description: 'Traction, team size & document attachments' }
+            ],
+            fields: [
+                // Step 1: Founder & Identity
+                { id: 'startup_name', label: 'Venture / Startup Name', type: 'text', placeholder: 'e.g., AgriFlow Technologies Pvt Ltd', helpText: 'Registered or proposed company name', required: true, step: 1, colWidth: '6', isCore: true, active: true, order: 1 },
+                { id: 'founder_name', label: 'Primary Founder Full Name', type: 'text', placeholder: 'e.g., Ananya Jha', helpText: 'Lead applicant as per Govt ID', required: true, step: 1, colWidth: '6', isCore: true, active: true, order: 2 },
+                { id: 'email', label: 'Official Email Address', type: 'email', placeholder: 'founder@yourstartup.com', helpText: 'Used for selection letters & login credentials', required: true, step: 1, colWidth: '6', isCore: true, active: true, order: 3 },
+                { id: 'mobile', label: 'WhatsApp / Mobile Number', type: 'tel', placeholder: 'e.g., 9876543210', helpText: '10-digit primary mobile number', required: true, step: 1, colWidth: '6', isCore: true, active: true, order: 4 },
+                { id: 'city', label: 'City / District in Bihar / India', type: 'text', placeholder: 'e.g., Patna / Darbhanga / Muzaffarpur', helpText: 'Headquarter city or primary area of work', required: true, step: 1, colWidth: '6', isCore: true, active: true, order: 5 },
+                { id: 'state', label: 'State of Operations', type: 'select', options: ['Bihar', 'Jharkhand', 'Uttar Pradesh', 'West Bengal', 'Delhi NCR', 'Karnataka', 'Maharashtra', 'Other'], helpText: 'State jurisdiction', required: true, step: 1, colWidth: '6', isCore: true, active: true, order: 6 },
+                // Step 2: Pitch & Business
+                { id: 'sector', label: 'Primary Industry Sector', type: 'select', options: ['AgriTech', 'CleanTech / EV', 'EduTech', 'FinTech', 'HealthTech', 'Handloom / Handicrafts / Khadi', 'Logistics / Supply Chain', 'SaaS / AI / DeepTech', 'Food Processing', 'Other'], helpText: 'Select domain focus', required: true, step: 2, colWidth: '6', isCore: true, active: true, order: 7 },
+                { id: 'stage', label: 'Current Venture Stage', type: 'select', options: ['Idea Stage', 'Proof of Concept / MVP', 'Early Traction / Pilot', 'Revenue Generating', 'Scaling / Series-A Ready'], helpText: 'Operational maturity', required: true, step: 2, colWidth: '6', isCore: true, active: true, order: 8 },
+                { id: 'product_description', label: 'Brief Problem Statement & Solution', type: 'textarea', placeholder: 'Describe your core product or service, target customers, and how your solution solves a critical problem...', helpText: 'Minimum 20 words explaining your product', required: true, step: 2, colWidth: '12', isCore: true, active: true, order: 9 },
+                { id: 'innovative', label: 'Key Innovation & Competitive Moat', type: 'textarea', placeholder: 'What makes your technology or business model unique compared to existing alternatives in Bihar?', helpText: 'Proprietary IP or unique value proposition', required: false, step: 2, colWidth: '12', isCore: false, active: true, order: 10 },
+                // Step 3: Stage & Deck
+                { id: 'team_members', label: 'Current Core Team Size', type: 'select', options: ['Solo Founder (1)', '2-5 Members', '6-15 Members', '16+ Members'], helpText: 'Full-time working members', required: true, step: 3, colWidth: '6', isCore: true, active: true, order: 11 },
+                { id: 'funding_required', label: 'Seed Capital / Grant Required (₹)', type: 'select', options: ['₹ 5,00,000 to ₹ 10,00,000 (Bihar Startup Policy Grant)', '₹ 10,00,000 to ₹ 25,00,000', '₹ 25,00,000 to ₹ 50,00,000', 'Bootstrapped / Non-financial Incubation'], helpText: 'Estimated capital needed for next 12 months', required: false, step: 3, colWidth: '6', isCore: false, active: true, order: 12 },
+                { id: 'pitch_deck_url', label: 'Pitch Deck Link (Google Drive / DocSend / Dropbox)', type: 'text', placeholder: 'https://drive.google.com/... (view permission enabled)', helpText: 'Sharable link to presentation deck', required: false, step: 3, colWidth: '12', isCore: true, active: true, order: 13 }
+            ]
+        },
+        'mentor-registration': {
+            id: 'mentor-registration',
+            title: 'Mentor & Advisory Onboarding Form',
+            slug: 'mentor-registration',
+            description: 'Application for experienced founders, corporate executives, and academicians to mentor CIMP-BIIF cohorts.',
+            lastUpdated: new Date().toISOString(),
+            steps: [
+                { num: 1, title: 'Personal & Profile', description: 'Contact details & organizational credentials' },
+                { num: 2, title: 'Expertise & Domain', description: 'Core functional & industry advisory strengths' },
+                { num: 3, title: 'Commitment & Bio', description: 'Advisory hours & brief professional summary' }
+            ],
+            fields: [
+                { id: 'full_name', label: 'Full Name with Title', type: 'text', placeholder: 'e.g., Dr. Rakesh Kumar / Priya Sharma', helpText: 'Full name for directory listing', required: true, step: 1, colWidth: '6', isCore: true, active: true, order: 1 },
+                { id: 'email', label: 'Official / Professional Email', type: 'email', placeholder: 'mentor@institution.ac.in', helpText: 'Official correspondence email', required: true, step: 1, colWidth: '6', isCore: true, active: true, order: 2 },
+                { id: 'phone', label: 'Mobile / WhatsApp Number', type: 'tel', placeholder: '+91 98765 43210', helpText: 'Active contact phone', required: true, step: 1, colWidth: '6', isCore: true, active: true, order: 3 },
+                { id: 'linkedin', label: 'LinkedIn Profile URL', type: 'text', placeholder: 'https://linkedin.com/in/username', helpText: 'Public LinkedIn profile', required: true, step: 1, colWidth: '6', isCore: true, active: true, order: 4 },
+                { id: 'organization', label: 'Current Organization / Company', type: 'text', placeholder: 'e.g., IIM Bodh Gaya / TCS / Self-Employed', helpText: 'Institution or firm affiliation', required: true, step: 1, colWidth: '6', isCore: true, active: true, order: 5 },
+                { id: 'designation', label: 'Designation / Current Role', type: 'text', placeholder: 'e.g., Vice President / Associate Professor', helpText: 'Current professional title', required: true, step: 1, colWidth: '6', isCore: true, active: true, order: 6 },
+                { id: 'domain', label: 'Primary Advisory Domain', type: 'select', options: ['Business Strategy & Scaling', 'AgriTech & Rural Supply Chain', 'FinTech, Valuation & Compliance', 'DeepTech, AI & Robotics', 'Marketing, Branding & GTM', 'IPR, Legal & Patents'], helpText: 'Core functional specialization', required: true, step: 2, colWidth: '6', isCore: true, active: true, order: 7 },
+                { id: 'experience_years', label: 'Total Years of Professional Experience', type: 'select', options: ['5 - 8 Years', '8 - 15 Years', '15 - 25 Years', '25+ Years'], helpText: 'Years in corporate or venture advisory', required: true, step: 2, colWidth: '6', isCore: true, active: true, order: 8 },
+                { id: 'availability_hours', label: 'Monthly Mentorship Availability', type: 'select', options: ['2 - 4 Hours / Month', '4 - 8 Hours / Month', '8+ Hours / Month (Intensive)', 'On-Demand Advisory'], helpText: 'Time commitment for incubatees', required: true, step: 3, colWidth: '6', isCore: true, active: true, order: 9 },
+                { id: 'bio', label: 'Executive Bio & Startup Mentoring Experience', type: 'textarea', placeholder: 'Share a summary of your professional milestones, prior startups advised, and specific areas where you can guide founders...', helpText: 'Appears on public mentor profile', required: true, step: 3, colWidth: '12', isCore: true, active: true, order: 10 }
+            ]
+        },
+        'investor-registration': {
+            id: 'investor-registration',
+            title: 'Angel & Institutional Investor Network',
+            slug: 'investor-registration',
+            description: 'Network gateway for Angels, VC Funds, Family Offices, and Corporate VC arms looking to co-invest in CIMP-BIIF ventures.',
+            lastUpdated: new Date().toISOString(),
+            steps: [
+                { num: 1, title: 'Investor Profile', description: 'Firm or Angel identity & accredited status' },
+                { num: 2, title: 'Investment Thesis', description: 'Ticket sizes, stage & industry preferences' }
+            ],
+            fields: [
+                { id: 'investor_entity', label: 'Fund Name / Angel Network / Individual Name', type: 'text', placeholder: 'e.g., Patna Angel Syndicate / Individual Angel', helpText: 'Firm or legal investor entity', required: true, step: 1, colWidth: '6', isCore: true, active: true, order: 1 },
+                { id: 'contact_name', label: 'Primary Investment Partner / Contact Person', type: 'text', placeholder: 'e.g., Sandeep Singhania', helpText: 'Lead deal contact', required: true, step: 1, colWidth: '6', isCore: true, active: true, order: 2 },
+                { id: 'email', label: 'Official Investment Email', type: 'email', placeholder: 'deals@investorcapital.com', helpText: 'Dealflow submission email', required: true, step: 1, colWidth: '6', isCore: true, active: true, order: 3 },
+                { id: 'mobile', label: 'Direct Phone / WhatsApp', type: 'tel', placeholder: '+91 99887 76655', helpText: 'Confidential direct phone', required: true, step: 1, colWidth: '6', isCore: true, active: true, order: 4 },
+                { id: 'investor_type', label: 'Investor Category', type: 'select', options: ['Angel Investor', 'Venture Capital (VC)', 'Family Office', 'Corporate Innovation / CVC', 'Micro-VC / Syndicate'], helpText: 'Capital source classification', required: true, step: 2, colWidth: '6', isCore: true, active: true, order: 5 },
+                { id: 'ticket_size', label: 'Typical Cheque / Ticket Size', type: 'select', options: ['₹ 10 Lakhs - ₹ 25 Lakhs', '₹ 25 Lakhs - ₹ 50 Lakhs', '₹ 50 Lakhs - ₹ 1.5 Crores', '₹ 1.5 Crores - ₹ 5 Crores+'], helpText: 'Typical investment per startup', required: true, step: 2, colWidth: '6', isCore: true, active: true, order: 6 },
+                { id: 'preferred_sectors', label: 'Target Sectors', type: 'text', placeholder: 'e.g., AgriTech, CleanTech, Consumer Brands, AI', helpText: 'Comma-separated focus domains', required: false, step: 2, colWidth: '12', isCore: false, active: true, order: 7 }
+            ]
+        }
+    };
+
+    // Seed Grants & Tranche Disbursements under Bihar Startup Policy 2022
+    const SEED_DISBURSEMENTS = [
+        {
+            id: 'DSB-2026-001',
+            startupId: 'ST-001',
+            startupName: 'Digital Labour Chowk',
+            founderName: 'Chandrashekhar Mandal',
+            scheme: 'Bihar Startup Policy 2022 Seed Fund',
+            totalSanctioned: 1000000,
+            tranches: [
+                { trancheNo: 1, amount: 250000, label: 'Tranche 1 (Seed Prototype Grant)', status: 'Disbursed', disbursedDate: '2022-06-15', ucSubmitted: true, remarks: 'Milestone verified: MVP launched & 1,000 workers onboarded.' },
+                { trancheNo: 2, amount: 500000, label: 'Tranche 2 (Market Validation & Tech)', status: 'Disbursed', disbursedDate: '2023-01-20', ucSubmitted: true, remarks: 'Milestone verified: 5 district expansion & revenue traction.' },
+                { trancheNo: 3, amount: 250000, label: 'Tranche 3 (Scale & Commercialization)', status: 'Under Scrutiny', disbursedDate: null, ucSubmitted: false, remarks: 'Final audit report under verification by Incubation Manager.' }
+            ]
+        },
+        {
+            id: 'DSB-2026-002',
+            startupId: 'ST-002',
+            startupName: 'Gramshree Agri Services',
+            founderName: 'Aastha Singh',
+            scheme: 'Bihar Startup Policy 2022 Matching Grant',
+            totalSanctioned: 1000000,
+            tranches: [
+                { trancheNo: 1, amount: 250000, label: 'Tranche 1 (Farmer App & Supply Chain)', status: 'Disbursed', disbursedDate: '2021-10-10', ucSubmitted: true, remarks: '1,500 farmers enrolled across Patna district.' },
+                { trancheNo: 2, amount: 500000, label: 'Tranche 2 (Hub Setup & Storage)', status: 'Disbursed', disbursedDate: '2022-04-18', ucSubmitted: true, remarks: 'Hub operationalized with cold transport facility.' },
+                { trancheNo: 3, amount: 250000, label: 'Tranche 3 (VC Matching Disbursement)', status: 'Disbursed', disbursedDate: '2024-03-05', ucSubmitted: true, remarks: 'Successfully raised ₹80L VC seed round.' }
+            ]
+        },
+        {
+            id: 'DSB-2026-003',
+            startupId: 'APP-2026-090',
+            startupName: 'Patna AgriDrone Hub',
+            founderName: 'Vikramaditya Roy',
+            scheme: 'Bihar Startup Policy 2022 Seed Fund',
+            totalSanctioned: 1000000,
+            tranches: [
+                { trancheNo: 1, amount: 250000, label: 'Tranche 1 (Drone Hardware & DGCA Pilot)', status: 'Approved', disbursedDate: null, ucSubmitted: false, remarks: 'Level-1 approval completed with 88 score. Fund sanction pending Director final seal.' },
+                { trancheNo: 2, amount: 500000, label: 'Tranche 2 (Precision Spraying Trials)', status: 'Pending', disbursedDate: null, ucSubmitted: false, remarks: 'Eligible after Tranche 1 UC submission.' },
+                { trancheNo: 3, amount: 250000, label: 'Tranche 3 (Commercial Scale)', status: 'Pending', disbursedDate: null, ucSubmitted: false, remarks: 'Eligible after 10,000-acre spraying proof.' }
+            ]
+        }
+    ];
+
     // Core Database Wrapper
     window.CIMP_DB = {
         // Storage getters and setters
@@ -596,6 +717,8 @@
             if (!this._get('mentors')) this._set('mentors', SEED_MENTORS);
             if (!this._get('announcements')) this._set('announcements', SEED_ANNOUNCEMENTS);
             if (!this._get('audit_logs')) this._set('audit_logs', SEED_AUDIT_LOGS);
+            if (!this._get('form_schemas')) this._set('form_schemas', SEED_FORM_SCHEMAS);
+            if (!this._get('disbursements')) this._set('disbursements', SEED_DISBURSEMENTS);
             
             // Sync & auto-migrate stored users to latest credentials & clean names
             const storedUsers = this._get('users', null);
@@ -631,6 +754,8 @@
             this._set('announcements', SEED_ANNOUNCEMENTS);
             this._set('audit_logs', SEED_AUDIT_LOGS);
             this._set('users', SEED_USERS);
+            this._set('form_schemas', SEED_FORM_SCHEMAS);
+            this._set('disbursements', SEED_DISBURSEMENTS);
             this.setCurrentUser('usr-dir');
             return true;
         },
@@ -1099,6 +1224,10 @@
                 fundingRequired: formData.funding_required || '₹ 20,00,000',
                 founderExperience: formData.qualification || 'Entrepreneur',
                 pitchDeckName: formData.pitchDeckName || 'Pitch_Deck_' + newId + '.pdf',
+                pitchDeckUrl: formData.pitchDeckUrl || formData.pitch_deck_url || '#',
+                teamMembers: formData.team_members || formData.teamMembers || '2-5 Members',
+                dynamicResponses: formData.dynamicResponses || {},
+                customFields: formData.customFields || {},
                 type: formData.type || 'Startup'
             };
 
@@ -1522,6 +1651,235 @@
                 funnel: funnel,
                 isFiltered: isFiltered
             };
+        },
+
+        // ==========================================
+        // DYNAMIC FORM STUDIO & QUESTION BUILDER API
+        // ==========================================
+        getFormSchemas: function () {
+            return this._get('form_schemas', SEED_FORM_SCHEMAS);
+        },
+
+        getFormSchema: function (formId) {
+            const schemas = this.getFormSchemas();
+            return schemas[formId] || null;
+        },
+
+        saveFormSchema: function (formId, schemaData) {
+            let schemas = this.getFormSchemas();
+            schemaData.lastUpdated = new Date().toISOString();
+            schemas[formId] = schemaData;
+            this._set('form_schemas', schemas);
+
+            const currentUser = this.getCurrentUser();
+            this.logAudit(
+                currentUser ? currentUser.name : 'Administrator',
+                currentUser ? currentUser.role : 'IT Admin',
+                'FORM_SCHEMA_UPDATED',
+                `Updated question configuration and layout for form: "${schemaData.title || formId}"`
+            );
+            return schemaData;
+        },
+
+        resetFormSchema: function (formId) {
+            if (!SEED_FORM_SCHEMAS[formId]) return null;
+            let schemas = this.getFormSchemas();
+            schemas[formId] = JSON.parse(JSON.stringify(SEED_FORM_SCHEMAS[formId]));
+            schemas[formId].lastUpdated = new Date().toISOString();
+            this._set('form_schemas', schemas);
+
+            const currentUser = this.getCurrentUser();
+            this.logAudit(
+                currentUser ? currentUser.name : 'Administrator',
+                currentUser ? currentUser.role : 'IT Admin',
+                'FORM_SCHEMA_RESET',
+                `Restored factory default questions for form: "${schemas[formId].title}"`
+            );
+            return schemas[formId];
+        },
+
+        addFieldToSchema: function (formId, fieldDef) {
+            let schema = this.getFormSchema(formId);
+            if (!schema) return null;
+
+            if (!fieldDef.id) {
+                fieldDef.id = 'field_' + Date.now();
+            }
+            if (!fieldDef.order) {
+                fieldDef.order = (schema.fields && schema.fields.length) ? (schema.fields.length + 1) : 1;
+            }
+            if (fieldDef.active === undefined) fieldDef.active = true;
+            if (fieldDef.isCore === undefined) fieldDef.isCore = false;
+
+            schema.fields.push(fieldDef);
+            return this.saveFormSchema(formId, schema);
+        },
+
+        updateFieldInSchema: function (formId, fieldId, updates) {
+            let schema = this.getFormSchema(formId);
+            if (!schema) return null;
+
+            const idx = schema.fields.findIndex(f => f.id === fieldId);
+            if (idx === -1) return null;
+
+            schema.fields[idx] = { ...schema.fields[idx], ...updates };
+            return this.saveFormSchema(formId, schema);
+        },
+
+        deleteFieldFromSchema: function (formId, fieldId) {
+            let schema = this.getFormSchema(formId);
+            if (!schema) return null;
+
+            schema.fields = schema.fields.filter(f => f.id !== fieldId);
+            return this.saveFormSchema(formId, schema);
+        },
+
+        toggleFieldStatus: function (formId, fieldId) {
+            let schema = this.getFormSchema(formId);
+            if (!schema) return null;
+
+            const field = schema.fields.find(f => f.id === fieldId);
+            if (!field) return null;
+
+            field.active = !field.active;
+            return this.saveFormSchema(formId, schema);
+        },
+
+        reorderFieldInSchema: function (formId, fieldId, direction) {
+            let schema = this.getFormSchema(formId);
+            if (!schema) return null;
+
+            const idx = schema.fields.findIndex(f => f.id === fieldId);
+            if (idx === -1) return null;
+
+            const targetIdx = direction === 'up' ? idx - 1 : idx + 1;
+            if (targetIdx < 0 || targetIdx >= schema.fields.length) return null;
+
+            const temp = schema.fields[idx];
+            schema.fields[idx] = schema.fields[targetIdx];
+            schema.fields[targetIdx] = temp;
+
+            // Re-assign order numbers
+            schema.fields.forEach((f, i) => { f.order = i + 1; });
+            return this.saveFormSchema(formId, schema);
+        },
+
+        // ==========================================
+        // PUBLIC APPLICATION SELF-SERVICE TRACKER API
+        // ==========================================
+        trackApplicationStatus: function (query) {
+            if (!query) return null;
+            const q = String(query).trim().toLowerCase();
+            const apps = this.getApplications();
+
+            const app = apps.find(a => 
+                (a.id && a.id.toLowerCase() === q) ||
+                (a.email && a.email.toLowerCase() === q) ||
+                (a.mobile && a.mobile.replace(/\D/g, '').includes(q.replace(/\D/g, '')))
+            );
+
+            if (!app) return null;
+
+            // Compute multi-stage lifecycle timeline
+            const isApproved = app.status === 'Approved';
+            const isManagerPassed = app.status === 'Pending Director Approval' || isApproved;
+            const isRejected = app.status === 'Rejected';
+
+            const timeline = [
+                {
+                    stageNum: 1,
+                    title: 'Application Intake Received',
+                    subtitle: 'Online Submission Verified',
+                    date: app.submittedDate ? new Date(app.submittedDate).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' }) : 'Verified',
+                    status: 'completed',
+                    remarks: `Tracking ID ${app.id} generated. Application successfully submitted into CIMP-BIIF Incubation Queue.`
+                },
+                {
+                    stageNum: 2,
+                    title: 'Level-1 Technical & KYC Scrutiny',
+                    subtitle: 'Incubation Manager Assessment',
+                    date: app.managerApprovedDate ? new Date(app.managerApprovedDate).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' }) : (isManagerPassed ? 'Completed' : 'Under Active Review'),
+                    status: isManagerPassed ? 'completed' : (isRejected ? 'rejected' : 'current'),
+                    remarks: app.managerScore ? `Evaluation score: ${app.managerScore}/100. ${app.managerNotes || 'KYC and business viability cleared.'}` : 'Our technical screening committee is evaluating your problem statement, novelty and market scope in Bihar.'
+                },
+                {
+                    stageNum: 3,
+                    title: 'Standing Committee & Director Review',
+                    subtitle: 'Executive Sanction & Final Sign-Off',
+                    date: app.directorApprovedDate ? new Date(app.directorApprovedDate).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' }) : (isApproved ? 'Approved' : (isManagerPassed ? 'In Progress' : 'Pending')),
+                    status: isApproved ? 'completed' : (isManagerPassed ? 'current' : 'pending'),
+                    remarks: isApproved ? (app.directorNotes || 'Executive sanction granted for incubation induction.') : (isManagerPassed ? 'Application shortlisted and pending Director Executive sign-off.' : 'Pending clearance of Level-1 scrutiny.')
+                },
+                {
+                    stageNum: 4,
+                    title: 'Cohort Induction & Credential Issuance',
+                    subtitle: 'Workspace, Mentor Allotment & Portal Access',
+                    date: isApproved ? 'Active' : 'Pending',
+                    status: isApproved ? 'completed' : 'pending',
+                    remarks: isApproved ? 'Official Selection Letter generated. Profile synchronized with live CIMP-BIIF verified startups directory.' : 'Login credentials & cohort onboarding kit will be issued upon executive sanction.'
+                }
+            ];
+
+            return {
+                application: app,
+                timeline: timeline,
+                currentStage: isApproved ? 4 : (isManagerPassed ? 3 : 2),
+                statusCode: isApproved ? 'APPROVED' : (isRejected ? 'REJECTED' : 'IN_REVIEW')
+            };
+        },
+
+        // ==========================================
+        // SEED CAPITAL & TRANCHE DISBURSEMENT API
+        // ==========================================
+        getDisbursements: function (startupId) {
+            const list = this._get('disbursements', SEED_DISBURSEMENTS);
+            if (!startupId) return list;
+            return list.filter(d => d.startupId === startupId);
+        },
+
+        recordDisbursement: function (record) {
+            let list = this.getDisbursements();
+            if (!record.id) {
+                record.id = 'DSB-2026-' + String(Math.floor(100 + Math.random() * 900));
+            }
+            list.unshift(record);
+            this._set('disbursements', list);
+
+            const currentUser = this.getCurrentUser();
+            this.logAudit(
+                currentUser ? currentUser.name : 'Finance Admin',
+                currentUser ? currentUser.role : 'Incubation Manager',
+                'GRANT_DISBURSEMENT_RECORDED',
+                `New grant disbursement tranche created for startup: ${record.startupName}`
+            );
+            return record;
+        },
+
+        updateTrancheStatus: function (disbursementId, trancheNo, newStatus, remarks) {
+            let list = this.getDisbursements();
+            const dsb = list.find(d => d.id === disbursementId);
+            if (!dsb) return null;
+
+            const tranche = dsb.tranches.find(t => t.trancheNo === Number(trancheNo));
+            if (!tranche) return null;
+
+            tranche.status = newStatus;
+            if (remarks) tranche.remarks = remarks;
+            if (newStatus === 'Disbursed' && !tranche.disbursedDate) {
+                tranche.disbursedDate = new Date().toISOString().split('T')[0];
+                tranche.ucSubmitted = true;
+            }
+
+            this._set('disbursements', list);
+
+            const currentUser = this.getCurrentUser();
+            this.logAudit(
+                currentUser ? currentUser.name : 'Director',
+                currentUser ? currentUser.role : 'Executive Director',
+                'TRANCHE_STATUS_UPDATED',
+                `Tranche ${trancheNo} for "${dsb.startupName}" updated to [${newStatus}].`
+            );
+            return dsb;
         }
     };
 

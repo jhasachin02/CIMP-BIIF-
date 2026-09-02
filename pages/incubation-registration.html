@@ -1,4 +1,4 @@
-﻿<!doctype html>
+<!doctype html>
 <html lang="en" dir="ltr">
 
 <head>
@@ -482,6 +482,7 @@
                                     <a href="javascript:void(0)">Join CIMP BIIF <i class="fa fa-chevron-down font-10 ms-1 opacity-75"></i></a>
                                     <ul class="iit-dropdown">
                                         <li><a href="incubation-registration.html"><i class="fa fa-seedling text-primary font-12"></i> Startup Registration</a></li>
+                                        <li><a href="track-status.html"><i class="fa-solid fa-magnifying-glass text-primary font-12"></i> Track Application Status</a></li>
                                         <li><a href="mentor-registration.html"><i class="fa fa-graduation-cap text-primary font-12"></i> Mentor Registration</a></li>
                                         <li><a href="investor-registration.html"><i class="fa fa-sack-dollar text-primary font-12"></i> Investor Registration</a></li>
                                         <li><a href="contact-us.html"><i class="fa fa-briefcase text-primary font-12"></i> Partner Registration</a></li>
@@ -625,6 +626,9 @@
                                             <option value="Other">Other State</option>
                                         </select>
                                     </div>
+
+                                    <!-- Dynamic Questions Container for Step 1 -->
+                                    <div id="dynFieldsStep1" class="row"></div>
                                 </div>
 
                                 <div class="app-form-actions">
@@ -673,6 +677,9 @@
                                         <textarea class="input-clean" id="solution" placeholder="What is your product or service, and why is it unique compared to competitors?" required></textarea>
                                         <div class="field-err-text" id="err_solution">Please describe your proposed solution.</div>
                                     </div>
+
+                                    <!-- Dynamic Questions Container for Step 2 -->
+                                    <div id="dynFieldsStep2" class="row"></div>
                                 </div>
 
                                 <div class="app-form-actions">
@@ -723,6 +730,9 @@
                                         </label>
                                         <input type="url" class="input-clean" id="pitch_deck_url" placeholder="https://drive.google.com/.../pitchdeck.pdf">
                                     </div>
+
+                                    <!-- Dynamic Questions Container for Step 3 -->
+                                    <div id="dynFieldsStep3" class="row"></div>
                                 </div>
 
                                 <div class="app-form-actions">
@@ -932,6 +942,31 @@
             btn.disabled = true;
             btn.innerText = 'Submitting...';
 
+            const dynamicResponses = {};
+            let dynValid = true;
+            document.querySelectorAll('.dyn-input').forEach(inp => {
+                const isReq = inp.getAttribute('data-required') === 'true';
+                const label = inp.getAttribute('data-label') || inp.id;
+                const val = inp.value.trim();
+                const errEl = document.getElementById('err_' + inp.id);
+                if (isReq && !val) {
+                    inp.classList.add('is-invalid');
+                    if (errEl) errEl.style.display = 'block';
+                    dynValid = false;
+                } else {
+                    inp.classList.remove('is-invalid');
+                    if (errEl) errEl.style.display = 'none';
+                    if (val) dynamicResponses[label] = val;
+                }
+            });
+
+            document.querySelectorAll('.dyn-radio:checked').forEach(rad => {
+                const label = rad.getAttribute('data-label') || rad.name;
+                dynamicResponses[label] = rad.value;
+            });
+
+            if (!dynValid) return;
+
             const appData = {
                 startup_name: document.getElementById('startup_name').value.trim(),
                 founderName: document.getElementById('founder_name').value.trim(),
@@ -940,10 +975,11 @@
                 city: document.getElementById('city').value.trim(),
                 state: document.getElementById('state').value,
                 sector: document.getElementById('sector').value,
-                product_description: document.getElementById('product_description').value.trim(),
-                teamMembers: document.getElementById('team_members').value,
+                product_description: document.getElementById('product_description') ? document.getElementById('product_description').value.trim() : (document.getElementById('problem_statement') ? document.getElementById('problem_statement').value.trim() : ''),
+                teamMembers: document.getElementById('team_members') ? document.getElementById('team_members').value : (document.getElementById('team_size') ? document.getElementById('team_size').value : '2-5 Members'),
                 stage: document.getElementById('stage').value,
-                pitchDeckUrl: document.getElementById('pitch_deck_url').value.trim() || '#'
+                pitchDeckUrl: document.getElementById('pitch_deck_url').value.trim() || '#',
+                dynamicResponses: dynamicResponses
             };
 
             setTimeout(() => {
@@ -1001,6 +1037,64 @@
                 btn.innerText = 'Submit Proposal';
             }, 500);
         });
+
+        // ==========================================
+        // DYNAMIC FORM FIELD RENDERER FROM ADMIN
+        // ==========================================
+        function initDynamicFormRenderer() {
+            if (!window.CIMP_DB) return;
+            const schema = window.CIMP_DB.getFormSchema('startup-incubation');
+            if (!schema || !schema.fields) return;
+
+            // Render custom dynamic fields added from Admin Form Studio
+            const customFields = schema.fields.filter(f => !f.isCore && f.active);
+            [1, 2, 3].forEach(stepNum => {
+                const cont = document.getElementById('dynFieldsStep' + stepNum);
+                if (!cont) return;
+                cont.innerHTML = '';
+                const stepCustom = customFields.filter(f => f.step === stepNum);
+                stepCustom.forEach(f => {
+                    const colClass = f.colWidth === '12' ? 'col-12' : 'col-md-6';
+                    let fieldHtml = `
+                        <div class="${colClass} mb-3">
+                            <label class="form-label-tag" for="${f.id}">
+                                ${f.label} ${f.required ? '<span class="req">*</span>' : ''}
+                            </label>
+                    `;
+
+                    if (f.type === 'textarea') {
+                        fieldHtml += `<textarea class="input-clean dyn-input" id="${f.id}" data-label="${f.label}" data-required="${Boolean(f.required)}" placeholder="${f.placeholder || ''}"></textarea>`;
+                    } else if (f.type === 'select') {
+                        fieldHtml += `<select class="input-clean select-clean dyn-input" id="${f.id}" data-label="${f.label}" data-required="${Boolean(f.required)}"><option value="">-- Select ${f.label} --</option>`;
+                        (f.options || []).forEach(opt => {
+                            fieldHtml += `<option value="${opt}">${opt}</option>`;
+                        });
+                        fieldHtml += `</select>`;
+                    } else if (f.type === 'radio') {
+                        fieldHtml += `<div class="d-flex flex-wrap gap-3 mt-2">`;
+                        (f.options || []).forEach((opt, oIdx) => {
+                            fieldHtml += `
+                                <label class="font-13 d-flex align-items-center gap-1.5 cursor-pointer text-dark">
+                                    <input type="radio" name="dyn_${f.id}" value="${opt}" class="dyn-radio" data-field-id="${f.id}" data-label="${f.label}"> ${opt}
+                                </label>
+                            `;
+                        });
+                        fieldHtml += `</div>`;
+                    } else {
+                        fieldHtml += `<input type="${f.type === 'tel' ? 'tel' : (f.type === 'number' ? 'number' : (f.type === 'email' ? 'email' : 'text'))}" class="input-clean dyn-input" id="${f.id}" data-label="${f.label}" data-required="${Boolean(f.required)}" placeholder="${f.placeholder || ''}">`;
+                    }
+
+                    if (f.helpText) {
+                        fieldHtml += `<div class="font-11 text-muted mt-1">${f.helpText}</div>`;
+                    }
+                    fieldHtml += `<div class="field-err-text" id="err_${f.id}">${f.label} is required.</div></div>`;
+                    cont.innerHTML += fieldHtml;
+                });
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', initDynamicFormRenderer);
+        window.addEventListener('cimp:db_updated', initDynamicFormRenderer);
     </script>
     <script src="../assets/js/plugins.init.js"></script>
     <script src="../assets/js/app.js"></script>
