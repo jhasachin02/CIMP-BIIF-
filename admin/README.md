@@ -62,8 +62,8 @@ $$\text{Public Registration Form} \xrightarrow{\text{Submits Application}} \text
 
 | Role | Name | Email | Default Dashboard |
 |---|---|---|---|
-| **Director** | Dr. Rana Singh | `director@cimp.ac.in` | `admin/director/index.html` |
-| **Incubation Manager** | Kumod Kumar | `incubation@cimpbiif.com` | `admin/incubation-manager/index.html` |
-| **IT Admin** | J. Sachan | `itadmin@cimpbiif.com` | `admin/it-admin/index.html` |
-| **Startup Founder** | Chandrashekhar Mandal | `founder@digitallabourchowk.com` | `admin/startup/index.html` |
-| **Mentor** | Dr. Alok Kumar | `alok.kumar@cimp.ac.in` | `admin/mentor/index.html` |
+| **Director** | Director | `director@cimp.ac.in` | `admin/director/index.html` |
+| **Incubation Manager** | Manager | `incubation@cimpbiif.com` | `admin/incubation-manager/index.html` |
+| **IT Admin** | IT Admin | `itadmin@cimpbiif.com` | `admin/it-admin/index.html` |
+| **Startup Founder** | Founder | `founder@abc.com` | `admin/startup/index.html` |
+| **Mentor** | Mentor | `mentor@cimp.ac.in` | `admin/mentor/index.html` |

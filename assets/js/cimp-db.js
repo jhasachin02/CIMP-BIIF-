@@ -529,7 +529,7 @@
         {
             id: 'LOG-101',
             timestamp: new Date(Date.now() - 3600000 * 2).toISOString(),
-            actor: 'Director (Dr. Rana Singh)',
+            actor: 'Director',
             role: 'Director',
             action: 'FINAL_APPROVAL',
             details: 'Approved startup Project Starline for Cohort 2023 and released onboarding kit.'
@@ -537,7 +537,7 @@
         {
             id: 'LOG-102',
             timestamp: new Date(Date.now() - 3600000 * 6).toISOString(),
-            actor: 'Incubation Manager (K. Kumar)',
+            actor: 'Manager',
             role: 'Incubation Manager',
             action: 'EVALUATION_SCORE',
             details: 'Evaluated application APP-2026-092 (EduSathi VR Classrooms) with Score 92/100 and recommended to Director.'
@@ -545,7 +545,7 @@
         {
             id: 'LOG-103',
             timestamp: new Date(Date.now() - 3600000 * 18).toISOString(),
-            actor: 'IT / Admin (J. Sachan)',
+            actor: 'IT Admin',
             role: 'IT Admin',
             action: 'PORTAL_SYNC',
             details: 'Synchronized verified startup directory to live CIMP-BIIF public portal.'
@@ -554,11 +554,11 @@
 
     // Seed System Users with Testing Passwords
     const SEED_USERS = [
-        { id: 'usr-dir', name: 'Dr. Rana Singh', email: 'director@cimp.ac.in', password: 'director123', role: 'Director', avatar: 'assets/images/user-director.png', title: 'Director, CIMP', portalUrl: 'admin/director/index.html' },
-        { id: 'usr-mgr', name: 'Kumod Kumar', email: 'incubation@cimpbiif.com', password: 'manager123', role: 'Incubation Manager', avatar: 'assets/images/user-manager.png', title: 'Incubation Manager & CEO', portalUrl: 'admin/incubation-manager/index.html' },
-        { id: 'usr-it', name: 'J. Sachan', email: 'itadmin@cimpbiif.com', password: 'admin123', role: 'IT Admin', avatar: 'assets/images/user-it.png', title: 'Lead System Administrator', portalUrl: 'admin/it-admin/index.html' },
-        { id: 'usr-founder', name: 'Chandrashekhar Mandal', email: 'founder@abc.com', password: 'startup123', role: 'Startup', startupId: 'ST-001', title: 'Founder & CEO, Digital Labour Chowk', portalUrl: 'admin/startup/index.html' },
-        { id: 'usr-mentor', name: 'Dr. Alok Kumar', email: 'alok.kumar@cimp.ac.in', password: 'mentor123', role: 'Mentor', mentorId: 'MEN-001', title: 'Senior Incubation Advisor', portalUrl: 'admin/mentor/index.html' }
+        { id: 'usr-dir', name: 'Director', email: 'director@cimp.ac.in', password: 'director123', role: 'Director', avatar: 'assets/images/user-director.png', title: 'Director, CIMP', portalUrl: 'admin/director/index.html' },
+        { id: 'usr-mgr', name: 'Manager', email: 'incubation@cimpbiif.com', password: 'manager123', role: 'Incubation Manager', avatar: 'assets/images/user-manager.png', title: 'Incubation Manager & CEO', portalUrl: 'admin/incubation-manager/index.html' },
+        { id: 'usr-it', name: 'IT Admin', email: 'itadmin@cimpbiif.com', password: 'admin123', role: 'IT Admin', avatar: 'assets/images/user-it.png', title: 'Lead System Administrator', portalUrl: 'admin/it-admin/index.html' },
+        { id: 'usr-founder', name: 'Founder', email: 'founder@abc.com', password: 'startup123', role: 'Startup', startupId: 'ST-001', title: 'Founder & CEO, Digital Labour Chowk', portalUrl: 'admin/startup/index.html' },
+        { id: 'usr-mentor', name: 'Mentor', email: 'mentor@cimp.ac.in', password: 'mentor123', role: 'Mentor', mentorId: 'MEN-001', title: 'Senior Incubation Advisor', portalUrl: 'admin/mentor/index.html' }
     ];
 
     // Core Database Wrapper
@@ -597,10 +597,25 @@
             if (!this._get('announcements')) this._set('announcements', SEED_ANNOUNCEMENTS);
             if (!this._get('audit_logs')) this._set('audit_logs', SEED_AUDIT_LOGS);
             
-            // Always sync users to ensure latest credentials (founder@abc.com etc.)
+            // Sync & auto-migrate stored users to latest credentials & clean names
             const storedUsers = this._get('users', null);
-            if (!storedUsers || !storedUsers.some(u => u.email === 'founder@abc.com')) {
+            if (!storedUsers || !Array.isArray(storedUsers) || storedUsers.length === 0) {
                 this._set('users', SEED_USERS);
+            } else {
+                let updated = false;
+                storedUsers.forEach(u => {
+                    if (u.id === 'usr-dir' && u.name === 'Dr. Rana Singh') { u.name = 'Director'; updated = true; }
+                    if (u.id === 'usr-mgr' && u.name === 'Kumod Kumar') { u.name = 'Manager'; updated = true; }
+                    if (u.id === 'usr-it' && u.name === 'J. Sachan') { u.name = 'IT Admin'; updated = true; }
+                    if (u.id === 'usr-founder' && u.name === 'Chandrashekhar Mandal') { u.name = 'Founder'; updated = true; }
+                    if (u.id === 'usr-mentor') {
+                        if (u.name === 'Dr. Alok Kumar') { u.name = 'Mentor'; updated = true; }
+                        if (u.email === 'alok.kumar@cimp.ac.in') { u.email = 'mentor@cimp.ac.in'; updated = true; }
+                    }
+                });
+                if (updated) {
+                    this._set('users', storedUsers);
+                }
             }
 
             // Active user session
@@ -626,7 +641,11 @@
             const cleanEmail = (email || '').trim().toLowerCase();
             const cleanPass = (password || '').trim();
 
-            const user = users.find(u => u.email.toLowerCase() === cleanEmail);
+            let user = users.find(u => u.email.toLowerCase() === cleanEmail);
+            // Allow mentor to login with either mentor@cimp.ac.in or legacy alok.kumar@cimp.ac.in
+            if (!user && (cleanEmail === 'mentor@cimp.ac.in' || cleanEmail === 'alok.kumar@cimp.ac.in')) {
+                user = users.find(u => u.id === 'usr-mentor');
+            }
             if (!user) {
                 return { success: false, message: 'No account found with email: ' + email };
             }
