@@ -1,4 +1,10 @@
 {
   "cleanUrls": true,
-  "trailingSlash": false
+  "trailingSlash": false,
+  "redirects": [
+    { "source": "/admin/manager(.*)", "destination": "/admin/incubation-manager", "permanent": true },
+    { "source": "/admin/startup-portal(.*)", "destination": "/admin/startup", "permanent": true },
+    { "source": "/admin/mentor-portal(.*)", "destination": "/admin/mentor", "permanent": true },
+    { "source": "/admin/it-admin.html", "destination": "/admin/it-admin", "permanent": true }
+  ]
 }

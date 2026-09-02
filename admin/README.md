@@ -27,10 +27,6 @@ d:/Sachin projects/CIMP - BIIF Website/
 │   │   └── index.html                      # Allotted Portfolio Startups, Session Hours Logger
 │   │
 │   ├── index.html                          # Root Director Command Center (Quick Access)
-│   ├── manager.html                        # Root Incubation Manager Shortcut
-│   ├── it-admin.html                       # Root IT Admin Shortcut
-│   ├── startup-portal.html                 # Root Startup Founder Portal Shortcut
-│   ├── mentor-portal.html                  # Root Mentor Advisory Shortcut
 │   └── README.md                           # This Architecture Guide
 │
 ├── 📂 assets/                              # Core Design System & Engine
