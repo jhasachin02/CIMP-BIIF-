@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -24,11 +24,17 @@
 
 <body class="admin-unified-body">
 
-    <!-- 1. Left Sidebar Navigation -->
-    <aside class="app-sidebar">
+    <!-- Mobile Sidebar Dark Backdrop -->
+    <div class="app-sidebar-backdrop" id="sidebarBackdrop" onclick="toggleMobileSidebar()"></div>
+
+    <!-- 1. Left Sidebar Navigation (Off-Canvas Drawer on Mobile) -->
+    <aside class="app-sidebar" id="appSidebar">
         <div>
             <!-- Institutional Brand Header -->
-            <div class="app-sidebar-brand">
+            <div class="app-sidebar-brand position-relative">
+                <button class="btn btn-sm text-white-50 d-lg-none position-absolute top-0 end-0 m-2 p-1" onclick="toggleMobileSidebar()" title="Close Navigation Drawer" style="border: none; background: transparent;">
+                    <i class="fa-solid fa-xmark font-20 text-white"></i>
+                </button>
                 <div class="app-sidebar-emblem">
                     <img src="../../assets/images/CIMP-Icon.png" height="32" alt="CIMP Logo" style="object-fit: contain;">
                     <div style="border-left: 1.5px solid #CBD5E1; height: 24px;"></div>
@@ -42,21 +48,21 @@
             <div class="app-nav-group">
                 <span class="app-nav-header">Administration</span>
                 
-                <button class="app-nav-btn active" onclick="switchItView('tab-it-users', this)">
+                <button class="app-nav-btn active" id="itNavUsers" onclick="switchItView('tab-it-users', this)">
                     <span class="left-grp">
                         <i class="fa-solid fa-users-gear font-14"></i>
                         <span>RBAC &amp; System Users</span>
                     </span>
                 </button>
 
-                <button class="app-nav-btn" onclick="switchItView('tab-it-audit', this)">
+                <button class="app-nav-btn" id="itNavAudit" onclick="switchItView('tab-it-audit', this)">
                     <span class="left-grp">
                         <i class="fa-solid fa-shield-halved font-14"></i>
                         <span>Audit &amp; Security Trail</span>
                     </span>
                 </button>
 
-                <button class="app-nav-btn" onclick="switchItView('tab-it-backup', this)">
+                <button class="app-nav-btn" id="itNavBackup" onclick="switchItView('tab-it-backup', this)">
                     <span class="left-grp">
                         <i class="fa-solid fa-database font-14"></i>
                         <span>Database &amp; Backups</span>
@@ -90,24 +96,44 @@
     <!-- 2. Main Workspace Viewport -->
     <div class="app-main-wrap">
         
-        <!-- Topbar Header -->
+        <!-- Topbar Header (Native Mobile App Bar on Mobile) -->
         <header class="app-topbar">
-            <div class="d-flex align-items-center gap-2">
+            <!-- Mobile Left: Hamburger Drawer Toggle -->
+            <button class="btn btn-light d-lg-none p-0 rounded-circle border shadow-sm d-flex align-items-center justify-content-center" style="width: 38px; height: 38px; min-width: 38px;" onclick="toggleMobileSidebar()" title="Open Menu">
+                <i class="fa-solid fa-bars font-16 text-dark"></i>
+            </button>
+
+            <!-- Mobile Center: Both Official Emblems & Logos -->
+            <div class="d-flex d-lg-none align-items-center justify-content-center gap-1" style="cursor: pointer;" onclick="switchItView('tab-it-users')">
+                <img src="../../assets/images/CIMP-Icon.png" height="24" alt="CIMP Logo" style="object-fit: contain;">
+                <div style="border-left: 1.5px solid #CBD5E1; height: 18px; margin: 0 4px;"></div>
+                <img src="../../assets/images/logo.png" height="22" alt="CIMP - BIIF Logo" style="object-fit: contain;">
+            </div>
+
+            <!-- Desktop Left: Title -->
+            <div class="d-none d-lg-flex align-items-center gap-2">
                 <h5 class="mb-0 fw-bold font-15 text-dark"><i class="fa-solid fa-shield-halved text-primary me-2"></i> Central IT Security &amp; Access Governance</h5>
             </div>
 
-            <div class="d-flex align-items-center gap-3">
-                <button class="btn btn-sm btn-outline-danger font-12 fw-semibold" onclick="confirmResetDB()">
-                    <i class="fa-solid fa-rotate-left me-1"></i> Reset Seed DB
+            <!-- Right Controls: Action & Mobile Profile -->
+            <div class="d-flex align-items-center gap-2 gap-sm-3">
+                <button class="btn btn-sm btn-outline-danger font-11 fw-semibold d-none d-sm-inline-block" onclick="confirmResetDB()">
+                    <i class="fa-solid fa-rotate-left me-1"></i> Reset DB
                 </button>
-                <button class="app-btn-action" onclick="exportDatabaseJson()">
+                <button class="app-btn-action d-none d-sm-inline-block" onclick="exportDatabaseJson()">
                     <i class="fa-solid fa-download me-1"></i> Backup JSON
                 </button>
 
+                <!-- Desktop Profile Name & Title -->
                 <div class="d-none d-md-flex flex-column align-items-end" style="cursor: pointer;" onclick="CIMP_DB.openProfileModal()" title="Click to Edit Profile &amp; Password">
                     <span class="font-13 fw-bold text-dark" id="topbarUserName" style="line-height:1.2;">IT Admin</span>
                     <span class="font-11 text-muted" id="topbarUserTitle" style="line-height:1.1;">Lead System Administrator <i class="fa-solid fa-pen-to-square ms-1 text-primary font-10"></i></span>
                 </div>
+
+                <!-- Mobile Profile Avatar Button -->
+                <button class="btn btn-light d-md-none p-0 rounded-circle border shadow-sm d-flex align-items-center justify-content-center" style="width: 38px; height: 38px;" onclick="CIMP_DB.openProfileModal()" title="Edit Profile">
+                    <i class="fa-solid fa-user-shield text-primary font-15"></i>
+                </button>
             </div>
         </header>
 
@@ -121,20 +147,23 @@
                         <h3 class="fw-bold font-20 mb-1" style="font-family: 'Outfit', sans-serif;">Authorized Ecosystem Users &amp; Credentials</h3>
                         <p class="text-muted font-13 mb-0">Role-Based Access Control (RBAC), User ID &amp; Password provisioning, and security management.</p>
                     </div>
-                    <div class="d-flex align-items-center gap-2 flex-wrap">
-                        <div class="input-group input-group-sm" style="width: 220px;">
-                            <span class="input-group-text bg-white border-end-0"><i class="fa-solid fa-magnifying-glass text-muted font-11"></i></span>
-                            <input type="text" id="itUserFilterInp" class="form-control border-start-0 font-12" placeholder="Search user by name, email..." oninput="filterItUsers()">
+                    <div class="d-flex flex-column flex-md-row align-items-stretch align-items-md-center gap-2 w-100 w-md-auto">
+                        <!-- Filters row strictly on a single line -->
+                        <div class="d-flex align-items-center gap-2 flex-nowrap w-100 w-md-auto" style="min-width: 0;">
+                            <div class="input-group input-group-sm flex-grow-1" style="min-width: 0;">
+                                <span class="input-group-text bg-white border-end-0"><i class="fa-solid fa-magnifying-glass text-muted font-11"></i></span>
+                                <input type="text" id="itUserFilterInp" class="form-control border-start-0 font-12" placeholder="Search user by name..." oninput="filterItUsers()" style="min-width: 0;">
+                            </div>
+                            <select id="itRoleFilterSel" class="form-select form-select-sm font-12" style="width: 125px; min-width: 105px; font-weight: 600;" onchange="filterItUsers()">
+                                <option value="">All Roles</option>
+                                <option value="Director">Director</option>
+                                <option value="Incubation Manager">Incubation Manager</option>
+                                <option value="IT Admin">IT Admin</option>
+                                <option value="Startup">Startup Founder</option>
+                                <option value="Mentor">Faculty Mentor</option>
+                            </select>
                         </div>
-                        <select id="itRoleFilterSel" class="form-select form-select-sm font-12" style="width: 140px;" onchange="filterItUsers()">
-                            <option value="">All Roles</option>
-                            <option value="Director">Director</option>
-                            <option value="Incubation Manager">Incubation Manager</option>
-                            <option value="IT Admin">IT Admin</option>
-                            <option value="Startup">Startup Founder</option>
-                            <option value="Mentor">Faculty Mentor</option>
-                        </select>
-                        <button class="app-btn-action" onclick="openCreateUserModal()">
+                        <button class="app-btn-action text-nowrap" onclick="openCreateUserModal()">
                             <i class="fa-solid fa-user-plus me-1"></i> Create User &amp; Password
                         </button>
                     </div>
@@ -145,13 +174,13 @@
                         <table class="app-table">
                             <thead>
                                 <tr>
-                                    <th>User Profile</th>
-                                    <th>Official Email (Login ID)</th>
-                                    <th>Assigned Persona</th>
-                                    <th>Institutional Title</th>
-                                    <th>Credentials (Password)</th>
-                                    <th>Access Status</th>
-                                    <th class="text-end">Actions</th>
+                                    <th class="text-nowrap">User Profile</th>
+                                    <th class="text-nowrap">Official Email (Login ID)</th>
+                                    <th class="text-nowrap">Assigned Persona</th>
+                                    <th class="text-nowrap">Institutional Title</th>
+                                    <th class="text-nowrap">Credentials (Password)</th>
+                                    <th class="text-nowrap">Access Status</th>
+                                    <th class="text-end text-nowrap">Actions</th>
                                 </tr>
                             </thead>
                             <tbody id="tblItUsersBody">
@@ -226,6 +255,26 @@
             </div>
 
         </main>
+
+        <!-- Native Mobile Bottom Navigation Bar -->
+        <nav class="app-mobile-bottom-bar d-lg-none">
+            <button class="mobile-nav-btn active" id="mItNavUsers" onclick="switchItMobileTab('tab-it-users', this)">
+                <i class="fa-solid fa-users-gear"></i>
+                <span>Users</span>
+            </button>
+            <button class="mobile-nav-btn" id="mItNavAudit" onclick="switchItMobileTab('tab-it-audit', this)">
+                <i class="fa-solid fa-shield-halved"></i>
+                <span>Audit</span>
+            </button>
+            <button class="mobile-nav-btn" id="mItNavBackup" onclick="switchItMobileTab('tab-it-backup', this)">
+                <i class="fa-solid fa-database"></i>
+                <span>Backups</span>
+            </button>
+            <button class="mobile-nav-btn" onclick="toggleMobileSidebar()">
+                <i class="fa-solid fa-bars"></i>
+                <span>More</span>
+            </button>
+        </nav>
     </div>
 
     <!-- MODAL 1: CREATE USER & PASSWORD -->
@@ -423,6 +472,33 @@
     <script src="../../assets/js/cimp-db.js"></script>
 
     <script>
+        function toggleMobileSidebar() {
+            const sidebar = document.getElementById('appSidebar');
+            const backdrop = document.getElementById('sidebarBackdrop');
+            if (sidebar) sidebar.classList.toggle('show-mobile');
+            if (backdrop) backdrop.classList.toggle('show-mobile');
+        }
+
+        function closeMobileSidebarIfOpen() {
+            const sidebar = document.getElementById('appSidebar');
+            const backdrop = document.getElementById('sidebarBackdrop');
+            if (sidebar) sidebar.classList.remove('show-mobile');
+            if (backdrop) backdrop.classList.remove('show-mobile');
+        }
+
+        function switchItMobileTab(tabId, btnEl) {
+            document.querySelectorAll('.mobile-nav-btn').forEach(b => b.classList.remove('active'));
+            if (btnEl) btnEl.classList.add('active');
+
+            let desktopBtn = null;
+            if (tabId === 'tab-it-users') desktopBtn = document.getElementById('itNavUsers');
+            else if (tabId === 'tab-it-audit') desktopBtn = document.getElementById('itNavAudit');
+            else if (tabId === 'tab-it-backup') desktopBtn = document.getElementById('itNavBackup');
+
+            switchItView(tabId, desktopBtn);
+            closeMobileSidebarIfOpen();
+        }
+
         function switchItView(tabId, btnEl) {
             document.querySelectorAll('.app-tab-pane').forEach(p => p.classList.remove('active'));
             document.querySelectorAll('.app-nav-btn').forEach(b => b.classList.remove('active'));
@@ -430,6 +506,12 @@
             const targetPane = document.getElementById(tabId);
             if (targetPane) targetPane.classList.add('active');
             if (btnEl) btnEl.classList.add('active');
+
+            // Sync mobile bottom bar
+            document.querySelectorAll('.mobile-nav-btn').forEach(b => b.classList.remove('active'));
+            if (tabId === 'tab-it-users') document.getElementById('mItNavUsers')?.classList.add('active');
+            else if (tabId === 'tab-it-audit') document.getElementById('mItNavAudit')?.classList.add('active');
+            else if (tabId === 'tab-it-backup') document.getElementById('mItNavBackup')?.classList.add('active');
 
             if (tabId === 'tab-it-users') renderItUsers();
             if (tabId === 'tab-it-audit') renderItAudit();
@@ -509,22 +591,22 @@
 
                 html += `
                     <tr>
-                        <td>
-                            <div class="d-flex align-items-center gap-2">
-                                <div class="d-flex align-items-center justify-content-center rounded-circle bg-light border shadow-2xs" style="width:34px; height:34px; flex-shrink: 0;">
+                        <td class="text-nowrap">
+                            <div class="d-flex align-items-center gap-2 text-nowrap">
+                                <div class="d-flex align-items-center justify-content-center rounded-circle bg-light border shadow-2xs" style="width:32px; height:32px; flex-shrink: 0;">
                                     ${getRoleIcon(u.role, u)}
                                 </div>
-                                <div>
-                                    <div class="fw-bold font-13 text-dark">${u.name}</div>
-                                    <div class="font-10 text-muted">ID: <code>${u.id}</code></div>
+                                <div class="text-nowrap">
+                                    <span class="fw-bold font-13 text-dark">${u.name}</span>
+                                    <span class="font-11 text-muted ms-1">(<code>${u.id}</code>)</span>
                                 </div>
                             </div>
                         </td>
-                        <td><code class="font-12 text-primary fw-semibold">${u.email}</code></td>
-                        <td>${getRoleBadge(u.role, u)}</td>
-                        <td class="font-12 text-muted fw-medium">${u.title || u.role}</td>
-                        <td>
-                            <div class="d-flex align-items-center gap-1">
+                        <td class="text-nowrap"><code class="font-12 text-primary fw-semibold">${u.email}</code></td>
+                        <td class="text-nowrap">${getRoleBadge(u.role, u)}</td>
+                        <td class="font-12 text-muted fw-medium text-nowrap">${u.title || u.role}</td>
+                        <td class="text-nowrap">
+                            <div class="d-flex align-items-center gap-1 text-nowrap">
                                 <input type="password" readonly value="${pass}" id="pass_${u.id}" class="form-control form-control-sm font-12 bg-light border-0 py-0" style="width: 100px; letter-spacing: 2px;" />
                                 <button class="btn btn-sm btn-link text-muted p-0 ms-1" onclick="toggleTblPass('pass_${u.id}', this)" title="Show/Hide Password">
                                     <i class="fa-solid fa-eye font-12"></i>
@@ -534,8 +616,8 @@
                                 </button>
                             </div>
                         </td>
-                        <td>${statusBadge}</td>
-                        <td class="text-end">
+                        <td class="text-nowrap">${statusBadge}</td>
+                        <td class="text-end text-nowrap">
                             <div class="btn-group btn-group-sm">
                                 <button class="btn btn-outline-secondary font-11" onclick="openEditUserModal('${u.id}')" title="Edit Profile">
                                     <i class="fa-solid fa-user-pen"></i> Edit

@@ -24,11 +24,17 @@
 
 <body class="admin-unified-body">
 
-    <!-- 1. Left Sidebar Navigation -->
-    <aside class="app-sidebar">
+    <!-- Mobile Sidebar Dark Backdrop -->
+    <div class="app-sidebar-backdrop" id="sidebarBackdrop" onclick="toggleMobileSidebar()"></div>
+
+    <!-- 1. Left Sidebar Navigation (Off-Canvas Drawer on Mobile) -->
+    <aside class="app-sidebar" id="appSidebar">
         <div>
             <!-- Institutional Brand Header -->
-            <div class="app-sidebar-brand">
+            <div class="app-sidebar-brand position-relative">
+                <button class="btn btn-sm text-white-50 d-lg-none position-absolute top-0 end-0 m-2 p-1" onclick="toggleMobileSidebar()" title="Close Navigation Drawer" style="border: none; background: transparent;">
+                    <i class="fa-solid fa-xmark font-20 text-white"></i>
+                </button>
                 <div class="app-sidebar-emblem">
                     <img src="../../assets/images/CIMP-Icon.png" height="32" alt="CIMP Logo" style="object-fit: contain;">
                     <div style="border-left: 1.5px solid #CBD5E1; height: 24px;"></div>
@@ -42,21 +48,21 @@
             <div class="app-nav-group">
                 <span class="app-nav-header">Venture Workspace</span>
                 
-                <button class="app-nav-btn active" onclick="switchStView('tab-st-overview', this)">
+                <button class="app-nav-btn active" id="stNavOverview" onclick="switchStView('tab-st-overview', this)">
                     <span class="left-grp">
                         <i class="fa-solid fa-gauge-high font-14"></i>
                         <span>Venture Overview</span>
                     </span>
                 </button>
 
-                <button class="app-nav-btn" onclick="switchStView('tab-st-traction', this)">
+                <button class="app-nav-btn" id="stNavTraction" onclick="switchStView('tab-st-traction', this)">
                     <span class="left-grp">
                         <i class="fa-solid fa-chart-line font-14"></i>
                         <span>Monthly Traction</span>
                     </span>
                 </button>
 
-                <button class="app-nav-btn" onclick="switchStView('tab-st-mentors', this)">
+                <button class="app-nav-btn" id="stNavMentors" onclick="switchStView('tab-st-mentors', this)">
                     <span class="left-grp">
                         <i class="fa-solid fa-handshake-simple font-14"></i>
                         <span>Book Mentor</span>
@@ -90,21 +96,41 @@
     <!-- 2. Main Workspace Viewport -->
     <div class="app-main-wrap">
         
-        <!-- Topbar Header -->
+        <!-- Topbar Header (Native Mobile App Bar on Mobile) -->
         <header class="app-topbar">
-            <div class="d-flex align-items-center gap-2">
+            <!-- Mobile Left: Hamburger Drawer Toggle -->
+            <button class="btn btn-light d-lg-none p-0 rounded-circle border shadow-sm d-flex align-items-center justify-content-center" style="width: 38px; height: 38px; min-width: 38px;" onclick="toggleMobileSidebar()" title="Open Menu">
+                <i class="fa-solid fa-bars font-16 text-dark"></i>
+            </button>
+
+            <!-- Mobile Center: Both Official Emblems & Logos -->
+            <div class="d-flex d-lg-none align-items-center justify-content-center gap-1" style="cursor: pointer;" onclick="switchStView('tab-st-overview')">
+                <img src="../../assets/images/CIMP-Icon.png" height="24" alt="CIMP Logo" style="object-fit: contain;">
+                <div style="border-left: 1.5px solid #CBD5E1; height: 18px; margin: 0 4px;"></div>
+                <img src="../../assets/images/logo.png" height="22" alt="CIMP - BIIF Logo" style="object-fit: contain;">
+            </div>
+
+            <!-- Desktop Left: Venture Name -->
+            <div class="d-none d-lg-flex align-items-center gap-2">
                 <h5 class="mb-0 fw-bold font-15 text-dark"><i class="fa-solid fa-rocket text-primary me-2"></i> Digital Labour Chowk (DLC Tech Solutions Pvt Ltd)</h5>
             </div>
 
-            <div class="d-flex align-items-center gap-3">
-                <button class="app-btn-action" onclick="fileMonthlyTraction()">
+            <!-- Right Controls: Action & Mobile Profile -->
+            <div class="d-flex align-items-center gap-2 gap-sm-3">
+                <button class="app-btn-action d-none d-sm-inline-block" onclick="fileMonthlyTraction()">
                     <i class="fa-solid fa-plus me-1"></i> File Monthly Traction
                 </button>
 
+                <!-- Desktop Profile Name & Title -->
                 <div class="d-none d-md-flex flex-column align-items-end" style="cursor: pointer;" onclick="CIMP_DB.openProfileModal()" title="Click to Edit Profile &amp; Password">
                     <span class="font-13 fw-bold text-dark" id="topbarUserName" style="line-height:1.2;">Founder</span>
                     <span class="font-11 text-muted" id="topbarUserTitle" style="line-height:1.1;">Founder &amp; CEO (Cohort 2022) <i class="fa-solid fa-pen-to-square ms-1 text-primary font-10"></i></span>
                 </div>
+
+                <!-- Mobile Profile Avatar Button -->
+                <button class="btn btn-light d-md-none p-0 rounded-circle border shadow-sm d-flex align-items-center justify-content-center" style="width: 38px; height: 38px;" onclick="CIMP_DB.openProfileModal()" title="Edit Profile">
+                    <i class="fa-solid fa-rocket text-primary font-15"></i>
+                </button>
             </div>
         </header>
 
@@ -118,34 +144,34 @@
                     <p class="text-muted font-13 mb-0">Track commercial metrics, milestone completion rate, and incubation grant utilization.</p>
                 </div>
 
-                <!-- 4 Clean Stats -->
-                <div class="row g-3 mb-4">
-                    <div class="col-md-6 col-lg-3">
-                        <div class="app-kpi-card">
-                            <span class="app-kpi-lbl">Annual Revenue Run-Rate</span>
-                            <div class="app-kpi-val text-dark">â‚¹42.5 Lakhs</div>
+                <!-- 4 Clean Stats (2x2 Grid on Mobile) -->
+                <div class="row g-2 g-md-3 mb-3 mb-md-4">
+                    <div class="col-6 col-lg-3">
+                        <div class="app-kpi-card p-2.5 p-md-3">
+                            <span class="app-kpi-lbl">Annual Run-Rate</span>
+                            <div class="app-kpi-val text-dark">₹ 42.5 L</div>
                             <div class="app-kpi-sub" style="color:#059669;"><i class="fa-solid fa-arrow-trend-up"></i> +34% YoY Growth</div>
                         </div>
                     </div>
-                    <div class="col-md-6 col-lg-3">
-                        <div class="app-kpi-card">
-                            <span class="app-kpi-lbl">Grant / Funding Raised</span>
-                            <div class="app-kpi-val text-primary">â‚¹25 Lakhs</div>
-                            <div class="app-kpi-sub"><i class="fa-solid fa-vault"></i> Seed Grant Disbursed</div>
+                    <div class="col-6 col-lg-3">
+                        <div class="app-kpi-card p-2.5 p-md-3">
+                            <span class="app-kpi-lbl">Grant Raised</span>
+                            <div class="app-kpi-val text-primary">₹ 25 Lakhs</div>
+                            <div class="app-kpi-sub"><i class="fa-solid fa-vault"></i> Seed Disbursed</div>
                         </div>
                     </div>
-                    <div class="col-md-6 col-lg-3">
-                        <div class="app-kpi-card">
+                    <div class="col-6 col-lg-3">
+                        <div class="app-kpi-card p-2.5 p-md-3">
                             <span class="app-kpi-lbl">Workers Onboarded</span>
                             <div class="app-kpi-val">5,000+</div>
-                            <div class="app-kpi-sub"><i class="fa-solid fa-users text-dark"></i> Active Profiles</div>
+                            <div class="app-kpi-sub"><i class="fa-solid fa-users"></i> Unorganized Sector</div>
                         </div>
                     </div>
-                    <div class="col-md-6 col-lg-3">
-                        <div class="app-kpi-card">
-                            <span class="app-kpi-lbl">Assigned Advisor</span>
-                            <div class="app-kpi-val font-18 text-dark" style="font-size:18px;">Dr. Alok Kumar</div>
-                            <div class="app-kpi-sub text-success"><i class="fa-solid fa-circle-check"></i> Strategy &amp; GTM</div>
+                    <div class="col-6 col-lg-3">
+                        <div class="app-kpi-card p-2.5 p-md-3">
+                            <span class="app-kpi-lbl">Incubation Cohort</span>
+                            <div class="app-kpi-val">Cohort 2022</div>
+                            <div class="app-kpi-sub text-success"><i class="fa-solid fa-check-circle"></i> Active Standing</div>
                         </div>
                     </div>
                 </div>
@@ -290,6 +316,26 @@
             </div>
 
         </main>
+
+        <!-- Native Mobile Bottom Navigation Bar -->
+        <nav class="app-mobile-bottom-bar d-lg-none">
+            <button class="mobile-nav-btn active" id="mStNavOverview" onclick="switchStMobileTab('tab-st-overview', this)">
+                <i class="fa-solid fa-gauge-high"></i>
+                <span>Overview</span>
+            </button>
+            <button class="mobile-nav-btn" id="mStNavTraction" onclick="switchStMobileTab('tab-st-traction', this)">
+                <i class="fa-solid fa-chart-line"></i>
+                <span>Traction</span>
+            </button>
+            <button class="mobile-nav-btn" id="mStNavMentors" onclick="switchStMobileTab('tab-st-mentors', this)">
+                <i class="fa-solid fa-handshake-simple"></i>
+                <span>Mentors</span>
+            </button>
+            <button class="mobile-nav-btn" onclick="toggleMobileSidebar()">
+                <i class="fa-solid fa-bars"></i>
+                <span>More</span>
+            </button>
+        </nav>
     </div>
 
     <!-- Scripts -->
@@ -297,6 +343,33 @@
     <script src="../../assets/js/cimp-db.js"></script>
 
     <script>
+        function toggleMobileSidebar() {
+            const sidebar = document.getElementById('appSidebar');
+            const backdrop = document.getElementById('sidebarBackdrop');
+            if (sidebar) sidebar.classList.toggle('show-mobile');
+            if (backdrop) backdrop.classList.toggle('show-mobile');
+        }
+
+        function closeMobileSidebarIfOpen() {
+            const sidebar = document.getElementById('appSidebar');
+            const backdrop = document.getElementById('sidebarBackdrop');
+            if (sidebar) sidebar.classList.remove('show-mobile');
+            if (backdrop) backdrop.classList.remove('show-mobile');
+        }
+
+        function switchStMobileTab(tabId, btnEl) {
+            document.querySelectorAll('.mobile-nav-btn').forEach(b => b.classList.remove('active'));
+            if (btnEl) btnEl.classList.add('active');
+
+            let desktopBtn = null;
+            if (tabId === 'tab-st-overview') desktopBtn = document.getElementById('stNavOverview');
+            else if (tabId === 'tab-st-traction') desktopBtn = document.getElementById('stNavTraction');
+            else if (tabId === 'tab-st-mentors') desktopBtn = document.getElementById('stNavMentors');
+
+            switchStView(tabId, desktopBtn);
+            closeMobileSidebarIfOpen();
+        }
+
         function switchStView(tabId, btnEl) {
             document.querySelectorAll('.app-tab-pane').forEach(p => p.classList.remove('active'));
             document.querySelectorAll('.app-nav-btn').forEach(b => b.classList.remove('active'));
@@ -304,6 +377,12 @@
             const targetPane = document.getElementById(tabId);
             if (targetPane) targetPane.classList.add('active');
             if (btnEl) btnEl.classList.add('active');
+
+            // Sync mobile bottom bar
+            document.querySelectorAll('.mobile-nav-btn').forEach(b => b.classList.remove('active'));
+            if (tabId === 'tab-st-overview') document.getElementById('mStNavOverview')?.classList.add('active');
+            else if (tabId === 'tab-st-traction') document.getElementById('mStNavTraction')?.classList.add('active');
+            else if (tabId === 'tab-st-mentors') document.getElementById('mStNavMentors')?.classList.add('active');
         }
 
         document.addEventListener('DOMContentLoaded', function () {

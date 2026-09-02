@@ -27,11 +27,17 @@
 
 <body class="admin-unified-body">
 
-    <!-- 1. Left Sidebar Navigation -->
-    <aside class="app-sidebar">
+    <!-- Mobile Sidebar Dark Backdrop -->
+    <div class="app-sidebar-backdrop" id="sidebarBackdrop" onclick="toggleMobileSidebar()"></div>
+
+    <!-- 1. Left Sidebar Navigation (Off-Canvas Drawer on Mobile) -->
+    <aside class="app-sidebar" id="appSidebar">
         <div>
             <!-- Institutional Brand Header -->
-            <div class="app-sidebar-brand">
+            <div class="app-sidebar-brand position-relative">
+                <button class="btn btn-sm text-white-50 d-lg-none position-absolute top-0 end-0 m-2 p-1" onclick="toggleMobileSidebar()" title="Close Navigation Drawer" style="border: none; background: transparent;">
+                    <i class="fa-solid fa-xmark font-20 text-white"></i>
+                </button>
                 <div class="app-sidebar-emblem">
                     <img src="../../assets/images/CIMP-Icon.png" height="32" alt="CIMP Logo" style="object-fit: contain;">
                     <div style="border-left: 1.5px solid #CBD5E1; height: 24px;"></div>
@@ -45,14 +51,14 @@
             <div class="app-nav-group">
                 <span class="app-nav-header">Workspaces</span>
                 
-                <button class="app-nav-btn active" onclick="switchMgrView('tab-mgr-overview', this)">
+                <button class="app-nav-btn active" id="mgrNavOverview" onclick="switchMgrView('tab-mgr-overview', this)">
                     <span class="left-grp">
                         <i class="fa-solid fa-chart-line font-14"></i>
                         <span>Intake Overview</span>
                     </span>
                 </button>
 
-                <button class="app-nav-btn" onclick="switchMgrView('tab-mgr-queue', this)">
+                <button class="app-nav-btn" id="mgrNavQueue" onclick="switchMgrView('tab-mgr-queue', this)">
                     <span class="left-grp">
                         <i class="fa-solid fa-clipboard-check font-14"></i>
                         <span>Scrutiny Queue</span>
@@ -60,14 +66,14 @@
                     <span class="app-nav-badge" id="navMgrPendingBadge">0</span>
                 </button>
 
-                <button class="app-nav-btn" onclick="switchMgrView('tab-mgr-milestones', this)">
+                <button class="app-nav-btn" id="mgrNavMilestones" onclick="switchMgrView('tab-mgr-milestones', this)">
                     <span class="left-grp">
                         <i class="fa-solid fa-rocket font-14"></i>
                         <span>Portfolio Milestones</span>
                     </span>
                 </button>
 
-                <button class="app-nav-btn" onclick="switchMgrView('tab-mgr-mentors', this)">
+                <button class="app-nav-btn" id="mgrNavMentors" onclick="switchMgrView('tab-mgr-mentors', this)">
                     <span class="left-grp">
                         <i class="fa-solid fa-handshake-angle font-14"></i>
                         <span>Mentorship Allocations</span>
@@ -110,22 +116,47 @@
     <!-- 2. Main Workspace Viewport -->
     <div class="app-main-wrap">
         
-        <!-- Topbar Header -->
+        <!-- Topbar Header (Native Mobile App Bar on Mobile) -->
         <header class="app-topbar">
-            <!-- Omnisearch -->
-            <div class="app-top-search">
+            <!-- Mobile Left: Hamburger Drawer Toggle -->
+            <button class="btn btn-light d-lg-none p-0 rounded-circle border shadow-sm d-flex align-items-center justify-content-center" style="width: 38px; height: 38px; min-width: 38px;" onclick="toggleMobileSidebar()" title="Open Menu">
+                <i class="fa-solid fa-bars font-16 text-dark"></i>
+            </button>
+
+            <!-- Mobile Center: Both Official Emblems & Logos -->
+            <div class="d-flex d-lg-none align-items-center justify-content-center gap-1" style="cursor: pointer;" onclick="switchMgrView('tab-mgr-overview')">
+                <img src="../../assets/images/CIMP-Icon.png" height="24" alt="CIMP Logo" style="object-fit: contain;">
+                <div style="border-left: 1.5px solid #CBD5E1; height: 18px; margin: 0 4px;"></div>
+                <img src="../../assets/images/logo.png" height="22" alt="CIMP - BIIF Logo" style="object-fit: contain;">
+            </div>
+
+            <!-- Desktop Left: Omnisearch -->
+            <div class="app-top-search d-none d-lg-block">
                 <i class="fa-solid fa-magnifying-glass"></i>
                 <input type="text" id="mgrSearchInp" placeholder="Search applications, founders, pitch decks..." oninput="handleMgrSearch(this.value)">
             </div>
 
-            <!-- Right Controls: Manager Info -->
-            <div class="d-flex align-items-center gap-3">
+            <!-- Right Controls: Manager Info & Mobile Profile -->
+            <div class="d-flex align-items-center gap-2 gap-sm-3">
                 <div class="d-none d-md-flex flex-column align-items-end" style="cursor: pointer;" onclick="CIMP_DB.openProfileModal()" title="Click to Edit Profile &amp; Password">
                     <span class="font-13 fw-bold text-dark" id="topbarUserName" style="line-height:1.2;">Manager</span>
                     <span class="font-11 text-muted" id="topbarUserTitle" style="line-height:1.1;">Incubation Manager &amp; CEO <i class="fa-solid fa-pen-to-square ms-1 text-primary font-10"></i></span>
                 </div>
+
+                <!-- Mobile Profile Avatar Button -->
+                <button class="btn btn-light d-md-none p-0 rounded-circle border shadow-sm d-flex align-items-center justify-content-center" style="width: 38px; height: 38px;" onclick="CIMP_DB.openProfileModal()" title="Edit Profile">
+                    <i class="fa-solid fa-user-check text-primary font-15"></i>
+                </button>
             </div>
         </header>
+
+        <!-- Mobile Inline Search Bar (visible only on mobile) -->
+        <div class="d-lg-none px-3 pt-2 pb-2 bg-white border-bottom shadow-xs">
+            <div class="position-relative w-100">
+                <i class="fa-solid fa-magnifying-glass position-absolute text-muted" style="left: 12px; top: 50%; transform: translateY(-50%); font-size: 13px;"></i>
+                <input type="text" id="mgrSearchInpMobile" class="form-control form-control-sm ps-5 bg-light border" placeholder="Search applications, founders..." oninput="handleMgrSearch(this.value)" style="border-radius: 8px; font-size: 12px; height: 34px;">
+            </div>
+        </div>
 
         <!-- Viewport Container -->
         <main class="app-viewport-container">
@@ -137,47 +168,47 @@
                     <p class="text-muted font-13 mb-0">Operational KPIs, intake pipeline progression, and portfolio compliance metrics.</p>
                 </div>
 
-                <!-- 6 Clean Stats -->
-                <div class="row g-3 mb-4">
-                    <div class="col-md-4 col-lg-2">
-                        <div class="app-kpi-card">
+                <!-- 6 Clean Stats (2x3 on Mobile) -->
+                <div class="row g-2 g-md-3 mb-3 mb-md-4">
+                    <div class="col-6 col-md-4 col-lg-2">
+                        <div class="app-kpi-card p-2.5 p-md-3">
                             <span class="app-kpi-lbl">Total Intake</span>
                             <div class="app-kpi-val" id="ovMgrTotal">128</div>
                             <div class="app-kpi-sub"><i class="fa-solid fa-inbox text-primary"></i> FY 2026</div>
                         </div>
                     </div>
-                    <div class="col-md-4 col-lg-2">
-                        <div class="app-kpi-card">
+                    <div class="col-6 col-md-4 col-lg-2">
+                        <div class="app-kpi-card p-2.5 p-md-3">
                             <span class="app-kpi-lbl">Scrutiny Queue</span>
                             <div class="app-kpi-val text-warning" id="ovMgrPending">3</div>
                             <div class="app-kpi-sub"><i class="fa-solid fa-clock"></i> Awaiting Score</div>
                         </div>
                     </div>
-                    <div class="col-md-4 col-lg-2">
-                        <div class="app-kpi-card">
+                    <div class="col-6 col-md-4 col-lg-2">
+                        <div class="app-kpi-card p-2.5 p-md-3">
                             <span class="app-kpi-lbl">Active Incubatees</span>
                             <div class="app-kpi-val" id="ovMgrActive">30</div>
                             <div class="app-kpi-sub" style="color:#059669;"><i class="fa-solid fa-seedling"></i> In Hub</div>
                         </div>
                     </div>
-                    <div class="col-md-4 col-lg-2">
-                        <div class="app-kpi-card">
+                    <div class="col-6 col-md-4 col-lg-2">
+                        <div class="app-kpi-card p-2.5 p-md-3">
                             <span class="app-kpi-lbl">Avg Evaluation</span>
                             <div class="app-kpi-val">89.4</div>
                             <div class="app-kpi-sub text-primary"><i class="fa-solid fa-award"></i> Quality Index</div>
                         </div>
                     </div>
-                    <div class="col-md-4 col-lg-2">
-                        <div class="app-kpi-card">
+                    <div class="col-6 col-md-4 col-lg-2">
+                        <div class="app-kpi-card p-2.5 p-md-3">
                             <span class="app-kpi-lbl">Mentoring Hours</span>
                             <div class="app-kpi-val">420 Hrs</div>
                             <div class="app-kpi-sub text-dark"><i class="fa-solid fa-calendar-check"></i> Delivered</div>
                         </div>
                     </div>
-                    <div class="col-md-4 col-lg-2">
-                        <div class="app-kpi-card">
+                    <div class="col-6 col-md-4 col-lg-2">
+                        <div class="app-kpi-card p-2.5 p-md-3">
                             <span class="app-kpi-lbl">Seed Grants</span>
-                            <div class="app-kpi-val">â‚¹3.8 Cr</div>
+                            <div class="app-kpi-val">₹ 3.8 Cr</div>
                             <div class="app-kpi-sub text-success"><i class="fa-solid fa-check"></i> Disbursed</div>
                         </div>
                     </div>
@@ -310,6 +341,27 @@
             </div>
 
         </main>
+
+        <!-- Native Mobile Bottom Navigation Bar -->
+        <nav class="app-mobile-bottom-bar d-lg-none">
+            <button class="mobile-nav-btn active" id="mMgrNavOverview" onclick="switchMgrMobileTab('tab-mgr-overview', this)">
+                <i class="fa-solid fa-chart-line"></i>
+                <span>Overview</span>
+            </button>
+            <button class="mobile-nav-btn position-relative" id="mMgrNavQueue" onclick="switchMgrMobileTab('tab-mgr-queue', this)">
+                <i class="fa-solid fa-clipboard-check"></i>
+                <span class="position-absolute top-0 start-50 translate-middle badge rounded-pill bg-warning text-dark" id="bottomMgrPendingBadge" style="font-size: 9px; padding: 2px 5px; margin-left: 12px; margin-top: 6px;">3</span>
+                <span>Scrutiny</span>
+            </button>
+            <button class="mobile-nav-btn" id="mMgrNavMilestones" onclick="switchMgrMobileTab('tab-mgr-milestones', this)">
+                <i class="fa-solid fa-rocket"></i>
+                <span>Milestones</span>
+            </button>
+            <button class="mobile-nav-btn" onclick="toggleMobileSidebar()">
+                <i class="fa-solid fa-bars"></i>
+                <span>More</span>
+            </button>
+        </nav>
     </div>
 
     <!-- Manager Scoring & Escalation Modal -->
@@ -334,7 +386,7 @@
 
                     <div class="mb-3">
                         <div class="d-flex justify-content-between align-items-center mb-1">
-                            <label class="form-label font-11 text-uppercase fw-bold text-muted mb-0">Evaluation Score (0â€“100)</label>
+                            <label class="form-label font-11 text-uppercase fw-bold text-muted mb-0">Evaluation Score (0–100)</label>
                             <span class="fw-bold text-primary font-14" id="scoreValueDisp">88/100</span>
                         </div>
                         <input type="range" class="form-range" min="50" max="100" value="88" id="modalScoreRange" oninput="document.getElementById('scoreValueDisp').innerText = this.value + '/100'">
@@ -347,8 +399,8 @@
                 </div>
                 <div class="modal-footer bg-light p-3 border-top d-flex justify-content-between">
                     <button type="button" class="btn btn-sm btn-outline-secondary font-12" data-bs-dismiss="modal">Cancel</button>
-                    <button type="button" class="btn btn-sm btn-primary font-12 fw-bold" style="background:#1E40AF; border:none;" onclick="submitManagerScore()">
-                        <i class="fa-solid fa-arrow-up-right-from-square me-1"></i> Escalate to Director
+                    <button type="button" class="btn btn-sm btn-primary font-12 fw-bold" onclick="submitManagerScore()">
+                        <i class="fa-solid fa-paper-plane me-1"></i> Submit &amp; Escalate
                     </button>
                 </div>
             </div>
@@ -360,6 +412,34 @@
     <script src="../../assets/js/cimp-db.js"></script>
 
     <script>
+        function toggleMobileSidebar() {
+            const sidebar = document.getElementById('appSidebar');
+            const backdrop = document.getElementById('sidebarBackdrop');
+            if (sidebar) sidebar.classList.toggle('show-mobile');
+            if (backdrop) backdrop.classList.toggle('show-mobile');
+        }
+
+        function closeMobileSidebarIfOpen() {
+            const sidebar = document.getElementById('appSidebar');
+            const backdrop = document.getElementById('sidebarBackdrop');
+            if (sidebar) sidebar.classList.remove('show-mobile');
+            if (backdrop) backdrop.classList.remove('show-mobile');
+        }
+
+        function switchMgrMobileTab(tabId, btnEl) {
+            document.querySelectorAll('.mobile-nav-btn').forEach(b => b.classList.remove('active'));
+            if (btnEl) btnEl.classList.add('active');
+
+            let desktopBtn = null;
+            if (tabId === 'tab-mgr-overview') desktopBtn = document.getElementById('mgrNavOverview');
+            else if (tabId === 'tab-mgr-queue') desktopBtn = document.getElementById('mgrNavQueue');
+            else if (tabId === 'tab-mgr-milestones') desktopBtn = document.getElementById('mgrNavMilestones');
+            else if (tabId === 'tab-mgr-mentors') desktopBtn = document.getElementById('mgrNavMentors');
+
+            switchMgrView(tabId, desktopBtn);
+            closeMobileSidebarIfOpen();
+        }
+
         function switchMgrView(tabId, btnEl) {
             document.querySelectorAll('.app-tab-pane').forEach(p => p.classList.remove('active'));
             document.querySelectorAll('.app-nav-btn').forEach(b => b.classList.remove('active'));
@@ -367,6 +447,12 @@
             const targetPane = document.getElementById(tabId);
             if (targetPane) targetPane.classList.add('active');
             if (btnEl) btnEl.classList.add('active');
+
+            // Sync mobile bottom bar
+            document.querySelectorAll('.mobile-nav-btn').forEach(b => b.classList.remove('active'));
+            if (tabId === 'tab-mgr-overview') document.getElementById('mMgrNavOverview')?.classList.add('active');
+            else if (tabId === 'tab-mgr-queue') document.getElementById('mMgrNavQueue')?.classList.add('active');
+            else if (tabId === 'tab-mgr-milestones') document.getElementById('mMgrNavMilestones')?.classList.add('active');
 
             if (tabId === 'tab-mgr-overview') renderMgrOverview();
             if (tabId === 'tab-mgr-queue') renderScrutinyQueue();
@@ -400,6 +486,11 @@
             document.getElementById('ovMgrPending').innerText = pending.length;
             const badge = document.getElementById('navMgrPendingBadge');
             if (badge) badge.innerText = pending.length;
+            const btmBadge = document.getElementById('bottomMgrPendingBadge');
+            if (btmBadge) {
+                btmBadge.innerText = pending.length;
+                btmBadge.style.display = pending.length > 0 ? 'inline-block' : 'none';
+            }
 
             const tbody = document.getElementById('tblMgrRecentIntakeBody');
             if (tbody) {
@@ -549,9 +640,14 @@
         }
 
         function handleMgrSearch(query) {
-            const q = query.trim().toLowerCase();
+            const q = (query || '').trim().toLowerCase();
+            const inpDesktop = document.getElementById('mgrSearchInp');
+            const inpMobile = document.getElementById('mgrSearchInpMobile');
+            if (inpDesktop && inpDesktop.value !== query) inpDesktop.value = query;
+            if (inpMobile && inpMobile.value !== query) inpMobile.value = query;
+
             if (!q) { renderScrutinyQueue(); return; }
-            switchMgrView('tab-mgr-queue', document.querySelectorAll('.app-nav-btn')[1]);
+            switchMgrView('tab-mgr-queue', document.getElementById('mgrNavQueue'));
             const apps = window.CIMP_DB.getApplications().filter(a => a.startupName.toLowerCase().includes(q) || a.founderName.toLowerCase().includes(q));
             const tbody = document.getElementById('tblMgrScrutinyBody');
             if (tbody) {
@@ -564,7 +660,7 @@
                             <td>${a.founderName}</td>
                             <td>${a.sector}</td>
                             <td>${a.stage}</td>
-                            <td><strong class="text-primary">${a.fundingRequired || 'â‚¹ 25 Lakhs'}</strong></td>
+                            <td><strong class="text-primary">${a.fundingRequired || '₹ 25 Lakhs'}</strong></td>
                             <td><span class="font-12 fw-bold text-dark">${a.managerScore || 88}/100</span></td>
                             <td><button class="app-btn-action" onclick="openScoreModal('${a.id}')">Score</button></td>
                         </tr>

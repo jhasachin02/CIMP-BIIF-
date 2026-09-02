@@ -27,11 +27,17 @@
 
 <body class="admin-unified-body">
 
-    <!-- 1. Left Sidebar Navigation -->
-    <aside class="app-sidebar">
+    <!-- Mobile Sidebar Dark Backdrop -->
+    <div class="app-sidebar-backdrop" id="sidebarBackdrop" onclick="toggleMobileSidebar()"></div>
+
+    <!-- 1. Left Sidebar Navigation (Off-Canvas Drawer on Mobile) -->
+    <aside class="app-sidebar" id="appSidebar">
         <div>
             <!-- Institutional Brand Header -->
-            <div class="app-sidebar-brand">
+            <div class="app-sidebar-brand position-relative">
+                <button class="btn btn-sm text-white-50 d-lg-none position-absolute top-0 end-0 m-2 p-1" onclick="toggleMobileSidebar()" title="Close Navigation Drawer">
+                    <i class="fa-solid fa-xmark font-20"></i>
+                </button>
                 <div class="app-sidebar-emblem">
                     <img src="../../assets/images/CIMP-Icon.png" height="32" alt="CIMP Logo" style="object-fit: contain;">
                     <div style="border-left: 1.5px solid #CBD5E1; height: 24px;"></div>
@@ -45,14 +51,14 @@
             <div class="app-nav-group">
                 <span class="app-nav-header">Workspaces</span>
                 
-                <button class="app-nav-btn active" onclick="switchView('tab-overview', this)">
+                <button class="app-nav-btn active" id="sideNavOverview" onclick="switchView('tab-overview', this); closeMobileSidebarIfOpen();">
                     <span class="left-grp">
                         <i class="fa-solid fa-chart-pie font-14"></i>
                         <span>Executive Overview</span>
                     </span>
                 </button>
 
-                <button class="app-nav-btn" onclick="switchView('tab-approvals', this)">
+                <button class="app-nav-btn" id="sideNavApprovals" onclick="switchView('tab-approvals', this); closeMobileSidebarIfOpen();">
                     <span class="left-grp">
                         <i class="fa-solid fa-stamp font-14"></i>
                         <span>Final Approvals</span>
@@ -60,14 +66,14 @@
                     <span class="app-nav-badge" id="navPendingBadge">0</span>
                 </button>
 
-                <button class="app-nav-btn" onclick="switchView('tab-startups', this)">
+                <button class="app-nav-btn" id="sideNavStartups" onclick="switchView('tab-startups', this); closeMobileSidebarIfOpen();">
                     <span class="left-grp">
                         <i class="fa-solid fa-cubes font-14"></i>
                         <span>Incubated Startups</span>
                     </span>
                 </button>
 
-                <button class="app-nav-btn" onclick="switchView('tab-mentors', this)">
+                <button class="app-nav-btn" id="sideNavMentors" onclick="switchView('tab-mentors', this); closeMobileSidebarIfOpen();">
                     <span class="left-grp">
                         <i class="fa-solid fa-chalkboard-user font-14"></i>
                         <span>Mentors &amp; Advisors</span>
@@ -76,14 +82,14 @@
 
                 <span class="app-nav-header mt-3">Governance &amp; Reports</span>
 
-                <button class="app-nav-btn" onclick="switchView('tab-audit', this)">
+                <button class="app-nav-btn" id="sideNavAudit" onclick="switchView('tab-audit', this); closeMobileSidebarIfOpen();">
                     <span class="left-grp">
                         <i class="fa-solid fa-shield-halved font-14"></i>
                         <span>Audit &amp; Logs</span>
                     </span>
                 </button>
 
-                <a href="javascript:void(0)" onclick="window.print()" class="app-nav-btn">
+                <a href="javascript:void(0)" onclick="openBoardMemorandumModal(); closeMobileSidebarIfOpen();" class="app-nav-btn">
                     <span class="left-grp">
                         <i class="fa-solid fa-file-pdf font-14"></i>
                         <span>Export Board Report</span>
@@ -117,22 +123,78 @@
     <!-- 2. Main Workspace Viewport -->
     <div class="app-main-wrap">
         
-        <!-- Topbar Header -->
+        <!-- Topbar Header (App Bar with Center Logo & Right Controls on Mobile) -->
         <header class="app-topbar">
-            <!-- Global Omnisearch -->
-            <div class="app-top-search">
+            <!-- Mobile Left: Hamburger Drawer Toggle -->
+            <button class="btn btn-light d-lg-none p-0 rounded-circle border shadow-sm d-flex align-items-center justify-content-center" style="width: 38px; height: 38px; min-width: 38px;" onclick="toggleMobileSidebar()" title="Open Menu">
+                <i class="fa-solid fa-bars font-16 text-dark"></i>
+            </button>
+
+            <!-- Mobile Center: Both Official Emblems & Logos -->
+            <div class="d-flex d-lg-none align-items-center justify-content-center gap-1" style="cursor: pointer;" onclick="switchView('tab-overview')">
+                <img src="../../assets/images/CIMP-Icon.png" height="24" alt="CIMP Logo" style="object-fit: contain;">
+                <div style="border-left: 1.5px solid #CBD5E1; height: 18px; margin: 0 4px;"></div>
+                <img src="../../assets/images/logo.png" height="22" alt="CIMP - BIIF Logo" style="object-fit: contain;">
+            </div>
+
+            <!-- Desktop Left: Global Omnisearch -->
+            <div class="app-top-search d-none d-lg-block">
                 <i class="fa-solid fa-magnifying-glass"></i>
                 <input type="text" id="dirSearchInp" placeholder="Search startups, founders, sector, mentors..." oninput="handleOmniSearch(this.value)">
             </div>
 
-            <!-- Right Controls: Executive Profile -->
-            <div class="d-flex align-items-center gap-3">
+            <!-- Right Controls: Notification Bell & Executive Profile -->
+            <div class="d-flex align-items-center gap-2 gap-sm-3">
+                <!-- Notification Bell with Dropdown & Mark All Read -->
+                <div class="dropdown">
+                    <button class="btn btn-light position-relative p-0 rounded-circle border shadow-sm d-flex align-items-center justify-content-center" type="button" id="notifDropdownBtn" data-bs-toggle="dropdown" aria-expanded="false" title="Executive Notifications & Approvals" style="width: 38px; height: 38px; background: #FFFFFF;">
+                        <i class="fa-regular fa-bell font-16 text-dark"></i>
+                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger font-10" id="topNotifBadge">2</span>
+                    </button>
+                    <div class="dropdown-menu dropdown-menu-end shadow-lg border-0 p-0" style="width: 395px; border-radius: 12px; overflow: hidden; z-index: 1060; box-shadow: 0 10px 30px rgba(0,0,0,0.12) !important;">
+                        <div class="px-3 py-2.5 border-bottom d-flex justify-content-between align-items-center bg-white" style="border-color: #E2E8F0 !important;">
+                            <div class="fw-bold font-13 text-dark text-nowrap d-flex align-items-center gap-2">
+                                <span class="d-inline-flex align-items-center justify-content-center rounded-circle bg-primary-subtle text-primary" style="width: 22px; height: 22px;">
+                                    <i class="fa-solid fa-bell font-11"></i>
+                                </span>
+                                <span>Notifications</span>
+                                <span class="badge rounded-pill bg-danger-subtle text-danger border border-danger-subtle font-10 px-2 py-0.5 text-nowrap" id="notifHeaderCount">2 Pending</span>
+                            </div>
+                            <button class="btn btn-link font-11 text-decoration-none p-0 text-muted fw-semibold text-nowrap" onclick="markAllNotificationsRead(event)" style="font-size: 11.5px; white-space: nowrap;">
+                                <i class="fa-solid fa-check-double font-10 me-1 text-primary"></i>Mark all as read
+                            </button>
+                        </div>
+                        <div id="notifListContainer" style="max-height: 330px; overflow-y: auto;">
+                            <!-- Loaded dynamically from pending applications -->
+                        </div>
+                        <div class="py-2 px-3 text-center border-top bg-light">
+                            <a href="javascript:void(0)" class="font-11 text-primary fw-bold text-decoration-none" onclick="switchView('tab-approvals', document.querySelectorAll('.app-nav-btn')[1])">
+                                View all pending approvals &rarr;
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Desktop Profile Name & Title -->
                 <div class="d-none d-md-flex flex-column align-items-end" style="cursor: pointer;" onclick="CIMP_DB.openProfileModal()" title="Click to Edit Profile &amp; Password">
                     <span class="font-13 fw-bold text-dark" id="topbarUserName" style="line-height:1.2;">Director</span>
                     <span class="font-11 text-muted" id="topbarUserTitle" style="line-height:1.1;">Executive Director <i class="fa-solid fa-pen-to-square ms-1 text-primary font-10"></i></span>
                 </div>
+
+                <!-- Mobile Profile Avatar Button -->
+                <button class="btn btn-light d-md-none p-0 rounded-circle border shadow-sm d-flex align-items-center justify-content-center" style="width: 38px; height: 38px;" onclick="CIMP_DB.openProfileModal()" title="Edit Profile">
+                    <i class="fa-solid fa-user-tie text-primary font-15"></i>
+                </button>
             </div>
         </header>
+
+        <!-- Mobile Inline Search Bar (visible only on mobile screens) -->
+        <div class="d-lg-none px-3 pt-2 pb-2 bg-white border-bottom shadow-xs">
+            <div class="position-relative w-100">
+                <i class="fa-solid fa-magnifying-glass position-absolute text-muted" style="left: 12px; top: 50%; transform: translateY(-50%); font-size: 13px;"></i>
+                <input type="text" id="dirSearchInpMobile" class="form-control form-control-sm ps-5 bg-light border" placeholder="Search ventures, founders, mentors..." oninput="handleOmniSearch(this.value)" style="border-radius: 8px; font-size: 12px; height: 34px;">
+            </div>
+        </div>
 
         <!-- Viewport Container -->
         <main class="app-viewport-container">
@@ -140,100 +202,151 @@
             <!-- VIEW 1: EXECUTIVE OVERVIEW -->
             <div class="app-tab-pane active" id="tab-overview">
                 
-                <div class="mb-4">
-                    <h3 class="fw-bold font-20 mb-1" style="font-family: 'Outfit', sans-serif;">Executive Overview</h3>
-                    <p class="text-muted font-13 mb-0">High-level institutional traction, revenue growth, and incubation metrics.</p>
+                <!-- Clean Page Title & Action -->
+                <div class="d-flex align-items-center justify-content-between mb-4 flex-wrap gap-3">
+                    <div>
+                        <h3 class="fw-bold font-22 mb-1" style="font-family: 'Outfit', sans-serif;">Executive Overview</h3>
+                        <p class="text-muted font-13 mb-0">High-level institutional traction, funding deployment, and venture performance.</p>
+                    </div>
+                    <div class="d-flex align-items-center gap-2">
+                        <button class="app-btn-action" onclick="openBoardMemorandumModal()">
+                            <i class="fa-solid fa-file-pdf me-1"></i> Board Report (PDF)
+                        </button>
+                        <button class="btn btn-sm btn-outline-secondary font-12" onclick="exportNirfNaacReport()">
+                            <i class="fa-solid fa-file-csv me-1"></i> NIRF / NAAC Export
+                        </button>
+                    </div>
                 </div>
 
-                <!-- 6 Extended Executive Metric Cards -->
-                <div class="row g-3 mb-4">
-                    <div class="col-md-4 col-lg-2">
-                        <div class="app-kpi-card">
+                <!-- 4 Clean, Breathable Executive KPI Cards (Icons Removed, 2x2 on Mobile) -->
+                <div class="row g-2 g-md-3 mb-3 mb-md-4">
+                    <div class="col-6 col-xl-3">
+                        <div class="app-kpi-card p-3">
                             <span class="app-kpi-lbl">Total Incubated</span>
-                            <div class="app-kpi-val" id="ovTotalStartups">52</div>
-                            <div class="app-kpi-sub"><i class="fa-solid fa-check text-success"></i> All Cohorts</div>
+                            <div class="app-kpi-val fw-bold mb-1" id="ovTotalStartups">8</div>
+                            <div class="app-kpi-sub text-muted"><i class="fa-solid fa-check text-success me-1"></i> Active portfolio</div>
                         </div>
                     </div>
-                    <div class="col-md-4 col-lg-2">
-                        <div class="app-kpi-card">
-                            <span class="app-kpi-lbl">Active In Hub</span>
-                            <div class="app-kpi-val" id="ovActiveStartups">30</div>
-                            <div class="app-kpi-sub"><i class="fa-solid fa-circle-dot text-primary"></i> Cohort 2026</div>
-                        </div>
-                    </div>
-                    <div class="col-md-4 col-lg-2">
-                        <div class="app-kpi-card">
+                    <div class="col-6 col-xl-3">
+                        <div class="app-kpi-card p-3">
                             <span class="app-kpi-lbl">Portfolio Revenue</span>
-                            <div class="app-kpi-val" id="ovRevenue">â‚¹21.49 Cr</div>
-                            <div class="app-kpi-sub" style="color:#059669;"><i class="fa-solid fa-arrow-trend-up"></i> +28% YoY</div>
+                            <div class="app-kpi-val fw-bold mb-1 text-success" id="ovRevenue">₹ 21.49 Cr</div>
+                            <div class="app-kpi-sub text-muted"><i class="fa-solid fa-chart-line text-success me-1"></i> Annual turnover</div>
                         </div>
                     </div>
-                    <div class="col-md-4 col-lg-2">
-                        <div class="app-kpi-card">
+                    <div class="col-6 col-xl-3">
+                        <div class="app-kpi-card p-3">
                             <span class="app-kpi-lbl">Capital Disbursed</span>
-                            <div class="app-kpi-val" id="ovCapital">â‚¹7.20 Cr</div>
-                            <div class="app-kpi-sub"><i class="fa-solid fa-vault text-primary"></i> Grants + Seed</div>
+                            <div class="app-kpi-val fw-bold mb-1" id="ovCapital">₹ 7.20 Cr</div>
+                            <div class="app-kpi-sub text-muted"><i class="fa-solid fa-shield text-primary me-1"></i> Bihar Seed grants</div>
                         </div>
                     </div>
-                    <div class="col-md-4 col-lg-2">
-                        <div class="app-kpi-card">
-                            <span class="app-kpi-lbl">Jobs Created</span>
-                            <div class="app-kpi-val" id="ovJobs">397+</div>
-                            <div class="app-kpi-sub"><i class="fa-solid fa-users text-dark"></i> Direct Roles</div>
-                        </div>
-                    </div>
-                    <div class="col-md-4 col-lg-2">
-                        <div class="app-kpi-card">
-                            <span class="app-kpi-lbl">IPR &amp; Patents</span>
-                            <div class="app-kpi-val">14</div>
-                            <div class="app-kpi-sub"><i class="fa-solid fa-award text-success"></i> Filed &amp; Granted</div>
+                    <div class="col-6 col-xl-3">
+                        <div class="app-kpi-card p-3">
+                            <span class="app-kpi-lbl">Direct Employment</span>
+                            <div class="app-kpi-val fw-bold mb-1 text-dark" id="ovJobs">397+</div>
+                            <div class="app-kpi-sub text-muted"><i class="fa-solid fa-briefcase text-dark me-1"></i> Formal roles</div>
                         </div>
                     </div>
                 </div>
 
-                <!-- Charts Section -->
+                <!-- Simple & Clean Analytics: Wide Bar Graph + Sector Highlights -->
                 <div class="row g-3 mb-4">
                     <div class="col-lg-8">
-                        <div class="app-table-card p-3">
-                            <div class="d-flex align-items-center justify-content-between mb-3">
-                                <h5 class="fw-bold font-14 mb-0">Portfolio Valuation &amp; Revenue Run-Rate (â‚¹ Lakhs)</h5>
-                                <span class="font-11 text-muted">FY 2024â€“2026</span>
+                        <div class="app-table-card p-3 h-100">
+                            <div class="d-flex align-items-center justify-content-between mb-3 flex-wrap gap-2">
+                                <div>
+                                    <h5 class="fw-bold font-15 mb-0">Capital Disbursed vs Portfolio Turnover (₹ Lakhs)</h5>
+                                    <span class="font-11 text-muted">Comparative deployment efficiency by sector</span>
+                                </div>
+                                <div class="d-flex align-items-center gap-3 font-11">
+                                    <span><i class="fa-solid fa-square me-1" style="color: #1E3A8A;"></i> Capital Disbursed</span>
+                                    <span><i class="fa-solid fa-square me-1" style="color: #059669;"></i> Annual Turnover</span>
+                                </div>
                             </div>
-                            <div style="height: 230px;">
-                                <canvas id="chartRevenue"></canvas>
+                            <div style="height: 240px;">
+                                <canvas id="chartSectorBars"></canvas>
                             </div>
                         </div>
                     </div>
                     <div class="col-lg-4">
-                        <div class="app-table-card p-3">
-                            <div class="d-flex align-items-center justify-content-between mb-3">
-                                <h5 class="fw-bold font-14 mb-0">Sector Distribution</h5>
-                                <span class="font-11 text-muted">Active Portfolio</span>
+                        <div class="app-table-card p-3 h-100">
+                            <h5 class="fw-bold font-15 mb-1">State &amp; Social Impact</h5>
+                            <p class="font-11 text-muted mb-3">Institutional outreach under Bihar Startup Mission</p>
+
+                            <div class="p-3 mb-2 rounded bg-light border">
+                                <div class="d-flex justify-content-between align-items-center mb-1">
+                                    <span class="font-12 fw-semibold text-dark"><i class="fa-solid fa-venus text-danger me-1"></i> Women-Led Startups</span>
+                                    <strong class="font-13 text-dark" id="impactWomenPct">38%</strong>
+                                </div>
+                                <div class="progress" style="height: 6px;">
+                                    <div class="progress-bar bg-danger" id="progressWomen" role="progressbar" style="width: 38%"></div>
+                                </div>
                             </div>
-                            <div style="height: 230px;">
-                                <canvas id="chartSector"></canvas>
+
+                            <div class="p-3 mb-2 rounded bg-light border">
+                                <div class="d-flex justify-content-between align-items-center mb-1">
+                                    <span class="font-12 fw-semibold text-dark"><i class="fa-solid fa-location-dot text-success me-1"></i> District Outreach</span>
+                                    <strong class="font-13 text-dark" id="impactRuralPct">68%</strong>
+                                </div>
+                                <div class="progress" style="height: 6px;">
+                                    <div class="progress-bar bg-success" id="progressRural" role="progressbar" style="width: 68%"></div>
+                                </div>
+                            </div>
+
+                            <div class="p-3 rounded bg-light border">
+                                <div class="d-flex justify-content-between align-items-center mb-1">
+                                    <span class="font-12 fw-semibold text-dark"><i class="fa-solid fa-award text-primary me-1"></i> IPR &amp; Patents Filed</span>
+                                    <strong class="font-13 text-primary">14 Granted</strong>
+                                </div>
+                                <div class="progress" style="height: 6px;">
+                                    <div class="progress-bar bg-primary" role="progressbar" style="width: 85%"></div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- Tabular Recent Activity Summary -->
+                <!-- Clean, Spacious Portfolio Ventures Table with Single-Line Integrated Filters -->
                 <div class="app-table-card">
-                    <div class="app-table-header">
-                        <h5>Recent Portfolio Highlights</h5>
-                        <button class="btn btn-sm btn-outline-secondary font-12" onclick="switchView('tab-startups', document.querySelectorAll('.app-nav-btn')[2])">
-                            View All Ventures <i class="fa-solid fa-arrow-right font-11 ms-1"></i>
-                        </button>
+                    <div class="app-table-header d-flex flex-column flex-md-row align-items-start align-items-md-center justify-content-between gap-2">
+                        <div>
+                            <h5 class="mb-0 fw-bold font-15">Active Portfolio Ventures</h5>
+                            <span class="font-11 text-muted" id="tblVentureCount">Showing 8 incubated enterprises</span>
+                        </div>
+                        
+                        <!-- Inline Minimal Filter Controls strictly on single line -->
+                        <div class="d-flex align-items-center gap-2 w-100 w-md-auto flex-nowrap" style="min-width: 0;">
+                            <select id="tblFilterSector" class="form-select form-select-sm font-12 border flex-grow-1" style="min-width: 0; font-weight: 600;" onchange="applySimpleFilters()">
+                                <option value="">All Sectors</option>
+                                <option value="AgriTech">AgriTech</option>
+                                <option value="Technology">Technology</option>
+                                <option value="HealthTech">HealthTech</option>
+                                <option value="CleanTech">CleanTech</option>
+                                <option value="E-commerce">E-commerce</option>
+                            </select>
+
+                            <select id="tblFilterStage" class="form-select form-select-sm font-12 border flex-grow-1" style="min-width: 0; font-weight: 600;" onchange="applySimpleFilters()">
+                                <option value="">All Stages</option>
+                                <option value="Scaling">Scaling</option>
+                                <option value="Revenue Stage">Revenue Stage</option>
+                                <option value="Seed">Seed Funded</option>
+                            </select>
+
+                            <button class="btn btn-sm btn-outline-danger font-11 py-1 px-2 d-none text-nowrap" id="btnResetSimpleFilters" onclick="resetSimpleFilters()">
+                                <i class="fa-solid fa-rotate-left me-1"></i> Reset
+                            </button>
+                        </div>
                     </div>
                     <div class="table-responsive">
                         <table class="app-table">
                             <thead>
                                 <tr>
-                                    <th>Enterprise</th>
-                                    <th>Founder</th>
+                                    <th>Venture</th>
+                                    <th>Founder &amp; City</th>
                                     <th>Sector &amp; Stage</th>
-                                    <th>Annual Revenue</th>
-                                    <th>Funding</th>
+                                    <th>Capital Disbursed</th>
+                                    <th>Annual Turnover</th>
                                     <th>Assigned Mentor</th>
                                     <th>Status</th>
                                 </tr>
@@ -407,18 +520,205 @@
                     </div>
                 </div>
 
-            </div>
-
         </main>
+
+        <!-- Native Mobile Bottom Navigation Bar (Thumb-Friendly App Bar) -->
+        <nav class="app-mobile-bottom-bar d-lg-none">
+            <button class="mobile-nav-btn active" id="mNavOverview" onclick="switchMobileTab('tab-overview', this)">
+                <i class="fa-solid fa-chart-pie"></i>
+                <span>Overview</span>
+            </button>
+            <button class="mobile-nav-btn position-relative" id="mNavApprovals" onclick="switchMobileTab('tab-approvals', this)">
+                <i class="fa-solid fa-stamp"></i>
+                <span class="position-absolute top-0 start-50 translate-middle badge rounded-pill bg-danger" id="bottomNavPendingBadge" style="font-size: 9px; padding: 2px 5px; margin-left: 12px; margin-top: 6px;">2</span>
+                <span>Approvals</span>
+            </button>
+            <button class="mobile-nav-btn" id="mNavStartups" onclick="switchMobileTab('tab-startups', this)">
+                <i class="fa-solid fa-cubes"></i>
+                <span>Ventures</span>
+            </button>
+            <button class="mobile-nav-btn" onclick="toggleMobileSidebar()">
+                <i class="fa-solid fa-bars"></i>
+                <span>More</span>
+            </button>
+        </nav>
     </div>
+
+    <!-- MODAL: OFFICIAL BOARD MEMORANDUM (PDF & PRINT-READY) -->
+    <div class="modal fade" id="modalBoardMemo" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-scrollable">
+            <div class="modal-content border-0 shadow-lg" style="border-radius: 16px;">
+                <div class="modal-header bg-dark text-white p-3 border-0">
+                    <div class="d-flex align-items-center gap-2">
+                        <i class="fa-solid fa-file-contract text-warning font-16"></i>
+                        <h5 class="modal-title font-15 fw-bold mb-0">Executive Board Memorandum &bull; CIMP-BIIF</h5>
+                    </div>
+                    <div class="d-flex align-items-center gap-2">
+                        <button type="button" class="btn btn-sm btn-primary font-11 fw-bold" onclick="printBoardMemorandum()">
+                            <i class="fa-solid fa-print me-1"></i> Print / Save PDF
+                        </button>
+                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                </div>
+                <div class="modal-body p-4 bg-white" id="boardMemoPrintArea">
+                    <!-- Institutional Crest Header -->
+                    <div class="text-center pb-3 mb-3 border-bottom">
+                        <div class="d-flex align-items-center justify-content-center gap-3 mb-2">
+                            <img src="../../assets/images/CIMP-Icon.png" height="42" alt="CIMP Logo">
+                            <div style="border-left: 2px solid #CBD5E1; height: 35px;"></div>
+                            <img src="../../assets/images/logo.png" height="36" alt="CIMP-BIIF Logo">
+                        </div>
+                        <h4 class="fw-bold mb-0 text-dark font-18" style="font-family: 'Outfit', sans-serif;">CHANDRAGUPT INSTITUTE OF MANAGEMENT PATNA</h4>
+                        <div class="font-12 text-primary fw-bold">Business Incubation &amp; Innovation Foundation (CIMP-BIIF)</div>
+                        <div class="font-11 text-muted">Mithapur Institutional Area, Patna &ndash; 800001, Bihar</div>
+                        <div class="badge bg-dark text-white font-11 mt-2 px-3 py-1 text-uppercase" style="letter-spacing: 1px;">Executive Memorandum &bull; Board of Governors</div>
+                    </div>
+
+                    <div class="d-flex justify-content-between align-items-center mb-3 font-12 text-muted pb-2 border-bottom flex-wrap gap-2">
+                        <div><strong>Ref No:</strong> CIMP-BIIF/EXEC/BM/2026/<span id="memoRefMonth">09</span></div>
+                        <div><strong>Date of Submission:</strong> <span id="memoSubmissionDate"></span></div>
+                        <div><strong>Reporting Authority:</strong> Executive Director, CIMP-BIIF</div>
+                    </div>
+
+                    <h6 class="fw-bold text-dark font-14 mb-2">Subject: Institutional Incubation Ecosystem Performance &amp; Resource Allocation</h6>
+                    <p class="font-12 text-secondary mb-3" style="line-height:1.6;">
+                        This memorandum is submitted for the review of the Chairman and Members of the Governing Board. It presents the consolidated enterprise metrics, capital deployment under the Bihar Startup Policy &amp; BIIF Seed Support, employment creation, and commercial traction for the active incubation cohort.
+                    </p>
+
+                    <!-- Key Indicators Grid -->
+                    <div class="row g-2 mb-3 text-center">
+                        <div class="col-3">
+                            <div class="p-2 border rounded bg-light">
+                                <div class="font-10 text-muted text-uppercase fw-bold">Total Supported</div>
+                                <div class="font-15 fw-bold text-dark" id="memoTotalV">8 Ventures</div>
+                            </div>
+                        </div>
+                        <div class="col-3">
+                            <div class="p-2 border rounded bg-light">
+                                <div class="font-10 text-muted text-uppercase fw-bold">Capital Disbursed</div>
+                                <div class="font-15 fw-bold text-primary" id="memoCapitalV">₹ 7.20 Cr</div>
+                            </div>
+                        </div>
+                        <div class="col-3">
+                            <div class="p-2 border rounded bg-light">
+                                <div class="font-10 text-muted text-uppercase fw-bold">Portfolio Revenue</div>
+                                <div class="font-15 fw-bold text-success" id="memoRevenueV">₹ 21.49 Cr</div>
+                            </div>
+                        </div>
+                        <div class="col-3">
+                            <div class="p-2 border rounded bg-light">
+                                <div class="font-10 text-muted text-uppercase fw-bold">Direct Jobs</div>
+                                <div class="font-15 fw-bold text-dark" id="memoJobsV">397+ Roles</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Portfolio Roster Table -->
+                    <h6 class="fw-bold font-13 text-dark mb-2">Active Incubated Portfolio Roster</h6>
+                    <div class="table-responsive mb-4">
+                        <table class="table table-bordered table-sm font-11 mb-0">
+                            <thead class="table-light">
+                                <tr>
+                                    <th>Venture Name</th>
+                                    <th>Founder</th>
+                                    <th>Sector</th>
+                                    <th>Stage</th>
+                                    <th>Annual Turnover</th>
+                                    <th>Seed Grant / Funding</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tblMemoStartupsBody">
+                                <!-- Populated dynamically -->
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- Signatures Block -->
+                    <div class="row pt-4 mt-4 border-top">
+                        <div class="col-6 text-center">
+                            <div style="height: 35px;"></div>
+                            <div class="fw-bold font-12 text-dark">Executive Director</div>
+                            <div class="font-11 text-muted">CIMP - Business Incubation &amp; Innovation Foundation</div>
+                        </div>
+                        <div class="col-6 text-center">
+                            <div style="height: 35px;"></div>
+                            <div class="fw-bold font-12 text-dark">Chairman, Governing Board</div>
+                            <div class="font-11 text-muted">Chandragupt Institute of Management Patna</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <style>
+        @media print {
+            body * {
+                visibility: hidden !important;
+            }
+            #modalBoardMemo, #modalBoardMemo * {
+                visibility: visible !important;
+            }
+            #modalBoardMemo {
+                position: absolute !important;
+                left: 0 !important;
+                top: 0 !important;
+                width: 100% !important;
+                margin: 0 !important;
+                padding: 0 !important;
+                background: white !important;
+            }
+            .modal-header, .modal-backdrop {
+                display: none !important;
+            }
+            #boardMemoPrintArea {
+                padding: 20px !important;
+            }
+        }
+        .highlight-match {
+            background-color: #FEF08A;
+            color: #854D0E;
+            padding: 1px 4px;
+            border-radius: 4px;
+            font-weight: 700;
+        }
+    </style>
 
     <!-- Scripts -->
     <script src="../../assets/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="../../assets/js/cimp-db.js"></script>
 
     <script>
-        let revChartInstance = null;
-        let secChartInstance = null;
+        let sectorBarChartInstance = null;
+        let isNotifRead = false;
+
+        function toggleMobileSidebar() {
+            const sidebar = document.getElementById('appSidebar');
+            const backdrop = document.getElementById('sidebarBackdrop');
+            if (sidebar) sidebar.classList.toggle('show-mobile');
+            if (backdrop) backdrop.classList.toggle('show-mobile');
+        }
+
+        function closeMobileSidebarIfOpen() {
+            const sidebar = document.getElementById('appSidebar');
+            const backdrop = document.getElementById('sidebarBackdrop');
+            if (sidebar) sidebar.classList.remove('show-mobile');
+            if (backdrop) backdrop.classList.remove('show-mobile');
+        }
+
+        function switchMobileTab(tabId, btnEl) {
+            document.querySelectorAll('.mobile-nav-btn').forEach(b => b.classList.remove('active'));
+            if (btnEl) btnEl.classList.add('active');
+
+            let desktopBtn = null;
+            if (tabId === 'tab-overview') desktopBtn = document.getElementById('sideNavOverview');
+            else if (tabId === 'tab-approvals') desktopBtn = document.getElementById('sideNavApprovals');
+            else if (tabId === 'tab-startups') desktopBtn = document.getElementById('sideNavStartups');
+            else if (tabId === 'tab-audit') desktopBtn = document.getElementById('sideNavAudit');
+
+            switchView(tabId, desktopBtn);
+            closeMobileSidebarIfOpen();
+        }
 
         function switchView(tabId, btnEl) {
             document.querySelectorAll('.app-tab-pane').forEach(p => p.classList.remove('active'));
@@ -428,7 +728,16 @@
             if (targetPane) targetPane.classList.add('active');
             if (btnEl) btnEl.classList.add('active');
 
-            if (tabId === 'tab-overview') renderOverviewKPIs();
+            // Sync mobile bottom bar
+            document.querySelectorAll('.mobile-nav-btn').forEach(b => b.classList.remove('active'));
+            if (tabId === 'tab-overview') document.getElementById('mNavOverview')?.classList.add('active');
+            else if (tabId === 'tab-approvals') document.getElementById('mNavApprovals')?.classList.add('active');
+            else if (tabId === 'tab-startups') document.getElementById('mNavStartups')?.classList.add('active');
+
+            if (tabId === 'tab-overview') {
+                renderOverviewData();
+                initExecutiveBarChart();
+            }
             if (tabId === 'tab-startups') renderStartupsView();
             if (tabId === 'tab-mentors') renderMentorsView();
             if (tabId === 'tab-audit') renderAuditView();
@@ -441,48 +750,271 @@
                 window.CIMP_DB.syncDOMUserProfile('usr-dir');
             }
             refreshAllData();
-            initExecutiveCharts();
+            initExecutiveBarChart();
+            renderNotifications();
 
-            window.addEventListener('cimp:db_updated', refreshAllData);
+            window.addEventListener('cimp:db_updated', function () {
+                refreshAllData();
+                renderNotifications();
+            });
         });
 
         function refreshAllData() {
             if (window.CIMP_DB) window.CIMP_DB.syncDOMUserProfile('usr-dir');
-            renderOverviewKPIs();
+            renderOverviewData();
             renderApprovalsTable();
             renderStartupsView();
             renderMentorsView();
             renderAuditView();
         }
 
-        function renderOverviewKPIs() {
+        function renderOverviewData() {
             if (!window.CIMP_DB) return;
-            const analytics = window.CIMP_DB.getAnalytics ? window.CIMP_DB.getAnalytics() : { totalIncubated: 52, activeCount: 30, totalRevenueFormatted: 'â‚¹ 21.49 Cr', totalFundingFormatted: 'â‚¹ 7.20 Cr', totalJobs: 397 };
-            
-            document.getElementById('ovTotalStartups').innerText = analytics.totalIncubated || 52;
-            document.getElementById('ovActiveStartups').innerText = analytics.activeCount || 30;
-            document.getElementById('ovRevenue').innerText = analytics.totalRevenueFormatted || 'â‚¹21.49 Cr';
-            document.getElementById('ovCapital').innerText = analytics.totalFundingFormatted || 'â‚¹7.20 Cr';
-            document.getElementById('ovJobs').innerText = (analytics.totalJobs || 397) + '+';
+            const analytics = window.CIMP_DB.getExecutiveAnalytics ? window.CIMP_DB.getExecutiveAnalytics() : null;
+            const startups = window.CIMP_DB.getStartups();
+
+            // 4 Clean Executive KPI Cards
+            document.getElementById('ovTotalStartups').innerText = startups.length || 8;
+            document.getElementById('ovRevenue').innerText = analytics ? analytics.revenueFormatted : '₹ 21.49 Cr';
+            document.getElementById('ovCapital').innerText = analytics ? analytics.fundingFormatted : '₹ 7.20 Cr';
+            document.getElementById('ovJobs').innerText = (analytics ? analytics.jobsCount : 397) + '+';
+
+            // Social & State Impact
+            if (document.getElementById('impactWomenPct')) {
+                document.getElementById('impactWomenPct').innerText = (analytics ? analytics.womenLedPercent : 38) + '%';
+                document.getElementById('progressWomen').style.width = (analytics ? analytics.womenLedPercent : 38) + '%';
+            }
+            if (document.getElementById('impactRuralPct')) {
+                document.getElementById('impactRuralPct').innerText = (analytics ? analytics.ruralOutreachPercent : 68) + '%';
+                document.getElementById('progressRural').style.width = (analytics ? analytics.ruralOutreachPercent : 68) + '%';
+            }
+
+            applySimpleFilters();
+        }
+
+        // Clean & Modern Bar Chart: Sector-wise Capital Disbursed vs Portfolio Turnover
+        function initExecutiveBarChart() {
+            if (!window.Chart) return;
+            const canvas = document.getElementById('chartSectorBars');
+            if (!canvas) return;
+
+            if (sectorBarChartInstance) sectorBarChartInstance.destroy();
+
+            const sectors = ['AgriTech', 'Technology', 'HealthTech', 'CleanTech', 'E-commerce'];
+            // Values in Lakhs
+            const capitalDisbursed = [80, 50, 40, 25, 500];
+            const annualTurnover = [125, 42.5, 95, 35, 1850];
+
+            sectorBarChartInstance = new Chart(canvas, {
+                type: 'bar',
+                data: {
+                    labels: sectors,
+                    datasets: [
+                        {
+                            label: 'Capital Disbursed (₹ Lakhs)',
+                            data: capitalDisbursed,
+                            backgroundColor: '#1E3A8A',
+                            borderRadius: 6,
+                            barPercentage: 0.65,
+                            categoryPercentage: 0.6
+                        },
+                        {
+                            label: 'Annual Turnover (₹ Lakhs)',
+                            data: annualTurnover,
+                            backgroundColor: '#059669',
+                            borderRadius: 6,
+                            barPercentage: 0.65,
+                            categoryPercentage: 0.6
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            callbacks: {
+                                label: function (ctx) {
+                                    return ' ' + ctx.dataset.label + ': ₹ ' + ctx.parsed.y + ' Lakhs';
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            grid: { color: '#F1F5F9' },
+                            ticks: {
+                                font: { size: 10 },
+                                callback: function (val) {
+                                    if (val >= 100) return '₹ ' + (val / 100).toFixed(1) + ' Cr';
+                                    return '₹ ' + val + 'L';
+                                }
+                            }
+                        },
+                        x: {
+                            grid: { display: false },
+                            ticks: { font: { size: 11, weight: '600' } }
+                        }
+                    }
+                }
+            });
+        }
+
+        // Streamlined Table Filters
+        function applySimpleFilters() {
+            if (!window.CIMP_DB) return;
+
+            const sectorVal = document.getElementById('tblFilterSector')?.value || '';
+            const stageVal = document.getElementById('tblFilterStage')?.value || '';
+            const searchVal = (document.getElementById('dirSearchInp')?.value || '').trim().toLowerCase();
+
+            let startups = window.CIMP_DB.getStartups();
+            if (sectorVal) startups = startups.filter(s => s.sector === sectorVal);
+            if (stageVal) startups = startups.filter(s => (s.stage || s.fundingRaised || '').toLowerCase().includes(stageVal.toLowerCase()));
+            if (searchVal) {
+                startups = startups.filter(s => 
+                    (s.name && s.name.toLowerCase().includes(searchVal)) ||
+                    (s.founder && s.founder.toLowerCase().includes(searchVal)) ||
+                    (s.sector && s.sector.toLowerCase().includes(searchVal)) ||
+                    (s.location && s.location.toLowerCase().includes(searchVal))
+                );
+            }
+
+            const countEl = document.getElementById('tblVentureCount');
+            if (countEl) countEl.innerText = `Showing ${startups.length} incubated enterprise${startups.length !== 1 ? 's' : ''}`;
+
+            const resetBtn = document.getElementById('btnResetSimpleFilters');
+            if (resetBtn) {
+                if (sectorVal || stageVal || searchVal) resetBtn.classList.remove('d-none');
+                else resetBtn.classList.add('d-none');
+            }
 
             const tbody = document.getElementById('tblRecentOverviewBody');
-            if (tbody) {
-                const startups = window.CIMP_DB.getStartups().slice(0, 4);
-                let html = '';
-                startups.forEach(s => {
-                    html += `
-                        <tr>
-                            <td><strong>${s.name}</strong><div class="font-11 text-muted">${s.location || 'Patna'}</div></td>
-                            <td>${s.founder}</td>
-                            <td><span class="font-12 fw-semibold">${s.sector}</span><div class="font-11 text-muted">${s.stage}</div></td>
-                            <td><strong>${s.revenue}</strong></td>
-                            <td><span class="text-primary fw-bold">${s.fundingRaised}</span></td>
-                            <td>${s.assignedMentor || 'Dr. Alok Kumar'}</td>
-                            <td><span class="font-12 fw-semibold text-success"><i class="fa-solid fa-circle font-8 me-1"></i> Active</span></td>
-                        </tr>
-                    `;
-                });
-                tbody.innerHTML = html;
+            if (!tbody) return;
+
+            if (startups.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="7" class="text-center py-4 text-muted font-13"><i class="fa-solid fa-magnifying-glass me-2"></i> No ventures found matching your filter. Click "Reset" to view all.</td></tr>`;
+                return;
+            }
+
+            let html = '';
+            startups.forEach(s => {
+                html += `
+                    <tr>
+                        <td>
+                            <strong class="font-14 text-dark">${s.name}</strong>
+                            <div class="font-11 text-muted">${s.location || 'Patna, Bihar'}</div>
+                        </td>
+                        <td>${s.founder}</td>
+                        <td>
+                            <span class="badge bg-light text-dark border font-11 px-2 py-1">${s.sector}</span>
+                            <div class="font-11 text-muted mt-1">${s.stage}</div>
+                        </td>
+                        <td><span class="text-primary fw-bold font-13">${s.fundingRaised || '₹ 25 Lakhs'}</span></td>
+                        <td><strong class="text-success font-13">${s.revenue || '₹ 42.5 Lakhs / yr'}</strong></td>
+                        <td>${s.assignedMentor || 'Dr. Alok Kumar'}</td>
+                        <td>
+                            <span class="badge ${s.status === 'Graduated' ? 'bg-info-subtle text-info border' : 'bg-success-subtle text-success border border-success-subtle'} font-11 px-2 py-1">
+                                <i class="fa-solid fa-circle font-8 me-1"></i> ${s.status || 'Active'}
+                            </span>
+                        </td>
+                    </tr>
+                `;
+            });
+            tbody.innerHTML = html;
+        }
+
+        function resetSimpleFilters() {
+            if (document.getElementById('tblFilterSector')) document.getElementById('tblFilterSector').value = '';
+            if (document.getElementById('tblFilterStage')) document.getElementById('tblFilterStage').value = '';
+            const searchInp = document.getElementById('dirSearchInp');
+            if (searchInp) searchInp.value = '';
+            applySimpleFilters();
+        }
+
+        // Executive Notifications & Pending Sign-offs System
+        function renderNotifications() {
+            if (!window.CIMP_DB) return;
+            const apps = window.CIMP_DB.getApplications ? window.CIMP_DB.getApplications() : [];
+            const pending = apps.filter(a => a.status === 'Pending Director Approval' || a.status === 'Under Evaluation');
+
+            const badge = document.getElementById('topNotifBadge');
+            const container = document.getElementById('notifListContainer');
+            const notifHeaderCount = document.getElementById('notifHeaderCount');
+            if (!badge || !container) return;
+
+            if (isNotifRead || pending.length === 0) {
+                badge.style.display = 'none';
+                if (notifHeaderCount) {
+                    notifHeaderCount.className = 'badge rounded-pill bg-success-subtle text-success border border-success-subtle font-10 px-2 py-0.5 text-nowrap';
+                    notifHeaderCount.innerText = 'All Clear';
+                }
+            } else {
+                badge.style.display = 'inline-block';
+                badge.innerText = pending.length;
+                if (notifHeaderCount) {
+                    notifHeaderCount.className = 'badge rounded-pill bg-danger-subtle text-danger border border-danger-subtle font-10 px-2 py-0.5 text-nowrap';
+                    notifHeaderCount.innerText = `${pending.length} Pending`;
+                }
+            }
+
+            if (pending.length === 0) {
+                container.innerHTML = `
+                    <div class="p-4 text-center text-muted font-12">
+                        <i class="fa-solid fa-circle-check text-success font-24 mb-2 d-block"></i>
+                        <span class="fw-semibold text-dark">All executive sign-offs are up to date.</span>
+                    </div>
+                `;
+                return;
+            }
+
+            let html = '';
+            pending.forEach(app => {
+                html += `
+                    <div class="p-3 border-bottom d-flex align-items-center justify-content-between gap-3 hover-bg" style="background: #FFFFFF; transition: background 0.15s ease;">
+                        <div class="d-flex align-items-center gap-2.5">
+                            <div class="rounded-circle d-flex align-items-center justify-content-center bg-warning-subtle text-warning" style="width: 34px; height: 34px; min-width: 34px;">
+                                <i class="fa-solid fa-file-signature font-13"></i>
+                            </div>
+                            <div>
+                                <div class="font-12 fw-bold text-dark text-nowrap" style="max-width: 220px; overflow: hidden; text-overflow: ellipsis;">${app.startupName}</div>
+                                <div class="font-11 text-muted mt-0.5 text-nowrap">
+                                    <span class="badge bg-light text-dark border font-10 py-0 px-1 me-1">${app.sector}</span>
+                                    Score: <strong class="text-dark">${app.managerScore || 88}/100</strong>
+                                </div>
+                            </div>
+                        </div>
+                        <button class="btn btn-sm btn-primary font-11 py-1 px-2.5 fw-semibold text-nowrap" style="border-radius: 6px;" onclick="switchView('tab-approvals', document.querySelectorAll('.app-nav-btn')[1])">
+                            Sign &rarr;
+                        </button>
+                    </div>
+                `;
+            });
+            container.innerHTML = html;
+        }
+
+        function markAllNotificationsRead(event) {
+            if (event) event.stopPropagation();
+            isNotifRead = true;
+            const badge = document.getElementById('topNotifBadge');
+            if (badge) badge.style.display = 'none';
+
+            const notifHeaderCount = document.getElementById('notifHeaderCount');
+            if (notifHeaderCount) {
+                notifHeaderCount.className = 'badge rounded-pill bg-success-subtle text-success border border-success-subtle font-10 px-2 py-0.5 text-nowrap';
+                notifHeaderCount.innerText = 'All Clear';
+            }
+
+            const container = document.getElementById('notifListContainer');
+            if (container) {
+                container.innerHTML = `
+                    <div class="p-4 text-center text-muted font-12">
+                        <i class="fa-solid fa-circle-check text-success font-24 mb-2 d-block"></i>
+                        <span class="fw-semibold text-dark">All notifications marked as read.</span>
+                        <div class="font-11 text-muted mt-1">Pending approvals are still accessible in the Approval Queue.</div>
+                    </div>
+                `;
             }
         }
 
@@ -496,6 +1028,12 @@
             
             const badge = document.getElementById('navPendingBadge');
             if (badge) badge.innerText = pendingApps.length;
+
+            const btmBadge = document.getElementById('bottomNavPendingBadge');
+            if (btmBadge) {
+                btmBadge.innerText = pendingApps.length;
+                btmBadge.style.display = pendingApps.length > 0 ? 'inline-block' : 'none';
+            }
 
             const tbody = document.getElementById('tblApprovalsBody');
             if (!tbody) return;
@@ -517,7 +1055,7 @@
                         <td>${app.founderName}<div class="font-11 text-muted">${app.city}, ${app.state}</div></td>
                         <td><span class="font-12 fw-semibold text-dark">${app.sector}</span></td>
                         <td><span class="font-12 fw-bold text-dark"><i class="fa-solid fa-circle font-8 text-warning me-1"></i> ${app.managerScore || 88}/100</span></td>
-                        <td><strong class="text-primary font-12">${app.fundingRequired || 'â‚¹ 25 Lakhs'}</strong></td>
+                        <td><strong class="text-primary font-12">${app.fundingRequired || '₹ 25 Lakhs'}</strong></td>
                         <td style="max-width: 250px;"><div class="font-12 text-muted" style="line-height:1.4;">${app.managerNotes || 'Recommended for Level-2 seed incubation.'}</div></td>
                         <td>
                             <div class="d-flex align-items-center gap-2">
@@ -539,8 +1077,9 @@
             if (!confirm("Grant Executive Sign-Off for this venture? It will automatically be converted to an Active Incubatee and published live to the Startups Directory.")) return;
             const res = window.CIMP_DB.directorApprove(appId, "Executive sign-off granted by Director.");
             if (res) {
-                alert(`âœ… Final approval granted! "${res.app.startupName}" is now active in the Startups Directory.`);
+                alert(`✅ Final approval granted! "${res.app.startupName}" is now active in the Startups Directory.`);
                 refreshAllData();
+                renderNotifications();
             }
         }
 
@@ -549,6 +1088,7 @@
             if (reason) {
                 window.CIMP_DB.rejectApplication(appId, reason);
                 refreshAllData();
+                renderNotifications();
             }
         }
 
@@ -573,8 +1113,8 @@
                         <td><strong>${s.name}</strong><div class="font-11 text-muted">${s.location || 'Patna, Bihar'}</div></td>
                         <td>${s.founder}</td>
                         <td><span class="font-12 fw-semibold">${s.sector}</span><div class="font-11 text-muted">${s.stage}</div></td>
-                        <td><strong>${s.revenue || 'â‚¹ 42 Lakhs'}</strong></td>
-                        <td><span class="text-primary fw-bold">${s.fundingRaised || 'â‚¹ 25 Lakhs'}</span></td>
+                        <td><strong>${s.revenue || '₹ 42.5 Lakhs'}</strong></td>
+                        <td><span class="text-primary fw-bold">${s.fundingRaised || '₹ 25 Lakhs'}</span></td>
                         <td>${s.assignedMentor || 'Dr. Alok Kumar'}</td>
                         <td><span class="font-12 fw-semibold text-success"><i class="fa-solid fa-circle font-8 me-1"></i> ${s.status || 'Active'}</span></td>
                     </tr>
@@ -639,72 +1179,87 @@
             const blob = new Blob([csv], { type: 'text/csv' });
             const url = window.URL.createObjectURL(blob);
             const a = document.createElement('a');
-            a.setAttribute('href', url);
-            a.setAttribute('download', 'CIMP_BIIF_Audit_Trail.csv');
+            a.setAttribute("href", url);
+            a.setAttribute("download", "CIMP_BIIF_Audit_Trail.csv");
             a.click();
         }
 
         function handleOmniSearch(query) {
-            const q = query.trim().toLowerCase();
-            if (!q) { renderStartupsView(); return; }
-            switchView('tab-startups', document.querySelectorAll('.app-nav-btn')[2]);
-            const input = document.getElementById('searchStartupTbl');
-            if (input) input.value = q;
-            renderStartupsView();
+            const q = (query || '').trim().toLowerCase();
+            const inpDesktop = document.getElementById('dirSearchInp');
+            const inpMobile = document.getElementById('dirSearchInpMobile');
+            if (inpDesktop && inpDesktop.value !== query) inpDesktop.value = query;
+            if (inpMobile && inpMobile.value !== query) inpMobile.value = query;
+
+            const activeTab = document.querySelector('.app-tab-pane.active');
+            if (activeTab && activeTab.id === 'tab-overview') {
+                applySimpleFilters();
+            } else {
+                switchView('tab-startups', document.getElementById('sideNavStartups'));
+                const input = document.getElementById('searchStartupTbl');
+                if (input) input.value = q;
+                renderStartupsView();
+            }
         }
 
-        function initExecutiveCharts() {
-            const revCanvas = document.getElementById('chartRevenue');
-            if (revCanvas) {
-                if (revChartInstance) revChartInstance.destroy();
-                revChartInstance = new Chart(revCanvas, {
-                    type: 'line',
-                    data: {
-                        labels: ['Q1 24', 'Q2 24', 'Q3 24', 'Q4 24', 'Q1 25', 'Q2 25', 'Q3 25', 'Q4 25', 'Q1 26', 'Q2 26'],
-                        datasets: [{
-                            label: 'Quarterly Revenue (â‚¹ Lakhs)',
-                            data: [120, 165, 210, 280, 390, 480, 620, 810, 1150, 1480],
-                            borderColor: '#1E3A8A',
-                            backgroundColor: 'rgba(30, 58, 138, 0.05)',
-                            fill: true,
-                            tension: 0.3,
-                            pointRadius: 3
-                        }]
-                    },
-                    options: {
-                        responsive: true,
-                        maintainAspectRatio: false,
-                        plugins: { legend: { display: false } },
-                        scales: {
-                            y: { grid: { color: '#F1F5F9' }, ticks: { font: { size: 10 } } },
-                            x: { grid: { display: false }, ticks: { font: { size: 10 } } }
-                        }
-                    }
+        function openBoardMemorandumModal() {
+            if (!window.CIMP_DB) return;
+            const analytics = window.CIMP_DB.getExecutiveAnalytics ? window.CIMP_DB.getExecutiveAnalytics({}) : null;
+            const startups = window.CIMP_DB.getStartups();
+
+            const dateStr = new Date().toLocaleDateString('en-IN', { day: '2-digit', month: 'long', year: 'numeric' });
+            document.getElementById('memoSubmissionDate').innerText = dateStr;
+            document.getElementById('memoRefMonth').innerText = (new Date().getMonth() + 1).toString().padStart(2, '0');
+
+            document.getElementById('memoTotalV').innerText = `${startups.length} Ventures`;
+            document.getElementById('memoCapitalV').innerText = analytics ? analytics.fundingFormatted : '₹ 7.20 Cr';
+            document.getElementById('memoRevenueV').innerText = analytics ? analytics.revenueFormatted : '₹ 21.49 Cr';
+            document.getElementById('memoJobsV').innerText = `${analytics ? analytics.jobsCount : 397}+ Roles`;
+
+            const tbody = document.getElementById('tblMemoStartupsBody');
+            if (tbody) {
+                let html = '';
+                startups.forEach(s => {
+                    html += `
+                        <tr>
+                            <td><strong>${s.name}</strong></td>
+                            <td>${s.founder}</td>
+                            <td>${s.sector}</td>
+                            <td>${s.stage}</td>
+                            <td>${s.revenue}</td>
+                            <td><strong>${s.fundingRaised}</strong></td>
+                        </tr>
+                    `;
                 });
+                tbody.innerHTML = html;
             }
 
-            const secCanvas = document.getElementById('chartSector');
-            if (secCanvas) {
-                if (secChartInstance) secChartInstance.destroy();
-                secChartInstance = new Chart(secCanvas, {
-                    type: 'doughnut',
-                    data: {
-                        labels: ['AgriTech', 'Technology', 'HealthTech', 'CleanTech', 'E-commerce'],
-                        datasets: [{
-                            data: [35, 30, 15, 10, 10],
-                            backgroundColor: ['#1E3A8A', '#0D9488', '#EA580C', '#10B981', '#64748B'],
-                            borderWidth: 2,
-                            borderColor: '#FFFFFF'
-                        }]
-                    },
-                    options: {
-                        responsive: true,
-                        maintainAspectRatio: false,
-                        plugins: { legend: { position: 'bottom', labels: { boxWidth: 10, font: { size: 10 } } } },
-                        cutout: '72%'
-                    }
-                });
-            }
+            const modalEl = document.getElementById('modalBoardMemo');
+            const bsModal = new bootstrap.Modal(modalEl);
+            bsModal.show();
+        }
+
+        function printBoardMemorandum() {
+            window.print();
+        }
+
+        function exportNirfNaacReport() {
+            if (!window.CIMP_DB) return;
+            const startups = window.CIMP_DB.getStartups();
+            let csv = "CIMP-BIIF Incubation Center - NIRF / NAAC Accreditation Report\n";
+            csv += "Report Generated: " + new Date().toISOString() + "\n\n";
+            csv += "Registration ID,Enterprise Name,Legal Entity,Sector,Incorporation Year,Founder Name,Annual Turnover (INR),Seed Funding (INR),Direct Employment,Current Status\n";
+
+            startups.forEach(s => {
+                csv += `"${s.id}","${s.name}","${s.legalName || s.name}","${s.sector}","${s.year || 2022}","${s.founder}","${s.revenueNumeric || 0}","${s.fundingNumeric || 0}","${s.jobsCreated || 10}","${s.status || 'Active'}"\n`;
+            });
+
+            const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.setAttribute("href", url);
+            a.setAttribute("download", `CIMP_BIIF_NIRF_NAAC_Incubation_${new Date().getFullYear()}.csv`);
+            a.click();
         }
     </script>
 </body>

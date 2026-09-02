@@ -24,11 +24,17 @@
 
 <body class="admin-unified-body">
 
-    <!-- 1. Left Sidebar Navigation -->
-    <aside class="app-sidebar">
+    <!-- Mobile Sidebar Dark Backdrop -->
+    <div class="app-sidebar-backdrop" id="sidebarBackdrop" onclick="toggleMobileSidebar()"></div>
+
+    <!-- 1. Left Sidebar Navigation (Off-Canvas Drawer on Mobile) -->
+    <aside class="app-sidebar" id="appSidebar">
         <div>
             <!-- Institutional Brand Header -->
-            <div class="app-sidebar-brand">
+            <div class="app-sidebar-brand position-relative">
+                <button class="btn btn-sm text-white-50 d-lg-none position-absolute top-0 end-0 m-2 p-1" onclick="toggleMobileSidebar()" title="Close Navigation Drawer" style="border: none; background: transparent;">
+                    <i class="fa-solid fa-xmark font-20 text-white"></i>
+                </button>
                 <div class="app-sidebar-emblem">
                     <img src="../../assets/images/CIMP-Icon.png" height="32" alt="CIMP Logo" style="object-fit: contain;">
                     <div style="border-left: 1.5px solid #CBD5E1; height: 24px;"></div>
@@ -42,21 +48,21 @@
             <div class="app-nav-group">
                 <span class="app-nav-header">Advisory Workspace</span>
                 
-                <button class="app-nav-btn active" onclick="switchMenView('tab-men-overview', this)">
+                <button class="app-nav-btn active" id="menNavOverview" onclick="switchMenView('tab-men-overview', this)">
                     <span class="left-grp">
                         <i class="fa-solid fa-chalkboard-user font-14"></i>
                         <span>Advisory Overview</span>
                     </span>
                 </button>
 
-                <button class="app-nav-btn" onclick="switchMenView('tab-men-mentees', this)">
+                <button class="app-nav-btn" id="menNavMentees" onclick="switchMenView('tab-men-mentees', this)">
                     <span class="left-grp">
                         <i class="fa-solid fa-cubes font-14"></i>
                         <span>Allotted Mentee Startups</span>
                     </span>
                 </button>
 
-                <button class="app-nav-btn" onclick="switchMenView('tab-men-sessions', this)">
+                <button class="app-nav-btn" id="menNavSessions" onclick="switchMenView('tab-men-sessions', this)">
                     <span class="left-grp">
                         <i class="fa-solid fa-calendar-check font-14"></i>
                         <span>Completed Sessions</span>
@@ -90,21 +96,41 @@
     <!-- 2. Main Workspace Viewport -->
     <div class="app-main-wrap">
         
-        <!-- Topbar Header -->
+        <!-- Topbar Header (Native Mobile App Bar on Mobile) -->
         <header class="app-topbar">
-            <div class="d-flex align-items-center gap-2">
+            <!-- Mobile Left: Hamburger Drawer Toggle -->
+            <button class="btn btn-light d-lg-none p-0 rounded-circle border shadow-sm d-flex align-items-center justify-content-center" style="width: 38px; height: 38px; min-width: 38px;" onclick="toggleMobileSidebar()" title="Open Menu">
+                <i class="fa-solid fa-bars font-16 text-dark"></i>
+            </button>
+
+            <!-- Mobile Center: Both Official Emblems & Logos -->
+            <div class="d-flex d-lg-none align-items-center justify-content-center gap-1" style="cursor: pointer;" onclick="switchMenView('tab-men-overview')">
+                <img src="../../assets/images/CIMP-Icon.png" height="24" alt="CIMP Logo" style="object-fit: contain;">
+                <div style="border-left: 1.5px solid #CBD5E1; height: 18px; margin: 0 4px;"></div>
+                <img src="../../assets/images/logo.png" height="22" alt="CIMP - BIIF Logo" style="object-fit: contain;">
+            </div>
+
+            <!-- Desktop Left: Title -->
+            <div class="d-none d-lg-flex align-items-center gap-2">
                 <h5 class="mb-0 fw-bold font-15 text-dark"><i class="fa-solid fa-graduation-cap text-primary me-2"></i> Faculty Advisory &amp; Venture Mentoring Console</h5>
             </div>
 
-            <div class="d-flex align-items-center gap-3">
-                <button class="app-btn-action" onclick="logAdvisorySession()">
+            <!-- Right Controls: Action & Mobile Profile -->
+            <div class="d-flex align-items-center gap-2 gap-sm-3">
+                <button class="app-btn-action d-none d-sm-inline-block" onclick="logAdvisorySession()">
                     <i class="fa-solid fa-plus me-1"></i> Log Mentoring Session
                 </button>
 
+                <!-- Desktop Profile Name & Title -->
                 <div class="d-none d-md-flex flex-column align-items-end" style="cursor: pointer;" onclick="CIMP_DB.openProfileModal()" title="Click to Edit Profile &amp; Password">
                     <span class="font-13 fw-bold text-dark" id="topbarUserName" style="line-height:1.2;">Mentor</span>
                     <span class="font-11 text-muted" id="topbarUserTitle" style="line-height:1.1;">Professor &amp; Senior Venture Advisor <i class="fa-solid fa-pen-to-square ms-1 text-primary font-10"></i></span>
                 </div>
+
+                <!-- Mobile Profile Avatar Button -->
+                <button class="btn btn-light d-md-none p-0 rounded-circle border shadow-sm d-flex align-items-center justify-content-center" style="width: 38px; height: 38px;" onclick="CIMP_DB.openProfileModal()" title="Edit Profile">
+                    <i class="fa-solid fa-graduation-cap text-primary font-15"></i>
+                </button>
             </div>
         </header>
 
@@ -118,34 +144,34 @@
                     <p class="text-muted font-13 mb-0">Overview of allotted ventures, advisory sprint commitments, and guidance deliverables.</p>
                 </div>
 
-                <!-- 4 Clean Stats -->
-                <div class="row g-3 mb-4">
-                    <div class="col-md-6 col-lg-3">
-                        <div class="app-kpi-card">
+                <!-- 4 Clean Stats (2x2 Grid on Mobile) -->
+                <div class="row g-2 g-md-3 mb-3 mb-md-4">
+                    <div class="col-6 col-lg-3">
+                        <div class="app-kpi-card p-2.5 p-md-3">
                             <span class="app-kpi-lbl">Allotted Startups</span>
                             <div class="app-kpi-val text-dark">4 Ventures</div>
                             <div class="app-kpi-sub"><i class="fa-solid fa-rocket text-primary"></i> Active Cohort 2026</div>
                         </div>
                     </div>
-                    <div class="col-md-6 col-lg-3">
-                        <div class="app-kpi-card">
-                            <span class="app-kpi-lbl">Advisory Hours Delivered</span>
+                    <div class="col-6 col-lg-3">
+                        <div class="app-kpi-card p-2.5 p-md-3">
+                            <span class="app-kpi-lbl">Advisory Hours</span>
                             <div class="app-kpi-val text-primary">48 Hours</div>
                             <div class="app-kpi-sub text-success"><i class="fa-solid fa-circle-check"></i> 100% Target Met</div>
                         </div>
                     </div>
-                    <div class="col-md-6 col-lg-3">
-                        <div class="app-kpi-card">
-                            <span class="app-kpi-lbl">Total Mentee Valuation</span>
-                            <div class="app-kpi-val">â‚¹ 14.8 Cr</div>
-                            <div class="app-kpi-sub" style="color:#059669;"><i class="fa-solid fa-arrow-trend-up"></i> Aggregated</div>
+                    <div class="col-6 col-lg-3">
+                        <div class="app-kpi-card p-2.5 p-md-3">
+                            <span class="app-kpi-lbl">Mentee Valuation</span>
+                            <div class="app-kpi-val">₹ 14.8 Cr</div>
+                            <div class="app-kpi-sub"><i class="fa-solid fa-chart-line"></i> Portfolio Scale</div>
                         </div>
                     </div>
-                    <div class="col-md-6 col-lg-3">
-                        <div class="app-kpi-card">
-                            <span class="app-kpi-lbl">Next Scheduled Session</span>
-                            <div class="app-kpi-val font-18 text-dark" style="font-size:18px;">Tomorrow, 3 PM</div>
-                            <div class="app-kpi-sub text-muted"><i class="fa-solid fa-clock"></i> Digital Labour Chowk</div>
+                    <div class="col-6 col-lg-3">
+                        <div class="app-kpi-card p-2.5 p-md-3">
+                            <span class="app-kpi-lbl">Feedback Score</span>
+                            <div class="app-kpi-val text-success">4.9 / 5.0</div>
+                            <div class="app-kpi-sub text-muted"><i class="fa-solid fa-star text-warning"></i> Founder Rating</div>
                         </div>
                     </div>
                 </div>
@@ -277,6 +303,26 @@
             </div>
 
         </main>
+
+        <!-- Native Mobile Bottom Navigation Bar -->
+        <nav class="app-mobile-bottom-bar d-lg-none">
+            <button class="mobile-nav-btn active" id="mMenNavOverview" onclick="switchMenMobileTab('tab-men-overview', this)">
+                <i class="fa-solid fa-chalkboard-user"></i>
+                <span>Overview</span>
+            </button>
+            <button class="mobile-nav-btn" id="mMenNavMentees" onclick="switchMenMobileTab('tab-men-mentees', this)">
+                <i class="fa-solid fa-cubes"></i>
+                <span>Startups</span>
+            </button>
+            <button class="mobile-nav-btn" id="mMenNavSessions" onclick="switchMenMobileTab('tab-men-sessions', this)">
+                <i class="fa-solid fa-calendar-check"></i>
+                <span>Sessions</span>
+            </button>
+            <button class="mobile-nav-btn" onclick="toggleMobileSidebar()">
+                <i class="fa-solid fa-bars"></i>
+                <span>More</span>
+            </button>
+        </nav>
     </div>
 
     <!-- Scripts -->
@@ -284,6 +330,33 @@
     <script src="../../assets/js/cimp-db.js"></script>
 
     <script>
+        function toggleMobileSidebar() {
+            const sidebar = document.getElementById('appSidebar');
+            const backdrop = document.getElementById('sidebarBackdrop');
+            if (sidebar) sidebar.classList.toggle('show-mobile');
+            if (backdrop) backdrop.classList.toggle('show-mobile');
+        }
+
+        function closeMobileSidebarIfOpen() {
+            const sidebar = document.getElementById('appSidebar');
+            const backdrop = document.getElementById('sidebarBackdrop');
+            if (sidebar) sidebar.classList.remove('show-mobile');
+            if (backdrop) backdrop.classList.remove('show-mobile');
+        }
+
+        function switchMenMobileTab(tabId, btnEl) {
+            document.querySelectorAll('.mobile-nav-btn').forEach(b => b.classList.remove('active'));
+            if (btnEl) btnEl.classList.add('active');
+
+            let desktopBtn = null;
+            if (tabId === 'tab-men-overview') desktopBtn = document.getElementById('menNavOverview');
+            else if (tabId === 'tab-men-mentees') desktopBtn = document.getElementById('menNavMentees');
+            else if (tabId === 'tab-men-sessions') desktopBtn = document.getElementById('menNavSessions');
+
+            switchMenView(tabId, desktopBtn);
+            closeMobileSidebarIfOpen();
+        }
+
         function switchMenView(tabId, btnEl) {
             document.querySelectorAll('.app-tab-pane').forEach(p => p.classList.remove('active'));
             document.querySelectorAll('.app-nav-btn').forEach(b => b.classList.remove('active'));
@@ -291,6 +364,12 @@
             const targetPane = document.getElementById(tabId);
             if (targetPane) targetPane.classList.add('active');
             if (btnEl) btnEl.classList.add('active');
+
+            // Sync mobile bottom bar
+            document.querySelectorAll('.mobile-nav-btn').forEach(b => b.classList.remove('active'));
+            if (tabId === 'tab-men-overview') document.getElementById('mMenNavOverview')?.classList.add('active');
+            else if (tabId === 'tab-men-mentees') document.getElementById('mMenNavMentees')?.classList.add('active');
+            else if (tabId === 'tab-men-sessions') document.getElementById('mMenNavSessions')?.classList.add('active');
         }
 
         document.addEventListener('DOMContentLoaded', function () {
