@@ -1,127 +1,160 @@
-﻿<!doctype html>
+<!doctype html>
 <html lang="en" dir="ltr">
 
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Institutional Portal Login | CIMP - BIIF</title>
+    <title>Portal Sign In | CIMP - BIIF</title>
+    <meta name="description" content="Official Executive, Startup, and Mentor Portal Sign In for Chandragupt Institute of Management Patna - Business Incubation & Innovation Foundation.">
+    <meta name="author" content="CIMP-BIIF">
+    <!-- Auto forward direct login URL to Homepage Pop-up Modal -->
+    <script>
+        window.location.replace('index.html?login=1');
+    </script>
 
-    <!-- Favicon -->
-    <link rel="shortcut icon" href="assets/images/favicon.png">
+    <!-- Favicons -->
+    <link rel="shortcut icon" href="assets/images/favicon.ico">
+    <link rel="apple-touch-icon" href="assets/images/favicon.png">
 
-    <!-- Fonts & Icons -->
+    <!-- Google Fonts: Plus Jakarta Sans & Outfit -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Outfit:wght@600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
-    <!-- Bootstrap & Styles -->
+    <!-- Core Vendor CSS -->
     <link href="assets/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link href="assets/libs/@mdi/font/css/materialdesignicons.min.css" rel="stylesheet" type="text/css">
+    <link href="assets/libs/@iconscout/unicons/css/line.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <!-- Legacy Style & Modern Academic Design System -->
     <link href="assets/css/base-styles.css" rel="stylesheet" type="text/css">
+    <link href="assets/css/site-overrides.css" rel="stylesheet" type="text/css">
     <link href="assets/css/design-system.css" rel="stylesheet" type="text/css">
+    <link href="assets/css/ui-enhancements.css" rel="stylesheet" type="text/css">
 
     <style>
-        :root {
-            --portal-navy: #071326;
-            --portal-navy-card: #0B1E38;
-            --portal-blue: #1E3A8A;
-            --portal-accent: #EA580C;
-            --portal-border: #E2E8F0;
-        }
-
         body {
             font-family: 'Plus Jakarta Sans', sans-serif !important;
-            background: #F8FAFC;
+            background-color: #F8FAFC;
             min-height: 100vh;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
         }
 
-        /* Top Institutional Strip */
-        .portal-top-strip {
-            background: #0A192F;
-            border-bottom: 3px solid #EA580C;
-            padding: 14px 0;
-        }
-
-        /* Login Container Canvas */
-        .portal-main-area {
+        /* Clean Login Section Canvas */
+        .portal-login-section {
             flex-grow: 1;
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 40px 15px;
-            background: radial-gradient(circle at 50% 10%, rgba(30, 58, 138, 0.05) 0%, rgba(248, 250, 252, 1) 70%);
+            padding: 50px 16px;
+            background: #F8FAFC;
+            background-image: 
+                radial-gradient(at 100% 0%, rgba(30, 58, 138, 0.05) 0px, transparent 50%),
+                radial-gradient(at 0% 100%, rgba(234, 88, 12, 0.035) 0px, transparent 50%);
         }
 
-        /* Enterprise Login Box */
-        .portal-auth-card {
+        /* Modern White Floating Auth Card */
+        .login-auth-card {
             width: 100%;
-            max-width: 460px;
+            max-width: 440px;
             background: #FFFFFF;
             border-radius: 16px;
-            box-shadow: 0 20px 45px -10px rgba(15, 23, 42, 0.12), 0 0 1px 1px rgba(15, 23, 42, 0.04);
+            box-shadow: 0 10px 30px -5px rgba(15, 23, 42, 0.08), 0 0 1px 1px rgba(15, 23, 42, 0.04);
             border: 1px solid #E2E8F0;
-            overflow: hidden;
+            padding: 38px 32px;
+            transition: all 0.25s ease;
         }
 
-        .portal-card-header {
-            background: linear-gradient(135deg, #0A192F 0%, #1E3A8A 100%);
-            padding: 28px 30px;
-            color: #FFFFFF;
-            text-align: center;
-            position: relative;
+        @media (max-width: 576px) {
+            .login-auth-card {
+                padding: 28px 20px;
+                border-radius: 14px;
+            }
         }
 
-        .portal-card-header h2 {
-            font-family: 'Outfit', sans-serif !important;
-            font-size: 22px;
-            font-weight: 700;
-            margin: 0;
-            color: #FFFFFF;
-        }
-
-        .portal-card-header p {
-            font-size: 13px;
-            color: rgba(255, 255, 255, 0.8);
-            margin: 6px 0 0;
-        }
-
-        .portal-card-body {
-            padding: 32px 30px 24px;
+        .login-badge-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            background: #EFF6FF;
+            color: #1E3A8A;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            margin-bottom: 16px;
+            border: 1px solid #DBEAFE;
         }
 
         .form-label-custom {
             font-size: 11.5px;
-            font-weight: 750;
+            font-weight: 700;
             text-transform: uppercase;
-            letter-spacing: 0.5px;
+            letter-spacing: 0.6px;
             color: #334155;
             margin-bottom: 6px;
             display: block;
         }
 
-        .form-control-portal {
+        .input-group-modern {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        .input-group-modern .input-icon {
+            position: absolute;
+            left: 14px;
+            color: #94A3B8;
+            font-size: 14.5px;
+            pointer-events: none;
+            z-index: 2;
+            transition: color 0.2s ease;
+        }
+
+        .form-control-modern {
             width: 100%;
-            padding: 12px 16px;
+            padding: 11px 14px 11px 40px;
             font-size: 14px;
             font-weight: 500;
             color: #0F172A;
-            background-color: #F8FAFC;
+            background-color: #FFFFFF;
             border: 1.5px solid #CBD5E1;
-            border-radius: 8px;
+            border-radius: 9px;
             transition: all 0.2s ease;
         }
 
-        .form-control-portal:focus {
-            background-color: #FFFFFF;
-            border-color: #2563EB;
-            box-shadow: 0 0 0 3.5px rgba(37, 99, 235, 0.12);
+        .form-control-modern:focus {
+            border-color: #1E3A8A;
+            box-shadow: 0 0 0 3px rgba(30, 58, 138, 0.12);
             outline: none;
         }
 
-        .btn-portal-submit {
+        .input-group-modern:focus-within .input-icon {
+            color: #1E3A8A;
+        }
+
+        .btn-toggle-pass {
+            position: absolute;
+            right: 12px;
+            background: transparent;
+            border: none;
+            color: #94A3B8;
+            cursor: pointer;
+            padding: 6px 8px;
+            font-size: 14.5px;
+            transition: color 0.2s ease;
+            z-index: 2;
+        }
+
+        .btn-toggle-pass:hover {
+            color: #1E3A8A;
+        }
+
+        .btn-submit-modern {
             width: 100%;
             background: #1E3A8A;
             color: #FFFFFF;
@@ -129,159 +162,250 @@
             font-weight: 700;
             padding: 12px;
             border: none;
-            border-radius: 8px;
+            border-radius: 9px;
             cursor: pointer;
             transition: all 0.2s ease;
-            box-shadow: 0 4px 12px rgba(30, 58, 138, 0.25);
+            box-shadow: 0 4px 14px rgba(30, 58, 138, 0.22);
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
-        .btn-portal-submit:hover {
+        .btn-submit-modern:hover {
             background: #172554;
             transform: translateY(-1px);
-            box-shadow: 0 6px 16px rgba(30, 58, 138, 0.35);
+            box-shadow: 0 6px 18px rgba(30, 58, 138, 0.32);
         }
 
-        .security-badge-pill {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            background: #F1F5F9;
-            border: 1px solid #E2E8F0;
-            padding: 6px 12px;
-            border-radius: 20px;
-            font-size: 11.5px;
-            font-weight: 600;
-            color: #475569;
+        .btn-submit-modern:active {
+            transform: translateY(0);
         }
 
-        /* Institutional Footer */
-        .portal-footer {
-            background: #071326;
-            color: rgba(255, 255, 255, 0.6);
-            font-size: 12.5px;
-            padding: 18px 0;
+        /* Institutional Footer Bar */
+        .portal-site-footer {
+            background: #04070D;
             border-top: 1px solid rgba(255, 255, 255, 0.08);
-            text-align: center;
+            padding: 18px 0;
+            color: rgba(255, 255, 255, 0.65);
+            font-size: 13px;
         }
     </style>
 </head>
 
 <body>
 
-    <!-- Header Institutional Crest Bar -->
-    <header class="portal-top-strip">
+    <!-- Top Utility Bar (Matching Main Site) -->
+    <div class="topbar-elite">
         <div class="container">
-            <div class="d-flex align-items-center justify-content-between">
-                <div class="d-flex align-items-center gap-3">
-                    <a href="https://www.cimp.ac.in/" target="_blank" title="CIMP">
-                        <img src="assets/images/CIMP-Icon.png" height="52" alt="CIMP" style="filter: brightness(0) invert(1);">
+            <div class="d-flex align-items-center justify-content-between flex-wrap gap-2">
+                <div class="d-flex align-items-center gap-3 font-13">
+                    <a href="mailto:support@cimpbiif.com" class="d-flex align-items-center gap-2 text-decoration-none">
+                        <i class="fa fa-envelope text-primary"></i> support@cimpbiif.com
                     </a>
-                    <div class="d-none d-sm-block border-start border-secondary opacity-50 ps-3" style="height: 36px;"></div>
-                    <a href="index.html" class="d-flex align-items-center gap-2">
-                        <img src="assets/images/logo-white.png" height="46" alt="CIMP - BIIF">
+                    <span class="text-white-50 opacity-25">|</span>
+                    <a href="tel:+919128912345" class="d-flex align-items-center gap-2 text-decoration-none">
+                        <i class="fa fa-phone text-primary"></i> +91 9128912345
                     </a>
                 </div>
-                <div>
-                    <a href="index.html" class="text-white-50 font-13 text-decoration-none d-flex align-items-center gap-2">
-                        <i class="fa-solid fa-arrow-left"></i>
-                        <span class="d-none d-sm-inline">Back to Public Portal</span>
+                <div class="d-flex align-items-center gap-3 font-13">
+                    <a href="index.html" class="d-flex align-items-center gap-1 text-white-50 text-decoration-none">
+                        <i class="fa fa-home text-light"></i> Public Portal
+                    </a>
+                    <span class="text-white-50 opacity-25">|</span>
+                    <a href="pages/incubation-registration.html" class="text-info fw-semibold text-decoration-none">
+                        <i class="fa fa-clipboard-check"></i> Register
                     </a>
                 </div>
             </div>
         </div>
-    </header>
+    </div>
 
-    <!-- Main Authentication Area -->
-    <main class="portal-main-area">
-        <div class="portal-auth-card">
-
-            <!-- Card Header -->
-            <div class="portal-card-header">
-                <h2>Ecosystem Single Sign-On</h2>
-                <p>Authorized Executive &amp; Member Portal</p>
-            </div>
-
-            <!-- Card Body Form -->
-            <div class="portal-card-body">
-
-                <!-- Alert Feedback -->
-                <div id="authAlert" class="alert alert-danger font-12 py-2 d-none mb-3" role="alert">
-                    <i class="fa-solid fa-triangle-exclamation me-1"></i>
-                    <span id="authAlertMsg">Invalid credentials. Please verify your details.</span>
-                </div>
-
-                <!-- Official SSO Form -->
-                <form id="institutionalLoginForm" autocomplete="on">
-                    
-                    <div class="mb-3">
-                        <label class="form-label-custom" for="userEmail">Official Email ID</label>
-                        <div class="position-relative">
-                            <input type="email" class="form-control-portal" id="userEmail" 
-                                   placeholder="name@cimp.ac.in or founder@abc.com" required autocomplete="username">
-                        </div>
+    <!-- Master Sticky Header (Original Full-Color Logos & Institutional Navigation) -->
+    <div class="sticky-master-header">
+        <!-- Institutional Brand Crest Header -->
+        <div class="header-brand-bar">
+            <div class="container">
+                <div class="d-flex align-items-center justify-content-center justify-content-md-between flex-wrap gap-3">
+                    <div class="d-flex align-items-center gap-3">
+                        <a href="https://www.cimp.ac.in/" target="_blank" title="Chandragupt Institute of Management Patna">
+                            <img src="assets/images/CIMP-Icon.png" height="74" alt="CIMP Logo" class="crest-cimp">
+                        </a>
+                        <div class="d-none d-sm-block border-start ps-3" style="border-color: #E2E8F0 !important; height: 50px;"></div>
+                        <a href="index.html" class="d-flex align-items-center gap-2" title="CIMP - Business Incubation & Innovation Foundation">
+                            <img src="assets/images/logo.png" height="66" alt="CIMP-BIIF Logo" class="crest-biif">
+                        </a>
                     </div>
+                </div>
+            </div>
+        </div>
 
-                    <div class="mb-3">
-                        <div class="d-flex align-items-center justify-content-between mb-1">
-                            <label class="form-label-custom mb-0" for="userPassword">Password</label>
-                            <a href="javascript:void(0)" onclick="handleForgotPassword()" class="font-12 text-decoration-none text-primary fw-semibold">
-                                Forgot password?
-                            </a>
-                        </div>
-                        <div class="position-relative">
-                            <input type="password" class="form-control-portal pe-5" id="userPassword" 
-                                   placeholder="Enter your security password" required autocomplete="current-password">
-                            <button type="button" class="btn position-absolute top-50 end-0 translate-middle-y text-muted border-0 me-1" 
-                                    onclick="togglePasswordVisibility()" id="btnToggle" style="background: transparent;">
-                                <i class="fa-regular fa-eye" id="toggleIcon"></i>
+        <!-- Sticky Glassmorphic Navigation Bar -->
+        <header id="topnav" class="iit-nav-bar defaultscroll sticky">
+            <div class="container">
+                <div class="iit-nav-container">
+                    <!-- Mobile Menu Toggle Button -->
+                    <button class="iit-menu-toggle d-lg-none ms-auto" id="isToggle" type="button" aria-label="Toggle navigation">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </button>
+
+                    <!-- Navigation Menu Wrapper -->
+                    <div class="iit-nav-menu-wrapper" id="navigation">
+                        <!-- Mobile Drawer Header -->
+                        <div class="mobile-drawer-header d-lg-none">
+                            <button class="mobile-drawer-close" id="mobileDrawerClose" type="button" aria-label="Close Menu">
+                                <i class="fa fa-times"></i>
                             </button>
                         </div>
-                    </div>
 
-                    <div class="d-flex align-items-center justify-content-between mb-4">
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" id="rememberMe" checked style="cursor: pointer;">
-                            <label class="form-check-label font-12 text-muted fw-semibold" for="rememberMe" style="cursor: pointer;">
-                                Keep session active
-                            </label>
+                        <div class="mobile-drawer-scrollable">
+                            <ul class="iit-menu">
+                                <li><a href="index.html">Home</a></li>
+                                <li class="has-submenu">
+                                    <a href="javascript:void(0)">About Us <i class="fa fa-chevron-down font-10 ms-1 opacity-75"></i></a>
+                                    <ul class="iit-dropdown">
+                                        <li><a href="pages/about-cimp.html"><i class="fa fa-landmark text-primary font-12"></i> About CIMP</a></li>
+                                        <li><a href="pages/about-us.html"><i class="fa fa-building text-primary font-12"></i> About CIMP-BIIF</a></li>
+                                        <li><a href="pages/about-us.html#director-message"><i class="fa fa-user-tie text-primary font-12"></i> Director's Message</a></li>
+                                        <li><a href="pages/about-us.html#ceo-message"><i class="fa fa-award text-primary font-12"></i> CEO's Message</a></li>
+                                        <li><a href="pages/industry-partners.html"><i class="fa fa-handshake text-primary font-12"></i> Industry Partners</a></li>
+                                        <li><a href="pages/nisp-policy.html"><i class="fa fa-file-contract text-primary font-12"></i> NISP Policy 2019</a></li>
+                                        <li><a href="pages/expert-committee.html"><i class="fa fa-users-gear text-primary font-12"></i> Expert Committee</a></li>
+                                        <li><a href="pages/cimp-i-e-policy.html"><i class="fa fa-scroll text-primary font-12"></i> CIMP I & E Policy</a></li>
+                                    </ul>
+                                </li>
+                                <li class="has-submenu">
+                                    <a href="javascript:void(0)">Incubation <i class="fa fa-chevron-down font-10 ms-1 opacity-75"></i></a>
+                                    <ul class="iit-dropdown">
+                                        <li><a href="pages/incubation-process.html"><i class="fa fa-diagram-project text-primary font-12"></i> Incubation Process</a></li>
+                                        <li><a href="pages/incubation-bhub.html"><i class="fa fa-rocket text-primary font-12"></i> B-HUB Incubation</a></li>
+                                        <li><a href="index.html#startup-opportunities"><i class="fa fa-award text-primary font-12"></i> Opportunities & Grants</a></li>
+                                    </ul>
+                                </li>
+                                <li class="has-submenu">
+                                    <a href="javascript:void(0)">Our Team <i class="fa fa-chevron-down font-10 ms-1 opacity-75"></i></a>
+                                    <ul class="iit-dropdown">
+                                        <li><a href="pages/biif-team.html"><i class="fa fa-id-badge text-primary font-12"></i> BIIF Core Team</a></li>
+                                        <li><a href="pages/advisors.html"><i class="fa fa-user-shield text-primary font-12"></i> Board of Advisors</a></li>
+                                        <li><a href="pages/mentors.html"><i class="fa fa-chalkboard-user text-primary font-12"></i> Expert Mentors</a></li>
+                                        <li><a href="pages/mentor-registration.html"><i class="fa fa-user-plus text-primary font-12"></i> Apply as Mentor</a></li>
+                                    </ul>
+                                </li>
+                                <li><a href="pages/startups.html">Startups</a></li>
+                                <li class="has-submenu">
+                                    <a href="javascript:void(0)">Activities <i class="fa fa-chevron-down font-10 ms-1 opacity-75"></i></a>
+                                    <ul class="iit-dropdown">
+                                        <li><a href="pages/events.html"><i class="fa fa-calendar-days text-primary font-12"></i> Events & Workshops</a></li>
+                                        <li><a href="pages/media-coverage.html"><i class="fa fa-newspaper text-primary font-12"></i> Media Coverage</a></li>
+                                        <li><a href="pages/research.html"><i class="fa fa-flask text-primary font-12"></i> Innovation Research</a></li>
+                                        <li><a href="pages/publications.html"><i class="fa fa-book-open text-primary font-12"></i> Publications</a></li>
+                                    </ul>
+                                </li>
+                                <li class="has-submenu">
+                                    <a href="javascript:void(0)">Join CIMP BIIF <i class="fa fa-chevron-down font-10 ms-1 opacity-75"></i></a>
+                                    <ul class="iit-dropdown">
+                                        <li><a href="pages/incubation-registration.html"><i class="fa fa-seedling text-primary font-12"></i> Startup Registration</a></li>
+                                        <li><a href="pages/mentor-registration.html"><i class="fa fa-graduation-cap text-primary font-12"></i> Mentor Registration</a></li>
+                                        <li><a href="pages/investor-registration.html"><i class="fa fa-sack-dollar text-primary font-12"></i> Investor Registration</a></li>
+                                        <li><a href="pages/contact-us.html"><i class="fa fa-briefcase text-primary font-12"></i> Partner Registration</a></li>
+                                    </ul>
+                                </li>
+                                <li><a href="pages/contact-us.html">Contact Us</a></li>
+                            </ul>
+
+                            <!-- Mobile Drawer Quick Actions -->
+                            <div class="mobile-drawer-actions d-lg-none">
+                                <div class="d-grid gap-2 mb-3">
+                                    <a href="login.html" class="mobile-drawer-btn-login text-center">
+                                        <i class="fa fa-user-lock"></i> Portal Login
+                                    </a>
+                                </div>
+                            </div>
                         </div>
-                        <span class="font-11 text-muted"><i class="fa-solid fa-shield-halved text-success me-1"></i> 256-Bit SSL</span>
                     </div>
+                </div>
+            </div>
+        </header>
+    </div>
 
-                    <button type="submit" class="btn-portal-submit" id="btnSubmitAuth">
-                        <i class="fa-solid fa-lock me-2 font-12"></i> Sign In to Authorized Workspace
-                    </button>
-                </form>
+    <!-- Main Authentication Area -->
+    <main class="portal-login-section">
+        <div class="login-auth-card">
 
-                <!-- Security & Notice Footer -->
-                <div class="mt-4 pt-3 border-top text-center">
-                    <div class="security-badge-pill mb-2">
-                        <i class="fa-solid fa-fingerprint text-primary"></i>
-                        <span>Role-Based Access Control (RBAC Level-3)</span>
+            <!-- Card Header -->
+            <div class="text-center mb-4">
+                <div class="login-badge-icon">
+                    <i class="fa-solid fa-lock"></i>
+                </div>
+                <h1 class="h4 fw-bold text-dark mb-1" style="font-family: 'Outfit', sans-serif;">Portal Sign In</h1>
+                <p class="text-muted font-13 mb-0">Enter your credentials to access your workspace</p>
+            </div>
+
+            <!-- Dynamic Alert Feedback -->
+            <div id="authAlert" class="alert alert-danger font-13 py-2 px-3 d-none mb-3 rounded-3" role="alert">
+                <i class="fa-solid fa-triangle-exclamation me-2"></i>
+                <span id="authAlertMsg">Invalid credentials. Please verify your details.</span>
+            </div>
+
+            <!-- Official Login Form -->
+            <form id="institutionalLoginForm" autocomplete="on">
+                
+                <div class="mb-3">
+                    <label class="form-label-custom" for="userEmail">Official Email ID</label>
+                    <div class="input-group-modern">
+                        <span class="input-icon"><i class="fa-regular fa-envelope"></i></span>
+                        <input type="email" class="form-control-modern" id="userEmail" 
+                               placeholder="name@cimp.ac.in" required autocomplete="username">
                     </div>
-                    <p class="font-11 text-muted mb-0">
-                        This system is strictly monitored for authorized personnel of CIMP-BIIF, incubated startups, and empanelled mentors.
-                    </p>
                 </div>
 
-            </div>
+                <div class="mb-3">
+                    <div class="d-flex align-items-center justify-content-between mb-1">
+                        <label class="form-label-custom mb-0" for="userPassword">Password</label>
+                        <a href="javascript:void(0)" onclick="handleForgotPassword()" class="font-12 text-decoration-none text-primary fw-semibold">
+                            Forgot password?
+                        </a>
+                    </div>
+                    <div class="input-group-modern">
+                        <span class="input-icon"><i class="fa-solid fa-key"></i></span>
+                        <input type="password" class="form-control-modern pe-5" id="userPassword" 
+                               placeholder="Enter your password" required autocomplete="current-password">
+                        <button type="button" class="btn-toggle-pass" onclick="togglePasswordVisibility()" aria-label="Toggle password visibility">
+                            <i class="fa-regular fa-eye" id="toggleIcon"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="form-check mb-4">
+                    <input class="form-check-input" type="checkbox" id="rememberMe" checked style="cursor: pointer;">
+                    <label class="form-check-label font-13 text-secondary" for="rememberMe" style="cursor: pointer;">
+                        Keep me signed in
+                    </label>
+                </div>
+
+                <button type="submit" class="btn-submit-modern" id="btnSubmitAuth">
+                    <span id="btnSubmitText">Sign In</span>
+                    <i class="fa-solid fa-arrow-right ms-2 font-12" id="btnSubmitIcon"></i>
+                </button>
+            </form>
 
         </div>
     </main>
 
-    <!-- Institutional Compliance Footer -->
-    <footer class="portal-footer">
+    <!-- Institutional Footer Bar -->
+    <footer class="portal-site-footer text-center">
         <div class="container">
-            <div class="row align-items-center">
-                <div class="col-12 text-center">
-                    <span>&copy; <script>document.write(new Date().getFullYear())</script> CIMP - Business Incubation &amp; Innovation Foundation. All Rights Reserved.</span>
-                </div>
-            </div>
+            <p class="mb-0">
+                &copy; <script>document.write(new Date().getFullYear())</script> CIMP - Business Incubation &amp; Innovation Foundation. All Rights Reserved.
+            </p>
         </div>
     </footer>
 
-    <!-- Scripts -->
+    <!-- Core Scripts -->
     <script src="assets/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/js/app.js"></script>
+    <script src="assets/js/clone-enhancements.js"></script>
     <script src="assets/js/cimp-db.js"></script>
 
     <script>
@@ -298,7 +422,7 @@
         }
 
         function handleForgotPassword() {
-            alert('For password resets or multi-factor recovery, please contact CIMP-BIIF IT Secretariat at support@cimpbiif.com.');
+            alert('For password resets or credential recovery, please contact CIMP-BIIF Secretariat at support@cimpbiif.com.');
         }
 
         document.getElementById('institutionalLoginForm').addEventListener('submit', function(e) {
@@ -308,9 +432,11 @@
             const alertBox = document.getElementById('authAlert');
             const alertMsg = document.getElementById('authAlertMsg');
             const btn = document.getElementById('btnSubmitAuth');
+            const btnText = document.getElementById('btnSubmitText');
+            const btnIcon = document.getElementById('btnSubmitIcon');
 
             if (typeof window.CIMP_DB === 'undefined') {
-                alertMsg.textContent = 'Security handshake initializing. Please try again.';
+                alertMsg.textContent = 'System initializing. Please try again in a moment.';
                 alertBox.classList.remove('d-none');
                 return;
             }
@@ -319,7 +445,8 @@
             if (res.success) {
                 alertBox.classList.add('d-none');
                 btn.disabled = true;
-                btn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin me-2"></i> Verifying Authorization...';
+                btnText.textContent = 'Verifying...';
+                btnIcon.className = 'fa-solid fa-circle-notch fa-spin ms-2 font-12';
                 setTimeout(() => {
                     window.location.href = res.redirectUrl;
                 }, 350);
