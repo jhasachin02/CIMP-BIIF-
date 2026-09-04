@@ -1554,7 +1554,6 @@ h1, h2, h3, h4, h5, h6, .heading, .display-1, .display-2, .display-3, .display-4
   position: relative;
   overflow: hidden;
   padding: 90px 0;
-  border-top: 1px solid var(--iit-border);
 }
 
 .stage-card {
@@ -1654,7 +1653,6 @@ h1, h2, h3, h4, h5, h6, .heading, .display-1, .display-2, .display-3, .display-4
 .media-showcase-section {
   padding: 90px 0 110px 0;
   background: #FFFFFF;
-  border-top: 1px solid var(--iit-border);
 }
 
 .media-card-frame {

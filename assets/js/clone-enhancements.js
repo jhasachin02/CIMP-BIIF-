@@ -586,18 +586,28 @@ document.addEventListener("DOMContentLoaded", function () {
         modal.style.display = "flex";
     };
 
-    // 9. High-Performance IntersectionObserver Animated Number Counters
+    // 9. High-Performance IntersectionObserver Animated Number Counters (Repeats on every scroll into view)
     const statCounters = document.querySelectorAll(".stat-counter");
     if (statCounters.length > 0) {
-        let hasAnimated = false;
+        let activeAnimationFrames = [];
+
+        const resetCounters = () => {
+            activeAnimationFrames.forEach((id) => cancelAnimationFrame(id));
+            activeAnimationFrames = [];
+            statCounters.forEach((counter) => {
+                const startVal = parseInt(counter.getAttribute("data-start") || "0", 10);
+                counter.textContent = startVal;
+            });
+        };
+
         const animateCounters = () => {
-            if (hasAnimated) return;
-            hasAnimated = true;
+            activeAnimationFrames.forEach((id) => cancelAnimationFrame(id));
+            activeAnimationFrames = [];
 
             statCounters.forEach((counter) => {
                 const target = parseInt(counter.getAttribute("data-count"), 10);
                 const startVal = parseInt(counter.getAttribute("data-start") || "0", 10);
-                const duration = target > 500 ? 1800 : 1400; // ms
+                const duration = target > 500 ? 1600 : 1200; // ms
                 let startTime = null;
 
                 const updateNumber = (currentTime) => {
@@ -612,25 +622,35 @@ document.addEventListener("DOMContentLoaded", function () {
                     counter.textContent = currentVal;
 
                     if (progress < 1) {
-                        requestAnimationFrame(updateNumber);
+                        const frameId = requestAnimationFrame(updateNumber);
+                        activeAnimationFrames.push(frameId);
                     } else {
                         counter.textContent = target;
                     }
                 };
 
-                requestAnimationFrame(updateNumber);
+                const frameId = requestAnimationFrame(updateNumber);
+                activeAnimationFrames.push(frameId);
             });
         };
 
         if ("IntersectionObserver" in window) {
-            const impactObserver = new IntersectionObserver((entries, obs) => {
+            let isVisible = false;
+            const impactObserver = new IntersectionObserver((entries) => {
                 entries.forEach((entry) => {
                     if (entry.isIntersecting) {
-                        animateCounters();
-                        obs.disconnect();
+                        if (!isVisible) {
+                            isVisible = true;
+                            animateCounters();
+                        }
+                    } else {
+                        if (isVisible) {
+                            isVisible = false;
+                            resetCounters();
+                        }
                     }
                 });
-            }, { threshold: 0.2 });
+            }, { threshold: 0.25 });
 
             const impactSection = document.querySelector(".ecosystem-impact-section");
             if (impactSection) {
