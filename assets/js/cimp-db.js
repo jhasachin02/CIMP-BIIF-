@@ -569,6 +569,10 @@
             slug: 'incubation-registration',
             description: 'Official intake application form for early-stage and growth startups applying for CIMP-BIIF Cohort Incubation.',
             lastUpdated: new Date().toISOString(),
+            acceptingResponses: true,
+            closeMessage: 'Applications for this intake cycle are currently closed. Please watch our announcements for upcoming cohort deadlines.',
+            confirmationMessage: 'Thank you for your application to CIMP-BIIF! Our incubation management committee has received your details and will contact you.',
+            cohortTag: 'Cohort 2026 Batch 1',
             steps: [
                 { num: 1, title: 'Identity & Founder', description: 'Personal, contact & institutional background' },
                 { num: 2, title: 'Venture & Pitch', description: 'Product idea, innovation & market potential' },
@@ -599,6 +603,10 @@
             slug: 'mentor-registration',
             description: 'Application for experienced founders, corporate executives, and academicians to mentor CIMP-BIIF cohorts.',
             lastUpdated: new Date().toISOString(),
+            acceptingResponses: true,
+            closeMessage: 'Mentor registrations are temporarily on hold.',
+            confirmationMessage: 'Thank you for your interest in mentoring CIMP-BIIF incubatees! We will review your profile and reach out.',
+            cohortTag: 'Faculty & Industry Network',
             steps: [
                 { num: 1, title: 'Personal & Profile', description: 'Contact details & organizational credentials' },
                 { num: 2, title: 'Expertise & Domain', description: 'Core functional & industry advisory strengths' },
@@ -623,6 +631,10 @@
             slug: 'investor-registration',
             description: 'Network gateway for Angels, VC Funds, Family Offices, and Corporate VC arms looking to co-invest in CIMP-BIIF ventures.',
             lastUpdated: new Date().toISOString(),
+            acceptingResponses: true,
+            closeMessage: 'Investor syndicate onboarding is by direct invitation currently.',
+            confirmationMessage: 'Thank you for connecting with CIMP-BIIF Investor Network! Our dealflow team will be in touch.',
+            cohortTag: 'Institutional Capital Network',
             steps: [
                 { num: 1, title: 'Investor Profile', description: 'Firm or Angel identity & accredited status' },
                 { num: 2, title: 'Investment Thesis', description: 'Ticket sizes, stage & industry preferences' }
@@ -1761,6 +1773,271 @@
 
             // Re-assign order numbers
             schema.fields.forEach((f, i) => { f.order = i + 1; });
+            return this.saveFormSchema(formId, schema);
+        },
+
+        // Duplicate Question Card
+        duplicateFieldInSchema: function (formId, fieldId) {
+            let schema = this.getFormSchema(formId);
+            if (!schema) return null;
+
+            const idx = schema.fields.findIndex(f => f.id === fieldId);
+            if (idx === -1) return null;
+
+            const original = schema.fields[idx];
+            const cloned = JSON.parse(JSON.stringify(original));
+            cloned.id = 'field_' + Math.floor(1000 + Math.random() * 9000);
+            cloned.label = cloned.label + ' (Copy)';
+            cloned.isCore = false;
+
+            // Insert directly below the source field
+            schema.fields.splice(idx + 1, 0, cloned);
+            schema.fields.forEach((f, i) => { f.order = i + 1; });
+            return this.saveFormSchema(formId, schema);
+        },
+
+        // Drag-and-drop array reorder
+        reorderFieldsArray: function (formId, orderedIds) {
+            let schema = this.getFormSchema(formId);
+            if (!schema || !Array.isArray(orderedIds)) return null;
+
+            const fieldMap = {};
+            schema.fields.forEach(f => { fieldMap[f.id] = f; });
+
+            const newFields = [];
+            orderedIds.forEach(id => {
+                if (fieldMap[id]) {
+                    newFields.push(fieldMap[id]);
+                    delete fieldMap[id];
+                }
+            });
+            // Append any left-over fields not in orderedIds
+            Object.values(fieldMap).forEach(f => newFields.push(f));
+
+            newFields.forEach((f, i) => { f.order = i + 1; });
+            schema.fields = newFields;
+            return this.saveFormSchema(formId, schema);
+        },
+
+        // Step / Section Management
+        addStepToSchema: function (formId, stepDef) {
+            let schema = this.getFormSchema(formId);
+            if (!schema) return null;
+            if (!schema.steps) schema.steps = [];
+
+            const nextNum = schema.steps.length ? Math.max(...schema.steps.map(s => s.num)) + 1 : 1;
+            const newStep = {
+                num: nextNum,
+                title: stepDef.title || ('Step ' + nextNum),
+                description: stepDef.description || 'Section description and instructions'
+            };
+            schema.steps.push(newStep);
+            return this.saveFormSchema(formId, schema);
+        },
+
+        updateStepInSchema: function (formId, stepNum, updates) {
+            let schema = this.getFormSchema(formId);
+            if (!schema || !schema.steps) return null;
+
+            const step = schema.steps.find(s => s.num === Number(stepNum));
+            if (!step) return null;
+
+            if (updates.title) step.title = updates.title.trim();
+            if (updates.description !== undefined) step.description = updates.description.trim();
+            return this.saveFormSchema(formId, schema);
+        },
+
+        moveStepInSchema: function (formId, stepNum, direction) {
+            let schema = this.getFormSchema(formId);
+            if (!schema || !schema.steps || schema.steps.length <= 1) return null;
+            const idx = schema.steps.findIndex(s => s.num === Number(stepNum));
+            if (idx === -1) return null;
+            const targetIdx = direction === 'up' ? idx - 1 : idx + 1;
+            if (targetIdx < 0 || targetIdx >= schema.steps.length) return null;
+
+            const oldNum = schema.steps[idx].num;
+            const newNum = schema.steps[targetIdx].num;
+
+            // Swap step assignments of fields
+            if (schema.fields) {
+                schema.fields.forEach(f => {
+                    if (f.step === oldNum) f.step = -999;
+                });
+                schema.fields.forEach(f => {
+                    if (f.step === newNum) f.step = oldNum;
+                });
+                schema.fields.forEach(f => {
+                    if (f.step === -999) f.step = newNum;
+                });
+            }
+
+            const temp = schema.steps[idx];
+            schema.steps[idx] = schema.steps[targetIdx];
+            schema.steps[targetIdx] = temp;
+
+            schema.steps.forEach((s, i) => { s.num = i + 1; });
+            return this.saveFormSchema(formId, schema);
+        },
+
+        deleteStepFromSchema: function (formId, stepNum) {
+            let schema = this.getFormSchema(formId);
+            if (!schema || !schema.steps || schema.steps.length <= 1) return null;
+
+            schema.steps = schema.steps.filter(s => s.num !== Number(stepNum));
+            // Reassign step numbers
+            schema.steps.forEach((s, idx) => { s.num = idx + 1; });
+
+            // Reassign fields belonging to deleted step to Step 1
+            if (schema.fields) {
+                schema.fields.forEach(f => {
+                    if (f.step === Number(stepNum) || f.step > schema.steps.length) {
+                        f.step = 1;
+                    }
+                });
+            }
+            return this.saveFormSchema(formId, schema);
+        },
+
+        // Update High-Level Form Settings
+        updateFormSettings: function (formId, settings) {
+            let schema = this.getFormSchema(formId);
+            if (!schema) return null;
+
+            if (settings.title) schema.title = settings.title.trim();
+            if (settings.description !== undefined) schema.description = settings.description.trim();
+            if (settings.acceptingResponses !== undefined) schema.acceptingResponses = Boolean(settings.acceptingResponses);
+            if (settings.closeMessage !== undefined) schema.closeMessage = settings.closeMessage.trim();
+            if (settings.confirmationMessage !== undefined) schema.confirmationMessage = settings.confirmationMessage.trim();
+            if (settings.cohortTag !== undefined) schema.cohortTag = settings.cohortTag.trim();
+
+            return this.saveFormSchema(formId, schema);
+        },
+
+        // Get Submissions / Responses for a given formId
+        getFormSubmissions: function (formId) {
+            if (formId === 'startup-incubation') {
+                return this.getApplications();
+            } else if (formId === 'mentor-registration') {
+                const mentors = this.getMentors();
+                return mentors.map((m, idx) => ({
+                    id: m.id || ('MEN-' + (idx + 1)),
+                    startupName: m.organization || 'Independent Practice',
+                    founderName: m.name || m.full_name || 'Mentor',
+                    email: m.email || '',
+                    mobile: m.phone || '',
+                    sector: m.domain || 'Advisory',
+                    stage: m.experience || '8+ Years Exp',
+                    status: m.status || 'Active',
+                    submittedDate: m.joinedDate || '2026-02-15T10:00:00.000Z'
+                }));
+            } else if (formId === 'investor-registration') {
+                const seedInvestors = [
+                    { id: 'INV-001', startupName: 'Patna Angels Network', founderName: 'Sandeep Singhania', email: 'sandeep@patnaangels.in', mobile: '+91 98350 11223', sector: 'AgriTech, DeepTech', stage: '₹ 25L - ₹ 50L Cheque', status: 'Accredited', submittedDate: '2026-03-01T11:20:00.000Z' },
+                    { id: 'INV-002', startupName: 'Bihar Venture Catalyst Fund', founderName: 'Ritu Raj Sharma', email: 'rituraj@biharvc.com', mobile: '+91 99342 55667', sector: 'SaaS, HealthTech', stage: '₹ 50L - ₹ 1.5Cr Cheque', status: 'Under Review', submittedDate: '2026-03-15T14:45:00.000Z' }
+                ];
+                return this._get('investor_submissions', seedInvestors);
+            }
+            return this._get('form_submissions_' + formId, []);
+        },
+
+        getAllFormList: function () {
+            const schemas = this.getFormSchemas();
+            return Object.keys(schemas).map(formId => {
+                const schema = schemas[formId];
+                const subs = this.getFormSubmissions(formId);
+                const activeFields = (schema.fields || []).filter(f => f.active !== false);
+                return {
+                    id: formId,
+                    title: schema.title || formId,
+                    category: schema.category || 'General Form',
+                    description: schema.description || '',
+                    acceptingResponses: schema.acceptingResponses !== false,
+                    cohortTag: schema.cohortTag || '',
+                    stepsCount: (schema.steps && schema.steps.length) || 1,
+                    questionsCount: activeFields.length,
+                    totalFieldsCount: (schema.fields || []).length,
+                    submissionsCount: subs.length,
+                    isCustom: Boolean(schema.isCustom),
+                    lastUpdated: schema.lastUpdated || null
+                };
+            });
+        },
+
+        createCustomForm: function (meta) {
+            let schemas = this.getFormSchemas();
+            const rawId = meta.id || (meta.title || 'form').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+            let formId = rawId || ('custom-form-' + Date.now());
+            if (schemas[formId]) {
+                formId = formId + '-' + Math.floor(100 + Math.random() * 900);
+            }
+
+            const newSchema = {
+                id: formId,
+                title: meta.title.trim(),
+                category: meta.category ? meta.category.trim() : 'Custom Intake',
+                description: meta.description ? meta.description.trim() : 'Custom structured application form.',
+                acceptingResponses: true,
+                cohortTag: meta.cohortTag ? meta.cohortTag.trim() : '',
+                confirmationMessage: 'Thank you! Your submission has been securely received by CIMP-BIIF.',
+                closeMessage: 'This application intake is currently closed for new submissions.',
+                isCustom: true,
+                createdAt: new Date().toISOString(),
+                lastUpdated: new Date().toISOString(),
+                steps: [
+                    { num: 1, title: 'Step 1: Basic Information', description: 'Primary applicant & organization contact details' }
+                ],
+                fields: [
+                    { id: 'f_name', order: 1, label: 'Full Name', type: 'text', required: true, step: 1, active: true, isCore: true, placeholder: 'Enter primary applicant name' },
+                    { id: 'f_email', order: 2, label: 'Email Address', type: 'email', required: true, step: 1, active: true, isCore: true, placeholder: 'name@example.com' },
+                    { id: 'f_mobile', order: 3, label: 'Mobile Number', type: 'tel', required: true, step: 1, active: true, isCore: true, placeholder: '+91 98765 43210' },
+                    { id: 'f_org', order: 4, label: 'Startup / Organization Name', type: 'text', required: true, step: 1, active: true, isCore: true, placeholder: 'e.g. Acme Tech Solutions' }
+                ]
+            };
+
+            schemas[formId] = newSchema;
+            this._set('form_schemas', schemas);
+
+            const currentUser = this.getCurrentUser();
+            this.logAudit(
+                currentUser ? currentUser.name : 'Administrator',
+                currentUser ? currentUser.role : 'IT Admin',
+                'CUSTOM_FORM_CREATED',
+                `Created new intake form: "${newSchema.title}" [ID: ${formId}]`
+            );
+
+            return newSchema;
+        },
+
+        deleteCustomForm: function (formId) {
+            const seedIds = ['startup-incubation', 'mentor-registration', 'investor-registration'];
+            if (seedIds.includes(formId)) {
+                return { success: false, message: 'Core system forms cannot be deleted.' };
+            }
+
+            let schemas = this.getFormSchemas();
+            if (!schemas[formId]) {
+                return { success: false, message: 'Form not found.' };
+            }
+
+            const title = schemas[formId].title || formId;
+            delete schemas[formId];
+            this._set('form_schemas', schemas);
+
+            const currentUser = this.getCurrentUser();
+            this.logAudit(
+                currentUser ? currentUser.name : 'Administrator',
+                currentUser ? currentUser.role : 'IT Admin',
+                'CUSTOM_FORM_DELETED',
+                `Deleted custom form: "${title}" [ID: ${formId}]`
+            );
+
+            return { success: true };
+        },
+
+        toggleFormAccepting: function (formId) {
+            let schema = this.getFormSchema(formId);
+            if (!schema) return null;
+            schema.acceptingResponses = !schema.acceptingResponses;
             return this.saveFormSchema(formId, schema);
         },
 

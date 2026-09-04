@@ -1041,10 +1041,54 @@
         // ==========================================
         // DYNAMIC FORM FIELD RENDERER FROM ADMIN
         // ==========================================
+        // ==========================================
+        // DYNAMIC FORM FIELD RENDERER FROM ADMIN
+        // ==========================================
         function initDynamicFormRenderer() {
             if (!window.CIMP_DB) return;
-            const schema = window.CIMP_DB.getFormSchema('startup-incubation');
+            const urlParams = new URLSearchParams(window.location.search);
+            const qFormId = urlParams.get('formId') || 'startup-incubation';
+            const schema = window.CIMP_DB.getFormSchema(qFormId) || window.CIMP_DB.getFormSchema('startup-incubation');
             if (!schema || !schema.fields) return;
+
+            if (qFormId !== 'startup-incubation' && schema.title) {
+                const headerTitle = document.querySelector('.hero-content h1, .reg-header h1, h1');
+                if (headerTitle) headerTitle.innerText = schema.title;
+            }
+
+            // Check if applications intake is active
+            const noticeId = 'intakeClosedNotice';
+            const oldNotice = document.getElementById(noticeId);
+            if (oldNotice) oldNotice.remove();
+
+            const btnSubmit = document.getElementById('btnSubmit');
+            if (schema.acceptingResponses === false) {
+                const formCard = document.querySelector('.app-form-card');
+                if (formCard) {
+                    const notice = document.createElement('div');
+                    notice.id = noticeId;
+                    notice.className = 'alert alert-warning p-3 mb-4 rounded-3 d-flex align-items-center gap-3 border';
+                    notice.innerHTML = `
+                        <i class="fa-solid fa-triangle-exclamation font-22 text-warning flex-shrink-0"></i>
+                        <div>
+                            <strong class="d-block font-14">Intake Application Closed</strong>
+                            <span class="font-12 text-dark">${schema.closeMessage || 'Applications for this cohort are currently closed. Please check back later.'}</span>
+                        </div>
+                    `;
+                    formCard.prepend(notice);
+                }
+                if (btnSubmit) {
+                    btnSubmit.disabled = true;
+                    btnSubmit.innerText = 'Intake Closed';
+                    btnSubmit.classList.add('opacity-50');
+                }
+            } else {
+                if (btnSubmit) {
+                    btnSubmit.disabled = false;
+                    btnSubmit.innerText = 'Submit Proposal';
+                    btnSubmit.classList.remove('opacity-50');
+                }
+            }
 
             // Render custom dynamic fields added from Admin Form Studio
             const customFields = schema.fields.filter(f => !f.isCore && f.active);
@@ -1080,8 +1124,18 @@
                             `;
                         });
                         fieldHtml += `</div>`;
+                    } else if (f.type === 'checkbox') {
+                        fieldHtml += `<div class="d-flex flex-wrap gap-3 mt-2">`;
+                        (f.options || []).forEach((opt, oIdx) => {
+                            fieldHtml += `
+                                <label class="font-13 d-flex align-items-center gap-1.5 cursor-pointer text-dark">
+                                    <input type="checkbox" name="dyn_${f.id}" value="${opt}" class="dyn-checkbox" data-field-id="${f.id}" data-label="${f.label}"> ${opt}
+                                </label>
+                            `;
+                        });
+                        fieldHtml += `</div>`;
                     } else {
-                        fieldHtml += `<input type="${f.type === 'tel' ? 'tel' : (f.type === 'number' ? 'number' : (f.type === 'email' ? 'email' : 'text'))}" class="input-clean dyn-input" id="${f.id}" data-label="${f.label}" data-required="${Boolean(f.required)}" placeholder="${f.placeholder || ''}">`;
+                        fieldHtml += `<input type="${f.type === 'tel' ? 'tel' : (f.type === 'number' ? 'number' : (f.type === 'email' ? 'email' : (f.type === 'date' ? 'date' : 'text')))}" class="input-clean dyn-input" id="${f.id}" data-label="${f.label}" data-required="${Boolean(f.required)}" placeholder="${f.placeholder || ''}">`;
                     }
 
                     if (f.helpText) {
