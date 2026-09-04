@@ -1381,6 +1381,28 @@
             return apps[idx];
         },
 
+        // Update Application Status (IT Admin & Review Pipeline)
+        updateApplicationStatus: function (appId, newStatus, notes) {
+            let apps = this.getApplications();
+            const idx = apps.findIndex(a => a.id === appId);
+            if (idx === -1) return null;
+
+            apps[idx].status = newStatus;
+            if (notes) apps[idx].managerNotes = notes;
+            this._set('applications', apps);
+
+            const currentUser = this.getCurrentUser();
+            this.logAudit(
+                currentUser ? currentUser.name : 'Administrator',
+                currentUser ? currentUser.role : 'IT Admin',
+                'SUBMISSION_STATUS_UPDATED',
+                `Status of application "${apps[idx].startupName}" [${appId}] updated to "${newStatus}"`
+            );
+
+            this._dispatchChange('applications');
+            return apps[idx];
+        },
+
         // Mentors Access
         getMentors: function () {
             return this._get('mentors', SEED_MENTORS);
