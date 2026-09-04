@@ -902,7 +902,7 @@
                         <div class="row g-3">
                             <div class="col-md-7">
                                 <label class="form-label font-12 fw-bold text-dark mb-1">Field Label (Question Text) <span class="text-danger">*</span></label>
-                                <input type="text" class="form-control font-13" id="qLabel" required placeholder="e.g., Venture / Startup Legal Name" oninput="autoGenerateFieldKey(this.value)">
+                                <input type="text" class="form-control font-13" id="qLabel" required placeholder="Field Title or Question Prompt" oninput="autoGenerateFieldKey(this.value)">
                             </div>
                             <div class="col-md-5">
                                 <label class="form-label font-12 fw-bold text-dark mb-1">Field Key (Data Column ID) <span class="text-danger">*</span></label>
@@ -973,12 +973,12 @@
 
                             <div class="col-md-6">
                                 <label class="form-label font-12 fw-bold text-dark mb-1">Input Placeholder Text</label>
-                                <input type="text" class="form-control font-13" id="qPlaceholder" placeholder="e.g., founder@startup.com">
+                                <input type="text" class="form-control font-13" id="qPlaceholder" placeholder="Input Placeholder">
                             </div>
 
                             <div class="col-md-6">
                                 <label class="form-label font-12 fw-bold text-dark mb-1">Help / Guidance Note</label>
-                                <input type="text" class="form-control font-13" id="qHelpText" placeholder="e.g., Minimum 10 digits as per Aadhar / Govt ID">
+                                <input type="text" class="form-control font-13" id="qHelpText" placeholder="Guidance note for applicant">
                             </div>
 
                             <div class="col-md-6">
@@ -1037,11 +1037,11 @@
 
                         <div class="mb-3">
                             <label class="form-label font-12 fw-bold text-dark mb-1">Section Title <span class="text-danger">*</span></label>
-                            <input type="text" class="form-control font-13" id="stepModalTitleInp" required placeholder="e.g., Legal, IP &amp; Compliance">
+                            <input type="text" class="form-control font-13" id="stepModalTitleInp" required placeholder="Section Title">
                         </div>
                         <div class="mb-3">
                             <label class="form-label font-12 fw-bold text-dark mb-1">Section Guidance / Subtitle</label>
-                            <textarea class="form-control font-13" id="stepModalDescInp" rows="2" placeholder="e.g., Institutional patents, trade secrets &amp; incorporation docs"></textarea>
+                            <textarea class="form-control font-13" id="stepModalDescInp" rows="2" placeholder="Section description or instructions"></textarea>
                         </div>
 
                         <div class="d-flex align-items-center justify-content-end gap-2 mt-4 pt-2 border-top">
@@ -1109,27 +1109,30 @@
     <!-- MODAL: CREATE NEW APPLICATION FORM -->
     <div class="modal fade" id="modalCreateNewForm" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content border-0 shadow-lg" style="border-radius: 12px; overflow: hidden;">
-                <div class="modal-header bg-dark text-white p-3 border-0">
-                    <div>
-                        <h6 class="modal-title fw-bold text-white mb-0">
-                            <i class="fa-solid fa-file-circle-plus text-primary me-2"></i> Create New Application Form
-                        </h6>
-                        <span class="font-11 text-white-50">Set up a custom multi-step intake form with customizable questions</span>
+            <div class="modal-content border-0 shadow-lg" style="border-radius: 16px; overflow: hidden;">
+                <div class="modal-header px-4 py-3.5 border-0" style="background: linear-gradient(135deg, #0b1329 0%, #1a2744 100%);">
+                    <div class="d-flex align-items-center gap-3 flex-grow-1 me-3" style="min-width: 0;">
+                        <div class="d-flex align-items-center justify-content-center flex-shrink-0 rounded-3" style="width: 42px; height: 42px; background: rgba(59, 130, 246, 0.18); border: 1px solid rgba(96, 165, 250, 0.35); color: #93c5fd;">
+                            <i class="fa-solid fa-file-circle-plus font-16"></i>
+                        </div>
+                        <div style="min-width: 0;">
+                            <h5 class="modal-title font-16 fw-bold text-white mb-0" style="letter-spacing: -0.2px;">Create Application Form</h5>
+                            <div class="font-12 text-white-50 mt-0.5">Configure a custom multi-step intake form with customizable questions</div>
+                        </div>
                     </div>
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <button type="button" class="btn-close btn-close-white flex-shrink-0 opacity-75" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <form id="formCreateNewForm" onsubmit="handleCreateNewForm(event)">
-                    <div class="modal-body p-4 bg-light">
+                    <div class="modal-body p-4 bg-white">
                         <div class="mb-3">
-                            <label class="form-label font-12 fw-bold text-muted text-uppercase">Form Title *</label>
-                            <input type="text" class="form-control font-13" id="newFormTitle" required placeholder="e.g. Pre-Incubation Idea Intake 2026" style="border-radius: 6px;">
+                            <label class="form-label font-12 fw-semibold text-secondary mb-1">Form Title <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control font-13" id="newFormTitle" required placeholder="Form Title" style="border-radius: 6px;">
                             <div class="font-11 text-muted mt-1">Institutional title displayed to applicants on public portal.</div>
                         </div>
 
                         <div class="row g-2 mb-3">
                             <div class="col-md-7">
-                                <label class="form-label font-12 fw-bold text-muted text-uppercase">Form Category</label>
+                                <label class="form-label font-12 fw-semibold text-secondary mb-1">Form Category</label>
                                 <select class="form-select font-13" id="newFormCategory" style="border-radius: 6px;">
                                     <option value="Incubation Intake">Incubation Intake</option>
                                     <option value="Accelerator Cohort">Accelerator Cohort</option>
@@ -1141,24 +1144,24 @@
                                 </select>
                             </div>
                             <div class="col-md-5">
-                                <label class="form-label font-12 fw-bold text-muted text-uppercase">Cohort / Batch Tag</label>
-                                <input type="text" class="form-control font-13" id="newFormCohort" placeholder="e.g. Cohort 2026" style="border-radius: 6px;">
+                                <label class="form-label font-12 fw-semibold text-secondary mb-1">Cohort / Batch Tag</label>
+                                <input type="text" class="form-control font-13" id="newFormCohort" placeholder="Cohort or Batch Identifier" style="border-radius: 6px;">
                             </div>
                         </div>
 
                         <div class="mb-3">
-                            <label class="form-label font-12 fw-bold text-muted text-uppercase">Short Description &amp; Instructions</label>
-                            <textarea class="form-control font-13" id="newFormDesc" rows="3" placeholder="Provide a brief summary and eligibility guidance for prospective applicants..." style="border-radius: 6px;"></textarea>
+                            <label class="form-label font-12 fw-semibold text-secondary mb-1">Short Description &amp; Instructions</label>
+                            <textarea class="form-control font-13" id="newFormDesc" rows="3" placeholder="Brief description and applicant guidelines..." style="border-radius: 6px;"></textarea>
                         </div>
 
-                        <div class="p-3 bg-white border rounded-2 font-11 text-muted">
+                        <div class="p-3 bg-light-subtle border rounded-2 font-11 text-muted">
                             <div class="fw-semibold text-dark mb-1"><i class="fa-solid fa-circle-check text-success me-1"></i> Pre-configured Starter Template</div>
                             Every new form initializes with <strong>Step 1: Basic Information</strong> and standard contact questions (Full Name, Email, Mobile, Organization Name). You can add unlimited steps, sections, and custom questions right after creation.
                         </div>
                     </div>
-                    <div class="modal-footer bg-white p-3 border-top d-flex align-items-center justify-content-between">
-                        <button type="button" class="btn btn-sm btn-outline-secondary font-12 px-3" data-bs-dismiss="modal">Cancel</button>
-                        <button type="submit" class="btn btn-sm btn-dark font-12 px-3 fw-semibold">
+                    <div class="modal-footer bg-light p-3 border-top d-flex align-items-center justify-content-between">
+                        <button type="button" class="btn btn-sm btn-light border font-12 px-3" data-bs-dismiss="modal">Cancel</button>
+                        <button type="submit" class="btn btn-sm btn-dark font-12 px-3 fw-semibold shadow-xs">
                             <i class="fa-solid fa-plus me-1.5"></i> Create Form &amp; Open Studio
                         </button>
                     </div>
@@ -1171,27 +1174,32 @@
     <div class="modal fade" id="createUserModal" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content border-0 shadow-lg" style="border-radius: 16px; overflow: hidden;">
-                <div class="modal-header bg-dark text-white p-4 border-0">
-                    <div>
-                        <h5 class="modal-title fw-bold text-white mb-0"><i class="fa-solid fa-user-shield text-warning me-2"></i> Provision New User &amp; Credentials</h5>
-                        <span class="font-11 text-white-50">Create institutional login ID and temporary or custom password</span>
+                <div class="modal-header px-4 py-3.5 border-0" style="background: linear-gradient(135deg, #0b1329 0%, #1a2744 100%);">
+                    <div class="d-flex align-items-center gap-3 flex-grow-1 me-3" style="min-width: 0;">
+                        <div class="d-flex align-items-center justify-content-center flex-shrink-0 rounded-3" style="width: 42px; height: 42px; background: rgba(59, 130, 246, 0.18); border: 1px solid rgba(96, 165, 250, 0.35); color: #93c5fd;">
+                            <i class="fa-solid fa-user-plus font-16"></i>
+                        </div>
+                        <div style="min-width: 0;">
+                            <h5 class="modal-title font-16 fw-bold text-white mb-0" style="letter-spacing: -0.2px;">Provision New User</h5>
+                            <div class="font-12 text-white-50 mt-0.5">Create institutional login ID &amp; assign role access</div>
+                        </div>
                     </div>
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <button type="button" class="btn-close btn-close-white flex-shrink-0 opacity-75" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-body p-4 bg-light">
+                <div class="modal-body p-4 bg-white">
                     <form id="formCreateUser" onsubmit="saveNewUser(event)">
                         <div class="mb-3">
-                            <label class="form-label font-12 fw-bold text-muted text-uppercase">Full Name</label>
-                            <input type="text" class="form-control font-13" id="cuName" required placeholder="e.g. Dr. Rajesh Verma / Ananya Jha" style="border-radius: 8px;">
+                            <label class="form-label font-12 fw-semibold text-secondary mb-1">Full Name <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control font-13" id="cuName" required placeholder="Full Name" style="border-radius: 6px;">
                         </div>
                         <div class="row g-2 mb-3">
                             <div class="col-md-7">
-                                <label class="form-label font-12 fw-bold text-muted text-uppercase">Official Email (User ID)</label>
-                                <input type="email" class="form-control font-13" id="cuEmail" required placeholder="user@cimp.ac.in" style="border-radius: 8px;">
+                                <label class="form-label font-12 fw-semibold text-secondary mb-1">Official Email (User ID) <span class="text-danger">*</span></label>
+                                <input type="email" class="form-control font-13" id="cuEmail" required placeholder="name@cimp.ac.in" style="border-radius: 6px;">
                             </div>
                             <div class="col-md-5">
-                                <label class="form-label font-12 fw-bold text-muted text-uppercase">Assigned Persona</label>
-                                <select class="form-select font-13" id="cuRole" required style="border-radius: 8px;">
+                                <label class="form-label font-12 fw-semibold text-secondary mb-1">Assigned Persona</label>
+                                <select class="form-select font-13" id="cuRole" required style="border-radius: 6px;">
                                     <option value="Startup">Startup Founder</option>
                                     <option value="Mentor">Faculty Mentor</option>
                                     <option value="Incubation Manager">Incubation Manager</option>
@@ -1202,44 +1210,44 @@
                         </div>
                         <div class="row g-2 mb-3">
                             <div class="col-md-7">
-                                <label class="form-label font-12 fw-bold text-muted text-uppercase">Institutional Title / Role</label>
-                                <input type="text" class="form-control font-13" id="cuTitle" placeholder="e.g. Founder, CEO / Advisory Mentor" style="border-radius: 8px;">
+                                <label class="form-label font-12 fw-semibold text-secondary mb-1">Institutional Title / Role</label>
+                                <input type="text" class="form-control font-13" id="cuTitle" placeholder="Title or Role" style="border-radius: 6px;">
                             </div>
                             <div class="col-md-5">
-                                <label class="form-label font-12 fw-bold text-muted text-uppercase">Contact Mobile</label>
-                                <input type="tel" class="form-control font-13" id="cuPhone" placeholder="+91 98765..." style="border-radius: 8px;">
+                                <label class="form-label font-12 fw-semibold text-secondary mb-1">Contact Mobile</label>
+                                <input type="tel" class="form-control font-13" id="cuPhone" placeholder="Mobile Number" style="border-radius: 6px;">
                             </div>
                         </div>
                         
                         <!-- Password & Generator Section -->
-                        <div class="p-3 bg-white border rounded-3 mb-3">
+                        <div class="p-3 bg-light-subtle border rounded-3 mb-3">
                             <div class="d-flex align-items-center justify-content-between mb-2">
-                                <label class="form-label font-12 fw-bold text-dark mb-0"><i class="fa-solid fa-key text-primary me-1"></i> Account Password</label>
-                                <button type="button" class="btn btn-sm btn-outline-primary py-0 px-2 font-11 fw-bold" onclick="generateRandomPassword('cuPassword')">
+                                <label class="form-label font-12 fw-semibold text-dark mb-0">Account Password</label>
+                                <button type="button" class="btn btn-sm btn-outline-primary py-0.5 px-2 font-11 fw-semibold" onclick="generateRandomPassword('cuPassword')">
                                     <i class="fa-solid fa-wand-magic-sparkles me-1"></i> Auto-Generate
                                 </button>
                             </div>
                             <div class="input-group">
-                                <input type="password" class="form-control font-13" id="cuPassword" required placeholder="Enter or auto-generate password">
-                                <button class="btn btn-outline-secondary font-12" type="button" onclick="CIMP_DB.togglePassVisibility('cuPassword', this)">
+                                <input type="password" class="form-control font-13" id="cuPassword" required placeholder="Password" style="border-radius: 6px 0 0 6px;">
+                                <button class="btn btn-outline-secondary font-12" type="button" onclick="CIMP_DB.togglePassVisibility('cuPassword', this)" style="border-radius: 0 6px 6px 0;">
                                     <i class="fa-solid fa-eye"></i>
                                 </button>
                             </div>
-                            <span class="font-10 text-muted mt-1 d-block">User can log in immediately at Portal Login with this email &amp; password.</span>
+                            <span class="font-11 text-muted mt-1.5 d-block">User can log in immediately at Portal Login with this email &amp; password.</span>
                         </div>
 
                         <div class="mb-3">
-                            <label class="form-label font-12 fw-bold text-muted text-uppercase">Access Status</label>
-                            <select class="form-select font-13" id="cuStatus" style="border-radius: 8px;">
+                            <label class="form-label font-12 fw-semibold text-secondary mb-1">Access Status</label>
+                            <select class="form-select font-13" id="cuStatus" style="border-radius: 6px;">
                                 <option value="Active">Active (Full Portal Access)</option>
                                 <option value="Suspended">Suspended / Deactivated</option>
                             </select>
                         </div>
 
-                        <div class="d-flex align-items-center justify-content-end gap-2 mt-4">
-                            <button type="button" class="btn btn-sm btn-light font-12 px-3" data-bs-dismiss="modal">Cancel</button>
-                            <button type="submit" class="btn btn-sm btn-primary font-12 fw-bold px-4 shadow-sm" style="border-radius: 8px;">
-                                <i class="fa-solid fa-shield-halved me-1"></i> Create User &amp; Credentials
+                        <div class="d-flex align-items-center justify-content-end gap-2 mt-4 pt-2 border-top">
+                            <button type="button" class="btn btn-sm btn-light border font-12 px-3" data-bs-dismiss="modal">Cancel</button>
+                            <button type="submit" class="btn btn-sm btn-dark font-12 fw-bold px-4 shadow-xs" style="border-radius: 6px;">
+                                <i class="fa-solid fa-check me-1.5"></i> Create User &amp; Credentials
                             </button>
                         </div>
                     </form>
@@ -1252,28 +1260,33 @@
     <div class="modal fade" id="editUserModal" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content border-0 shadow-lg" style="border-radius: 16px; overflow: hidden;">
-                <div class="modal-header bg-dark text-white p-4 border-0">
-                    <div>
-                        <h5 class="modal-title fw-bold text-white mb-0"><i class="fa-solid fa-user-pen text-warning me-2"></i> Edit Ecosystem User</h5>
-                        <span class="font-11 text-white-50" id="euSubtitle">Modify role, title, email, or credentials</span>
+                <div class="modal-header px-4 py-3.5 border-0" style="background: linear-gradient(135deg, #0b1329 0%, #1a2744 100%);">
+                    <div class="d-flex align-items-center gap-3 flex-grow-1 me-3" style="min-width: 0;">
+                        <div class="d-flex align-items-center justify-content-center flex-shrink-0 rounded-3" style="width: 42px; height: 42px; background: rgba(59, 130, 246, 0.18); border: 1px solid rgba(96, 165, 250, 0.35); color: #93c5fd;">
+                            <i class="fa-solid fa-user-pen font-16"></i>
+                        </div>
+                        <div style="min-width: 0;">
+                            <h5 class="modal-title font-16 fw-bold text-white mb-0" style="letter-spacing: -0.2px;">Edit System User</h5>
+                            <div class="font-12 text-white-50 mt-0.5" id="euSubtitle">Modify role assignment, profile details, or access status</div>
+                        </div>
                     </div>
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <button type="button" class="btn-close btn-close-white flex-shrink-0 opacity-75" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-body p-4 bg-light">
+                <div class="modal-body p-4 bg-white">
                     <form id="formEditUser" onsubmit="saveEditUser(event)">
                         <input type="hidden" id="euUserId">
                         <div class="mb-3">
-                            <label class="form-label font-12 fw-bold text-muted text-uppercase">Full Name</label>
-                            <input type="text" class="form-control font-13" id="euName" required style="border-radius: 8px;">
+                            <label class="form-label font-12 fw-semibold text-secondary mb-1">Full Name <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control font-13" id="euName" required placeholder="Full Name" style="border-radius: 6px;">
                         </div>
                         <div class="row g-2 mb-3">
                             <div class="col-md-7">
-                                <label class="form-label font-12 fw-bold text-muted text-uppercase">Official Email</label>
-                                <input type="email" class="form-control font-13" id="euEmail" required style="border-radius: 8px;">
+                                <label class="form-label font-12 fw-semibold text-secondary mb-1">Official Email <span class="text-danger">*</span></label>
+                                <input type="email" class="form-control font-13" id="euEmail" required placeholder="name@cimp.ac.in" style="border-radius: 6px;">
                             </div>
                             <div class="col-md-5">
-                                <label class="form-label font-12 fw-bold text-muted text-uppercase">Persona / Role</label>
-                                <select class="form-select font-13" id="euRole" required style="border-radius: 8px;">
+                                <label class="form-label font-12 fw-semibold text-secondary mb-1">Persona / Role</label>
+                                <select class="form-select font-13" id="euRole" required style="border-radius: 6px;">
                                     <option value="Startup">Startup</option>
                                     <option value="Mentor">Mentor</option>
                                     <option value="Incubation Manager">Incubation Manager</option>
@@ -1284,25 +1297,25 @@
                         </div>
                         <div class="row g-2 mb-3">
                             <div class="col-md-7">
-                                <label class="form-label font-12 fw-bold text-muted text-uppercase">Institutional Title</label>
-                                <input type="text" class="form-control font-13" id="euTitle" style="border-radius: 8px;">
+                                <label class="form-label font-12 fw-semibold text-secondary mb-1">Institutional Title</label>
+                                <input type="text" class="form-control font-13" id="euTitle" placeholder="Title or Role" style="border-radius: 6px;">
                             </div>
                             <div class="col-md-5">
-                                <label class="form-label font-12 fw-bold text-muted text-uppercase">Mobile Phone</label>
-                                <input type="tel" class="form-control font-13" id="euPhone" style="border-radius: 8px;">
+                                <label class="form-label font-12 fw-semibold text-secondary mb-1">Mobile Phone</label>
+                                <input type="tel" class="form-control font-13" id="euPhone" placeholder="Mobile Number" style="border-radius: 6px;">
                             </div>
                         </div>
                         <div class="mb-3">
-                            <label class="form-label font-12 fw-bold text-muted text-uppercase">Access Status</label>
-                            <select class="form-select font-13" id="euStatus" style="border-radius: 8px;">
+                            <label class="form-label font-12 fw-semibold text-secondary mb-1">Access Status</label>
+                            <select class="form-select font-13" id="euStatus" style="border-radius: 6px;">
                                 <option value="Active">Active</option>
                                 <option value="Suspended">Suspended</option>
                             </select>
                         </div>
-                        <div class="d-flex align-items-center justify-content-end gap-2 mt-4">
-                            <button type="button" class="btn btn-sm btn-light font-12 px-3" data-bs-dismiss="modal">Cancel</button>
-                            <button type="submit" class="btn btn-sm btn-primary font-12 fw-bold px-4 shadow-sm" style="border-radius: 8px;">
-                                <i class="fa-solid fa-floppy-disk me-1"></i> Save Changes
+                        <div class="d-flex align-items-center justify-content-end gap-2 mt-4 pt-2 border-top">
+                            <button type="button" class="btn btn-sm btn-light border font-12 px-3" data-bs-dismiss="modal">Cancel</button>
+                            <button type="submit" class="btn btn-sm btn-dark font-12 fw-bold px-4 shadow-xs" style="border-radius: 6px;">
+                                <i class="fa-solid fa-floppy-disk me-1.5"></i> Save Changes
                             </button>
                         </div>
                     </form>
@@ -1315,40 +1328,45 @@
     <div class="modal fade" id="resetPassModal" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content border-0 shadow-lg" style="border-radius: 16px; overflow: hidden;">
-                <div class="modal-header bg-dark text-white p-4 border-0">
-                    <div>
-                        <h5 class="modal-title fw-bold text-white mb-0"><i class="fa-solid fa-key text-warning me-2"></i> Reset User Password</h5>
-                        <span class="font-11 text-white-50" id="rpSubtitle">Generate or enter a new password for this user</span>
+                <div class="modal-header px-4 py-3.5 border-0" style="background: linear-gradient(135deg, #0b1329 0%, #1a2744 100%);">
+                    <div class="d-flex align-items-center gap-3 flex-grow-1 me-3" style="min-width: 0;">
+                        <div class="d-flex align-items-center justify-content-center flex-shrink-0 rounded-3" style="width: 42px; height: 42px; background: rgba(245, 158, 11, 0.18); border: 1px solid rgba(245, 158, 11, 0.35); color: #fcd34d;">
+                            <i class="fa-solid fa-key font-16"></i>
+                        </div>
+                        <div style="min-width: 0;">
+                            <h5 class="modal-title font-16 fw-bold text-white mb-0" style="letter-spacing: -0.2px;">Reset User Password</h5>
+                            <div class="font-12 text-white-50 mt-0.5" id="rpSubtitle">Generate or assign new credentials for this account</div>
+                        </div>
                     </div>
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <button type="button" class="btn-close btn-close-white flex-shrink-0 opacity-75" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-body p-4 bg-light">
+                <div class="modal-body p-4 bg-white">
                     <form id="formResetPass" onsubmit="saveResetPassword(event)">
                         <input type="hidden" id="rpUserId">
-                        <div class="p-3 bg-white border rounded-3 mb-3">
+                        <div class="p-3 bg-light-subtle border rounded-3 mb-3">
                             <div class="font-13 fw-bold text-dark mb-1" id="rpUserName">User Name</div>
                             <div class="font-12 text-muted" id="rpUserEmail">user@cimp.ac.in</div>
                         </div>
 
                         <div class="mb-3">
                             <div class="d-flex align-items-center justify-content-between mb-2">
-                                <label class="form-label font-12 fw-bold text-dark mb-0">New Password</label>
-                                <button type="button" class="btn btn-sm btn-outline-primary py-0 px-2 font-11 fw-bold" onclick="generateRandomPassword('rpNewPass')">
+                                <label class="form-label font-12 fw-semibold text-dark mb-0">New Password</label>
+                                <button type="button" class="btn btn-sm btn-outline-primary py-0.5 px-2 font-11 fw-semibold" onclick="generateRandomPassword('rpNewPass')">
                                     <i class="fa-solid fa-wand-magic-sparkles me-1"></i> Auto-Generate
                                 </button>
                             </div>
                             <div class="input-group">
-                                <input type="password" class="form-control font-13" id="rpNewPass" required placeholder="Enter or auto-generate new password">
-                                <button class="btn btn-outline-secondary font-12" type="button" onclick="CIMP_DB.togglePassVisibility('rpNewPass', this)">
+                                <input type="password" class="form-control font-13" id="rpNewPass" required placeholder="New Password" style="border-radius: 6px 0 0 6px;">
+                                <button class="btn btn-outline-secondary font-12" type="button" onclick="CIMP_DB.togglePassVisibility('rpNewPass', this)" style="border-radius: 0 6px 6px 0;">
                                     <i class="fa-solid fa-eye"></i>
                                 </button>
                             </div>
                         </div>
 
-                        <div class="d-flex align-items-center justify-content-end gap-2 mt-4">
-                            <button type="button" class="btn btn-sm btn-light font-12 px-3" data-bs-dismiss="modal">Cancel</button>
-                            <button type="submit" class="btn btn-sm btn-primary font-12 fw-bold px-4 shadow-sm" style="border-radius: 8px;">
-                                <i class="fa-solid fa-check me-1"></i> Update Password
+                        <div class="d-flex align-items-center justify-content-end gap-2 mt-4 pt-2 border-top">
+                            <button type="button" class="btn btn-sm btn-light border font-12 px-3" data-bs-dismiss="modal">Cancel</button>
+                            <button type="submit" class="btn btn-sm btn-dark font-12 fw-bold px-4 shadow-xs" style="border-radius: 6px;">
+                                <i class="fa-solid fa-check me-1.5"></i> Update Password
                             </button>
                         </div>
                     </form>
