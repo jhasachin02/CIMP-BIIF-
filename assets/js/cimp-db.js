@@ -341,7 +341,7 @@
             state: 'Bihar',
             sector: 'CleanTech',
             stage: 'MVP / Prototype',
-            incubationTrack: 'Physical Incubation (Lab & Co-working)',
+            incubationTrack: 'Incubation',
             facilitiesRequested: 'Bio-Polymer Testing Lab + 4 Co-working Desks',
             supportRequired: 'Prototyping Facility, Mentorship & Bihar Seed Grant (₹10L)',
             productDescription: 'Developing 100% biodegradable packaging film made from makhana (foxnut) and starch agricultural residue.',
@@ -368,7 +368,7 @@
             state: 'Bihar',
             sector: 'AgriTech',
             stage: 'Revenue Stage',
-            incubationTrack: 'Physical Incubation (Hardware & Flight Testing)',
+            incubationTrack: 'Incubation',
             facilitiesRequested: 'Drone Assembly Bay + 6 Workstations + Ground Testing Field',
             supportRequired: 'DGCA Regulatory Advisory, Bihar Farmer Network Pilot & Pre-Series A Mentorship',
             productDescription: 'Drone-as-a-service for precision pesticide spraying and soil hyperspectral health mapping across 50,000 acres in North Bihar.',
@@ -395,7 +395,7 @@
             state: 'Bihar',
             sector: 'FinTech',
             stage: 'Idea Stage',
-            incubationTrack: 'Pre-Incubation (Idea to MVP Track)',
+            incubationTrack: 'Incubation',
             facilitiesRequested: 'FinTech Sandbox Server Access + 2 Hot Desks',
             supportRequired: 'Legal Entity Registration, RBI Compliance Mentorship & FinTech Cloud Credits',
             productDescription: 'Vernacular voice-assisted micro-credit assessment algorithm for women SHGs without traditional CIBIL scores.',
@@ -422,7 +422,7 @@
             state: 'Bihar',
             sector: 'EduTech',
             stage: 'MVP / Prototype',
-            incubationTrack: 'Physical Incubation (AR/VR Media Lab)',
+            incubationTrack: 'Incubation',
             facilitiesRequested: '3D Content Studio + 4 Dedicated Desks',
             supportRequired: 'Govt School Pilot Permissions, Bihar Startup Grant (₹10L) & Pedagogy Mentorship',
             productDescription: 'Low-cost offline cardboard VR headsets with interactive 3D science labs for rural government school students.',
@@ -1289,11 +1289,11 @@
             return apps.map(a => {
                 const seed = SEED_APPLICATIONS.find(s => s.id === a.id);
                 if (seed) {
-                    if (!a.incubationTrack) a.incubationTrack = seed.incubationTrack;
+                    if (!a.incubationTrack || a.incubationTrack.includes('Physical') || a.incubationTrack.includes('Lab &')) a.incubationTrack = seed.incubationTrack;
                     if (!a.facilitiesRequested) a.facilitiesRequested = seed.facilitiesRequested;
                     if (!a.supportRequired) a.supportRequired = seed.supportRequired;
                 }
-                if (!a.incubationTrack) a.incubationTrack = 'Physical Incubation (Co-working & Lab)';
+                if (!a.incubationTrack || a.incubationTrack.includes('Physical') || a.incubationTrack.includes('Lab &')) a.incubationTrack = 'Incubation';
                 if (!a.facilitiesRequested) a.facilitiesRequested = 'Co-working Desks + Incubation Sandbox';
                 if (!a.supportRequired) a.supportRequired = 'Mentorship, Lab Access & Bihar Seed Grant (₹10L)';
                 return a;
@@ -1328,7 +1328,7 @@
                 managerApprovedDate: null,
                 directorNotes: null,
                 directorApprovedDate: null,
-                incubationTrack: formData.incubation_track || formData.incubationTrack || 'Physical Incubation (Lab & Co-working)',
+                incubationTrack: formData.incubation_track || formData.incubationTrack || 'Incubation',
                 facilitiesRequested: formData.facilities_requested || formData.facilitiesRequested || 'Co-working Desks + Prototyping Rig',
                 supportRequired: formData.support_required || formData.supportRequired || 'Mentorship, Lab Access & Bihar Seed Grant Eligibility',
                 fundingRequired: '₹ 10 Lakhs (Seed Eligible)',

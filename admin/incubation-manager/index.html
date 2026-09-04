@@ -192,91 +192,114 @@
                 <span>Incubation Operations</span>
             </div>
 
-            <!-- Page-Wise Structured Nav Tabs -->
+            <!-- Page-Wise Structured Nav Tabs with Collapsible Section Groups -->
             <div class="app-nav-group">
-                <span class="app-nav-header">Workspaces</span>
                 
-                <button class="app-nav-btn active" id="mgrNavOverview" onclick="switchMgrView('tab-mgr-overview', this)">
-                    <span class="left-grp">
-                        <i class="fa-solid fa-chart-line font-14"></i>
-                        <span>Intake Overview</span>
-                    </span>
-                </button>
+                <!-- Section 1: Workspaces Group -->
+                <div class="app-nav-section" id="secNavWorkspaces">
+                    <button class="app-nav-section-header" onclick="toggleNavSection('secNavWorkspaces')" type="button" title="Toggle Workspaces">
+                        <span class="d-flex align-items-center gap-2">
+                            <i class="fa-solid fa-layer-group font-11 opacity-75"></i>
+                            <span>Workspaces</span>
+                        </span>
+                        <i class="fa-solid fa-chevron-down nav-section-chevron font-9"></i>
+                    </button>
+                    
+                    <div class="app-nav-section-body">
+                        <button class="app-nav-btn active" id="mgrNavOverview" onclick="switchMgrView('tab-mgr-overview', this)">
+                            <span class="left-grp">
+                                <i class="fa-solid fa-chart-line font-14"></i>
+                                <span>Intake Overview</span>
+                            </span>
+                        </button>
 
-                <button class="app-nav-btn" id="mgrNavQueue" onclick="switchMgrView('tab-mgr-queue', this)">
-                    <span class="left-grp">
-                        <i class="fa-solid fa-clipboard-check font-14"></i>
-                        <span>Scrutiny Queue</span>
-                    </span>
-                    <span class="app-nav-badge" id="navMgrPendingBadge">0</span>
-                </button>
+                        <button class="app-nav-btn" id="mgrNavQueue" onclick="switchMgrView('tab-mgr-queue', this)">
+                            <span class="left-grp">
+                                <i class="fa-solid fa-clipboard-check font-14"></i>
+                                <span>Scrutiny Queue</span>
+                            </span>
+                            <span class="app-nav-badge" id="navMgrPendingBadge">0</span>
+                        </button>
 
-                <button class="app-nav-btn" id="mgrNavStartups" onclick="switchMgrView('tab-mgr-startups', this)">
-                    <span class="left-grp">
-                        <i class="fa-solid fa-building font-14"></i>
-                        <span>360° Incubatees</span>
-                    </span>
-                    <span class="badge bg-primary-subtle text-primary font-10 px-2 py-0.5 rounded-pill" id="navMgrStartupsCount">0</span>
-                </button>
+                        <button class="app-nav-btn" id="mgrNavStartups" onclick="switchMgrView('tab-mgr-startups', this)">
+                            <span class="left-grp">
+                                <i class="fa-solid fa-building font-14"></i>
+                                <span>360° Incubatees</span>
+                            </span>
+                            <span class="badge bg-primary-subtle text-primary font-10 px-2 py-0.5 rounded-pill" id="navMgrStartupsCount">0</span>
+                        </button>
 
-                <button class="app-nav-btn" id="mgrNavMilestones" onclick="switchMgrView('tab-mgr-milestones', this)">
-                    <span class="left-grp">
-                        <i class="fa-solid fa-rocket font-14"></i>
-                        <span>Milestones &amp; Sprints</span>
-                    </span>
-                </button>
+                        <button class="app-nav-btn" id="mgrNavMilestones" onclick="switchMgrView('tab-mgr-milestones', this)">
+                            <span class="left-grp">
+                                <i class="fa-solid fa-rocket font-14"></i>
+                                <span>Milestones &amp; Sprints</span>
+                            </span>
+                        </button>
 
-                <button class="app-nav-btn" id="mgrNavMentors" onclick="switchMgrView('tab-mgr-mentors', this)">
-                    <span class="left-grp">
-                        <i class="fa-solid fa-handshake-angle font-14"></i>
-                        <span>Mentorship Hub</span>
-                    </span>
-                </button>
+                        <button class="app-nav-btn" id="mgrNavMentors" onclick="switchMgrView('tab-mgr-mentors', this)">
+                            <span class="left-grp">
+                                <i class="fa-solid fa-handshake-angle font-14"></i>
+                                <span>Mentorship Hub</span>
+                            </span>
+                        </button>
 
-                <button class="app-nav-btn" id="mgrNavGrants" onclick="switchMgrView('tab-mgr-grants', this)">
-                    <span class="left-grp">
-                        <i class="fa-solid fa-coins font-14"></i>
-                        <span>Seed Grants &amp; UCs</span>
-                    </span>
-                    <span class="badge bg-success-subtle text-success font-10 px-2 py-0.5 rounded-pill">₹10L Cap</span>
-                </button>
+                        <button class="app-nav-btn" id="mgrNavGrants" onclick="switchMgrView('tab-mgr-grants', this)">
+                            <span class="left-grp">
+                                <i class="fa-solid fa-coins font-14"></i>
+                                <span>Seed Grants &amp; UCs</span>
+                            </span>
+                            <span class="badge bg-success-subtle text-success font-10 px-2 py-0.5 rounded-pill">₹10L Cap</span>
+                        </button>
 
-                <button class="app-nav-btn" id="mgrNavCirculars" onclick="switchMgrView('tab-mgr-circulars', this)">
-                    <span class="left-grp">
-                        <i class="fa-solid fa-bullhorn font-14"></i>
-                        <span>Circulars &amp; Notices</span>
-                    </span>
-                </button>
+                        <button class="app-nav-btn" id="mgrNavCirculars" onclick="switchMgrView('tab-mgr-circulars', this)">
+                            <span class="left-grp">
+                                <i class="fa-solid fa-bullhorn font-14"></i>
+                                <span>Circulars &amp; Notices</span>
+                            </span>
+                        </button>
 
-                <button class="app-nav-btn" id="mgrNavReports" onclick="switchMgrView('tab-mgr-reports', this)">
-                    <span class="left-grp">
-                        <i class="fa-solid fa-file-invoice-dollar font-14"></i>
-                        <span>Govt MIS Reports</span>
-                    </span>
-                </button>
+                        <button class="app-nav-btn" id="mgrNavReports" onclick="switchMgrView('tab-mgr-reports', this)">
+                            <span class="left-grp">
+                                <i class="fa-solid fa-file-invoice-dollar font-14"></i>
+                                <span>Govt MIS Reports</span>
+                            </span>
+                        </button>
+                    </div>
+                </div>
 
-                <span class="app-nav-header mt-3">Quick Actions</span>
+                <!-- Section 2: Quick Actions Group -->
+                <div class="app-nav-section mt-2" id="secNavQuickActions">
+                    <button class="app-nav-section-header" onclick="toggleNavSection('secNavQuickActions')" type="button" title="Toggle Quick Actions">
+                        <span class="d-flex align-items-center gap-2">
+                            <i class="fa-solid fa-bolt font-11 opacity-75 text-warning"></i>
+                            <span>Quick Actions</span>
+                        </span>
+                        <i class="fa-solid fa-chevron-down nav-section-chevron font-9"></i>
+                    </button>
 
-                <button class="app-nav-btn text-success" onclick="openAddStartupModal()">
-                    <span class="left-grp">
-                        <i class="fa-solid fa-plus-circle font-14 text-success"></i>
-                        <span>Add Incubatee</span>
-                    </span>
-                </button>
+                    <div class="app-nav-section-body">
+                        <button class="app-nav-btn text-success" onclick="openAddStartupModal()">
+                            <span class="left-grp">
+                                <i class="fa-solid fa-plus-circle font-14 text-success"></i>
+                                <span>Add Incubatee</span>
+                            </span>
+                        </button>
 
-                <button class="app-nav-btn text-primary" onclick="openPairMentorModal()">
-                    <span class="left-grp">
-                        <i class="fa-solid fa-user-plus font-14 text-primary"></i>
-                        <span>Pair Mentor</span>
-                    </span>
-                </button>
+                        <button class="app-nav-btn text-primary" onclick="openPairMentorModal()">
+                            <span class="left-grp">
+                                <i class="fa-solid fa-user-plus font-14 text-primary"></i>
+                                <span>Pair Mentor</span>
+                            </span>
+                        </button>
 
-                <button class="app-nav-btn text-info" onclick="openBroadcastModal()">
-                    <span class="left-grp">
-                        <i class="fa-solid fa-paper-plane font-14 text-info"></i>
-                        <span>Post Circular</span>
-                    </span>
-                </button>
+                        <button class="app-nav-btn text-info" onclick="openBroadcastModal()">
+                            <span class="left-grp">
+                                <i class="fa-solid fa-paper-plane font-14 text-info"></i>
+                                <span>Post Circular</span>
+                            </span>
+                        </button>
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -1298,13 +1321,26 @@
             closeMobileSidebarIfOpen();
         }
 
+        function toggleNavSection(sectionId) {
+            const secEl = document.getElementById(sectionId);
+            if (!secEl) return;
+            secEl.classList.toggle('collapsed');
+        }
+
         function switchMgrView(tabId, btnEl) {
             document.querySelectorAll('.app-tab-pane').forEach(p => p.classList.remove('active'));
             document.querySelectorAll('.app-nav-btn').forEach(b => b.classList.remove('active'));
             
             const targetPane = document.getElementById(tabId);
             if (targetPane) targetPane.classList.add('active');
-            if (btnEl) btnEl.classList.add('active');
+            if (btnEl) {
+                btnEl.classList.add('active');
+                // If the button is inside a collapsed section, expand it
+                const parentSection = btnEl.closest('.app-nav-section');
+                if (parentSection && parentSection.classList.contains('collapsed')) {
+                    parentSection.classList.remove('collapsed');
+                }
+            }
 
             // Sync mobile bottom bar
             document.querySelectorAll('.mobile-nav-btn').forEach(b => b.classList.remove('active'));
@@ -1405,7 +1441,7 @@
                     const isExpanded = expandedRowIds.has('rec-' + a.id);
                     const phone = a.mobile || '+91 98765 43210';
                     const cleanPhone = phone.replace(/\D/g, '');
-                    const track = a.incubationTrack || 'Physical Incubation (Lab & Co-working)';
+                    const track = a.incubationTrack || 'Incubation';
 
                     html += `
                         <tr class="tr-parent ${isExpanded ? 'is-expanded' : ''}" id="tr-parent-rec-${a.id}" onclick="toggleExpandRow('rec-${a.id}', event)">
@@ -1509,7 +1545,7 @@
                 const scoreDisp = a.managerScore ? `<span class="badge bg-primary-subtle text-primary font-11 fw-bold">${a.managerScore}/100</span>` : '<span class="badge bg-secondary-subtle text-secondary font-10">Unscored</span>';
                 const phone = a.mobile || '+91 98765 43210';
                 const cleanPhone = phone.replace(/\D/g, '');
-                const track = a.incubationTrack || 'Physical Incubation (Lab & Co-working)';
+                const track = a.incubationTrack || 'Incubation';
 
                 html += `
                     <!-- Main Scrutiny Row -->

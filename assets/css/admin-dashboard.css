@@ -104,6 +104,76 @@ body.admin-unified-body {
     display: block !important;
 }
 
+/* Sidebar Nav Section Collapsible Styles */
+.app-nav-section {
+    margin-bottom: 6px;
+}
+
+.app-nav-section-header {
+    width: 100% !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    padding: 8px 12px !important;
+    font-size: 11px !important;
+    font-weight: 800 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.8px !important;
+    color: rgba(255, 255, 255, 0.5) !important;
+    background: transparent !important;
+    border: none !important;
+    border-radius: 6px !important;
+    cursor: pointer !important;
+    transition: all 0.2s ease !important;
+    text-align: left !important;
+    user-select: none !important;
+}
+
+.app-nav-section-header:hover {
+    color: #FFFFFF !important;
+    background: rgba(255, 255, 255, 0.06) !important;
+}
+
+.app-nav-section-header .nav-section-chevron {
+    font-size: 10px !important;
+    transition: transform 0.25s ease !important;
+    color: rgba(255, 255, 255, 0.45) !important;
+}
+
+.app-nav-section.collapsed .nav-section-chevron {
+    transform: rotate(-90deg) !important;
+}
+
+.app-nav-section-body {
+    max-height: 1000px;
+    overflow: hidden;
+    transition: max-height 0.3s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.25s ease;
+    opacity: 1;
+}
+
+.app-nav-section.collapsed .app-nav-section-body {
+    max-height: 0 !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+}
+
+/* Custom Color Badges & Utilities */
+.bg-teal-subtle {
+    background-color: #CCFBF1 !important;
+}
+.text-teal {
+    color: #0F766E !important;
+}
+.border-teal-subtle {
+    border-color: #99F6E4 !important;
+}
+.bg-purple-subtle {
+    background-color: #F3E8FF !important;
+}
+.text-purple {
+    color: #7E22CE !important;
+}
+
 .app-nav-btn {
     width: 100% !important;
     display: flex !important;

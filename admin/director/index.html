@@ -202,52 +202,77 @@
 
             <!-- Page-Wise Structured Nav Tabs -->
             <div class="app-nav-group">
-                <span class="app-nav-header">Workspaces</span>
+            <!-- Page-Wise Structured Nav Tabs with Collapsible Section Groups -->
+            <div class="app-nav-group">
                 
-                <button class="app-nav-btn active" id="sideNavOverview" onclick="switchView('tab-overview', this); closeMobileSidebarIfOpen();">
-                    <span class="left-grp">
-                        <i class="fa-solid fa-chart-pie font-14"></i>
-                        <span>Executive Overview</span>
-                    </span>
-                </button>
+                <!-- Section 1: Workspaces Group -->
+                <div class="app-nav-section" id="dirSecWorkspaces">
+                    <button class="app-nav-section-header" onclick="toggleNavSection('dirSecWorkspaces')" type="button" title="Toggle Workspaces">
+                        <span class="d-flex align-items-center gap-2">
+                            <i class="fa-solid fa-layer-group font-11 opacity-75"></i>
+                            <span>Workspaces</span>
+                        </span>
+                        <i class="fa-solid fa-chevron-down nav-section-chevron font-9"></i>
+                    </button>
 
-                <button class="app-nav-btn" id="sideNavApprovals" onclick="switchView('tab-approvals', this); closeMobileSidebarIfOpen();">
-                    <span class="left-grp">
-                        <i class="fa-solid fa-stamp font-14"></i>
-                        <span>Incubation Approvals</span>
-                    </span>
-                    <span class="app-nav-badge" id="navPendingBadge">0</span>
-                </button>
+                    <div class="app-nav-section-body">
+                        <button class="app-nav-btn active" id="sideNavOverview" onclick="switchView('tab-overview', this); closeMobileSidebarIfOpen();">
+                            <span class="left-grp">
+                                <i class="fa-solid fa-chart-pie font-14"></i>
+                                <span>Executive Overview</span>
+                            </span>
+                        </button>
 
-                <button class="app-nav-btn" id="sideNavStartups" onclick="switchView('tab-startups', this); closeMobileSidebarIfOpen();">
-                    <span class="left-grp">
-                        <i class="fa-solid fa-cubes font-14"></i>
-                        <span>Incubated Startups</span>
-                    </span>
-                </button>
+                        <button class="app-nav-btn" id="sideNavApprovals" onclick="switchView('tab-approvals', this); closeMobileSidebarIfOpen();">
+                            <span class="left-grp">
+                                <i class="fa-solid fa-stamp font-14"></i>
+                                <span>Incubation Approvals</span>
+                            </span>
+                            <span class="app-nav-badge" id="navPendingBadge">0</span>
+                        </button>
 
-                <button class="app-nav-btn" id="sideNavMentors" onclick="switchView('tab-mentors', this); closeMobileSidebarIfOpen();">
-                    <span class="left-grp">
-                        <i class="fa-solid fa-chalkboard-user font-14"></i>
-                        <span>Mentors &amp; Advisors</span>
-                    </span>
-                </button>
+                        <button class="app-nav-btn" id="sideNavStartups" onclick="switchView('tab-startups', this); closeMobileSidebarIfOpen();">
+                            <span class="left-grp">
+                                <i class="fa-solid fa-cubes font-14"></i>
+                                <span>Incubated Startups</span>
+                            </span>
+                        </button>
 
-                <span class="app-nav-header mt-3">Governance &amp; Reports</span>
+                        <button class="app-nav-btn" id="sideNavMentors" onclick="switchView('tab-mentors', this); closeMobileSidebarIfOpen();">
+                            <span class="left-grp">
+                                <i class="fa-solid fa-chalkboard-user font-14"></i>
+                                <span>Mentors &amp; Advisors</span>
+                            </span>
+                        </button>
+                    </div>
+                </div>
 
-                <button class="app-nav-btn" id="sideNavAudit" onclick="switchView('tab-audit', this); closeMobileSidebarIfOpen();">
-                    <span class="left-grp">
-                        <i class="fa-solid fa-shield-halved font-14"></i>
-                        <span>Audit &amp; Logs</span>
-                    </span>
-                </button>
+                <!-- Section 2: Governance & Reports Group -->
+                <div class="app-nav-section mt-2" id="dirSecGovernance">
+                    <button class="app-nav-section-header" onclick="toggleNavSection('dirSecGovernance')" type="button" title="Toggle Governance">
+                        <span class="d-flex align-items-center gap-2">
+                            <i class="fa-solid fa-shield-halved font-11 opacity-75"></i>
+                            <span>Governance &amp; MIS</span>
+                        </span>
+                        <i class="fa-solid fa-chevron-down nav-section-chevron font-9"></i>
+                    </button>
 
-                <a href="javascript:void(0)" onclick="openBoardMemorandumModal(); closeMobileSidebarIfOpen();" class="app-nav-btn">
-                    <span class="left-grp">
-                        <i class="fa-solid fa-file-pdf font-14"></i>
-                        <span>Export Board Report</span>
-                    </span>
-                </a>
+                    <div class="app-nav-section-body">
+                        <button class="app-nav-btn" id="sideNavAudit" onclick="switchView('tab-audit', this); closeMobileSidebarIfOpen();">
+                            <span class="left-grp">
+                                <i class="fa-solid fa-clock-rotate-left font-14"></i>
+                                <span>Audit &amp; Logs</span>
+                            </span>
+                        </button>
+
+                        <a href="javascript:void(0)" onclick="openBoardMemorandumModal(); closeMobileSidebarIfOpen();" class="app-nav-btn">
+                            <span class="left-grp">
+                                <i class="fa-solid fa-file-pdf font-14 text-danger"></i>
+                                <span>Export Board Report</span>
+                            </span>
+                        </a>
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -870,13 +895,25 @@
             closeMobileSidebarIfOpen();
         }
 
+        function toggleNavSection(sectionId) {
+            const secEl = document.getElementById(sectionId);
+            if (!secEl) return;
+            secEl.classList.toggle('collapsed');
+        }
+
         function switchView(tabId, btnEl) {
             document.querySelectorAll('.app-tab-pane').forEach(p => p.classList.remove('active'));
             document.querySelectorAll('.app-nav-btn').forEach(b => b.classList.remove('active'));
             
             const targetPane = document.getElementById(tabId);
             if (targetPane) targetPane.classList.add('active');
-            if (btnEl) btnEl.classList.add('active');
+            if (btnEl) {
+                btnEl.classList.add('active');
+                const parentSec = btnEl.closest('.app-nav-section');
+                if (parentSec && parentSec.classList.contains('collapsed')) {
+                    parentSec.classList.remove('collapsed');
+                }
+            }
 
             document.querySelectorAll('.mobile-nav-btn').forEach(b => b.classList.remove('active'));
             if (tabId === 'tab-overview') document.getElementById('mNavOverview')?.classList.add('active');
@@ -1350,7 +1387,7 @@
                         </td>
                         <td>
                             <span class="badge bg-primary-subtle text-primary border border-primary-subtle font-10 px-2 py-0.5">
-                                Physical Incubation + Coworking
+                                Incubation
                             </span>
                         </td>
                         <td class="text-end">
