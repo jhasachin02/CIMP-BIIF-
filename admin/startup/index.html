@@ -165,7 +165,7 @@
             <div class="app-tab-pane active" id="tab-st-overview">
                 <div class="mb-4">
                     <h3 class="fw-bold font-20 mb-1" style="font-family: 'Outfit', sans-serif;">Incubatee Venture Dashboard</h3>
-                    <p class="text-muted font-13 mb-0">Track commercial metrics, milestone completion rate, and incubation grant utilization.</p>
+                    <p class="text-muted font-13 mb-0">Track commercial metrics, milestone completion rate, and Bihar Startup Policy seed grant compliance.</p>
                 </div>
 
                 <!-- 4 Clean Stats (2x2 Grid on Mobile) -->
@@ -179,67 +179,188 @@
                     </div>
                     <div class="col-6 col-lg-3">
                         <div class="app-kpi-card p-2.5 p-md-3">
-                            <span class="app-kpi-lbl">Grant Raised</span>
-                            <div class="app-kpi-val text-primary">₹ 25 Lakhs</div>
-                            <div class="app-kpi-sub"><i class="fa-solid fa-vault"></i> Seed Disbursed</div>
+                            <span class="app-kpi-lbl">Seed Capital Raised</span>
+                            <div class="app-kpi-val text-primary">₹ 25.0 Lakhs</div>
+                            <div class="app-kpi-sub"><i class="fa-solid fa-shield-halved text-success"></i> Bihar Startup Policy</div>
                         </div>
                     </div>
                     <div class="col-6 col-lg-3">
                         <div class="app-kpi-card p-2.5 p-md-3">
-                            <span class="app-kpi-lbl">Workers Onboarded</span>
-                            <div class="app-kpi-val">5,000+</div>
-                            <div class="app-kpi-sub"><i class="fa-solid fa-users"></i> Unorganized Sector</div>
+                            <span class="app-kpi-lbl">Direct Bihar Jobs</span>
+                            <div class="app-kpi-val">28 Full-Time</div>
+                            <div class="app-kpi-sub"><i class="fa-solid fa-users"></i> 5,200+ Wage Workers</div>
                         </div>
                     </div>
                     <div class="col-6 col-lg-3">
                         <div class="app-kpi-card p-2.5 p-md-3">
-                            <span class="app-kpi-lbl">Incubation Cohort</span>
+                            <span class="app-kpi-lbl">Incubation Standing</span>
                             <div class="app-kpi-val">Cohort 2022</div>
-                            <div class="app-kpi-sub text-success"><i class="fa-solid fa-check-circle"></i> Active Standing</div>
+                            <div class="app-kpi-sub text-success"><i class="fa-solid fa-check-circle"></i> Desks #8A - #8D</div>
                         </div>
                     </div>
                 </div>
 
-                <!-- Milestones Table -->
+                <!-- Milestones Table with Tap-to-Expand -->
                 <div class="app-table-card mb-4">
-                    <div class="p-3 border-bottom d-flex justify-content-between align-items-center bg-white">
-                        <h5 class="fw-bold font-15 mb-0">Incubation Milestones Tracker</h5>
-                        <span class="font-12 text-muted">Cohort Sprint 2026</span>
+                    <div class="p-3 border-bottom d-flex justify-content-between align-items-center bg-white flex-wrap gap-2">
+                        <div>
+                            <h5 class="fw-bold font-15 mb-0">Incubation Milestones Tracker</h5>
+                            <span class="font-12 text-muted">Tap any milestone to expand verification audit trail and UC documents</span>
+                        </div>
+                        <span class="badge bg-primary-subtle text-primary font-11"><i class="fa-solid fa-award me-1"></i> Cohort Sprint 2026</span>
                     </div>
                     <div class="table-responsive">
                         <table class="app-table">
                             <thead>
                                 <tr>
-                                    <th>Sprint Goal / Deliverable</th>
-                                    <th>Target Date</th>
-                                    <th>Evaluation Status</th>
-                                    <th>Verification</th>
+                                    <th style="width: 35%;">Sprint Goal / Deliverable</th>
+                                    <th style="width: 15%;">Target Date</th>
+                                    <th style="width: 20%;">Evaluation Status</th>
+                                    <th style="width: 30%;">Verification Remarks</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td><strong>1. MVP Platform Launch &amp; PlayStore Deployment</strong></td>
-                                    <td>Jul 2022</td>
-                                    <td><span class="font-12 fw-semibold text-success"><i class="fa-solid fa-circle font-8 me-1"></i> Completed</span></td>
-                                    <td><span class="font-12 text-muted">Audited by Incubation Manager</span></td>
+                                <!-- Milestone 1 -->
+                                <tr class="tr-parent" onclick="toggleExpandRow(this, event)">
+                                    <td>
+                                        <div class="d-flex align-items-center gap-2">
+                                            <i class="fa-solid fa-chevron-down text-muted expand-chevron font-11"></i>
+                                            <strong>1. MVP Platform Launch &amp; PlayStore Deployment</strong>
+                                        </div>
+                                    </td>
+                                    <td><span class="badge bg-light text-dark border">Jul 2022</span></td>
+                                    <td><span class="font-12 fw-semibold text-success"><i class="fa-solid fa-circle font-8 me-1"></i> Completed &amp; Audited</span></td>
+                                    <td class="font-12 text-muted">Audited by CIMP-BIIF Incubation Manager</td>
                                 </tr>
-                                <tr>
-                                    <td><strong>2. 1,000 Daily Wage Workers Verification &amp; KYC</strong></td>
-                                    <td>Dec 2022</td>
-                                    <td><span class="font-12 fw-semibold text-success"><i class="fa-solid fa-circle font-8 me-1"></i> Completed</span></td>
-                                    <td><span class="font-12 text-muted">Field Data Verified</span></td>
+                                <tr class="tr-expand-tray">
+                                    <td colspan="4">
+                                        <div class="expand-content-wrap">
+                                            <div class="row g-3">
+                                                <div class="col-md-7">
+                                                    <div class="p-2.5 bg-white border rounded-2 h-100">
+                                                        <div class="font-11 text-uppercase text-muted fw-bold mb-1">Deliverable Evidence &amp; Artifacts</div>
+                                                        <div class="font-12 text-dark mb-1">&bull; Android App live on Google PlayStore with 10k+ downloads.</div>
+                                                        <div class="font-12 text-dark mb-1">&bull; Direct worker OTP SMS gateway integrated via NIC/Govt standard API.</div>
+                                                        <div class="font-11 text-muted">Verification Hash: <code>VER-2022-DLC-01</code></div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-5">
+                                                    <div class="p-2.5 bg-white border rounded-2 h-100">
+                                                        <div class="font-11 text-uppercase text-muted fw-bold mb-1">Grant Linkage</div>
+                                                        <div class="font-12 text-success fw-bold">₹ 5,00,000 (Tranche-1)</div>
+                                                        <div class="font-11 text-muted">Utilization Certificate (UC) verified and approved by Chartered Accountant.</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
                                 </tr>
-                                <tr>
-                                    <td><strong>3. Series Seed Grant Tranche-1 Utilization</strong></td>
-                                    <td>Mar 2023</td>
-                                    <td><span class="font-12 fw-semibold text-success"><i class="fa-solid fa-circle font-8 me-1"></i> Completed</span></td>
-                                    <td><span class="font-12 text-muted">UC Submitted &amp; Approved</span></td>
+
+                                <!-- Milestone 2 -->
+                                <tr class="tr-parent" onclick="toggleExpandRow(this, event)">
+                                    <td>
+                                        <div class="d-flex align-items-center gap-2">
+                                            <i class="fa-solid fa-chevron-down text-muted expand-chevron font-11"></i>
+                                            <strong>2. 1,000 Daily Wage Workers Verification &amp; KYC</strong>
+                                        </div>
+                                    </td>
+                                    <td><span class="badge bg-light text-dark border">Dec 2022</span></td>
+                                    <td><span class="font-12 fw-semibold text-success"><i class="fa-solid fa-circle font-8 me-1"></i> Completed &amp; Audited</span></td>
+                                    <td class="font-12 text-muted">Field Data Verified in Patna Urban</td>
                                 </tr>
-                                <tr>
-                                    <td><strong>4. Expansion to 5 North Bihar Districts &amp; Contractor App</strong></td>
-                                    <td>Target Q3 2026</td>
-                                    <td><span class="font-12 fw-semibold text-primary"><i class="fa-solid fa-circle font-8 me-1"></i> In Progress</span></td>
-                                    <td><span class="font-12 text-muted">Under Mentorship Review</span></td>
+                                <tr class="tr-expand-tray">
+                                    <td colspan="4">
+                                        <div class="expand-content-wrap">
+                                            <div class="row g-3">
+                                                <div class="col-md-7">
+                                                    <div class="p-2.5 bg-white border rounded-2 h-100">
+                                                        <div class="font-11 text-uppercase text-muted fw-bold mb-1">Deliverable Evidence &amp; Artifacts</div>
+                                                        <div class="font-12 text-dark mb-1">&bull; 1,140 Aadhaar-linked KYC profiles verified across Patna labour chowks.</div>
+                                                        <div class="font-12 text-dark mb-1">&bull; Direct cash-to-bank settlement escrow active with partner bank.</div>
+                                                        <div class="font-11 text-muted">Verification Hash: <code>VER-2022-DLC-02</code></div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-5">
+                                                    <div class="p-2.5 bg-white border rounded-2 h-100">
+                                                        <div class="font-11 text-uppercase text-muted fw-bold mb-1">Grant Linkage</div>
+                                                        <div class="font-12 text-success fw-bold">₹ 10,00,000 (Tranche-2)</div>
+                                                        <div class="font-11 text-muted">Tranche-2 seed grant released post field audit validation.</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+
+                                <!-- Milestone 3 -->
+                                <tr class="tr-parent" onclick="toggleExpandRow(this, event)">
+                                    <td>
+                                        <div class="d-flex align-items-center gap-2">
+                                            <i class="fa-solid fa-chevron-down text-muted expand-chevron font-11"></i>
+                                            <strong>3. Series Seed Grant Tranche-3 Full Utilization</strong>
+                                        </div>
+                                    </td>
+                                    <td><span class="badge bg-light text-dark border">Mar 2023</span></td>
+                                    <td><span class="font-12 fw-semibold text-success"><i class="fa-solid fa-circle font-8 me-1"></i> Completed &amp; Audited</span></td>
+                                    <td class="font-12 text-muted">Final UC Submitted &amp; Audited</td>
+                                </tr>
+                                <tr class="tr-expand-tray">
+                                    <td colspan="4">
+                                        <div class="expand-content-wrap">
+                                            <div class="row g-3">
+                                                <div class="col-md-7">
+                                                    <div class="p-2.5 bg-white border rounded-2 h-100">
+                                                        <div class="font-11 text-uppercase text-muted fw-bold mb-1">Deliverable Evidence &amp; Artifacts</div>
+                                                        <div class="font-12 text-dark mb-1">&bull; ₹25 Lakhs cumulative seed capital fully reconciled and audited.</div>
+                                                        <div class="font-12 text-dark mb-1">&bull; Statutory filing (MCA, ROC, GST) up to date.</div>
+                                                        <div class="font-11 text-muted">Verification Hash: <code>VER-2023-DLC-03</code></div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-5">
+                                                    <div class="p-2.5 bg-white border rounded-2 h-100">
+                                                        <div class="font-11 text-uppercase text-muted fw-bold mb-1">Grant Linkage</div>
+                                                        <div class="font-12 text-success fw-bold">₹ 10,00,000 (Tranche-3 Final)</div>
+                                                        <div class="font-11 text-muted">Full ₹25 Lakhs seed grant cycle successfully completed.</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+
+                                <!-- Milestone 4 -->
+                                <tr class="tr-parent" onclick="toggleExpandRow(this, event)">
+                                    <td>
+                                        <div class="d-flex align-items-center gap-2">
+                                            <i class="fa-solid fa-chevron-down text-muted expand-chevron font-11"></i>
+                                            <strong>4. Expansion to 5 North Bihar Districts &amp; Contractor App</strong>
+                                        </div>
+                                    </td>
+                                    <td><span class="badge bg-light text-dark border">Target Q3 2026</span></td>
+                                    <td><span class="font-12 fw-semibold text-primary"><i class="fa-solid fa-circle font-8 me-1"></i> In Active Progress</span></td>
+                                    <td class="font-12 text-muted">Under Mentorship Review (Dr. Alok Kumar)</td>
+                                </tr>
+                                <tr class="tr-expand-tray">
+                                    <td colspan="4">
+                                        <div class="expand-content-wrap">
+                                            <div class="row g-3">
+                                                <div class="col-md-8">
+                                                    <div class="p-2.5 bg-white border rounded-2 h-100">
+                                                        <div class="font-11 text-uppercase text-muted fw-bold mb-1">Current Sprint Scope</div>
+                                                        <div class="font-12 text-dark mb-1">&bull; Onboarding district coordinators in Muzaffarpur, Darbhanga, Bhagalpur, and Gaya.</div>
+                                                        <div class="font-12 text-dark mb-1">&bull; Contractor monthly enterprise subscription billing pilot.</div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="p-2.5 bg-white border rounded-2 h-100 d-flex flex-column justify-content-between">
+                                                        <div class="font-11 text-uppercase text-muted fw-bold mb-1">Support Needed</div>
+                                                        <div class="font-12 text-muted">Enterprise B2B Legal Contracts &amp; Mentor Strategy session.</div>
+                                                        <button class="btn btn-sm btn-outline-primary font-11 mt-2" onclick="switchStView('tab-st-mentors', document.getElementById('stNavMentors'))">Book Mentor Session</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
                                 </tr>
                             </tbody>
                         </table>
@@ -252,10 +373,10 @@
                 <div class="d-flex align-items-center justify-content-between mb-4 flex-wrap gap-2">
                     <div>
                         <h3 class="fw-bold font-20 mb-1" style="font-family: 'Outfit', sans-serif;">Monthly Commercial Traction Records</h3>
-                        <p class="text-muted font-13 mb-0">Financial and operational reporting filed with CIMP-BIIF Secretariat.</p>
+                        <p class="text-muted font-13 mb-0">Financial and operational reporting filed with CIMP-BIIF Secretariat. Tap any row to inspect breakdown.</p>
                     </div>
                     <button class="app-btn-action" onclick="fileMonthlyTraction()">
-                        <i class="fa-solid fa-plus me-1"></i> File New Month
+                        <i class="fa-solid fa-plus me-1"></i> File Monthly Report
                     </button>
                 </div>
 
@@ -264,34 +385,84 @@
                         <table class="app-table">
                             <thead>
                                 <tr>
-                                    <th>Reporting Month</th>
-                                    <th>Monthly Revenue</th>
-                                    <th>Active Users / Workers</th>
-                                    <th>Full-Time Jobs</th>
-                                    <th>Audit Status</th>
+                                    <th style="width: 20%;">Reporting Month</th>
+                                    <th style="width: 20%;">Monthly Revenue</th>
+                                    <th style="width: 20%;">Active Daily Workers</th>
+                                    <th style="width: 20%;">Full-Time Bihar Jobs</th>
+                                    <th style="width: 20%;" class="text-end pe-3">Secretariat Audit</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td><strong>August 2026</strong></td>
-                                    <td><strong>â‚¹ 4,20,000</strong></td>
-                                    <td>5,200</td>
-                                    <td>28</td>
-                                    <td><span class="font-12 fw-semibold text-success"><i class="fa-solid fa-circle font-8 me-1"></i> Verified</span></td>
+                                <tr class="tr-parent" onclick="toggleExpandRow(this, event)">
+                                    <td>
+                                        <div class="d-flex align-items-center gap-2">
+                                            <i class="fa-solid fa-chevron-down text-muted expand-chevron font-11"></i>
+                                            <strong>August 2026</strong>
+                                        </div>
+                                    </td>
+                                    <td><strong class="text-dark">₹ 4,20,000</strong></td>
+                                    <td><span class="badge bg-light text-dark border font-12">5,200</span></td>
+                                    <td><span class="font-12 fw-semibold">28 Employees</span></td>
+                                    <td class="text-end pe-3"><span class="font-12 fw-semibold text-success"><i class="fa-solid fa-circle font-8 me-1"></i> Verified</span></td>
                                 </tr>
-                                <tr>
-                                    <td><strong>July 2026</strong></td>
-                                    <td><strong>â‚¹ 3,95,000</strong></td>
-                                    <td>4,850</td>
-                                    <td>26</td>
-                                    <td><span class="font-12 fw-semibold text-success"><i class="fa-solid fa-circle font-8 me-1"></i> Verified</span></td>
+                                <tr class="tr-expand-tray">
+                                    <td colspan="5">
+                                        <div class="expand-content-wrap">
+                                            <div class="row g-3">
+                                                <div class="col-md-6">
+                                                    <div class="p-2.5 bg-white border rounded-2">
+                                                        <div class="font-11 text-uppercase text-muted fw-bold mb-1">Revenue Composition</div>
+                                                        <div class="font-12 text-dark">Contractor Booking Fees: ₹ 3,10,000</div>
+                                                        <div class="font-12 text-dark">Enterprise Subscriptions: ₹ 1,10,000</div>
+                                                        <div class="font-11 text-muted mt-1">Bank Statement Verified: Yes (SBI Patna Main Branch)</div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="p-2.5 bg-white border rounded-2">
+                                                        <div class="font-11 text-uppercase text-muted fw-bold mb-1">Incubation Facility Utilization</div>
+                                                        <div class="font-12 text-dark">Co-Working Desks: 4 Seats Occupied (Desk 8A-8D)</div>
+                                                        <div class="font-12 text-dark">Mentor Hours Consumed: 4.5 Hours in August</div>
+                                                        <div class="font-11 text-success mt-1"><i class="fa-solid fa-circle-check"></i> Clean Governance Compliance</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
                                 </tr>
-                                <tr>
-                                    <td><strong>June 2026</strong></td>
-                                    <td><strong>â‚¹ 3,70,000</strong></td>
-                                    <td>4,400</td>
-                                    <td>24</td>
-                                    <td><span class="font-12 fw-semibold text-success"><i class="fa-solid fa-circle font-8 me-1"></i> Verified</span></td>
+
+                                <tr class="tr-parent" onclick="toggleExpandRow(this, event)">
+                                    <td>
+                                        <div class="d-flex align-items-center gap-2">
+                                            <i class="fa-solid fa-chevron-down text-muted expand-chevron font-11"></i>
+                                            <strong>July 2026</strong>
+                                        </div>
+                                    </td>
+                                    <td><strong class="text-dark">₹ 3,95,000</strong></td>
+                                    <td><span class="badge bg-light text-dark border font-12">4,850</span></td>
+                                    <td><span class="font-12 fw-semibold">26 Employees</span></td>
+                                    <td class="text-end pe-3"><span class="font-12 fw-semibold text-success"><i class="fa-solid fa-circle font-8 me-1"></i> Verified</span></td>
+                                </tr>
+                                <tr class="tr-expand-tray">
+                                    <td colspan="5">
+                                        <div class="expand-content-wrap">
+                                            <div class="row g-3">
+                                                <div class="col-md-6">
+                                                    <div class="p-2.5 bg-white border rounded-2">
+                                                        <div class="font-11 text-uppercase text-muted fw-bold mb-1">Revenue Composition</div>
+                                                        <div class="font-12 text-dark">Contractor Booking Fees: ₹ 2,95,000</div>
+                                                        <div class="font-12 text-dark">Enterprise Subscriptions: ₹ 1,00,000</div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="p-2.5 bg-white border rounded-2">
+                                                        <div class="font-11 text-uppercase text-muted fw-bold mb-1">Incubation Facility Utilization</div>
+                                                        <div class="font-12 text-dark">Co-Working Desks: 4 Seats Occupied</div>
+                                                        <div class="font-12 text-dark">Mentor Hours Consumed: 6.0 Hours in July</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
                                 </tr>
                             </tbody>
                         </table>
@@ -303,7 +474,7 @@
             <div class="app-tab-pane" id="tab-st-mentors">
                 <div class="mb-4">
                     <h3 class="fw-bold font-20 mb-1" style="font-family: 'Outfit', sans-serif;">Assigned Mentors &amp; Advisory Booking</h3>
-                    <p class="text-muted font-13 mb-0">Schedule 1-on-1 strategy sessions with your empaneled mentors.</p>
+                    <p class="text-muted font-13 mb-0">Schedule 1-on-1 strategy sessions with your empaneled institutional mentors.</p>
                 </div>
 
                 <div class="app-table-card">
@@ -311,27 +482,27 @@
                         <table class="app-table">
                             <thead>
                                 <tr>
-                                    <th>Advisor Name</th>
-                                    <th>Institutional Title</th>
-                                    <th>Specialization</th>
-                                    <th>Monthly Availability</th>
-                                    <th>Action</th>
+                                    <th style="width: 25%;">Advisor Name</th>
+                                    <th style="width: 25%;">Institutional Title</th>
+                                    <th style="width: 25%;">Specialization</th>
+                                    <th style="width: 15%;">Monthly Availability</th>
+                                    <th style="width: 10%;" class="text-end pe-3">Action</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr>
                                     <td><strong>Dr. Alok Kumar</strong></td>
                                     <td class="text-muted font-12">Senior Advisory Faculty, CIMP</td>
-                                    <td><span class="font-12 fw-semibold">Strategy &amp; GTM Scaling</span></td>
+                                    <td><span class="badge bg-primary-subtle text-primary font-11">Strategy &amp; GTM Scaling</span></td>
                                     <td>12 Hours / Month</td>
-                                    <td><button class="btn btn-sm btn-outline-primary font-11 py-1" onclick="alert('Advisory session booked! Meeting link sent to your registered email.')">Book 1-on-1 Session</button></td>
+                                    <td class="text-end pe-3"><button class="btn btn-sm btn-outline-primary font-11 py-1" onclick="bookSessionWith('Dr. Alok Kumar')">Book Session</button></td>
                                 </tr>
                                 <tr>
                                     <td><strong>CA Ramesh Sharma</strong></td>
                                     <td class="text-muted font-12">Financial Controller &amp; Partner</td>
-                                    <td><span class="font-12 fw-semibold">Taxation &amp; Valuation</span></td>
+                                    <td><span class="badge bg-success-subtle text-success font-11">Taxation &amp; Valuation</span></td>
                                     <td>8 Hours / Month</td>
-                                    <td><button class="btn btn-sm btn-outline-primary font-11 py-1" onclick="alert('Advisory session booked! Meeting link sent to your registered email.')">Book 1-on-1 Session</button></td>
+                                    <td class="text-end pe-3"><button class="btn btn-sm btn-outline-primary font-11 py-1" onclick="bookSessionWith('CA Ramesh Sharma')">Book Session</button></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -409,6 +580,25 @@
             else if (tabId === 'tab-st-mentors') document.getElementById('mStNavMentors')?.classList.add('active');
         }
 
+        function toggleExpandRow(rowEl, evt) {
+            if (evt && (evt.target.closest('button') || evt.target.closest('a') || evt.target.closest('input') || evt.target.closest('select'))) {
+                return;
+            }
+            const nextRow = rowEl.nextElementSibling;
+            if (nextRow && nextRow.classList.contains('tr-expand-tray')) {
+                const isCurrentlyOpen = nextRow.classList.contains('show');
+                
+                // Toggle clicked row
+                if (isCurrentlyOpen) {
+                    nextRow.classList.remove('show');
+                    rowEl.classList.remove('is-expanded');
+                } else {
+                    nextRow.classList.add('show');
+                    rowEl.classList.add('is-expanded');
+                }
+            }
+        }
+
         document.addEventListener('DOMContentLoaded', function () {
             if (window.CIMP_DB) {
                 const curUser = window.CIMP_DB.getCurrentUser();
@@ -424,9 +614,20 @@
         });
 
         function fileMonthlyTraction() {
-            const rev = prompt("Enter Gross Revenue for the month (e.g. â‚¹ 4,50,000):", "â‚¹ 4,50,000");
-            if (rev) {
-                alert("âœ… Monthly traction filing submitted successfully to Incubation Secretariat.");
+            const rev = prompt("Enter Gross Revenue for the month (e.g. ₹ 4,50,000):", "₹ 4,50,000");
+            if (!rev) return;
+            const workers = prompt("Enter Total Active Workers / Users Onboarded:", "5,400");
+            if (!workers) return;
+            const jobs = prompt("Enter Direct Full-Time Bihar Jobs:", "30");
+            if (rev && workers) {
+                alert("✅ Monthly traction filing submitted successfully to CIMP-BIIF Incubation Secretariat.");
+            }
+        }
+
+        function bookSessionWith(mentorName) {
+            const date = prompt(`Book 1-on-1 Advisory Session with ${mentorName}.\nEnter Preferred Date (e.g. 15 Sep 2026):`, "15 Sep 2026");
+            if (date) {
+                alert(`✅ Advisory session request with ${mentorName} for ${date} registered! Secretariat calendar invite dispatched to your email.`);
             }
         }
     </script>

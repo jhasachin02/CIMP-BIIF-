@@ -329,7 +329,7 @@
         }
     ];
 
-    // Seed Applications Queue (for the workflow demonstration)
+    // Seed Applications Queue (Incubation Admission & Support Track)
     const SEED_APPLICATIONS = [
         {
             id: 'APP-2026-089',
@@ -341,6 +341,9 @@
             state: 'Bihar',
             sector: 'CleanTech',
             stage: 'MVP / Prototype',
+            incubationTrack: 'Physical Incubation (Lab & Co-working)',
+            facilitiesRequested: 'Bio-Polymer Testing Lab + 4 Co-working Desks',
+            supportRequired: 'Prototyping Facility, Mentorship & Bihar Seed Grant (₹10L)',
             productDescription: 'Developing 100% biodegradable packaging film made from makhana (foxnut) and starch agricultural residue.',
             innovative: 'Zero micro-plastics, decomposes in 60 days, utilizes local agricultural crop waste creating rural livelihood.',
             status: 'Pending Manager Review', // 'Pending Manager Review' | 'Pending Director Approval' | 'Approved' | 'Rejected'
@@ -365,6 +368,9 @@
             state: 'Bihar',
             sector: 'AgriTech',
             stage: 'Revenue Stage',
+            incubationTrack: 'Physical Incubation (Hardware & Flight Testing)',
+            facilitiesRequested: 'Drone Assembly Bay + 6 Workstations + Ground Testing Field',
+            supportRequired: 'DGCA Regulatory Advisory, Bihar Farmer Network Pilot & Pre-Series A Mentorship',
             productDescription: 'Drone-as-a-service for precision pesticide spraying and soil hyperspectral health mapping across 50,000 acres in North Bihar.',
             innovative: 'Reduces chemical runoff by 40% and lowers spraying cost by 60% compared to manual labor.',
             status: 'Pending Director Approval', // Already passed manager!
@@ -389,6 +395,9 @@
             state: 'Bihar',
             sector: 'FinTech',
             stage: 'Idea Stage',
+            incubationTrack: 'Pre-Incubation (Idea to MVP Track)',
+            facilitiesRequested: 'FinTech Sandbox Server Access + 2 Hot Desks',
+            supportRequired: 'Legal Entity Registration, RBI Compliance Mentorship & FinTech Cloud Credits',
             productDescription: 'Vernacular voice-assisted micro-credit assessment algorithm for women SHGs without traditional CIBIL scores.',
             innovative: 'Alternative psychometric and UPI transactional underwriting engine.',
             status: 'Pending Manager Review',
@@ -413,6 +422,9 @@
             state: 'Bihar',
             sector: 'EduTech',
             stage: 'MVP / Prototype',
+            incubationTrack: 'Physical Incubation (AR/VR Media Lab)',
+            facilitiesRequested: '3D Content Studio + 4 Dedicated Desks',
+            supportRequired: 'Govt School Pilot Permissions, Bihar Startup Grant (₹10L) & Pedagogy Mentorship',
             productDescription: 'Low-cost offline cardboard VR headsets with interactive 3D science labs for rural government school students.',
             innovative: 'Runs completely offline on low-end smartphones without internet requirement.',
             status: 'Pending Director Approval',
@@ -490,6 +502,46 @@
             rating: 4.9,
             image: 'assets/images/mentors/mentor-4.jpg',
             bio: 'Holds 6 biomedical patents; mentor to over 25 healthcare and robotics startups across IIT/IIM incubation centers.'
+        }
+    ];
+
+    // Seed Mentoring Sessions
+    const SEED_SESSIONS = [
+        {
+            id: 'SES-01',
+            startupId: 'ST-001',
+            startupName: 'Digital Labour Chowk',
+            mentorId: 'MEN-001',
+            mentorName: 'Dr. Alok Kumar',
+            date: '2026-08-26',
+            durationHours: 2,
+            topic: 'Unit Economics & Contractor CAC Optimization',
+            notes: 'Reviewed B2B contractor onboarding cost. Recommended direct partnership with CREDAI Patna for bulk registrations.',
+            feedbackRating: 5
+        },
+        {
+            id: 'SES-02',
+            startupId: 'ST-002',
+            startupName: 'Gramshree Agri Services',
+            mentorId: 'MEN-002',
+            mentorName: 'Prof. S. K. Singh',
+            date: '2026-08-20',
+            durationHours: 1.5,
+            topic: 'Bihar Cold-Chain Subsidy & Export Certification',
+            notes: 'Guided team on applying for APEDA export incentives for North Bihar litchi and makhana shipments.',
+            feedbackRating: 5
+        },
+        {
+            id: 'SES-03',
+            startupId: 'ST-004',
+            startupName: 'Hanuman Care',
+            mentorId: 'MEN-004',
+            mentorName: 'Dr. Rajesh Verma',
+            date: '2026-08-14',
+            durationHours: 2,
+            topic: 'Tele-ICU Hardware Integration & Ambulance Latency',
+            notes: 'Optimized GPS telematics tracking for Tier-2 districts in Bihar; reduced alert latency by 25%.',
+            feedbackRating: 4.8
         }
     ];
 
@@ -727,6 +779,7 @@
             if (!this._get('startups')) this._set('startups', SEED_STARTUPS);
             if (!this._get('applications')) this._set('applications', SEED_APPLICATIONS);
             if (!this._get('mentors')) this._set('mentors', SEED_MENTORS);
+            if (!this._get('sessions')) this._set('sessions', SEED_SESSIONS);
             if (!this._get('announcements')) this._set('announcements', SEED_ANNOUNCEMENTS);
             if (!this._get('audit_logs')) this._set('audit_logs', SEED_AUDIT_LOGS);
             if (!this._get('form_schemas')) this._set('form_schemas', SEED_FORM_SCHEMAS);
@@ -763,6 +816,7 @@
             this._set('startups', SEED_STARTUPS);
             this._set('applications', SEED_APPLICATIONS);
             this._set('mentors', SEED_MENTORS);
+            this._set('sessions', SEED_SESSIONS);
             this._set('announcements', SEED_ANNOUNCEMENTS);
             this._set('audit_logs', SEED_AUDIT_LOGS);
             this._set('users', SEED_USERS);
@@ -1217,9 +1271,33 @@
             return startupObj;
         },
 
+        deleteStartup: function (startupId) {
+            let startups = this.getStartups();
+            const target = startups.find(s => s.id === startupId);
+            if (!target) return false;
+            startups = startups.filter(s => s.id !== startupId);
+            this._set('startups', startups);
+
+            const currentUser = this.getCurrentUser();
+            this.logAudit(currentUser.name, currentUser.role, 'STARTUP_DELETED', `Removed startup record for "${target.name}" [${startupId}]`);
+            return true;
+        },
+
         // Applications Access & Two-Tier Workflow
         getApplications: function () {
-            return this._get('applications', SEED_APPLICATIONS);
+            const apps = this._get('applications', SEED_APPLICATIONS);
+            return apps.map(a => {
+                const seed = SEED_APPLICATIONS.find(s => s.id === a.id);
+                if (seed) {
+                    if (!a.incubationTrack) a.incubationTrack = seed.incubationTrack;
+                    if (!a.facilitiesRequested) a.facilitiesRequested = seed.facilitiesRequested;
+                    if (!a.supportRequired) a.supportRequired = seed.supportRequired;
+                }
+                if (!a.incubationTrack) a.incubationTrack = 'Physical Incubation (Co-working & Lab)';
+                if (!a.facilitiesRequested) a.facilitiesRequested = 'Co-working Desks + Incubation Sandbox';
+                if (!a.supportRequired) a.supportRequired = 'Mentorship, Lab Access & Bihar Seed Grant (₹10L)';
+                return a;
+            });
         },
 
         getApplicationById: function (appId) {
@@ -1250,7 +1328,10 @@
                 managerApprovedDate: null,
                 directorNotes: null,
                 directorApprovedDate: null,
-                fundingRequired: formData.funding_required || '₹ 20,00,000',
+                incubationTrack: formData.incubation_track || formData.incubationTrack || 'Physical Incubation (Lab & Co-working)',
+                facilitiesRequested: formData.facilities_requested || formData.facilitiesRequested || 'Co-working Desks + Prototyping Rig',
+                supportRequired: formData.support_required || formData.supportRequired || 'Mentorship, Lab Access & Bihar Seed Grant Eligibility',
+                fundingRequired: '₹ 10 Lakhs (Seed Eligible)',
                 founderExperience: formData.qualification || 'Entrepreneur',
                 pitchDeckName: formData.pitchDeckName || 'Pitch_Deck_' + newId + '.pdf',
                 pitchDeckUrl: formData.pitchDeckUrl || formData.pitch_deck_url || '#',
@@ -1267,7 +1348,7 @@
                 newApp.founderName,
                 'Applicant',
                 'APPLICATION_SUBMITTED',
-                `New registration submitted for "${newApp.startupName}" [${newApp.id}]`
+                `New incubation application submitted for "${newApp.startupName}" [${newApp.id}] - Track: ${newApp.incubationTrack}`
             );
 
             return newApp;
@@ -1281,7 +1362,7 @@
 
             apps[idx].status = 'Pending Director Approval';
             apps[idx].managerScore = Number(score) || 85;
-            apps[idx].managerNotes = notes || 'KYC and viability reviewed. Recommended for final Director approval.';
+            apps[idx].managerNotes = notes || 'KYC and incubation feasibility reviewed. Recommended for Director induction approval.';
             apps[idx].managerApprovedDate = new Date().toISOString();
 
             this._set('applications', apps);
@@ -1291,7 +1372,7 @@
                 currentUser.name,
                 'Incubation Manager',
                 'MANAGER_RECOMMENDATION',
-                `Incubation Manager evaluated "${apps[idx].startupName}" (Score: ${score}/100) and escalated to Director for final approval.`
+                `Incubation Manager evaluated "${apps[idx].startupName}" (Score: ${score}/100) and escalated to Director for cohort induction.`
             );
 
             return apps[idx];
@@ -1305,7 +1386,7 @@
 
             const app = apps[idx];
             app.status = 'Approved';
-            app.directorNotes = notes || 'Executive approval granted. Welcome to CIMP-BIIF Incubation Cohort.';
+            app.directorNotes = notes || 'Executive induction approved. Welcome to CIMP-BIIF Incubation Cohort.';
             app.directorApprovedDate = new Date().toISOString();
 
             this._set('applications', apps);
@@ -1326,27 +1407,27 @@
                 phone: app.mobile,
                 year: new Date().getFullYear(),
                 cohort: 'Cohort ' + new Date().getFullYear(),
-                location: app.city + ', ' + app.state,
+                location: (app.city || 'Patna') + ', ' + (app.state || 'Bihar'),
                 desc: app.productDescription,
-                color: '#1E3A8A',
+                color: '#0D9488',
                 metric: 'New',
-                metricLabel: 'Incubated Venture',
-                revenue: '₹ 0 (Pre-Seed)',
+                metricLabel: 'Active Incubatee',
+                revenue: '₹ 0 / yr',
                 revenueNumeric: 0,
-                fundingRaised: app.fundingRequired,
-                fundingNumeric: 1500000,
+                fundingRaised: '₹ 10 Lakhs (Eligible)',
+                fundingNumeric: 1000000,
                 jobsCreated: 4,
                 assignedMentor: 'Dr. Alok Kumar',
                 complianceScore: 100,
-                pitchDeckUrl: '#',
-                cin: 'Pending Incorp',
+                pitchDeckUrl: app.pitchDeckUrl || '#',
+                cin: 'Pending DPIIT Reg',
                 website: 'https://' + app.startupName.toLowerCase().replace(/[^a-z0-9]/g, '') + '.com',
                 appliedDate: app.submittedDate ? app.submittedDate.split('T')[0] : '2026-08-01',
                 approvedDate: new Date().toISOString().split('T')[0],
                 milestones: [
-                    { title: 'Incubation Onboarding at CIMP-BIIF', status: 'Completed', date: 'Immediate' },
-                    { title: 'Mentor Assignment & Growth Plan', status: 'In Progress', date: 'Next 30 Days' },
-                    { title: 'Seed Grant Tranche 1 Disbursement', status: 'Pending', date: 'Next 60 Days' }
+                    { title: 'Workspace & Lab Desk Allotment', status: 'Completed', date: 'Immediate' },
+                    { title: 'Mentor Pairing & Strategic GTM Plan', status: 'In Progress', date: 'Next 30 Days' },
+                    { title: 'Prototype Validation Sprint', status: 'Pending', date: 'Next 60 Days' }
                 ]
             };
 
@@ -1357,7 +1438,7 @@
                 to: app.email,
                 founder: app.founderName,
                 startupName: app.startupName,
-                subject: `🎉 Congratulations! ${app.startupName} is Selected for CIMP-BIIF Incubation`,
+                subject: `🎉 Congratulations! ${app.startupName} is Inducted into CIMP-BIIF Incubation Program`,
                 tempPassword: 'CIMP@' + Math.floor(1000 + Math.random() * 9000),
                 timestamp: new Date().toISOString()
             };
@@ -1425,6 +1506,11 @@
             return this._get('mentors', SEED_MENTORS);
         },
 
+        getMentorById: function (mentorId) {
+            const mentors = this.getMentors();
+            return mentors.find(m => m.id === mentorId);
+        },
+
         saveMentor: function (mentorObj) {
             let mentors = this.getMentors();
             const idx = mentors.findIndex(m => m.id === mentorObj.id);
@@ -1436,6 +1522,81 @@
             }
             this._set('mentors', mentors);
             return mentorObj;
+        },
+
+        deleteMentor: function (mentorId) {
+            let mentors = this.getMentors();
+            const target = mentors.find(m => m.id === mentorId);
+            if (!target) return false;
+            mentors = mentors.filter(m => m.id !== mentorId);
+            this._set('mentors', mentors);
+            return true;
+        },
+
+        // Pair Mentor with Startup
+        pairMentor: function (startupId, mentorId) {
+            let startups = this.getStartups();
+            let mentors = this.getMentors();
+
+            const st = startups.find(s => s.id === startupId);
+            const men = mentors.find(m => m.id === mentorId);
+
+            if (!st || !men) return false;
+
+            st.assignedMentor = men.name;
+            this._set('startups', startups);
+
+            if (!men.assignedStartups) men.assignedStartups = [];
+            if (!men.assignedStartups.includes(st.name)) {
+                men.assignedStartups.push(st.name);
+            }
+            this._set('mentors', mentors);
+
+            const currentUser = this.getCurrentUser();
+            this.logAudit(
+                currentUser.name,
+                currentUser.role,
+                'MENTOR_ALLOCATION',
+                `Allocated mentor "${men.name}" to incubatee "${st.name}"`
+            );
+            return true;
+        },
+
+        // Mentoring Sessions Management
+        getMentoringSessions: function (mentorId, startupId) {
+            let sessions = this._get('sessions', SEED_SESSIONS);
+            if (mentorId) sessions = sessions.filter(s => s.mentorId === mentorId);
+            if (startupId) sessions = sessions.filter(s => s.startupId === startupId);
+            return sessions;
+        },
+
+        logMentoringSession: function (sessionObj) {
+            let sessions = this.getMentoringSessions();
+            if (!sessionObj.id) {
+                sessionObj.id = 'SES-' + String(sessions.length + 1).padStart(2, '0');
+            }
+            sessionObj.date = sessionObj.date || new Date().toISOString().split('T')[0];
+            sessions.unshift(sessionObj);
+            this._set('sessions', sessions);
+
+            // Also update totalHoursLogged on mentor
+            if (sessionObj.mentorId) {
+                let mentors = this.getMentors();
+                const men = mentors.find(m => m.id === sessionObj.mentorId);
+                if (men) {
+                    men.totalHoursLogged = (men.totalHoursLogged || 0) + (Number(sessionObj.durationHours) || 1);
+                    this._set('mentors', mentors);
+                }
+            }
+
+            const currentUser = this.getCurrentUser();
+            this.logAudit(
+                currentUser.name,
+                currentUser.role,
+                'MENTORING_SESSION_LOGGED',
+                `Logged ${sessionObj.durationHours} hrs advisory session between "${sessionObj.mentorName}" and "${sessionObj.startupName}"`
+            );
+            return sessionObj;
         },
 
         // Announcements
@@ -1453,6 +1614,16 @@
             const currentUser = this.getCurrentUser();
             this.logAudit(currentUser.name, currentUser.role, 'ANNOUNCEMENT_BROADCAST', `Broadcast notice: "${ann.title}"`);
             return ann;
+        },
+
+        deleteAnnouncement: function (annId) {
+            let list = this.getAnnouncements();
+            list = list.filter(a => a.id !== annId);
+            this._set('announcements', list);
+
+            const currentUser = this.getCurrentUser();
+            this.logAudit(currentUser.name, currentUser.role, 'ANNOUNCEMENT_DELETED', `Deleted circular notice [${annId}]`);
+            return true;
         },
 
         // Audit Logs

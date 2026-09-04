@@ -165,7 +165,7 @@
             <div class="app-tab-pane active" id="tab-men-overview">
                 <div class="mb-4">
                     <h3 class="fw-bold font-20 mb-1" style="font-family: 'Outfit', sans-serif;">Mentor Advisory Summary</h3>
-                    <p class="text-muted font-13 mb-0">Overview of allotted ventures, advisory sprint commitments, and guidance deliverables.</p>
+                    <p class="text-muted font-13 mb-0">Overview of allotted ventures, advisory sprint commitments, and incubation milestones guidance.</p>
                 </div>
 
                 <!-- 4 Clean Stats (2x2 Grid on Mobile) -->
@@ -186,9 +186,9 @@
                     </div>
                     <div class="col-6 col-lg-3">
                         <div class="app-kpi-card p-2.5 p-md-3">
-                            <span class="app-kpi-lbl">Mentee Valuation</span>
-                            <div class="app-kpi-val">₹ 14.8 Cr</div>
-                            <div class="app-kpi-sub"><i class="fa-solid fa-chart-line"></i> Portfolio Scale</div>
+                            <span class="app-kpi-lbl">Seed Grants Supported</span>
+                            <div class="app-kpi-val text-dark">₹ 60.0 L</div>
+                            <div class="app-kpi-sub"><i class="fa-solid fa-shield-halved text-success"></i> Bihar Startup Policy</div>
                         </div>
                     </div>
                     <div class="col-6 col-lg-3">
@@ -200,37 +200,163 @@
                     </div>
                 </div>
 
-                <!-- Mentees Quick Table -->
+                <!-- Mentees Quick Table with Tap-to-Expand -->
                 <div class="app-table-card">
-                    <div class="p-3 border-bottom d-flex justify-content-between align-items-center bg-white">
-                        <h5 class="fw-bold font-15 mb-0">Allotted Mentee Portfolio</h5>
-                        <span class="font-12 text-muted">Strategy &amp; Market Advisory</span>
+                    <div class="p-3 border-bottom d-flex justify-content-between align-items-center bg-white flex-wrap gap-2">
+                        <div>
+                            <h5 class="fw-bold font-15 mb-0">Allotted Mentee Portfolio</h5>
+                            <span class="font-12 text-muted">Tap any row to expand strategic dossier &amp; quick contact tools</span>
+                        </div>
+                        <button class="btn btn-sm btn-outline-primary font-12" onclick="switchMenView('tab-men-mentees', document.getElementById('menNavMentees'))">
+                            View All Mentees <i class="fa-solid fa-arrow-right ms-1"></i>
+                        </button>
                     </div>
                     <div class="table-responsive">
                         <table class="app-table">
                             <thead>
                                 <tr>
-                                    <th>Startup Enterprise</th>
-                                    <th>Founder</th>
-                                    <th>Sector &amp; Stage</th>
-                                    <th>Current Sprint Focus</th>
-                                    <th>Action</th>
+                                    <th style="width: 28%;">Startup Enterprise</th>
+                                    <th style="width: 20%;">Founder &amp; Contact</th>
+                                    <th style="width: 18%;">Sector &amp; Track</th>
+                                    <th style="width: 22%;">Current Sprint Milestone</th>
+                                    <th style="width: 12%;" class="text-end pe-3">Action</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td><strong>Patna AgriDrone Hub</strong><div class="font-11 text-muted">Patna, Bihar</div></td>
-                                    <td>Vikramaditya Roy</td>
-                                    <td><span class="font-12 fw-semibold">AgriTech</span><div class="font-11 text-muted">Pre-Seed</div></td>
-                                    <td><span class="font-12 text-dark">DGCA Drone Type Certification &amp; Farmer Pilot</span></td>
-                                    <td><button class="btn btn-sm btn-outline-primary font-11 py-1" onclick="logAdvisorySession()">Log Session</button></td>
+                                <!-- Row 1 -->
+                                <tr class="tr-parent" onclick="toggleExpandRow(this, event)">
+                                    <td>
+                                        <div class="d-flex align-items-center gap-2">
+                                            <i class="fa-solid fa-chevron-down text-muted expand-chevron font-11"></i>
+                                            <div>
+                                                <strong>Patna AgriDrone Hub</strong>
+                                                <div class="font-11 text-muted">Agritech Solutions Pvt Ltd &bull; Patna</div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <span class="font-12 fw-semibold text-dark">Vikramaditya Roy</span>
+                                        <div class="font-11 text-muted">+91 98350 11223</div>
+                                    </td>
+                                    <td>
+                                        <span class="badge bg-success-subtle text-success font-10">AgriTech</span>
+                                        <div class="font-11 text-muted mt-0.5">Physical (FabLab Desk 4B)</div>
+                                    </td>
+                                    <td>
+                                        <span class="font-12 text-dark fw-medium">DGCA Drone Certification &amp; Pilot</span>
+                                        <div class="font-11 text-warning"><i class="fa-solid fa-clock-rotate-left"></i> Sprint Target: 15 Sep 2026</div>
+                                    </td>
+                                    <td class="text-end pe-3" onclick="event.stopPropagation()">
+                                        <button class="btn btn-sm btn-outline-primary font-11 py-1" onclick="logAdvisorySessionFor('Patna AgriDrone Hub')">Log Session</button>
+                                    </td>
                                 </tr>
-                                <tr>
-                                    <td><strong>Digital Labour Chowk</strong><div class="font-11 text-muted">Maurya Lok, Patna</div></td>
-                                    <td>Chandrashekhar Mandal</td>
-                                    <td><span class="font-12 fw-semibold">Technology</span><div class="font-11 text-muted">Scaling</div></td>
-                                    <td><span class="font-12 text-dark">GTM Expansion &amp; Contractor Monetization</span></td>
-                                    <td><button class="btn btn-sm btn-outline-primary font-11 py-1" onclick="logAdvisorySession()">Log Session</button></td>
+                                <tr class="tr-expand-tray">
+                                    <td colspan="5">
+                                        <div class="expand-content-wrap">
+                                            <div class="row g-3">
+                                                <div class="col-md-4">
+                                                    <div class="p-2.5 bg-white border rounded-2 h-100">
+                                                        <div class="font-11 text-uppercase text-muted fw-bold mb-1">Founder Direct Reachout</div>
+                                                        <div class="fw-bold font-13 text-dark">Vikramaditya Roy</div>
+                                                        <div class="font-11 text-muted mb-2">vikram@agridrone.in | +91 98350 11223</div>
+                                                        <div class="d-flex gap-1">
+                                                            <a href="https://wa.me/919835011223" target="_blank" class="btn btn-sm btn-success font-11 py-1 px-2"><i class="fa-brands fa-whatsapp me-1"></i>WhatsApp</a>
+                                                            <a href="tel:+919835011223" class="btn btn-sm btn-light border font-11 py-1 px-2"><i class="fa-solid fa-phone me-1"></i>Call</a>
+                                                            <a href="mailto:vikram@agridrone.in" class="btn btn-sm btn-light border font-11 py-1 px-2"><i class="fa-solid fa-envelope me-1"></i>Email</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-5">
+                                                    <div class="p-2.5 bg-white border rounded-2 h-100">
+                                                        <div class="font-11 text-uppercase text-muted fw-bold mb-1">Incubation Track &amp; Support Matrix</div>
+                                                        <div class="font-12 text-dark mb-1"><strong>Facility Allotted:</strong> FabLab Precision Testing + 4 Dedicated Desks</div>
+                                                        <div class="font-12 text-dark mb-1"><strong>Bihar Seed Capital:</strong> ₹ 10 Lakhs (Tranche-1 Audited &amp; Utilized)</div>
+                                                        <div class="font-12 text-muted"><strong>Advisory Priority:</strong> DGCA Compliance, Farmer FPO Cluster Pricing Strategy, Pilot spray validation in Nalanda.</div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <div class="p-2.5 bg-white border rounded-2 h-100 d-flex flex-column justify-content-between">
+                                                        <div>
+                                                            <div class="font-11 text-uppercase text-muted fw-bold mb-1">Advisory Status</div>
+                                                            <span class="badge bg-primary-subtle text-primary font-11 mb-2"><i class="fa-solid fa-handshake font-10 me-1"></i> 14 Advisory Hours Logged</span>
+                                                            <div class="font-11 text-muted">Next Scheduled Meeting: <strong>12 Sep 2026</strong></div>
+                                                        </div>
+                                                        <button class="btn btn-sm btn-primary font-11 w-100 mt-2" onclick="logAdvisorySessionFor('Patna AgriDrone Hub')">
+                                                            <i class="fa-solid fa-plus me-1"></i> Log Strategic Notes
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+
+                                <!-- Row 2 -->
+                                <tr class="tr-parent" onclick="toggleExpandRow(this, event)">
+                                    <td>
+                                        <div class="d-flex align-items-center gap-2">
+                                            <i class="fa-solid fa-chevron-down text-muted expand-chevron font-11"></i>
+                                            <div>
+                                                <strong>Digital Labour Chowk</strong>
+                                                <div class="font-11 text-muted">DLC Tech Solutions Pvt Ltd &bull; Patna</div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <span class="font-12 fw-semibold text-dark">Chandrashekhar Mandal</span>
+                                        <div class="font-11 text-muted">+91 94310 44556</div>
+                                    </td>
+                                    <td>
+                                        <span class="badge bg-primary-subtle text-primary font-10">Tech Platform</span>
+                                        <div class="font-11 text-muted mt-0.5">Physical (Desk 8A-8D)</div>
+                                    </td>
+                                    <td>
+                                        <span class="font-12 text-dark fw-medium">GTM Expansion &amp; Contractor Monetization</span>
+                                        <div class="font-11 text-success"><i class="fa-solid fa-circle-check"></i> On Track (Cohort 2022)</div>
+                                    </td>
+                                    <td class="text-end pe-3" onclick="event.stopPropagation()">
+                                        <button class="btn btn-sm btn-outline-primary font-11 py-1" onclick="logAdvisorySessionFor('Digital Labour Chowk')">Log Session</button>
+                                    </td>
+                                </tr>
+                                <tr class="tr-expand-tray">
+                                    <td colspan="5">
+                                        <div class="expand-content-wrap">
+                                            <div class="row g-3">
+                                                <div class="col-md-4">
+                                                    <div class="p-2.5 bg-white border rounded-2 h-100">
+                                                        <div class="font-11 text-uppercase text-muted fw-bold mb-1">Founder Direct Reachout</div>
+                                                        <div class="fw-bold font-13 text-dark">Chandrashekhar Mandal</div>
+                                                        <div class="font-11 text-muted mb-2">founder@abc.com | +91 94310 44556</div>
+                                                        <div class="d-flex gap-1">
+                                                            <a href="https://wa.me/919431044556" target="_blank" class="btn btn-sm btn-success font-11 py-1 px-2"><i class="fa-brands fa-whatsapp me-1"></i>WhatsApp</a>
+                                                            <a href="tel:+919431044556" class="btn btn-sm btn-light border font-11 py-1 px-2"><i class="fa-solid fa-phone me-1"></i>Call</a>
+                                                            <a href="mailto:founder@abc.com" class="btn btn-sm btn-light border font-11 py-1 px-2"><i class="fa-solid fa-envelope me-1"></i>Email</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-5">
+                                                    <div class="p-2.5 bg-white border rounded-2 h-100">
+                                                        <div class="font-11 text-uppercase text-muted fw-bold mb-1">Incubation Track &amp; Support Matrix</div>
+                                                        <div class="font-12 text-dark mb-1"><strong>Facility Allotted:</strong> 4 Dedicated Desks + Meeting Room Quota</div>
+                                                        <div class="font-12 text-dark mb-1"><strong>Bihar Seed Grant:</strong> ₹ 25 Lakhs (3 Tranches Fully Disbursed &amp; Utilized)</div>
+                                                        <div class="font-12 text-muted"><strong>Advisory Priority:</strong> Enterprise B2B SaaS contractor billing, GST automated reconciliation, Series-A readiness deck.</div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <div class="p-2.5 bg-white border rounded-2 h-100 d-flex flex-column justify-content-between">
+                                                        <div>
+                                                            <div class="font-11 text-uppercase text-muted fw-bold mb-1">Advisory Status</div>
+                                                            <span class="badge bg-success-subtle text-success font-11 mb-2"><i class="fa-solid fa-handshake font-10 me-1"></i> 22 Advisory Hours Logged</span>
+                                                            <div class="font-11 text-muted">Last Session: <strong>28 Aug 2026</strong></div>
+                                                        </div>
+                                                        <button class="btn btn-sm btn-primary font-11 w-100 mt-2" onclick="logAdvisorySessionFor('Digital Labour Chowk')">
+                                                            <i class="fa-solid fa-plus me-1"></i> Log Strategic Notes
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
                                 </tr>
                             </tbody>
                         </table>
@@ -238,11 +364,16 @@
                 </div>
             </div>
 
-            <!-- TAB 2: MENTEES -->
+            <!-- TAB 2: MENTEES DIRECTORY -->
             <div class="app-tab-pane" id="tab-men-mentees">
-                <div class="mb-4">
-                    <h3 class="fw-bold font-20 mb-1" style="font-family: 'Outfit', sans-serif;">Allotted Mentee Directory</h3>
-                    <p class="text-muted font-13 mb-0">Detailed view of startups assigned for your domain guidance.</p>
+                <div class="d-flex align-items-center justify-content-between mb-4 flex-wrap gap-2">
+                    <div>
+                        <h3 class="fw-bold font-20 mb-1" style="font-family: 'Outfit', sans-serif;">Allotted Mentee Directory</h3>
+                        <p class="text-muted font-13 mb-0">Detailed view of startups assigned for your domain guidance. Tap any row to view complete profile.</p>
+                    </div>
+                    <button class="app-btn-action" onclick="logAdvisorySession()">
+                        <i class="fa-solid fa-plus me-1"></i> Log Consultation Session
+                    </button>
                 </div>
 
                 <div class="app-table-card">
@@ -250,30 +381,134 @@
                         <table class="app-table">
                             <thead>
                                 <tr>
-                                    <th>Enterprise</th>
-                                    <th>Founder &amp; Contact</th>
-                                    <th>Sector</th>
-                                    <th>Annual Revenue</th>
-                                    <th>Funding Raised</th>
-                                    <th>Action</th>
+                                    <th style="width: 25%;">Enterprise</th>
+                                    <th style="width: 22%;">Founder &amp; Contact</th>
+                                    <th style="width: 18%;">Sector &amp; Stage</th>
+                                    <th style="width: 20%;">Bihar Seed Grant Status</th>
+                                    <th style="width: 15%;" class="text-end pe-3">Action</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td><strong>Patna AgriDrone Hub</strong></td>
-                                    <td>Vikramaditya Roy<div class="font-11 text-muted">vikram@agridrone.in</div></td>
-                                    <td><span class="font-12 fw-semibold">AgriTech</span></td>
-                                    <td>â‚¹ 0 (Pre-Seed)</td>
-                                    <td><strong class="text-primary">â‚¹ 35,00,000</strong></td>
-                                    <td><button class="app-btn-action" style="padding:4px 10px; font-size:11px;" onclick="logAdvisorySession()">Log Session</button></td>
+                                <!-- Mentee Row 1 -->
+                                <tr class="tr-parent" onclick="toggleExpandRow(this, event)">
+                                    <td>
+                                        <div class="d-flex align-items-center gap-2">
+                                            <i class="fa-solid fa-chevron-down text-muted expand-chevron font-11"></i>
+                                            <div>
+                                                <strong>Patna AgriDrone Hub</strong>
+                                                <div class="font-11 text-muted">Patna, Bihar &bull; FabLab</div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <span class="font-12 fw-semibold text-dark">Vikramaditya Roy</span>
+                                        <div class="font-11 text-muted">vikram@agridrone.in</div>
+                                    </td>
+                                    <td>
+                                        <span class="badge bg-success-subtle text-success font-10">AgriTech</span>
+                                        <div class="font-11 text-muted">Pre-Seed / Prototype</div>
+                                    </td>
+                                    <td>
+                                        <strong class="text-primary font-12">₹ 10 Lakhs Seed</strong>
+                                        <div class="font-11 text-muted">Tranche-1 UC Submitted</div>
+                                    </td>
+                                    <td class="text-end pe-3" onclick="event.stopPropagation()">
+                                        <button class="app-btn-action" style="padding:4px 10px; font-size:11px;" onclick="logAdvisorySessionFor('Patna AgriDrone Hub')">Log Session</button>
+                                    </td>
                                 </tr>
-                                <tr>
-                                    <td><strong>Digital Labour Chowk</strong></td>
-                                    <td>Chandrashekhar Mandal<div class="font-11 text-muted">founder@abc.com</div></td>
-                                    <td><span class="font-12 fw-semibold">Technology</span></td>
-                                    <td>â‚¹ 42.5 Lakhs / yr</td>
-                                    <td><strong class="text-primary">â‚¹ 25,00,000</strong></td>
-                                    <td><button class="app-btn-action" style="padding:4px 10px; font-size:11px;" onclick="logAdvisorySession()">Log Session</button></td>
+                                <tr class="tr-expand-tray">
+                                    <td colspan="5">
+                                        <div class="expand-content-wrap">
+                                            <div class="row g-3">
+                                                <div class="col-md-6">
+                                                    <div class="p-3 bg-white border rounded-2">
+                                                        <div class="fw-bold font-13 text-dark mb-1">Patna AgriDrone Hub (Agritech Solutions Pvt Ltd)</div>
+                                                        <p class="font-12 text-muted mb-2">Autonomous drone spraying for paddy and maize crops with IoT multispectral sensor payload.</p>
+                                                        <div class="d-flex flex-wrap gap-2 font-11">
+                                                            <span class="badge bg-light text-dark border">CIN: U01111BR2025PTC071234</span>
+                                                            <span class="badge bg-light text-dark border">DPIIT: DIPP98765</span>
+                                                            <span class="badge bg-light text-dark border">Desks: #4B (FabLab)</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="p-3 bg-white border rounded-2">
+                                                        <div class="fw-bold font-13 text-dark mb-1">Key Advisory Checkpoints</div>
+                                                        <ul class="font-12 text-muted mb-2 ps-3" style="line-height: 1.6;">
+                                                            <li>DGCA Type Certification document filing support.</li>
+                                                            <li>Farmer cluster tariff model: ₹450 / acre vs manual ₹700 / acre.</li>
+                                                            <li>Hardware bill of materials (BOM) optimization with CIMP FabLab.</li>
+                                                        </ul>
+                                                        <div class="d-flex gap-2">
+                                                            <button class="btn btn-sm btn-outline-primary font-11" onclick="alert('Viewing Founder Pitch Deck Dossier...')"><i class="fa-solid fa-file-pdf me-1"></i>Pitch Deck</button>
+                                                            <button class="btn btn-sm btn-primary font-11" onclick="logAdvisorySessionFor('Patna AgriDrone Hub')"><i class="fa-solid fa-plus me-1"></i>Log 1-on-1 Notes</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+
+                                <!-- Mentee Row 2 -->
+                                <tr class="tr-parent" onclick="toggleExpandRow(this, event)">
+                                    <td>
+                                        <div class="d-flex align-items-center gap-2">
+                                            <i class="fa-solid fa-chevron-down text-muted expand-chevron font-11"></i>
+                                            <div>
+                                                <strong>Digital Labour Chowk</strong>
+                                                <div class="font-11 text-muted">Maurya Lok, Patna</div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <span class="font-12 fw-semibold text-dark">Chandrashekhar Mandal</span>
+                                        <div class="font-11 text-muted">founder@abc.com</div>
+                                    </td>
+                                    <td>
+                                        <span class="badge bg-primary-subtle text-primary font-10">Technology</span>
+                                        <div class="font-11 text-muted">Commercial Growth</div>
+                                    </td>
+                                    <td>
+                                        <strong class="text-success font-12">₹ 25 Lakhs Seed</strong>
+                                        <div class="font-11 text-muted">Tranches 1-3 Completed</div>
+                                    </td>
+                                    <td class="text-end pe-3" onclick="event.stopPropagation()">
+                                        <button class="app-btn-action" style="padding:4px 10px; font-size:11px;" onclick="logAdvisorySessionFor('Digital Labour Chowk')">Log Session</button>
+                                    </td>
+                                </tr>
+                                <tr class="tr-expand-tray">
+                                    <td colspan="5">
+                                        <div class="expand-content-wrap">
+                                            <div class="row g-3">
+                                                <div class="col-md-6">
+                                                    <div class="p-3 bg-white border rounded-2">
+                                                        <div class="fw-bold font-13 text-dark mb-1">Digital Labour Chowk (DLC Tech Solutions Pvt Ltd)</div>
+                                                        <p class="font-12 text-muted mb-2">Daily wage worker discovery &amp; wage escrow platform connecting unorganized laborers with builders and contractors.</p>
+                                                        <div class="d-flex flex-wrap gap-2 font-11">
+                                                            <span class="badge bg-light text-dark border">CIN: U72900BR2022PTC058912</span>
+                                                            <span class="badge bg-light text-dark border">DPIIT: DIPP44321</span>
+                                                            <span class="badge bg-light text-dark border">Desk: 8A-8D</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="p-3 bg-white border rounded-2">
+                                                        <div class="fw-bold font-13 text-dark mb-1">Key Advisory Checkpoints</div>
+                                                        <ul class="font-12 text-muted mb-2 ps-3" style="line-height: 1.6;">
+                                                            <li>Institutional contractor subscription pricing model.</li>
+                                                            <li>Expanding from Patna to Muzaffarpur &amp; Bhagalpur clusters.</li>
+                                                            <li>Preparing institutional governance MIS for Series-A investors.</li>
+                                                        </ul>
+                                                        <div class="d-flex gap-2">
+                                                            <button class="btn btn-sm btn-outline-primary font-11" onclick="alert('Viewing Founder Pitch Deck Dossier...')"><i class="fa-solid fa-file-pdf me-1"></i>Pitch Deck</button>
+                                                            <button class="btn btn-sm btn-primary font-11" onclick="logAdvisorySessionFor('Digital Labour Chowk')"><i class="fa-solid fa-plus me-1"></i>Log 1-on-1 Notes</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
                                 </tr>
                             </tbody>
                         </table>
@@ -286,7 +521,7 @@
                 <div class="d-flex align-items-center justify-content-between mb-4 flex-wrap gap-2">
                     <div>
                         <h3 class="fw-bold font-20 mb-1" style="font-family: 'Outfit', sans-serif;">Completed Mentoring Sessions</h3>
-                        <p class="text-muted font-13 mb-0">Record of 1-on-1 consultations and strategic guidance meetings.</p>
+                        <p class="text-muted font-13 mb-0">Record of 1-on-1 consultations and strategic guidance meetings. Tap row to inspect action items.</p>
                     </div>
                     <button class="app-btn-action" onclick="logAdvisorySession()">
                         <i class="fa-solid fa-plus me-1"></i> Log New Session
@@ -298,27 +533,68 @@
                         <table class="app-table">
                             <thead>
                                 <tr>
-                                    <th>Date</th>
-                                    <th>Startup Enterprise</th>
-                                    <th>Duration</th>
-                                    <th>Agenda &amp; Action Items</th>
-                                    <th>Status</th>
+                                    <th style="width: 15%;">Date</th>
+                                    <th style="width: 25%;">Startup Enterprise</th>
+                                    <th style="width: 12%;">Duration</th>
+                                    <th style="width: 33%;">Agenda &amp; Action Items</th>
+                                    <th style="width: 15%;" class="text-end pe-3">Status</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
+                                <tr class="tr-parent" onclick="toggleExpandRow(this, event)">
                                     <td><strong>28 Aug 2026</strong></td>
-                                    <td><strong>Digital Labour Chowk</strong></td>
-                                    <td>90 Mins</td>
+                                    <td>
+                                        <div class="d-flex align-items-center gap-2">
+                                            <i class="fa-solid fa-chevron-down text-muted expand-chevron font-11"></i>
+                                            <div>
+                                                <strong>Digital Labour Chowk</strong>
+                                                <div class="font-11 text-muted">Chandrashekhar Mandal</div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td><span class="badge bg-light text-dark border">90 Mins</span></td>
                                     <td class="font-12 text-muted">Reviewed contractor onboarding unit economics and institutional pricing structure.</td>
-                                    <td><span class="font-12 fw-semibold text-success"><i class="fa-solid fa-circle font-8 me-1"></i> Logged &amp; Verified</span></td>
+                                    <td class="text-end pe-3"><span class="font-12 fw-semibold text-success"><i class="fa-solid fa-circle font-8 me-1"></i> Logged &amp; Verified</span></td>
                                 </tr>
-                                <tr>
+                                <tr class="tr-expand-tray">
+                                    <td colspan="5">
+                                        <div class="expand-content-wrap">
+                                            <div class="p-3 bg-white border rounded-2">
+                                                <div class="fw-bold font-13 text-dark mb-1">Session Action Items &amp; Deliverables</div>
+                                                <div class="font-12 text-muted mb-2">1. Finalize SaaS subscription model for large construction builders with 14-day free pilot.</div>
+                                                <div class="font-12 text-muted mb-2">2. Implement SMS worker dispatch fallback for low-connectivity rural zones.</div>
+                                                <div class="font-11 text-muted">Signed by: <strong>Dr. Alok Kumar (Mentor)</strong> &bull; Verified by: <strong>Incubation Manager (CIMP-BIIF)</strong></div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+
+                                <tr class="tr-parent" onclick="toggleExpandRow(this, event)">
                                     <td><strong>21 Aug 2026</strong></td>
-                                    <td><strong>Patna AgriDrone Hub</strong></td>
-                                    <td>60 Mins</td>
+                                    <td>
+                                        <div class="d-flex align-items-center gap-2">
+                                            <i class="fa-solid fa-chevron-down text-muted expand-chevron font-11"></i>
+                                            <div>
+                                                <strong>Patna AgriDrone Hub</strong>
+                                                <div class="font-11 text-muted">Vikramaditya Roy</div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td><span class="badge bg-light text-dark border">60 Mins</span></td>
                                     <td class="font-12 text-muted">Formulated pilot spray demonstration roadmap for Gaya &amp; Nalanda farmer clusters.</td>
-                                    <td><span class="font-12 fw-semibold text-success"><i class="fa-solid fa-circle font-8 me-1"></i> Logged &amp; Verified</span></td>
+                                    <td class="text-end pe-3"><span class="font-12 fw-semibold text-success"><i class="fa-solid fa-circle font-8 me-1"></i> Logged &amp; Verified</span></td>
+                                </tr>
+                                <tr class="tr-expand-tray">
+                                    <td colspan="5">
+                                        <div class="expand-content-wrap">
+                                            <div class="p-3 bg-white border rounded-2">
+                                                <div class="fw-bold font-13 text-dark mb-1">Session Action Items &amp; Deliverables</div>
+                                                <div class="font-12 text-muted mb-2">1. Secure DGCA remote pilot license endorsement for 2 field technicians.</div>
+                                                <div class="font-12 text-muted mb-2">2. Schedule field demonstration in coordination with Bihar Agriculture Dept.</div>
+                                                <div class="font-11 text-muted">Signed by: <strong>Dr. Alok Kumar (Mentor)</strong> &bull; Verified by: <strong>Incubation Manager (CIMP-BIIF)</strong></div>
+                                            </div>
+                                        </div>
+                                    </td>
                                 </tr>
                             </tbody>
                         </table>
@@ -396,6 +672,25 @@
             else if (tabId === 'tab-men-sessions') document.getElementById('mMenNavSessions')?.classList.add('active');
         }
 
+        function toggleExpandRow(rowEl, evt) {
+            if (evt && (evt.target.closest('button') || evt.target.closest('a') || evt.target.closest('input') || evt.target.closest('select'))) {
+                return;
+            }
+            const nextRow = rowEl.nextElementSibling;
+            if (nextRow && nextRow.classList.contains('tr-expand-tray')) {
+                const isCurrentlyOpen = nextRow.classList.contains('show');
+                
+                // Toggle clicked row
+                if (isCurrentlyOpen) {
+                    nextRow.classList.remove('show');
+                    rowEl.classList.remove('is-expanded');
+                } else {
+                    nextRow.classList.add('show');
+                    rowEl.classList.add('is-expanded');
+                }
+            }
+        }
+
         document.addEventListener('DOMContentLoaded', function () {
             if (window.CIMP_DB) {
                 const curUser = window.CIMP_DB.getCurrentUser();
@@ -410,12 +705,19 @@
             });
         });
 
-        function logAdvisorySession() {
-            const venture = prompt("Enter Mentee Venture Name (e.g. Digital Labour Chowk):", "Digital Labour Chowk");
-            const duration = prompt("Enter Session Duration (e.g. 60 Mins):", "60 Mins");
+        function logAdvisorySessionFor(ventureName) {
+            const venture = prompt("Enter Mentee Venture Name:", ventureName || "Digital Labour Chowk");
+            if (!venture) return;
+            const duration = prompt("Enter Session Duration (e.g. 60 Mins, 90 Mins):", "60 Mins");
+            if (!duration) return;
+            const notes = prompt("Enter Key Strategic Guidance / Action Items:", "Reviewed GTM strategy and Bihar cluster expansion roadmap.");
             if (venture && duration) {
-                alert(`âœ… Mentoring session (${duration}) with ${venture} logged successfully to Incubation Secretariat!`);
+                alert(`✅ Mentoring session (${duration}) with ${venture} logged successfully to Incubation Secretariat!`);
             }
+        }
+
+        function logAdvisorySession() {
+            logAdvisorySessionFor("Digital Labour Chowk");
         }
     </script>
 </body>

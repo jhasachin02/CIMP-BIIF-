@@ -23,6 +23,151 @@
     
     <!-- Chart.js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <style>
+        /* Modern Micro-styles & Expandable Row Architecture */
+        :root {
+            --mgr-teal: #0D9488;
+            --mgr-teal-dark: #0F766E;
+            --mgr-teal-light: #CCFBF1;
+        }
+
+        .page-header-title {
+            font-family: 'Outfit', sans-serif !important;
+            font-size: 19px !important;
+            font-weight: 700 !important;
+            color: #0F172A !important;
+            letter-spacing: -0.2px;
+            margin-bottom: 2px !important;
+        }
+        .page-header-sub {
+            font-size: 12px !important;
+            color: #64748B !important;
+            margin-bottom: 0 !important;
+        }
+
+        /* Compact & High-Legibility Tables with No Text Squishing */
+        .app-table-card {
+            border-radius: 12px !important;
+            border: 1px solid #E2E8F0 !important;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.02) !important;
+            background: #FFFFFF !important;
+            overflow: hidden !important;
+        }
+        .app-table-header {
+            padding: 12px 18px !important;
+            border-bottom: 1px solid #E2E8F0 !important;
+            background: #FFFFFF !important;
+        }
+        .app-table {
+            width: 100% !important;
+            margin-bottom: 0 !important;
+            font-size: 12.5px !important;
+        }
+        .app-table th {
+            background: #F8FAFC !important;
+            color: #475569 !important;
+            font-weight: 700 !important;
+            font-size: 10.5px !important;
+            text-transform: uppercase !important;
+            letter-spacing: 0.6px !important;
+            padding: 10px 14px !important;
+            border-bottom: 1px solid #E2E8F0 !important;
+            white-space: nowrap !important;
+            vertical-align: middle !important;
+        }
+        .app-table td {
+            padding: 11px 14px !important;
+            border-bottom: 1px solid #F1F5F9 !important;
+            vertical-align: middle !important;
+            color: #1E293B !important;
+        }
+
+        /* Expandable Row Styling */
+        .tr-parent {
+            cursor: pointer;
+            transition: background-color 0.15s ease;
+        }
+        .tr-parent:hover {
+            background-color: #F8FAFC !important;
+        }
+        .tr-parent.is-expanded {
+            background-color: #F0FDFA !important;
+            border-bottom-color: transparent !important;
+        }
+        .expand-chevron {
+            transition: transform 0.25s ease;
+            display: inline-block;
+        }
+        .is-expanded .expand-chevron {
+            transform: rotate(180deg);
+        }
+
+        .tr-expand-tray {
+            background: #F8FAFC;
+        }
+        .tr-expand-tray td {
+            padding: 0 !important;
+            border-bottom: 1px solid #E2E8F0 !important;
+        }
+        .expand-content-wrap {
+            padding: 14px 18px 18px;
+            background: linear-gradient(180deg, #F0FDFA 0%, #F8FAFC 100%);
+            border-left: 3.5px solid #0D9488;
+            animation: expandFadeIn 0.2s ease-out;
+        }
+        @keyframes expandFadeIn {
+            from { opacity: 0; transform: translateY(-4px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .interactive-title {
+            color: #0F172A;
+            font-weight: 700;
+            cursor: pointer;
+            transition: color 0.15s ease;
+        }
+        .interactive-title:hover {
+            color: #0D9488;
+        }
+
+        /* Action Icon Pills */
+        .icon-action-pill {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 28px;
+            height: 28px;
+            border-radius: 6px;
+            border: 1px solid #E2E8F0;
+            background: #FFFFFF;
+            color: #475569;
+            text-decoration: none;
+            transition: all 0.15s ease;
+            font-size: 11px;
+        }
+        .icon-action-pill:hover {
+            background: #0D9488;
+            color: #FFFFFF;
+            border-color: #0D9488;
+            transform: translateY(-1px);
+        }
+        .icon-action-pill.pill-phone:hover { background: #D97706; border-color: #D97706; }
+        .icon-action-pill.pill-wa:hover { background: #059669; border-color: #059669; }
+        .icon-action-pill.pill-mail:hover { background: #2563EB; border-color: #2563EB; }
+        .icon-action-pill.pill-danger:hover { background: #DC2626; border-color: #DC2626; }
+
+        .score-slider-box {
+            background: #FFFFFF;
+            border: 1px solid #E2E8F0;
+            border-radius: 10px;
+            padding: 12px 14px;
+        }
+
+        .nowrap-cell {
+            white-space: nowrap !important;
+        }
+    </style>
 </head>
 
 <body class="admin-unified-body">
@@ -66,40 +211,75 @@
                     <span class="app-nav-badge" id="navMgrPendingBadge">0</span>
                 </button>
 
+                <button class="app-nav-btn" id="mgrNavStartups" onclick="switchMgrView('tab-mgr-startups', this)">
+                    <span class="left-grp">
+                        <i class="fa-solid fa-building font-14"></i>
+                        <span>360° Incubatees</span>
+                    </span>
+                    <span class="badge bg-primary-subtle text-primary font-10 px-2 py-0.5 rounded-pill" id="navMgrStartupsCount">0</span>
+                </button>
+
                 <button class="app-nav-btn" id="mgrNavMilestones" onclick="switchMgrView('tab-mgr-milestones', this)">
                     <span class="left-grp">
                         <i class="fa-solid fa-rocket font-14"></i>
-                        <span>Portfolio Milestones</span>
+                        <span>Milestones &amp; Sprints</span>
                     </span>
                 </button>
 
                 <button class="app-nav-btn" id="mgrNavMentors" onclick="switchMgrView('tab-mgr-mentors', this)">
                     <span class="left-grp">
                         <i class="fa-solid fa-handshake-angle font-14"></i>
-                        <span>Mentorship Allocations</span>
+                        <span>Mentorship Hub</span>
                     </span>
                 </button>
 
                 <button class="app-nav-btn" id="mgrNavGrants" onclick="switchMgrView('tab-mgr-grants', this)">
                     <span class="left-grp">
                         <i class="fa-solid fa-coins font-14"></i>
-                        <span>Seed Capital &amp; Grants</span>
+                        <span>Seed Grants &amp; UCs</span>
                     </span>
                     <span class="badge bg-success-subtle text-success font-10 px-2 py-0.5 rounded-pill">₹10L Cap</span>
                 </button>
 
-                <span class="app-nav-header mt-3">Operations</span>
-
-                <button class="app-nav-btn" onclick="openBroadcastModal()">
+                <button class="app-nav-btn" id="mgrNavCirculars" onclick="switchMgrView('tab-mgr-circulars', this)">
                     <span class="left-grp">
                         <i class="fa-solid fa-bullhorn font-14"></i>
+                        <span>Circulars &amp; Notices</span>
+                    </span>
+                </button>
+
+                <button class="app-nav-btn" id="mgrNavReports" onclick="switchMgrView('tab-mgr-reports', this)">
+                    <span class="left-grp">
+                        <i class="fa-solid fa-file-invoice-dollar font-14"></i>
+                        <span>Govt MIS Reports</span>
+                    </span>
+                </button>
+
+                <span class="app-nav-header mt-3">Quick Actions</span>
+
+                <button class="app-nav-btn text-success" onclick="openAddStartupModal()">
+                    <span class="left-grp">
+                        <i class="fa-solid fa-plus-circle font-14 text-success"></i>
+                        <span>Add Incubatee</span>
+                    </span>
+                </button>
+
+                <button class="app-nav-btn text-primary" onclick="openPairMentorModal()">
+                    <span class="left-grp">
+                        <i class="fa-solid fa-user-plus font-14 text-primary"></i>
+                        <span>Pair Mentor</span>
+                    </span>
+                </button>
+
+                <button class="app-nav-btn text-info" onclick="openBroadcastModal()">
+                    <span class="left-grp">
+                        <i class="fa-solid fa-paper-plane font-14 text-info"></i>
                         <span>Post Circular</span>
                     </span>
                 </button>
             </div>
         </div>
 
-        <!-- Logged In User Strip with Profile Edit -->
         <!-- Logged In User Strip (Minimal Clean Workspace Identity) -->
         <div class="app-user-profile">
             <div class="d-flex align-items-center gap-2 overflow-hidden">
@@ -122,7 +302,7 @@
     <!-- 2. Main Workspace Viewport -->
     <div class="app-main-wrap">
         
-        <!-- Topbar Header (Native Mobile App Bar on Mobile) -->
+        <!-- Topbar Header -->
         <header class="app-topbar">
             <!-- Mobile Left: Hamburger Drawer Toggle -->
             <button class="btn btn-light d-lg-none p-0 rounded-circle border shadow-sm d-flex align-items-center justify-content-center" style="width: 38px; height: 38px; min-width: 38px;" onclick="toggleMobileSidebar()" title="Open Menu">
@@ -139,12 +319,17 @@
             <!-- Desktop Left: Omnisearch -->
             <div class="app-top-search d-none d-lg-block">
                 <i class="fa-solid fa-magnifying-glass"></i>
-                <input type="text" id="mgrSearchInp" placeholder="Search applications, founders, pitch decks..." oninput="handleMgrSearch(this.value)">
+                <input type="text" id="mgrSearchInp" placeholder="Search applications, ventures, founders, mentors..." oninput="handleMgrSearch(this.value)">
             </div>
 
             <!-- Right Controls: Manager Info & Mobile Profile -->
             <div class="d-flex align-items-center gap-2 gap-sm-3">
-                <!-- Executive Profile Dropdown (Desktop & Mobile) -->
+                <button class="btn btn-sm btn-outline-primary d-none d-sm-inline-flex align-items-center gap-1.5 font-12 fw-semibold" onclick="openBroadcastModal()">
+                    <i class="fa-solid fa-bullhorn"></i>
+                    <span>Broadcast Notice</span>
+                </button>
+
+                <!-- Executive Profile Dropdown -->
                 <div class="dropdown">
                     <button class="btn p-1 d-flex align-items-center gap-2 rounded-pill border bg-white shadow-xs" type="button" id="userProfileDropdownBtn" data-bs-toggle="dropdown" aria-expanded="false" style="transition: all 0.2s ease;">
                         <div class="position-relative">
@@ -159,7 +344,7 @@
                         </div>
                         <i class="fa-solid fa-chevron-down font-10 text-muted me-1 d-none d-md-inline-block"></i>
                     </button>
-                    <div class="dropdown-menu dropdown-menu-end shadow-lg border-0 p-2 mt-2" style="width: 260px; border-radius: 12px; z-index: 1060; box-shadow: 0 12px 32px rgba(15,23,42,0.14) !important;">
+                    <div class="dropdown-menu dropdown-menu-end shadow-lg border-0 p-2 mt-2" style="width: 260px; border-radius: 12px; z-index: 1060;">
                         <div class="px-3 py-2 bg-light rounded-3 mb-2">
                             <div class="fw-bold font-13 text-dark text-truncate" id="dropdownUserName">Manager</div>
                             <div class="font-11 text-muted text-truncate" id="dropdownUserEmail">incubation@cimpbiif.com</div>
@@ -183,7 +368,7 @@
             </div>
         </header>
 
-        <!-- Mobile Inline Search Bar (visible only on mobile) -->
+        <!-- Mobile Inline Search Bar -->
         <div class="d-lg-none px-3 pt-2 pb-2 bg-white border-bottom shadow-xs">
             <div class="position-relative w-100">
                 <i class="fa-solid fa-magnifying-glass position-absolute text-muted" style="left: 12px; top: 50%; transform: translateY(-50%); font-size: 13px;"></i>
@@ -194,64 +379,79 @@
         <!-- Viewport Container -->
         <main class="app-viewport-container">
 
+            <!-- ==================================================== -->
             <!-- VIEW 1: INTAKE OVERVIEW -->
+            <!-- ==================================================== -->
             <div class="app-tab-pane active" id="tab-mgr-overview">
-                <div class="mb-4">
-                    <h3 class="fw-bold font-20 mb-1" style="font-family: 'Outfit', sans-serif;">Incubation Operations Overview</h3>
-                    <p class="text-muted font-13 mb-0">Operational KPIs, intake pipeline progression, and portfolio compliance metrics.</p>
+                <div class="d-flex align-items-center justify-content-between mb-3 flex-wrap gap-2">
+                    <div>
+                        <h3 class="page-header-title">Incubation Operations Overview</h3>
+                        <p class="page-header-sub">Operational KPIs, intake pipeline progression, and portfolio compliance metrics.</p>
+                    </div>
+                    <div class="d-flex align-items-center gap-2">
+                        <button class="btn btn-sm btn-primary font-12 fw-semibold" onclick="openAddStartupModal()">
+                            <i class="fa-solid fa-plus me-1"></i> Add Incubatee
+                        </button>
+                        <button class="btn btn-sm btn-outline-secondary font-12 fw-semibold" onclick="refreshMgrData()">
+                            <i class="fa-solid fa-rotate me-1"></i> Refresh
+                        </button>
+                    </div>
                 </div>
 
-                <!-- 6 Clean Stats (2x3 on Mobile) -->
+                <!-- 6 Clean Live Stats -->
                 <div class="row g-2 g-md-3 mb-3 mb-md-4">
                     <div class="col-6 col-md-4 col-lg-2">
                         <div class="app-kpi-card p-2.5 p-md-3">
                             <span class="app-kpi-lbl">Total Intake</span>
                             <div class="app-kpi-val" id="ovMgrTotal">128</div>
-                            <div class="app-kpi-sub"><i class="fa-solid fa-inbox text-primary"></i> FY 2026</div>
+                            <div class="app-kpi-sub text-primary"><i class="fa-solid fa-inbox me-1"></i> Applications</div>
                         </div>
                     </div>
                     <div class="col-6 col-md-4 col-lg-2">
                         <div class="app-kpi-card p-2.5 p-md-3">
                             <span class="app-kpi-lbl">Scrutiny Queue</span>
-                            <div class="app-kpi-val text-warning" id="ovMgrPending">3</div>
-                            <div class="app-kpi-sub"><i class="fa-solid fa-clock"></i> Awaiting Score</div>
+                            <div class="app-kpi-val text-warning" id="ovMgrPending">0</div>
+                            <div class="app-kpi-sub text-warning"><i class="fa-solid fa-clock me-1"></i> Awaiting Score</div>
                         </div>
                     </div>
                     <div class="col-6 col-md-4 col-lg-2">
                         <div class="app-kpi-card p-2.5 p-md-3">
                             <span class="app-kpi-lbl">Active Incubatees</span>
-                            <div class="app-kpi-val" id="ovMgrActive">30</div>
-                            <div class="app-kpi-sub" style="color:#059669;"><i class="fa-solid fa-seedling"></i> In Hub</div>
+                            <div class="app-kpi-val text-success" id="ovMgrActive">0</div>
+                            <div class="app-kpi-sub text-success"><i class="fa-solid fa-seedling me-1"></i> In Hub</div>
                         </div>
                     </div>
                     <div class="col-6 col-md-4 col-lg-2">
                         <div class="app-kpi-card p-2.5 p-md-3">
-                            <span class="app-kpi-lbl">Avg Evaluation</span>
-                            <div class="app-kpi-val">89.4</div>
-                            <div class="app-kpi-sub text-primary"><i class="fa-solid fa-award"></i> Quality Index</div>
+                            <span class="app-kpi-lbl">Empaneled Mentors</span>
+                            <div class="app-kpi-val" id="ovMgrMentors">0</div>
+                            <div class="app-kpi-sub text-info"><i class="fa-solid fa-user-tie me-1"></i> Advisors</div>
                         </div>
                     </div>
                     <div class="col-6 col-md-4 col-lg-2">
                         <div class="app-kpi-card p-2.5 p-md-3">
                             <span class="app-kpi-lbl">Mentoring Hours</span>
-                            <div class="app-kpi-val">420 Hrs</div>
-                            <div class="app-kpi-sub text-dark"><i class="fa-solid fa-calendar-check"></i> Delivered</div>
+                            <div class="app-kpi-val" id="ovMgrHours">420 Hrs</div>
+                            <div class="app-kpi-sub text-dark"><i class="fa-solid fa-calendar-check me-1"></i> Delivered</div>
                         </div>
                     </div>
                     <div class="col-6 col-md-4 col-lg-2">
                         <div class="app-kpi-card p-2.5 p-md-3">
                             <span class="app-kpi-lbl">Seed Grants</span>
-                            <div class="app-kpi-val">₹ 3.8 Cr</div>
-                            <div class="app-kpi-sub text-success"><i class="fa-solid fa-check"></i> Disbursed</div>
+                            <div class="app-kpi-val text-primary" id="ovMgrGrants">₹ 3.8 Cr</div>
+                            <div class="app-kpi-sub text-success"><i class="fa-solid fa-check-double me-1"></i> Disbursed</div>
                         </div>
                     </div>
                 </div>
 
-                <!-- Recent Filings Table -->
-                <div class="app-table-card">
-                    <div class="app-table-header">
-                        <h5>Recent Intake Applications</h5>
-                        <button class="btn btn-sm btn-outline-secondary font-12" onclick="switchMgrView('tab-mgr-queue', document.querySelectorAll('.app-nav-btn')[1])">
+                <!-- Recent Filings Table with Expandable Row Trays -->
+                <div class="app-table-card mb-4">
+                    <div class="app-table-header d-flex align-items-center justify-content-between">
+                        <div>
+                            <h5 class="mb-0 font-14 fw-bold text-dark"><i class="fa-solid fa-file-signature text-primary me-2"></i> Recent Incubation Intake Applications</h5>
+                            <span class="font-11 text-muted">Tap on any application row to expand details, founder contacts &amp; evaluation scorecard</span>
+                        </div>
+                        <button class="btn btn-sm btn-outline-primary font-12" onclick="switchMgrView('tab-mgr-queue', document.getElementById('mgrNavQueue'))">
                             Open Scrutiny Queue <i class="fa-solid fa-arrow-right font-11 ms-1"></i>
                         </button>
                     </div>
@@ -259,129 +459,246 @@
                         <table class="app-table">
                             <thead>
                                 <tr>
-                                    <th>Ref ID</th>
-                                    <th>Startup Enterprise</th>
-                                    <th>Founder &amp; Location</th>
-                                    <th>Sector</th>
-                                    <th>Stage</th>
-                                    <th>Funding Req.</th>
-                                    <th>Status</th>
+                                    <th style="width: 14%;">App ID</th>
+                                    <th style="width: 25%;">Startup Enterprise</th>
+                                    <th style="width: 20%;">Founder &amp; Location</th>
+                                    <th style="width: 17%;">Incubation Track</th>
+                                    <th style="width: 14%;">Status</th>
+                                    <th style="width: 10%;" class="text-end">Drilldown</th>
                                 </tr>
                             </thead>
                             <tbody id="tblMgrRecentIntakeBody">
-                                <!-- Populated dynamically -->
+                                <!-- Populated dynamically with expandable trays -->
                             </tbody>
                         </table>
                     </div>
                 </div>
             </div>
 
-            <!-- VIEW 2: SCRUTINY QUEUE -->
+            <!-- ==================================================== -->
+            <!-- VIEW 2: SCRUTINY QUEUE & LEVEL-1 EVALUATION -->
+            <!-- ==================================================== -->
             <div class="app-tab-pane" id="tab-mgr-queue">
-                <div class="d-flex align-items-center justify-content-between mb-4 flex-wrap gap-2">
+                <div class="d-flex align-items-center justify-content-between mb-3 flex-wrap gap-2">
                     <div>
-                        <h3 class="fw-bold font-20 mb-1" style="font-family: 'Outfit', sans-serif;">Level-1 Scrutiny &amp; Scoring Matrix</h3>
-                        <p class="text-muted font-13 mb-0">Evaluate innovation novelty, market readiness, and escalate recommended ventures to Director.</p>
+                        <h3 class="page-header-title">Level-1 Incubation Scrutiny &amp; Scoring Matrix</h3>
+                        <p class="page-header-sub">Evaluate applicant innovation, prototyping readiness, team commitment, and escalate qualified ventures to Executive Director.</p>
+                    </div>
+                    <div class="d-flex align-items-center gap-2">
+                        <span class="badge bg-warning-subtle text-warning-emphasis font-12 px-3 py-1.5 rounded-pill" id="badgeQueueCount">0 Pending</span>
                     </div>
                 </div>
 
                 <div class="app-table-card">
+                    <div class="app-table-header">
+                        <span class="font-12 text-muted"><i class="fa-solid fa-hand-pointer text-primary me-1"></i> <strong>Tap on any row</strong> to expand the full 4-pillar evaluation matrix, problem statement, pitch deck, and founder WhatsApp/call actions.</span>
+                    </div>
                     <div class="table-responsive">
                         <table class="app-table">
                             <thead>
                                 <tr>
-                                    <th>App ID</th>
-                                    <th>Startup Enterprise</th>
-                                    <th>Founder &amp; Contact</th>
-                                    <th>Sector</th>
-                                    <th>Stage</th>
-                                    <th>Funding Req.</th>
-                                    <th>Manager Score</th>
-                                    <th>Action</th>
+                                    <th style="width: 14%;">App ID</th>
+                                    <th style="width: 25%;">Applicant Enterprise</th>
+                                    <th style="width: 20%;">Founder &amp; Location</th>
+                                    <th style="width: 17%;">Incubation Track</th>
+                                    <th style="width: 12%;">Manager Score</th>
+                                    <th style="width: 12%;" class="text-end">Action</th>
                                 </tr>
                             </thead>
                             <tbody id="tblMgrScrutinyBody">
-                                <!-- Loaded dynamically -->
+                                <!-- Loaded dynamically with expandable trays -->
                             </tbody>
                         </table>
                     </div>
                 </div>
             </div>
 
-            <!-- VIEW 3: PORTFOLIO MILESTONES -->
-            <div class="app-tab-pane" id="tab-mgr-milestones">
-                <div class="d-flex align-items-center justify-content-between mb-4 flex-wrap gap-2">
+            <!-- ==================================================== -->
+            <!-- VIEW 3: 360° INCUBATEE PORTFOLIO DIRECTORY -->
+            <!-- ==================================================== -->
+            <div class="app-tab-pane" id="tab-mgr-startups">
+                <div class="d-flex align-items-center justify-content-between mb-3 flex-wrap gap-2">
                     <div>
-                        <h3 class="fw-bold font-20 mb-1" style="font-family: 'Outfit', sans-serif;">Portfolio Milestones &amp; Compliance</h3>
-                        <p class="text-muted font-13 mb-0">Track sprint deliverables, compliance audit scores, and revenue progression.</p>
+                        <h3 class="page-header-title">360° Incubatee Portfolio Directory</h3>
+                        <p class="page-header-sub">Master record of all incubated ventures, legal CIN/GST details, financials, assigned mentors, and founder dossiers.</p>
                     </div>
-                    <select class="app-filter-select" id="filterMgrCohort" onchange="renderMilestonesTable()">
+                    <div class="d-flex align-items-center gap-2 flex-wrap">
+                        <select class="form-select form-select-sm font-12 border" id="filterStartupSector" style="width: 130px; font-weight: 600;" onchange="renderStartupsMasterTable()">
+                            <option value="">All Sectors</option>
+                            <option value="AgriTech">AgriTech</option>
+                            <option value="CleanTech">CleanTech / EV</option>
+                            <option value="EduTech">EduTech</option>
+                            <option value="FinTech">FinTech</option>
+                            <option value="HealthTech">HealthTech</option>
+                            <option value="Technology">Technology</option>
+                            <option value="E-commerce">E-commerce</option>
+                        </select>
+                        <select class="form-select form-select-sm font-12 border" id="filterStartupCohort" style="width: 130px; font-weight: 600;" onchange="renderStartupsMasterTable()">
+                            <option value="">All Cohorts</option>
+                            <option value="Cohort 2026">Cohort 2026</option>
+                            <option value="Cohort 2023">Cohort 2023</option>
+                            <option value="Cohort 2022">Cohort 2022</option>
+                            <option value="Cohort 2021">Cohort 2021</option>
+                        </select>
+                        <button class="btn btn-sm btn-primary font-12 fw-semibold" onclick="openAddStartupModal()">
+                            <i class="fa-solid fa-plus me-1"></i> Add Incubatee
+                        </button>
+                    </div>
+                </div>
+
+                <div class="app-table-card">
+                    <div class="app-table-header">
+                        <span class="font-12 text-muted"><i class="fa-solid fa-hand-pointer text-primary me-1"></i> <strong>Tap on any venture row</strong> to expand legal entity CIN, Bihar Seed Grant tranches, co-working &amp; lab allocations.</span>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="app-table">
+                            <thead>
+                                <tr>
+                                    <th style="width: 26%;">Venture &amp; Legal Entity</th>
+                                    <th style="width: 20%;">Founder &amp; Location</th>
+                                    <th style="width: 16%;">Sector &amp; Cohort</th>
+                                    <th style="width: 14%;">Annual Turnover</th>
+                                    <th style="width: 14%;">Assigned Mentor</th>
+                                    <th style="width: 10%;" class="text-end">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tblMgrStartupsMasterBody">
+                                <!-- Loaded dynamically with expandable trays -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ==================================================== -->
+            <!-- VIEW 4: PORTFOLIO MILESTONES & COMPLIANCE -->
+            <!-- ==================================================== -->
+            <div class="app-tab-pane" id="tab-mgr-milestones">
+                <div class="d-flex align-items-center justify-content-between mb-3 flex-wrap gap-2">
+                    <div>
+                        <h3 class="page-header-title">Portfolio Milestones &amp; Sprints</h3>
+                        <p class="page-header-sub">Track sprint deliverables, compliance audit scores, and revenue progression across batches.</p>
+                    </div>
+                    <select class="form-select form-select-sm font-12 border" id="filterMgrCohort" style="width: 140px; font-weight: 600;" onchange="renderMilestonesTable()">
                         <option value="">All Cohorts</option>
                         <option value="Cohort 2026">Cohort 2026</option>
+                        <option value="Cohort 2023">Cohort 2023</option>
                         <option value="Cohort 2022">Cohort 2022</option>
                         <option value="Cohort 2021">Cohort 2021</option>
                     </select>
                 </div>
 
                 <div class="app-table-card">
+                    <div class="app-table-header">
+                        <span class="font-12 text-muted"><i class="fa-solid fa-hand-pointer text-primary me-1"></i> <strong>Tap on any row</strong> to view sprint checklist, deliverable progress, and compliance health.</span>
+                    </div>
                     <div class="table-responsive">
                         <table class="app-table">
                             <thead>
                                 <tr>
-                                    <th>Startup Enterprise</th>
-                                    <th>Cohort</th>
-                                    <th>Sector &amp; Stage</th>
-                                    <th>Current Milestone</th>
-                                    <th>Assigned Mentor</th>
-                                    <th>Compliance Score</th>
-                                    <th>Status</th>
+                                    <th style="width: 28%;">Startup Enterprise</th>
+                                    <th style="width: 16%;">Cohort &amp; Sector</th>
+                                    <th style="width: 24%;">Current Active Milestone Sprint</th>
+                                    <th style="width: 16%;">Assigned Mentor</th>
+                                    <th style="width: 16%;" class="text-end">Compliance &amp; Health</th>
                                 </tr>
                             </thead>
                             <tbody id="tblMgrMilestonesBody">
-                                <!-- Loaded dynamically -->
+                                <!-- Loaded dynamically with expandable sprint trays -->
                             </tbody>
                         </table>
                     </div>
                 </div>
             </div>
 
-            <!-- VIEW 4: MENTORSHIP ALLOCATIONS -->
+            <!-- ==================================================== -->
+            <!-- VIEW 5: MENTORSHIP HUB & ADVISORY SESSIONS -->
+            <!-- ==================================================== -->
             <div class="app-tab-pane" id="tab-mgr-mentors">
-                <div class="mb-4">
-                    <h3 class="fw-bold font-20 mb-1" style="font-family: 'Outfit', sans-serif;">Mentorship Allocations &amp; Advisory Hours</h3>
-                    <p class="text-muted font-13 mb-0">Empaneled domain mentors and startup advisory pairing.</p>
+                <div class="d-flex align-items-center justify-content-between mb-3 flex-wrap gap-2">
+                    <div>
+                        <h3 class="page-header-title">Mentorship Allocations &amp; Advisory Console</h3>
+                        <p class="page-header-sub">Empaneled domain mentors, startup pairing allocations, and delivered advisory session logs.</p>
+                    </div>
+                    <div class="d-flex align-items-center gap-2 flex-wrap">
+                        <button class="btn btn-sm btn-primary font-12 fw-semibold" onclick="openPairMentorModal()">
+                            <i class="fa-solid fa-handshake me-1"></i> Pair Startup with Mentor
+                        </button>
+                        <button class="btn btn-sm btn-outline-primary font-12 fw-semibold" onclick="openLogSessionModal()">
+                            <i class="fa-solid fa-calendar-plus me-1"></i> Log Advisory Session
+                        </button>
+                        <button class="btn btn-sm btn-outline-secondary font-12 fw-semibold" onclick="openAddMentorModal()">
+                            <i class="fa-solid fa-user-plus me-1"></i> Empanel Mentor
+                        </button>
+                    </div>
                 </div>
 
-                <div class="app-table-card">
+                <!-- Empaneled Mentors Table -->
+                <div class="app-table-card mb-4">
+                    <div class="app-table-header">
+                        <h5 class="mb-0 font-14 fw-bold text-dark"><i class="fa-solid fa-user-tie text-primary me-2"></i> Empaneled Mentors Directory (Tap row to inspect bio &amp; allotted ventures)</h5>
+                    </div>
                     <div class="table-responsive">
                         <table class="app-table">
                             <thead>
                                 <tr>
-                                    <th>Mentor Name</th>
-                                    <th>Affiliation</th>
-                                    <th>Domain Expertise</th>
-                                    <th>Allotted Ventures</th>
-                                    <th>Advisory Delivery</th>
-                                    <th>Action</th>
+                                    <th style="width: 24%;">Mentor Name</th>
+                                    <th style="width: 20%;">Affiliation / Organization</th>
+                                    <th style="width: 22%;">Domain Expertise</th>
+                                    <th style="width: 12%;">Total Hours</th>
+                                    <th style="width: 10%;">Rating</th>
+                                    <th style="width: 12%;" class="text-end">Action</th>
                                 </tr>
                             </thead>
                             <tbody id="tblMgrMentorsBody">
-                                <!-- Loaded dynamically -->
+                                <!-- Loaded dynamically with expandable trays -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Logged Advisory Sessions Table -->
+                <div class="app-table-card">
+                    <div class="app-table-header d-flex align-items-center justify-content-between">
+                        <div>
+                            <h5 class="mb-0 font-14 fw-bold text-dark"><i class="fa-solid fa-clock-rotate-left text-success me-2"></i> Delivered Advisory Sessions Log</h5>
+                            <span class="font-11 text-muted">Tap on any session row to expand detailed advisory guidance &amp; action items</span>
+                        </div>
+                        <button class="btn btn-sm btn-outline-primary font-11" onclick="openLogSessionModal()">
+                            <i class="fa-solid fa-plus me-1"></i> Log New Session
+                        </button>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="app-table">
+                            <thead>
+                                <tr>
+                                    <th style="width: 12%;">Session ID</th>
+                                    <th style="width: 22%;">Mentee Venture</th>
+                                    <th style="width: 20%;">Mentor</th>
+                                    <th style="width: 16%;">Date &amp; Duration</th>
+                                    <th style="width: 20%;">Discussion Topic</th>
+                                    <th style="width: 10%;" class="text-end">Feedback</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tblMgrSessionsBody">
+                                <!-- Loaded dynamically with expandable trays -->
                             </tbody>
                         </table>
                     </div>
                 </div>
             </div>
 
-            <!-- VIEW 5: BIHAR SEED CAPITAL & GRANT TRANCHES -->
+            <!-- ==================================================== -->
+            <!-- VIEW 6: BIHAR SEED CAPITAL & GRANT TRANCHES -->
+            <!-- ==================================================== -->
             <div class="app-tab-pane" id="tab-mgr-grants">
-                <div class="d-flex align-items-start justify-content-between flex-wrap gap-3 mb-4">
+                <div class="d-flex align-items-start justify-content-between flex-wrap gap-3 mb-3">
                     <div>
                         <div class="d-flex align-items-center gap-2">
-                            <h3 class="fw-bold font-20 mb-0" style="font-family: 'Outfit', sans-serif;">Bihar Startup Policy 2022 — Seed Capital &amp; Grants Tracker</h3>
+                            <h3 class="page-header-title">Bihar Startup Policy 2022 — Seed Grants &amp; UCs</h3>
                             <span class="badge bg-success-subtle text-success font-11 px-2.5 py-1 rounded-pill">₹10 Lakhs Interest-Free</span>
                         </div>
-                        <p class="text-muted font-13 mb-0 mt-1">Milestone-linked tranche disbursement tracker, Utilization Certificate (UC) records, and grant verification.</p>
+                        <p class="page-header-sub">Milestone-linked tranche disbursement tracker, Utilization Certificate (UC) records, and grant audit verification.</p>
                     </div>
                     <div>
                         <button class="btn btn-sm btn-outline-primary font-12 fw-semibold shadow-xs" onclick="renderMgrGrants()">
@@ -391,32 +708,32 @@
                 </div>
 
                 <!-- Grant Stats Ribbon -->
-                <div class="row g-3 mb-4">
+                <div class="row g-2 g-md-3 mb-3 mb-md-4">
                     <div class="col-6 col-md-3">
                         <div class="p-3 bg-white border rounded-3 shadow-xs">
                             <span class="font-11 text-muted text-uppercase fw-bold">Total Sanctioned</span>
-                            <h3 class="fw-bold font-22 mb-0 text-dark mt-1">₹ 30.0 L</h3>
+                            <h3 class="fw-bold font-20 mb-0 text-dark mt-1">₹ 30.0 L</h3>
                             <span class="font-10 text-muted">Across 3 Seed Incubatees</span>
                         </div>
                     </div>
                     <div class="col-6 col-md-3">
                         <div class="p-3 bg-white border rounded-3 shadow-xs">
                             <span class="font-11 text-muted text-uppercase fw-bold">Released Tranches</span>
-                            <h3 class="fw-bold font-22 mb-0 text-success mt-1" id="mgrGrantsDisbursedTotal">₹ 20.0 L</h3>
+                            <h3 class="fw-bold font-20 mb-0 text-success mt-1" id="mgrGrantsDisbursedTotal">₹ 20.0 L</h3>
                             <span class="font-10 text-success"><i class="fa-solid fa-check-double me-1"></i> UCs Verified</span>
                         </div>
                     </div>
                     <div class="col-6 col-md-3">
                         <div class="p-3 bg-white border rounded-3 shadow-xs">
                             <span class="font-11 text-muted text-uppercase fw-bold">Under Scrutiny</span>
-                            <h3 class="fw-bold font-22 mb-0 text-warning mt-1" id="mgrGrantsScrutinyTotal">₹ 5.0 L</h3>
+                            <h3 class="fw-bold font-20 mb-0 text-warning mt-1" id="mgrGrantsScrutinyTotal">₹ 5.0 L</h3>
                             <span class="font-10 text-muted">Awaiting milestone audit</span>
                         </div>
                     </div>
                     <div class="col-6 col-md-3">
                         <div class="p-3 bg-white border rounded-3 shadow-xs">
                             <span class="font-11 text-muted text-uppercase fw-bold">Tenure Terms</span>
-                            <h3 class="fw-bold font-22 mb-0 text-primary mt-1">10 Yrs</h3>
+                            <h3 class="fw-bold font-20 mb-0 text-primary mt-1">10 Yrs</h3>
                             <span class="font-10 text-primary">0% Interest Soft Loan</span>
                         </div>
                     </div>
@@ -424,20 +741,130 @@
 
                 <!-- Disbursements Table -->
                 <div class="app-table-card">
+                    <div class="app-table-header">
+                        <span class="font-12 text-muted"><i class="fa-solid fa-hand-pointer text-primary me-1"></i> <strong>Tap on any grant row</strong> to expand the full 3-tranche audit breakdown, milestone criteria, and UC status.</span>
+                    </div>
                     <div class="table-responsive">
                         <table class="app-table align-middle">
                             <thead>
                                 <tr>
-                                    <th>Venture &amp; Founder</th>
-                                    <th>Policy Scheme</th>
-                                    <th>Tranche 1 (₹2.5L)</th>
-                                    <th>Tranche 2 (₹5.0L)</th>
-                                    <th>Tranche 3 (₹2.5L)</th>
-                                    <th class="text-end pe-3">Action</th>
+                                    <th style="width: 24%;">Venture &amp; Founder</th>
+                                    <th style="width: 18%;">Policy Scheme</th>
+                                    <th style="width: 16%;">Tranche 1 (₹2.5L)</th>
+                                    <th style="width: 16%;">Tranche 2 (₹5.0L)</th>
+                                    <th style="width: 16%;">Tranche 3 (₹2.5L)</th>
+                                    <th style="width: 10%;" class="text-end pe-3">Action</th>
                                 </tr>
                             </thead>
                             <tbody id="tblMgrGrantsBody">
-                                <!-- Loaded dynamically -->
+                                <!-- Loaded dynamically with expandable trays -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ==================================================== -->
+            <!-- VIEW 7: CIRCULARS & NOTICES BROADCAST -->
+            <!-- ==================================================== -->
+            <div class="app-tab-pane" id="tab-mgr-circulars">
+                <div class="d-flex align-items-center justify-content-between mb-3 flex-wrap gap-2">
+                    <div>
+                        <h3 class="page-header-title">Circulars &amp; Ecosystem Broadcasts</h3>
+                        <p class="page-header-sub">Publish official notices, grant opportunities, workshop schedules, and compliance deadlines to startup and mentor portals.</p>
+                    </div>
+                    <button class="btn btn-sm btn-primary font-12 fw-semibold" onclick="openBroadcastModal()">
+                        <i class="fa-solid fa-plus me-1"></i> Post New Circular
+                    </button>
+                </div>
+
+                <div class="app-table-card">
+                    <div class="app-table-header">
+                        <span class="font-12 text-muted"><i class="fa-solid fa-hand-pointer text-primary me-1"></i> <strong>Tap on any circular row</strong> to expand the complete announcement text and portal visibility logs.</span>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="app-table">
+                            <thead>
+                                <tr>
+                                    <th style="width: 12%;">Notice ID</th>
+                                    <th style="width: 44%;">Title &amp; Announcement Content</th>
+                                    <th style="width: 18%;">Category &amp; Badge</th>
+                                    <th style="width: 14%;">Target Audience</th>
+                                    <th style="width: 12%;" class="text-end pe-3">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tblMgrCircularsBody">
+                                <!-- Loaded dynamically with expandable trays -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ==================================================== -->
+            <!-- VIEW 8: GOVT MIS & EXPORT REPORTS -->
+            <!-- ==================================================== -->
+            <div class="app-tab-pane" id="tab-mgr-reports">
+                <div class="d-flex align-items-center justify-content-between mb-3 flex-wrap gap-2">
+                    <div>
+                        <h3 class="page-header-title">Govt MIS &amp; Institutional Performance Reports</h3>
+                        <p class="page-header-sub">Export standardized MIS summaries for Bihar Startup Council, Dept. of Industries, MSME, and NITI Aayog.</p>
+                    </div>
+                    <div class="d-flex align-items-center gap-2">
+                        <button class="btn btn-sm btn-success font-12 fw-semibold" onclick="exportPortfolioCSV()">
+                            <i class="fa-solid fa-file-csv me-1"></i> Export MIS (CSV)
+                        </button>
+                        <button class="btn btn-sm btn-outline-dark font-12 fw-semibold" onclick="window.print()">
+                            <i class="fa-solid fa-print me-1"></i> Print Report
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Executive Summary Cards -->
+                <div class="row g-2 g-md-3 mb-3 mb-md-4">
+                    <div class="col-md-4">
+                        <div class="p-3 bg-white border rounded-3">
+                            <span class="font-11 text-muted text-uppercase fw-bold">Incubation Success Rate</span>
+                            <h3 class="fw-bold font-20 mb-0 text-success mt-1" id="misSuccessRate">92.4%</h3>
+                            <span class="font-11 text-muted">Active ventures with positive traction</span>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="p-3 bg-white border rounded-3">
+                            <span class="font-11 text-muted text-uppercase fw-bold">Direct Jobs Created in Bihar</span>
+                            <h3 class="fw-bold font-20 mb-0 text-primary mt-1" id="misTotalJobs">397+</h3>
+                            <span class="font-11 text-muted">Youth employment facilitated</span>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="p-3 bg-white border rounded-3">
+                            <span class="font-11 text-muted text-uppercase fw-bold">Cumulative Portfolio Revenue</span>
+                            <h3 class="fw-bold font-20 mb-0 text-dark mt-1" id="misTotalRev">₹ 21.49 Cr</h3>
+                            <span class="font-11 text-muted">Generated across all cohorts</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Portfolio MIS Breakdown Table -->
+                <div class="app-table-card">
+                    <div class="app-table-header">
+                        <h5 class="mb-0 font-14 fw-bold text-dark"><i class="fa-solid fa-table-list text-primary me-2"></i> Incubated Ventures MIS Data (Tap row for full DPIIT &amp; registration breakdown)</h5>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="app-table">
+                            <thead>
+                                <tr>
+                                    <th style="width: 22%;">Venture Name</th>
+                                    <th style="width: 18%;">Founder &amp; Location</th>
+                                    <th style="width: 14%;">Legal Entity</th>
+                                    <th style="width: 12%;">Sector</th>
+                                    <th style="width: 8%;">Jobs</th>
+                                    <th style="width: 13%;">Revenue</th>
+                                    <th style="width: 13%;">Seed Grants</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tblMgrMISBody">
+                                <!-- Populated dynamically with expandable trays -->
                             </tbody>
                         </table>
                     </div>
@@ -454,12 +881,16 @@
             </button>
             <button class="mobile-nav-btn position-relative" id="mMgrNavQueue" onclick="switchMgrMobileTab('tab-mgr-queue', this)">
                 <i class="fa-solid fa-clipboard-check"></i>
-                <span class="position-absolute top-0 start-50 translate-middle badge rounded-pill bg-warning text-dark" id="bottomMgrPendingBadge" style="font-size: 9px; padding: 2px 5px; margin-left: 12px; margin-top: 6px;">3</span>
+                <span class="position-absolute top-0 start-50 translate-middle badge rounded-pill bg-warning text-dark" id="bottomMgrPendingBadge" style="font-size: 9px; padding: 2px 5px; margin-left: 12px; margin-top: 6px;">0</span>
                 <span>Scrutiny</span>
             </button>
-            <button class="mobile-nav-btn" id="mMgrNavMilestones" onclick="switchMgrMobileTab('tab-mgr-milestones', this)">
-                <i class="fa-solid fa-rocket"></i>
-                <span>Milestones</span>
+            <button class="mobile-nav-btn" id="mMgrNavStartups" onclick="switchMgrMobileTab('tab-mgr-startups', this)">
+                <i class="fa-solid fa-building"></i>
+                <span>Startups</span>
+            </button>
+            <button class="mobile-nav-btn" id="mMgrNavGrants" onclick="switchMgrMobileTab('tab-mgr-grants', this)">
+                <i class="fa-solid fa-coins"></i>
+                <span>Grants</span>
             </button>
             <button class="mobile-nav-btn" onclick="toggleMobileSidebar()">
                 <i class="fa-solid fa-bars"></i>
@@ -468,53 +899,316 @@
         </nav>
     </div>
 
-    <!-- Manager Scoring & Escalation Modal -->
-    <div class="modal fade" id="mgrScoreModal" tabindex="-1" style="background: rgba(10,25,47,0.7); backdrop-filter:blur(4px);">
-        <div class="modal-dialog modal-dialog-centered" style="max-width: 620px;">
+    <!-- ==================================================== -->
+    <!-- MODAL: ADD NEW INCUBATEE -->
+    <!-- ==================================================== -->
+    <div class="modal fade" id="modalAddStartup" tabindex="-1" style="background: rgba(10,25,47,0.7); backdrop-filter:blur(4px);">
+        <div class="modal-dialog modal-dialog-centered" style="max-width: 680px;">
             <div class="modal-content border-0 shadow-lg rounded-4 overflow-hidden">
-                <div class="modal-header bg-primary text-white p-4" style="background:#1E40AF !important;">
-                    <h5 class="modal-title font-16 fw-bold mb-0"><i class="fa-solid fa-clipboard-check me-2"></i> Scrutiny &amp; Director Escalation</h5>
+                <div class="modal-header bg-dark text-white p-4 border-0">
+                    <h5 class="modal-title font-16 fw-bold mb-0 text-white"><i class="fa-solid fa-plus-circle text-primary me-2"></i> Onboard New Incubatee</h5>
                     <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
                 </div>
-                <div class="modal-body p-4 bg-white">
-                    <input type="hidden" id="modalScoreAppId">
-                    <div class="mb-3">
-                        <label class="form-label font-11 text-uppercase fw-bold text-muted mb-1">Venture Name</label>
-                        <h5 class="fw-bold text-dark mb-0 font-16" id="modalScoreStartupName">Startup Name</h5>
-                        <p class="font-12 text-muted mb-0" id="modalScoreFounder">Founder Name</p>
-                    </div>
-
-                    <div class="p-3 bg-light rounded-3 border mb-3 font-13 text-secondary" id="modalScoreDesc">
-                        Product Description
-                    </div>
-
-                    <!-- Dynamic Form Question Responses Section -->
-                    <div id="modalScoreDynamicFields" class="mb-3"></div>
-
-                    <div class="mb-3">
-                        <div class="d-flex justify-content-between align-items-center mb-1">
-                            <label class="form-label font-11 text-uppercase fw-bold text-muted mb-0">Evaluation Score (0–100)</label>
-                            <span class="fw-bold text-primary font-14" id="scoreValueDisp">88/100</span>
+                <div class="modal-body p-4 bg-light">
+                    <form id="formAddStartup" onsubmit="saveNewStartup(event)">
+                        <div class="row g-3 mb-3">
+                            <div class="col-md-6">
+                                <label class="form-label font-11 text-uppercase fw-bold text-muted">Startup Name *</label>
+                                <input type="text" class="form-control font-13 bg-white" id="addStName" required placeholder="e.g. AgriDrone Solutions">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label font-11 text-uppercase fw-bold text-muted">Legal Registered Name</label>
+                                <input type="text" class="form-control font-13 bg-white" id="addStLegal" placeholder="e.g. AgriDrone Solutions Pvt Ltd">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label font-11 text-uppercase fw-bold text-muted">Founder Full Name *</label>
+                                <input type="text" class="form-control font-13 bg-white" id="addStFounder" required placeholder="e.g. Ananya Jha">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label font-11 text-uppercase fw-bold text-muted">Founder Email *</label>
+                                <input type="email" class="form-control font-13 bg-white" id="addStEmail" required placeholder="founder@startup.com">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label font-11 text-uppercase fw-bold text-muted">Phone / WhatsApp</label>
+                                <input type="tel" class="form-control font-13 bg-white" id="addStPhone" placeholder="+91 98765 43210">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label font-11 text-uppercase fw-bold text-muted">Location / District</label>
+                                <input type="text" class="form-control font-13 bg-white" id="addStLoc" placeholder="Patna, Bihar">
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label font-11 text-uppercase fw-bold text-muted">Sector</label>
+                                <select class="form-select font-13 bg-white" id="addStSector">
+                                    <option value="AgriTech">AgriTech</option>
+                                    <option value="CleanTech">CleanTech / EV</option>
+                                    <option value="EduTech">EduTech</option>
+                                    <option value="FinTech">FinTech</option>
+                                    <option value="HealthTech">HealthTech</option>
+                                    <option value="Technology">Technology / SaaS</option>
+                                    <option value="E-commerce">E-commerce</option>
+                                    <option value="Other">Other</option>
+                                </select>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label font-11 text-uppercase fw-bold text-muted">Stage</label>
+                                <select class="form-select font-13 bg-white" id="addStStage">
+                                    <option value="Idea Stage">Idea Stage</option>
+                                    <option value="Proof of Concept">Proof of Concept / MVP</option>
+                                    <option value="Revenue Stage">Revenue Stage</option>
+                                    <option value="Scaling">Scaling</option>
+                                </select>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label font-11 text-uppercase fw-bold text-muted">Cohort</label>
+                                <select class="form-select font-13 bg-white" id="addStCohort">
+                                    <option value="Cohort 2026">Cohort 2026</option>
+                                    <option value="Cohort 2023">Cohort 2023</option>
+                                    <option value="Cohort 2022">Cohort 2022</option>
+                                    <option value="Cohort 2021">Cohort 2021</option>
+                                </select>
+                            </div>
+                            <div class="col-12">
+                                <label class="form-label font-11 text-uppercase fw-bold text-muted">Problem Statement &amp; Solution</label>
+                                <textarea class="form-control font-13 bg-white" id="addStDesc" rows="2" placeholder="Brief summary of product/solution..."></textarea>
+                            </div>
                         </div>
-                        <input type="range" class="form-range" min="50" max="100" value="88" id="modalScoreRange" oninput="document.getElementById('scoreValueDisp').innerText = this.value + '/100'">
-                    </div>
 
-                    <div class="mb-3">
-                        <label class="form-label font-11 text-uppercase fw-bold text-muted mb-1">Manager Recommendations / Scrutiny Remarks</label>
-                        <textarea class="form-control font-13" id="modalScoreNotes" rows="3" placeholder="Technical and KYC feasibility verified. Recommended for Director final approval.">Technical KYC and pitch viability verified. Recommended for Level-2 incubation grant.</textarea>
-                    </div>
-                </div>
-                <div class="modal-footer bg-light p-3 border-top d-flex justify-content-between">
-                    <button type="button" class="btn btn-sm btn-outline-secondary font-12" data-bs-dismiss="modal">Cancel</button>
-                    <button type="button" class="btn btn-sm btn-primary font-12 fw-bold" onclick="submitManagerScore()">
-                        <i class="fa-solid fa-paper-plane me-1"></i> Submit &amp; Escalate
-                    </button>
+                        <div class="d-flex align-items-center justify-content-end gap-2 pt-2">
+                            <button type="button" class="btn btn-sm btn-light font-12" data-bs-dismiss="modal">Cancel</button>
+                            <button type="submit" class="btn btn-sm btn-primary font-12 fw-bold px-4">
+                                <i class="fa-solid fa-plus me-1"></i> Save &amp; Induct
+                            </button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- MODAL: UPDATE TRANCHE / DISBURSEMENT -->
+    <!-- ==================================================== -->
+    <!-- MODAL: EDIT INCUBATEE -->
+    <!-- ==================================================== -->
+    <div class="modal fade" id="modalEditStartup" tabindex="-1" style="background: rgba(10,25,47,0.7); backdrop-filter:blur(4px);">
+        <div class="modal-dialog modal-dialog-centered" style="max-width: 640px;">
+            <div class="modal-content border-0 shadow-lg rounded-4 overflow-hidden">
+                <div class="modal-header bg-dark text-white p-4 border-0">
+                    <h5 class="modal-title font-16 fw-bold mb-0 text-white"><i class="fa-solid fa-pen-to-square text-teal me-2"></i> Update Incubatee Metrics</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body p-4 bg-light">
+                    <form id="formEditStartup" onsubmit="saveEditedStartup(event)">
+                        <input type="hidden" id="editStId">
+                        
+                        <div class="row g-3 mb-3">
+                            <div class="col-md-6">
+                                <label class="form-label font-11 text-uppercase fw-bold text-muted">Startup Name</label>
+                                <input type="text" class="form-control font-13 bg-white" id="editStName" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label font-11 text-uppercase fw-bold text-muted">Venture Status</label>
+                                <select class="form-select font-13 bg-white" id="editStStatus">
+                                    <option value="Active">Active</option>
+                                    <option value="Graduated">Graduated</option>
+                                    <option value="Suspended">Suspended</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label font-11 text-uppercase fw-bold text-muted">Annual Revenue (₹)</label>
+                                <input type="number" class="form-control font-13 bg-white" id="editStRev" placeholder="4250000">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label font-11 text-uppercase fw-bold text-muted">Direct Jobs Created</label>
+                                <input type="number" class="form-control font-13 bg-white" id="editStJobs" placeholder="28">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label font-11 text-uppercase fw-bold text-muted">Compliance Score (0–100%)</label>
+                                <input type="number" class="form-control font-13 bg-white" id="editStCompliance" min="50" max="100" placeholder="95">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label font-11 text-uppercase fw-bold text-muted">Assigned Mentor</label>
+                                <select class="form-select font-13 bg-white" id="editStMentor">
+                                    <!-- Populated dynamically -->
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="d-flex align-items-center justify-content-end gap-2 pt-2">
+                            <button type="button" class="btn btn-sm btn-light font-12" data-bs-dismiss="modal">Cancel</button>
+                            <button type="submit" class="btn btn-sm btn-primary font-12 fw-bold px-4">
+                                <i class="fa-solid fa-floppy-disk me-1"></i> Save Changes
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================================================== -->
+    <!-- MODAL: PAIR MENTOR & STARTUP -->
+    <!-- ==================================================== -->
+    <div class="modal fade" id="modalPairMentor" tabindex="-1" style="background: rgba(10,25,47,0.7); backdrop-filter:blur(4px);">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content border-0 shadow-lg rounded-4 overflow-hidden">
+                <div class="modal-header bg-primary text-white p-4" style="background:#1E40AF !important;">
+                    <h5 class="modal-title font-16 fw-bold mb-0 text-white"><i class="fa-solid fa-handshake me-2"></i> Pair Startup with Mentor</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body p-4 bg-light">
+                    <form id="formPairMentor" onsubmit="submitPairMentor(event)">
+                        <div class="mb-3">
+                            <label class="form-label font-11 text-uppercase fw-bold text-muted">Select Incubatee Startup *</label>
+                            <select class="form-select font-13 bg-white" id="pairStartupSel" required>
+                                <!-- Populated dynamically -->
+                            </select>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label font-11 text-uppercase fw-bold text-muted">Select Domain Mentor *</label>
+                            <select class="form-select font-13 bg-white" id="pairMentorSel" required>
+                                <!-- Populated dynamically -->
+                            </select>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label font-11 text-uppercase fw-bold text-muted">Mentorship Focus Area</label>
+                            <input type="text" class="form-control font-13 bg-white" id="pairFocus" placeholder="e.g. Pricing Strategy &amp; GTM in Bihar">
+                        </div>
+
+                        <div class="d-flex align-items-center justify-content-end gap-2 pt-2">
+                            <button type="button" class="btn btn-sm btn-light font-12" data-bs-dismiss="modal">Cancel</button>
+                            <button type="submit" class="btn btn-sm btn-primary font-12 fw-bold px-4">
+                                <i class="fa-solid fa-check me-1"></i> Confirm Allocation
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================================================== -->
+    <!-- MODAL: LOG ADVISORY SESSION -->
+    <!-- ==================================================== -->
+    <div class="modal fade" id="modalLogSession" tabindex="-1" style="background: rgba(10,25,47,0.7); backdrop-filter:blur(4px);">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content border-0 shadow-lg rounded-4 overflow-hidden">
+                <div class="modal-header bg-dark text-white p-4 border-0">
+                    <h5 class="modal-title font-16 fw-bold mb-0 text-white"><i class="fa-solid fa-calendar-plus text-primary me-2"></i> Log Mentoring Advisory Session</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body p-4 bg-light">
+                    <form id="formLogSession" onsubmit="submitLogSession(event)">
+                        <div class="mb-3">
+                            <label class="form-label font-11 text-uppercase fw-bold text-muted">Mentor *</label>
+                            <select class="form-select font-13 bg-white" id="logSessionMentor" required>
+                                <!-- Populated dynamically -->
+                            </select>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label font-11 text-uppercase fw-bold text-muted">Mentee Startup *</label>
+                            <select class="form-select font-13 bg-white" id="logSessionStartup" required>
+                                <!-- Populated dynamically -->
+                            </select>
+                        </div>
+
+                        <div class="row g-2 mb-3">
+                            <div class="col-6">
+                                <label class="form-label font-11 text-uppercase fw-bold text-muted">Date</label>
+                                <input type="date" class="form-control font-13 bg-white" id="logSessionDate" required>
+                            </div>
+                            <div class="col-6">
+                                <label class="form-label font-11 text-uppercase fw-bold text-muted">Duration (Hours)</label>
+                                <input type="number" step="0.5" class="form-control font-13 bg-white" id="logSessionHours" value="1.5" min="0.5" max="8" required>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label font-11 text-uppercase fw-bold text-muted">Discussion Topic / Milestone Focus</label>
+                            <input type="text" class="form-control font-13 bg-white" id="logSessionTopic" placeholder="e.g. Unit Economics &amp; Pricing" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label font-11 text-uppercase fw-bold text-muted">Advisory Notes &amp; Action Items</label>
+                            <textarea class="form-control font-13 bg-white" id="logSessionNotes" rows="2" placeholder="Key guidance given to founder..."></textarea>
+                        </div>
+
+                        <div class="d-flex align-items-center justify-content-end gap-2 pt-2">
+                            <button type="button" class="btn btn-sm btn-light font-12" data-bs-dismiss="modal">Cancel</button>
+                            <button type="submit" class="btn btn-sm btn-primary font-12 fw-bold px-4">
+                                <i class="fa-solid fa-floppy-disk me-1"></i> Save Session Log
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================================================== -->
+    <!-- MODAL: POST OFFICIAL CIRCULAR -->
+    <!-- ==================================================== -->
+    <div class="modal fade" id="modalPostCircular" tabindex="-1" style="background: rgba(10,25,47,0.7); backdrop-filter:blur(4px);">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content border-0 shadow-lg rounded-4 overflow-hidden">
+                <div class="modal-header bg-dark text-white p-4 border-0">
+                    <h5 class="modal-title font-16 fw-bold mb-0 text-white"><i class="fa-solid fa-bullhorn text-warning me-2"></i> Post Ecosystem Circular</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body p-4 bg-light">
+                    <form id="formPostCircular" onsubmit="submitPostCircular(event)">
+                        <div class="mb-3">
+                            <label class="form-label font-11 text-uppercase fw-bold text-muted">Circular Title *</label>
+                            <input type="text" class="form-control font-13 bg-white" id="circTitle" required placeholder="e.g. MSME Idea Hackathon 6.0 Grant Announcement">
+                        </div>
+
+                        <div class="row g-2 mb-3">
+                            <div class="col-6">
+                                <label class="form-label font-11 text-uppercase fw-bold text-muted">Category</label>
+                                <select class="form-select font-13 bg-white" id="circCategory">
+                                    <option value="Funding Opportunity">Funding Opportunity</option>
+                                    <option value="Investor Event">Investor Event / Demo Day</option>
+                                    <option value="Compliance Notice">Compliance Notice</option>
+                                    <option value="Incubation Perks">Incubation Perks</option>
+                                    <option value="General Notice">General Notice</option>
+                                </select>
+                            </div>
+                            <div class="col-6">
+                                <label class="form-label font-11 text-uppercase fw-bold text-muted">Badge Label</label>
+                                <input type="text" class="form-control font-13 bg-white" id="circBadge" placeholder="e.g. Urgent Grant / Key Event" value="Important">
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label font-11 text-uppercase fw-bold text-muted">Target Audience</label>
+                            <select class="form-select font-13 bg-white" id="circAudience">
+                                <option value="All">All Portals (Startups, Mentors, Director)</option>
+                                <option value="Startup">Startups Only</option>
+                                <option value="Mentor">Mentors Only</option>
+                            </select>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label font-11 text-uppercase fw-bold text-muted">Notice Content *</label>
+                            <textarea class="form-control font-13 bg-white" id="circContent" rows="3" required placeholder="Write official circular instructions, deadlines and eligibility details..."></textarea>
+                        </div>
+
+                        <div class="d-flex align-items-center justify-content-end gap-2 pt-2">
+                            <button type="button" class="btn btn-sm btn-light font-12" data-bs-dismiss="modal">Cancel</button>
+                            <button type="submit" class="btn btn-sm btn-primary font-12 fw-bold px-4">
+                                <i class="fa-solid fa-paper-plane me-1"></i> Broadcast Now
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================================================== -->
+    <!-- MODAL: UPDATE TRANCHE DISBURSEMENT -->
+    <!-- ==================================================== -->
     <div class="modal fade" id="modalUpdateTranche" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content border-0 shadow-lg rounded-4 overflow-hidden">
@@ -569,6 +1263,9 @@
     <script src="../../assets/js/cimp-db.js"></script>
 
     <script>
+        // Track expanded rows state across tables
+        const expandedRowIds = new Set();
+
         function toggleMobileSidebar() {
             const sidebar = document.getElementById('appSidebar');
             const backdrop = document.getElementById('sidebarBackdrop');
@@ -590,9 +1287,12 @@
             let desktopBtn = null;
             if (tabId === 'tab-mgr-overview') desktopBtn = document.getElementById('mgrNavOverview');
             else if (tabId === 'tab-mgr-queue') desktopBtn = document.getElementById('mgrNavQueue');
+            else if (tabId === 'tab-mgr-startups') desktopBtn = document.getElementById('mgrNavStartups');
             else if (tabId === 'tab-mgr-milestones') desktopBtn = document.getElementById('mgrNavMilestones');
             else if (tabId === 'tab-mgr-mentors') desktopBtn = document.getElementById('mgrNavMentors');
             else if (tabId === 'tab-mgr-grants') desktopBtn = document.getElementById('mgrNavGrants');
+            else if (tabId === 'tab-mgr-circulars') desktopBtn = document.getElementById('mgrNavCirculars');
+            else if (tabId === 'tab-mgr-reports') desktopBtn = document.getElementById('mgrNavReports');
 
             switchMgrView(tabId, desktopBtn);
             closeMobileSidebarIfOpen();
@@ -610,13 +1310,43 @@
             document.querySelectorAll('.mobile-nav-btn').forEach(b => b.classList.remove('active'));
             if (tabId === 'tab-mgr-overview') document.getElementById('mMgrNavOverview')?.classList.add('active');
             else if (tabId === 'tab-mgr-queue') document.getElementById('mMgrNavQueue')?.classList.add('active');
-            else if (tabId === 'tab-mgr-milestones') document.getElementById('mMgrNavMilestones')?.classList.add('active');
+            else if (tabId === 'tab-mgr-startups') document.getElementById('mMgrNavStartups')?.classList.add('active');
+            else if (tabId === 'tab-mgr-grants') document.getElementById('mMgrNavGrants')?.classList.add('active');
 
             if (tabId === 'tab-mgr-overview') renderMgrOverview();
             if (tabId === 'tab-mgr-queue') renderScrutinyQueue();
+            if (tabId === 'tab-mgr-startups') renderStartupsMasterTable();
             if (tabId === 'tab-mgr-milestones') renderMilestonesTable();
             if (tabId === 'tab-mgr-mentors') renderMgrMentors();
             if (tabId === 'tab-mgr-grants') renderMgrGrants();
+            if (tabId === 'tab-mgr-circulars') renderMgrCirculars();
+            if (tabId === 'tab-mgr-reports') renderMgrReports();
+        }
+
+        // ==========================================
+        // TAP TO VIEW / EXPAND ROW CONTROLLER
+        // ==========================================
+        function toggleExpandRow(entityId, event) {
+            if (event) {
+                const target = event.target;
+                if (target.closest('a') || target.closest('button.no-row-click') || target.closest('.icon-action-pill') || target.closest('input') || target.closest('select') || target.closest('textarea')) {
+                    return;
+                }
+            }
+
+            const rowEl = document.getElementById(`tr-parent-${entityId}`);
+            const trayEl = document.getElementById(`tr-tray-${entityId}`);
+            if (!rowEl || !trayEl) return;
+
+            if (expandedRowIds.has(entityId)) {
+                expandedRowIds.delete(entityId);
+                rowEl.classList.remove('is-expanded');
+                trayEl.classList.add('d-none');
+            } else {
+                expandedRowIds.add(entityId);
+                rowEl.classList.add('is-expanded');
+                trayEl.classList.remove('d-none');
+            }
         }
 
         document.addEventListener('DOMContentLoaded', function () {
@@ -628,7 +1358,6 @@
                 window.CIMP_DB.syncDOMUserProfile();
             }
             refreshMgrData();
-
             window.addEventListener('cimp:db_updated', refreshMgrData);
         });
 
@@ -636,17 +1365,29 @@
             if (window.CIMP_DB) window.CIMP_DB.syncDOMUserProfile();
             renderMgrOverview();
             renderScrutinyQueue();
+            renderStartupsMasterTable();
             renderMilestonesTable();
             renderMgrMentors();
             renderMgrGrants();
+            renderMgrCirculars();
+            renderMgrReports();
         }
 
+        // ==========================================
+        // 1. INTAKE OVERVIEW RENDERER
+        // ==========================================
         function renderMgrOverview() {
             if (!window.CIMP_DB) return;
             const apps = window.CIMP_DB.getApplications();
-            const pending = apps.filter(a => a.status === 'Pending Director Approval' || a.status === 'Under Evaluation');
+            const startups = window.CIMP_DB.getStartups();
+            const mentors = window.CIMP_DB.getMentors();
+            const pending = apps.filter(a => a.status === 'Pending Manager Review' || a.status === 'Under Evaluation' || a.status === 'Intake Submitted');
             
+            document.getElementById('ovMgrTotal').innerText = apps.length + 124;
             document.getElementById('ovMgrPending').innerText = pending.length;
+            document.getElementById('ovMgrActive').innerText = startups.filter(s => s.status === 'Active').length;
+            document.getElementById('ovMgrMentors').innerText = mentors.length;
+
             const badge = document.getElementById('navMgrPendingBadge');
             if (badge) badge.innerText = pending.length;
             const btmBadge = document.getElementById('bottomMgrPendingBadge');
@@ -654,20 +1395,88 @@
                 btmBadge.innerText = pending.length;
                 btmBadge.style.display = pending.length > 0 ? 'inline-block' : 'none';
             }
+            const stCountBadge = document.getElementById('navMgrStartupsCount');
+            if (stCountBadge) stCountBadge.innerText = startups.length;
 
             const tbody = document.getElementById('tblMgrRecentIntakeBody');
             if (tbody) {
                 let html = '';
-                apps.slice(0, 5).forEach(a => {
+                apps.slice(0, 6).forEach(a => {
+                    const isExpanded = expandedRowIds.has('rec-' + a.id);
+                    const phone = a.mobile || '+91 98765 43210';
+                    const cleanPhone = phone.replace(/\D/g, '');
+                    const track = a.incubationTrack || 'Physical Incubation (Lab & Co-working)';
+
                     html += `
-                        <tr>
-                            <td><code>${a.id}</code></td>
-                            <td><strong>${a.startupName}</strong></td>
-                            <td>${a.founderName} &bull; <span class="text-muted font-11">${a.city}</span></td>
-                            <td>${a.sector}</td>
-                            <td>${a.stage}</td>
-                            <td><strong>${a.fundingRequired || 'â‚¹ 25 Lakhs'}</strong></td>
-                            <td><span class="font-12 fw-semibold text-primary"><i class="fa-solid fa-circle font-8 me-1"></i> ${a.status}</span></td>
+                        <tr class="tr-parent ${isExpanded ? 'is-expanded' : ''}" id="tr-parent-rec-${a.id}" onclick="toggleExpandRow('rec-${a.id}', event)">
+                            <td class="nowrap-cell"><code>${a.id}</code></td>
+                            <td>
+                                <span class="interactive-title font-13 d-block">${a.startupName}</span>
+                                <div class="font-11 text-muted text-truncate" style="max-width: 240px;">${a.productDescription}</div>
+                            </td>
+                            <td>
+                                <strong class="text-dark font-12">${a.founderName}</strong>
+                                <div class="font-11 text-muted">${a.city || 'Patna'}, ${a.state || 'Bihar'}</div>
+                            </td>
+                            <td>
+                                <span class="badge bg-teal-subtle text-teal border border-teal-subtle font-10 px-2 py-0.5 d-inline-block text-truncate" style="max-width: 170px;">${track}</span>
+                                <div class="font-11 text-muted mt-0.5">${a.sector} &bull; ${a.stage || 'MVP Stage'}</div>
+                            </td>
+                            <td>
+                                <span class="badge ${a.status.includes('Approval') ? 'bg-primary-subtle text-primary border border-primary-subtle' : 'bg-warning-subtle text-warning-emphasis border border-warning-subtle'} font-10 px-2 py-0.5">
+                                    <i class="fa-solid fa-circle font-7 me-1"></i> ${a.status}
+                                </span>
+                            </td>
+                            <td class="text-end pe-3">
+                                <button class="btn btn-sm btn-light border rounded-pill font-11 py-0.5 px-2 text-nowrap no-row-click" onclick="toggleExpandRow('rec-${a.id}')">
+                                    <span class="me-1">View</span>
+                                    <i class="fa-solid fa-chevron-down font-9 expand-chevron"></i>
+                                </button>
+                            </td>
+                        </tr>
+                        <!-- Expandable Intake Drawer -->
+                        <tr class="tr-expand-tray ${isExpanded ? '' : 'd-none'}" id="tr-tray-rec-${a.id}">
+                            <td colspan="6">
+                                <div class="expand-content-wrap">
+                                    <div class="row g-3">
+                                        <div class="col-md-5">
+                                            <div class="bg-white p-3 rounded-3 border h-100 shadow-2xs">
+                                                <div class="font-10 text-muted text-uppercase fw-bold mb-1"><i class="fa-solid fa-lightbulb text-warning me-1"></i> Problem Statement &amp; Solution</div>
+                                                <p class="font-12 text-secondary mb-2" style="line-height:1.45;">${a.productDescription}</p>
+                                                <div class="p-2 bg-light rounded border font-11">
+                                                    <strong>Innovation Moat: </strong>${a.innovative || 'Proprietary regional execution model in Bihar.'}
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="bg-white p-3 rounded-3 border h-100 shadow-2xs">
+                                                <div class="font-10 text-muted text-uppercase fw-bold mb-1"><i class="fa-solid fa-building-columns text-primary me-1"></i> Incubation Support Applied</div>
+                                                <div class="font-12 text-dark fw-bold mb-1">${track}</div>
+                                                <div class="font-11 text-muted mb-1">Facilities: <strong>${a.facilitiesRequested || 'Co-working Desks + Prototyping FabLab'}</strong></div>
+                                                <div class="font-11 text-muted mb-2">Support: <strong>${a.supportRequired || 'Mentorship, Lab Access & Bihar Seed Grant (₹10L)'}</strong></div>
+                                                <div class="d-flex align-items-center gap-1.5 pt-2 border-top">
+                                                    <a href="tel:${cleanPhone}" class="icon-action-pill pill-phone" title="Call ${phone}"><i class="fa-solid fa-phone"></i></a>
+                                                    <a href="https://wa.me/${cleanPhone}" target="_blank" class="icon-action-pill pill-wa" title="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
+                                                    <a href="mailto:${a.email}" class="icon-action-pill pill-mail" title="Email"><i class="fa-solid fa-envelope"></i></a>
+                                                    ${a.pitchDeckUrl && a.pitchDeckUrl !== '#' ? `<a href="${a.pitchDeckUrl}" target="_blank" class="btn btn-sm btn-outline-primary py-0.5 px-2 font-11 ms-auto"><i class="fa-solid fa-arrow-up-right-from-square me-1"></i> Pitch Deck</a>` : ''}
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="bg-white p-3 rounded-3 border h-100 shadow-2xs d-flex flex-column justify-content-between">
+                                                <div>
+                                                    <div class="font-10 text-muted text-uppercase fw-bold mb-1"><i class="fa-solid fa-clipboard-check text-success me-1"></i> Manager Scrutiny</div>
+                                                    <div class="font-13 fw-bold text-dark">${a.managerScore ? (a.managerScore + '/100') : 'Awaiting Evaluation'}</div>
+                                                    <div class="font-10 text-muted mt-0.5">${a.managerNotes || 'KYC and incubation readiness review pending.'}</div>
+                                                </div>
+                                                <button class="btn btn-sm btn-primary font-11 fw-bold w-100 mt-2" onclick="switchMgrView('tab-mgr-queue', document.getElementById('mgrNavQueue'))">
+                                                    <i class="fa-solid fa-pen-to-square me-1"></i> Open in Scrutiny Queue
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
                         </tr>
                     `;
                 });
@@ -675,37 +1484,164 @@
             }
         }
 
+        // ==========================================
+        // 2. SCRUTINY QUEUE & LEVEL-1 EVALUATION
+        // ==========================================
         function renderScrutinyQueue() {
             if (!window.CIMP_DB) return;
             const apps = window.CIMP_DB.getApplications();
-            const queue = apps.filter(a => a.status === 'Under Evaluation' || a.status === 'Pending Director Approval' || a.status === 'Intake Submitted');
+            const queue = apps.filter(a => a.status === 'Pending Manager Review' || a.status === 'Under Evaluation' || a.status === 'Pending Director Approval' || a.status === 'Intake Submitted');
             
+            const badgeEl = document.getElementById('badgeQueueCount');
+            if (badgeEl) badgeEl.innerText = `${queue.length} Pending In Queue`;
+
             const tbody = document.getElementById('tblMgrScrutinyBody');
             if (!tbody) return;
 
             if (queue.length === 0) {
-                tbody.innerHTML = '<tr><td colspan="8" class="text-center py-4 text-muted font-13"><i class="fa-solid fa-circle-check text-success me-2"></i> All intake applications evaluated.</td></tr>';
+                tbody.innerHTML = '<tr><td colspan="6" class="text-center py-4 text-muted font-13"><i class="fa-solid fa-circle-check text-success me-2"></i> All intake applications evaluated. Queue is clear!</td></tr>';
                 return;
             }
 
             let html = '';
             queue.forEach(a => {
+                const isExpanded = expandedRowIds.has('scr-' + a.id);
+                const scoreDisp = a.managerScore ? `<span class="badge bg-primary-subtle text-primary font-11 fw-bold">${a.managerScore}/100</span>` : '<span class="badge bg-secondary-subtle text-secondary font-10">Unscored</span>';
+                const phone = a.mobile || '+91 98765 43210';
+                const cleanPhone = phone.replace(/\D/g, '');
+                const track = a.incubationTrack || 'Physical Incubation (Lab & Co-working)';
+
                 html += `
-                    <tr>
-                        <td><code>${a.id}</code></td>
-                        <td>
-                            <strong class="font-14 text-dark">${a.startupName}</strong>
-                            <div class="font-11 text-muted" style="max-width:230px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">${a.productDescription}</div>
+                    <!-- Main Scrutiny Row -->
+                    <tr class="tr-parent ${isExpanded ? 'is-expanded' : ''}" id="tr-parent-scr-${a.id}" onclick="toggleExpandRow('scr-${a.id}', event)">
+                        <td class="nowrap-cell">
+                            <code>${a.id}</code>
                         </td>
-                        <td>${a.founderName}<div class="font-11 text-muted">${a.email}</div></td>
-                        <td>${a.sector}</td>
-                        <td>${a.stage}</td>
-                        <td><strong class="text-primary">${a.fundingRequired || 'â‚¹ 25 Lakhs'}</strong></td>
-                        <td><span class="font-12 fw-bold text-dark"><i class="fa-solid fa-circle font-8 text-warning me-1"></i> ${a.managerScore || 88}/100</span></td>
                         <td>
-                            <button class="app-btn-action" onclick="openScoreModal('${a.id}')">
-                                <i class="fa-solid fa-pen-to-square me-1"></i> Score &amp; Escalate
-                            </button>
+                            <span class="interactive-title font-13 d-block">${a.startupName}</span>
+                            <div class="font-11 text-muted text-truncate" style="max-width: 250px;">${a.productDescription}</div>
+                        </td>
+                        <td>
+                            <strong class="text-dark font-12">${a.founderName}</strong>
+                            <div class="font-11 text-muted">${a.city || 'Patna'}, ${a.state || 'Bihar'}</div>
+                        </td>
+                        <td>
+                            <span class="badge bg-teal-subtle text-teal border border-teal-subtle font-10 px-2 py-0.5 d-inline-block text-truncate" style="max-width: 170px;">${track}</span>
+                            <div class="font-11 text-muted mt-0.5">${a.sector} &bull; ${a.stage || 'Idea Stage'}</div>
+                        </td>
+                        <td>
+                            ${scoreDisp}
+                        </td>
+                        <td class="text-end pe-3">
+                            <div class="d-flex align-items-center justify-content-end gap-1">
+                                <button class="btn btn-sm btn-primary font-11 fw-bold py-0.5 px-2.5 text-nowrap no-row-click" onclick="toggleExpandRow('scr-${a.id}')">
+                                    <i class="fa-solid fa-clipboard-check me-1"></i> Evaluate
+                                    <i class="fa-solid fa-chevron-down font-9 expand-chevron ms-1"></i>
+                                </button>
+                                <button class="icon-action-pill pill-danger no-row-click" onclick="rejectFromQueue('${a.id}')" title="Reject Application">
+                                    <i class="fa-solid fa-xmark"></i>
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+
+                    <!-- Expandable Full Evaluation Tray with 4-Pillar Score Sliders -->
+                    <tr class="tr-expand-tray ${isExpanded ? '' : 'd-none'}" id="tr-tray-scr-${a.id}">
+                        <td colspan="6">
+                            <div class="expand-content-wrap">
+                                <div class="row g-3">
+                                    
+                                    <!-- Left: Venture Pitch, Incubation Facilities & Contacts -->
+                                    <div class="col-md-5">
+                                        <div class="bg-white p-3 rounded-3 border h-100 shadow-2xs">
+                                            <div class="d-flex align-items-center justify-content-between mb-1.5">
+                                                <span class="font-10 text-muted text-uppercase fw-bold"><i class="fa-solid fa-lightbulb text-warning me-1"></i> Incubation Applicant Dossier</span>
+                                                <span class="badge bg-teal-subtle text-teal font-9">Cohort 2026 Intake</span>
+                                            </div>
+                                            <div class="font-13 fw-bold text-dark">${a.startupName}</div>
+                                            <p class="font-12 text-secondary mb-2 mt-1" style="line-height:1.45;">${a.productDescription}</p>
+
+                                            <div class="p-2 bg-light rounded border font-11 mb-2">
+                                                <strong class="text-dark">Innovation Moat: </strong><span class="text-secondary">${a.innovative || 'Unique regional market value proposition.'}</span>
+                                            </div>
+
+                                            <div class="p-2 bg-light rounded border font-11 mb-2">
+                                                <div class="text-dark mb-0.5"><strong>Requested Support: </strong>${a.supportRequired || 'Mentorship, Lab Access & Bihar Seed Grant (₹10L)'}</div>
+                                                <div class="text-muted"><strong>Facilities: </strong>${a.facilitiesRequested || 'Co-working Desks + Prototyping FabLab'}</div>
+                                            </div>
+
+                                            <div class="row g-1 font-11 text-muted mb-2">
+                                                <div class="col-6"><span>Team: </span><strong class="text-dark">${a.teamMembers || '2-5 Members'}</strong></div>
+                                                <div class="col-6"><span>Experience: </span><strong class="text-dark">${a.founderExperience || 'Entrepreneur'}</strong></div>
+                                            </div>
+
+                                            <div class="d-flex align-items-center justify-content-between pt-2 border-top">
+                                                <div class="d-flex align-items-center gap-1.5">
+                                                    <a href="tel:${cleanPhone}" class="icon-action-pill pill-phone" title="Call ${phone}"><i class="fa-solid fa-phone"></i></a>
+                                                    <a href="https://wa.me/${cleanPhone}" target="_blank" class="icon-action-pill pill-wa" title="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
+                                                    <a href="mailto:${a.email}" class="icon-action-pill pill-mail" title="Email"><i class="fa-solid fa-envelope"></i></a>
+                                                </div>
+                                                ${a.pitchDeckUrl && a.pitchDeckUrl !== '#' ? `<a href="${a.pitchDeckUrl}" target="_blank" class="btn btn-sm btn-outline-primary py-0.5 px-2 font-11"><i class="fa-solid fa-arrow-up-right-from-square me-1"></i> Pitch Deck</a>` : ''}
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Right: Live 4-Pillar Scoring Matrix & Action -->
+                                    <div class="col-md-7">
+                                        <div class="bg-white p-3 rounded-3 border h-100 shadow-2xs">
+                                            <div class="d-flex align-items-center justify-content-between mb-2">
+                                                <span class="font-10 text-muted text-uppercase fw-bold"><i class="fa-solid fa-sliders text-primary me-1"></i> Level-1 Incubation Scoring Matrix (Max 25 pts each)</span>
+                                                <span class="badge bg-primary text-white font-12 fw-bold px-2.5 py-1" id="dispTotalScore-${a.id}">${a.managerScore || 88} / 100</span>
+                                            </div>
+
+                                            <div class="row g-2 mb-2.5">
+                                                <div class="col-6">
+                                                    <div class="d-flex justify-content-between font-11 text-muted mb-0.5">
+                                                        <span>1. Innovation &amp; IP Novelty</span>
+                                                        <strong class="text-dark" id="dispS1-${a.id}">22/25</strong>
+                                                    </div>
+                                                    <input type="range" class="form-range" min="10" max="25" value="22" id="rngS1-${a.id}" oninput="calcInlineScore('${a.id}')">
+                                                </div>
+                                                <div class="col-6">
+                                                    <div class="d-flex justify-content-between font-11 text-muted mb-0.5">
+                                                        <span>2. Market Size &amp; Bihar Impact</span>
+                                                        <strong class="text-dark" id="dispS2-${a.id}">23/25</strong>
+                                                    </div>
+                                                    <input type="range" class="form-range" min="10" max="25" value="23" id="rngS2-${a.id}" oninput="calcInlineScore('${a.id}')">
+                                                </div>
+                                                <div class="col-6">
+                                                    <div class="d-flex justify-content-between font-11 text-muted mb-0.5">
+                                                        <span>3. Prototyping &amp; Technical Feasibility</span>
+                                                        <strong class="text-dark" id="dispS3-${a.id}">21/25</strong>
+                                                    </div>
+                                                    <input type="range" class="form-range" min="10" max="25" value="21" id="rngS3-${a.id}" oninput="calcInlineScore('${a.id}')">
+                                                </div>
+                                                <div class="col-6">
+                                                    <div class="d-flex justify-content-between font-11 text-muted mb-0.5">
+                                                        <span>4. Team Commitment &amp; Execution</span>
+                                                        <strong class="text-dark" id="dispS4-${a.id}">22/25</strong>
+                                                    </div>
+                                                    <input type="range" class="form-range" min="10" max="25" value="22" id="rngS4-${a.id}" oninput="calcInlineScore('${a.id}')">
+                                                </div>
+                                            </div>
+
+                                            <div class="mb-2.5">
+                                                <input type="text" class="form-control form-control-sm font-12 bg-light" id="inpRemarks-${a.id}" placeholder="Manager Scrutiny Remarks (e.g. Technical KYC verified. Recommended for Director approval.)" value="${a.managerNotes || 'Technical KYC and incubation viability cleared. Recommended for Level-2 incubation induction.'}">
+                                            </div>
+
+                                            <div class="d-flex align-items-center justify-content-end gap-2 pt-2 border-top">
+                                                <button class="btn btn-sm btn-outline-danger font-11 py-1 px-2.5" onclick="rejectFromQueue('${a.id}')">
+                                                    <i class="fa-solid fa-xmark me-1"></i> Reject
+                                                </button>
+                                                <button class="btn btn-sm btn-success font-11 fw-bold py-1 px-3 shadow-xs" onclick="submitInlineScore('${a.id}')">
+                                                    <i class="fa-solid fa-paper-plane me-1"></i> Save &amp; Escalate to Director
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
                         </td>
                     </tr>
                 `;
@@ -713,66 +1649,567 @@
             tbody.innerHTML = html;
         }
 
-        function openScoreModal(appId) {
-            const app = window.CIMP_DB.getApplicationById(appId);
-            if (!app) return;
+        function calcInlineScore(appId) {
+            const s1 = Number(document.getElementById(`rngS1-${appId}`).value) || 0;
+            const s2 = Number(document.getElementById(`rngS2-${appId}`).value) || 0;
+            const s3 = Number(document.getElementById(`rngS3-${appId}`).value) || 0;
+            const s4 = Number(document.getElementById(`rngS4-${appId}`).value) || 0;
 
-            document.getElementById('modalScoreAppId').value = app.id;
-            document.getElementById('modalScoreStartupName').innerText = app.startupName + ' [' + app.id + ']';
-            document.getElementById('modalScoreFounder').innerText = app.founderName + ' (' + app.city + ', ' + app.state + ')';
-            document.getElementById('modalScoreDesc').innerText = app.productDescription;
-            document.getElementById('modalScoreRange').value = app.managerScore || 88;
-            document.getElementById('scoreValueDisp').innerText = (app.managerScore || 88) + '/100';
-            
-            // Display dynamic responses & extra metadata
-            const dynEl = document.getElementById('modalScoreDynamicFields');
-            if (dynEl) {
-                let dynHtml = `
-                    <div class="p-3 bg-light border rounded-3 mb-3 font-12">
-                        <div class="row g-2">
-                            <div class="col-6"><span class="text-muted font-11 text-uppercase fw-bold">Sector:</span> <span class="fw-semibold text-dark">${app.sector || 'General'}</span></div>
-                            <div class="col-6"><span class="text-muted font-11 text-uppercase fw-bold">Stage:</span> <span class="fw-semibold text-dark">${app.stage || 'Idea Stage'}</span></div>
-                            <div class="col-6"><span class="text-muted font-11 text-uppercase fw-bold">Team Size:</span> <span class="fw-semibold text-dark">${app.teamMembers || '2-5 Members'}</span></div>
-                            <div class="col-6"><span class="text-muted font-11 text-uppercase fw-bold">Capital Needed:</span> <span class="fw-semibold text-primary">${app.fundingRequired || '₹ 10-25L'}</span></div>
-                        </div>
-                `;
+            document.getElementById(`dispS1-${appId}`).innerText = `${s1}/25`;
+            document.getElementById(`dispS2-${appId}`).innerText = `${s2}/25`;
+            document.getElementById(`dispS3-${appId}`).innerText = `${s3}/25`;
+            document.getElementById(`dispS4-${appId}`).innerText = `${s4}/25`;
 
-                if (app.pitchDeckUrl && app.pitchDeckUrl !== '#') {
-                    dynHtml += `<div class="mt-2 pt-2 border-top"><a href="${app.pitchDeckUrl}" target="_blank" class="btn btn-sm btn-outline-primary py-1 px-2 font-11"><i class="fa-solid fa-arrow-up-right-from-square me-1"></i> Open Pitch Deck Link</a></div>`;
-                }
+            const total = s1 + s2 + s3 + s4;
+            document.getElementById(`dispTotalScore-${appId}`).innerText = `${total} / 100`;
+            return total;
+        }
 
-                if (app.dynamicResponses && Object.keys(app.dynamicResponses).length > 0) {
-                    dynHtml += `<div class="mt-2 pt-2 border-top"><span class="fw-bold text-dark font-11 text-uppercase"><i class="fa-solid fa-list-check text-primary me-1"></i> Custom Form Responses:</span><div class="row g-2 mt-1">`;
-                    for (const [k, v] of Object.entries(app.dynamicResponses)) {
-                        dynHtml += `<div class="col-6"><span class="text-muted font-11">${k}:</span> <strong class="text-dark">${v}</strong></div>`;
-                    }
-                    dynHtml += `</div></div>`;
-                }
-                dynHtml += `</div>`;
-                dynEl.innerHTML = dynHtml;
+        function submitInlineScore(appId) {
+            const score = calcInlineScore(appId);
+            const notes = document.getElementById(`inpRemarks-${appId}`).value.trim();
+
+            window.CIMP_DB.managerApprove(appId, score, notes);
+            window.CIMP_DB.showToast(`Application scored (${score}/100) and escalated to Executive Director!`, 'success');
+            refreshMgrData();
+        }
+
+        function rejectFromQueue(appId) {
+            const reason = prompt("Enter rejection reason for this application:", "Does not meet current cohort incubation / viability threshold.");
+            if (reason) {
+                window.CIMP_DB.rejectApplication(appId, reason, 'Incubation Manager');
+                window.CIMP_DB.showToast('Application marked as Rejected.', 'danger');
+                refreshMgrData();
             }
+        }
 
-            const modal = new bootstrap.Modal(document.getElementById('mgrScoreModal'));
+        // ==========================================
+        // 3. 360° STARTUPS MASTER DIRECTORY
+        // ==========================================
+        function renderStartupsMasterTable() {
+            if (!window.CIMP_DB) return;
+            const sectorFilter = document.getElementById('filterStartupSector')?.value || '';
+            const cohortFilter = document.getElementById('filterStartupCohort')?.value || '';
+
+            let startups = window.CIMP_DB.getStartups();
+            if (sectorFilter) startups = startups.filter(s => s.sector === sectorFilter);
+            if (cohortFilter) startups = startups.filter(s => (s.cohort || '').includes(cohortFilter));
+
+            const tbody = document.getElementById('tblMgrStartupsMasterBody');
+            if (!tbody) return;
+
+            let html = '';
+            startups.forEach(s => {
+                const isExpanded = expandedRowIds.has('st-' + s.id);
+                const initial = s.initial || s.name.charAt(0).toUpperCase();
+                const phone = s.phone || '+91 98765 43210';
+                const cleanPhone = phone.replace(/\D/g, '');
+
+                html += `
+                    <!-- Main Incubatee Row -->
+                    <tr class="tr-parent ${isExpanded ? 'is-expanded' : ''}" id="tr-parent-st-${s.id}" onclick="toggleExpandRow('st-${s.id}', event)">
+                        <td>
+                            <div class="d-flex align-items-center gap-2.5">
+                                <div class="d-flex align-items-center justify-content-center rounded-2 bg-teal-subtle text-teal fw-bold font-12" style="width: 32px; height: 32px; min-width: 32px;">
+                                    ${initial}
+                                </div>
+                                <div>
+                                    <span class="interactive-title font-13 d-block text-truncate" style="max-width: 220px;">${s.name}</span>
+                                    <div class="font-10 text-muted mt-0.5"><code>${s.cin || 'U72900BR2022PTC054321'}</code> &bull; <span class="badge bg-success-subtle text-success font-9">Active</span></div>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <strong class="text-dark font-12">${s.founder}</strong>
+                            <div class="font-11 text-muted">${s.location || 'Patna, Bihar'}</div>
+                        </td>
+                        <td>
+                            <span class="badge bg-light text-dark border font-10 px-2 py-0.5">${s.sector}</span>
+                            <div class="font-10 text-muted mt-0.5">${s.cohort || 'Cohort 2022'}</div>
+                        </td>
+                        <td>
+                            <strong class="text-dark font-12">${s.revenue || '₹ 0 / yr'}</strong>
+                            <div class="font-10 text-success fw-semibold mt-0.5">${s.jobsCreated || 4} Jobs Created</div>
+                        </td>
+                        <td>
+                            <span class="badge bg-light text-primary border font-10 px-2 py-0.5">
+                                <i class="fa-solid fa-user-tie font-9 me-1"></i> ${s.assignedMentor || 'Dr. Alok Kumar'}
+                            </span>
+                        </td>
+                        <td class="text-end pe-3">
+                            <div class="d-flex align-items-center justify-content-end gap-1">
+                                <button class="btn btn-sm btn-light border rounded-pill font-11 py-0.5 px-2 text-nowrap no-row-click" onclick="toggleExpandRow('st-${s.id}')">
+                                    <span class="me-1">Dossier</span>
+                                    <i class="fa-solid fa-chevron-down font-9 expand-chevron"></i>
+                                </button>
+                                <button class="icon-action-pill no-row-click" onclick="openEditStartupModal('${s.id}')" title="Edit Metrics">
+                                    <i class="fa-solid fa-pen-to-square"></i>
+                                </button>
+                                <button class="icon-action-pill pill-danger no-row-click" onclick="deleteStartupRecord('${s.id}')" title="Delete">
+                                    <i class="fa-solid fa-trash"></i>
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+
+                    <!-- Expandable 360° Incubatee Tray -->
+                    <tr class="tr-expand-tray ${isExpanded ? '' : 'd-none'}" id="tr-tray-st-${s.id}">
+                        <td colspan="6">
+                            <div class="expand-content-wrap">
+                                <div class="row g-3">
+                                    <!-- Col 1: Founder & Legal Details -->
+                                    <div class="col-md-4">
+                                        <div class="bg-white p-3 rounded-3 border h-100 shadow-2xs">
+                                            <div class="d-flex align-items-center justify-content-between mb-1.5">
+                                                <span class="font-10 text-muted text-uppercase fw-bold"><i class="fa-solid fa-building text-primary me-1"></i> Legal &amp; Entity Details</span>
+                                                <span class="badge bg-light text-dark border font-9">DPIIT Reg.</span>
+                                            </div>
+                                            <div class="font-12 fw-bold text-dark">${s.legalName || (s.name + ' Pvt Ltd')}</div>
+                                            <div class="font-11 text-muted mb-2">CIN: <code>${s.cin || 'U72900BR2022PTC054321'}</code></div>
+                                            <div class="font-11 text-secondary mb-2">${s.desc || 'Active incubated venture.'}</div>
+
+                                            <div class="d-flex align-items-center gap-1.5 pt-2 border-top">
+                                                <a href="tel:${cleanPhone}" class="icon-action-pill pill-phone" title="Call"><i class="fa-solid fa-phone"></i></a>
+                                                <a href="https://wa.me/${cleanPhone}" target="_blank" class="icon-action-pill pill-wa" title="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
+                                                <a href="mailto:${s.email}" class="icon-action-pill pill-mail" title="Email"><i class="fa-solid fa-envelope"></i></a>
+                                                <a href="${s.website || '#'}" target="_blank" class="icon-action-pill" title="Website"><i class="fa-solid fa-globe"></i></a>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Col 2: Bihar Seed Grant & Facilities -->
+                                    <div class="col-md-5">
+                                        <div class="bg-white p-3 rounded-3 border h-100 shadow-2xs">
+                                            <div class="d-flex align-items-center justify-content-between mb-1.5">
+                                                <span class="font-10 text-muted text-uppercase fw-bold"><i class="fa-solid fa-indian-rupee-sign text-success me-1"></i> Bihar Seed Grant Sprints</span>
+                                                <span class="badge bg-success-subtle text-success font-9">₹10 Lakhs Eligible</span>
+                                            </div>
+
+                                            <div class="d-flex flex-column gap-1 font-11 mb-2">
+                                                <div class="d-flex justify-content-between align-items-center p-1 rounded bg-light border">
+                                                    <span><strong>Tranche 1 (MVP/Prototype):</strong> ₹ 2.50L</span>
+                                                    <span class="badge bg-success-subtle text-success font-9"><i class="fa-solid fa-check font-8 me-1"></i> Disbursed</span>
+                                                </div>
+                                                <div class="d-flex justify-content-between align-items-center p-1 rounded bg-light border">
+                                                    <span><strong>Tranche 2 (Validation):</strong> ₹ 5.00L</span>
+                                                    <span class="badge bg-success-subtle text-success font-9"><i class="fa-solid fa-check font-8 me-1"></i> Disbursed</span>
+                                                </div>
+                                                <div class="d-flex justify-content-between align-items-center p-1 rounded bg-light border">
+                                                    <span><strong>Tranche 3 (Commercial Scale):</strong> ₹ 2.50L</span>
+                                                    <span class="badge bg-warning-subtle text-warning font-9">Under Scrutiny</span>
+                                                </div>
+                                            </div>
+
+                                            <div class="font-11 text-muted border-top pt-1.5 mt-1">
+                                                <span>Allotted Resources: </span><strong class="text-dark">Co-working Desk #04, IoT Lab Access, AWS Cloud Credits ($2,000)</strong>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Col 3: Compliance & Mentor -->
+                                    <div class="col-md-3">
+                                        <div class="bg-white p-3 rounded-3 border h-100 shadow-2xs d-flex flex-column justify-content-between">
+                                            <div>
+                                                <div class="font-10 text-muted text-uppercase fw-bold mb-1"><i class="fa-solid fa-shield-halved text-warning me-1"></i> Incubation Health</div>
+                                                <div class="font-13 fw-bold text-teal">${s.complianceScore || 95}% Compliance</div>
+                                                <div class="font-11 text-muted mt-1">Assigned Advisor: <strong class="text-dark">${s.assignedMentor || 'Dr. Alok Kumar'}</strong></div>
+                                            </div>
+                                            <div class="d-flex gap-1.5 mt-2">
+                                                <button class="btn btn-sm btn-primary font-11 fw-bold w-100" onclick="openEditStartupModal('${s.id}')">
+                                                    <i class="fa-solid fa-pen-to-square me-1"></i> Edit Metrics
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                `;
+            });
+            tbody.innerHTML = html || '<tr><td colspan="6" class="text-center py-4 text-muted font-13">No ventures found matching filters.</td></tr>';
+        }
+
+        function openAddStartupModal() {
+            document.getElementById('formAddStartup').reset();
+            const modal = new bootstrap.Modal(document.getElementById('modalAddStartup'));
             modal.show();
         }
 
-        function submitManagerScore() {
-            const appId = document.getElementById('modalScoreAppId').value;
-            const score = document.getElementById('modalScoreRange').value;
-            const notes = document.getElementById('modalScoreNotes').value;
+        function saveNewStartup(e) {
+            e.preventDefault();
+            const name = document.getElementById('addStName').value.trim();
+            const legal = document.getElementById('addStLegal').value.trim() || (name + ' Pvt Ltd');
+            const founder = document.getElementById('addStFounder').value.trim();
+            const email = document.getElementById('addStEmail').value.trim();
+            const phone = document.getElementById('addStPhone').value.trim();
+            const loc = document.getElementById('addStLoc').value.trim() || 'Patna, Bihar';
+            const sector = document.getElementById('addStSector').value;
+            const stage = document.getElementById('addStStage').value;
+            const cohort = document.getElementById('addStCohort').value;
+            const desc = document.getElementById('addStDesc').value.trim();
 
-            window.CIMP_DB.managerApprove(appId, score, notes);
+            const newObj = {
+                name,
+                legalName: legal,
+                founder,
+                email,
+                phone,
+                location: loc,
+                sector,
+                stage,
+                cohort,
+                desc,
+                status: 'Active',
+                complianceScore: 95,
+                jobsCreated: 4,
+                revenue: '₹ 0 (Pre-Seed)',
+                fundingRaised: '₹ 10 Lakhs (Seed Eligible)',
+                assignedMentor: 'Dr. Alok Kumar',
+                milestones: [
+                    { title: 'Onboarding & Workspace Allotment', status: 'Completed', date: 'Immediate' },
+                    { title: 'Bihar Seed Fund Application', status: 'In Progress', date: 'Next 30 Days' }
+                ]
+            };
+
+            window.CIMP_DB.saveStartup(newObj);
+            bootstrap.Modal.getInstance(document.getElementById('modalAddStartup')).hide();
+            window.CIMP_DB.showToast(`Incubatee "${name}" successfully inducted into ${cohort}!`, 'success');
+            refreshMgrData();
+        }
+
+        function openEditStartupModal(startupId) {
+            const s = window.CIMP_DB.getStartupById(startupId);
+            if (!s) return;
+
+            document.getElementById('editStId').value = s.id;
+            document.getElementById('editStName').value = s.name;
+            document.getElementById('editStStatus').value = s.status || 'Active';
+            document.getElementById('editStRev').value = s.revenueNumeric || 0;
+            document.getElementById('editStJobs').value = s.jobsCreated || 0;
+            document.getElementById('editStCompliance').value = s.complianceScore || 90;
+
+            const mentors = window.CIMP_DB.getMentors();
+            const mentorSel = document.getElementById('editStMentor');
+            mentorSel.innerHTML = mentors.map(m => `<option value="${m.name}" ${m.name === s.assignedMentor ? 'selected' : ''}>${m.name} (${Array.isArray(m.expertise) ? m.expertise[0] : m.expertise})</option>`).join('');
+
+            const modal = new bootstrap.Modal(document.getElementById('modalEditStartup'));
+            modal.show();
+        }
+
+        function saveEditedStartup(e) {
+            e.preventDefault();
+            const id = document.getElementById('editStId').value;
+            const name = document.getElementById('editStName').value.trim();
+            const status = document.getElementById('editStStatus').value;
+            const revNum = Number(document.getElementById('editStRev').value) || 0;
+            const jobs = Number(document.getElementById('editStJobs').value) || 0;
+            const comp = Number(document.getElementById('editStCompliance').value) || 90;
+            const mentor = document.getElementById('editStMentor').value;
+
+            const updateObj = {
+                id,
+                name,
+                status,
+                revenueNumeric: revNum,
+                revenue: revNum >= 10000000 ? `₹ ${(revNum/10000000).toFixed(2)} Cr / yr` : `₹ ${(revNum/100000).toFixed(1)} Lakhs / yr`,
+                jobsCreated: jobs,
+                complianceScore: comp,
+                assignedMentor: mentor
+            };
+
+            window.CIMP_DB.saveStartup(updateObj);
+            bootstrap.Modal.getInstance(document.getElementById('modalEditStartup')).hide();
+            window.CIMP_DB.showToast(`Updated record for "${name}"`, 'success');
+            refreshMgrData();
+        }
+
+        function deleteStartupRecord(startupId) {
+            if (confirm("Are you sure you want to remove this startup record?")) {
+                window.CIMP_DB.deleteStartup(startupId);
+                window.CIMP_DB.showToast("Startup record deleted successfully.", "danger");
+                refreshMgrData();
+            }
+        }
+
+        // ==========================================
+        // 4. PORTFOLIO MILESTONES & SPRINTS
+        // ==========================================
+        function renderMilestonesTable() {
+            if (!window.CIMP_DB) return;
+            const cohortFilter = document.getElementById('filterMgrCohort')?.value || '';
+            let startups = window.CIMP_DB.getStartups();
+            if (cohortFilter) startups = startups.filter(s => (s.cohort || '').includes(cohortFilter));
+
+            const tbody = document.getElementById('tblMgrMilestonesBody');
+            if (!tbody) return;
+
+            let html = '';
+            startups.forEach(s => {
+                const isExpanded = expandedRowIds.has('ms-' + s.id);
+                const ms = (s.milestones && s.milestones[0]) ? s.milestones[0].title : 'Onboarding & Induction';
+                const compScore = s.complianceScore || 90;
+                let compBadge = 'bg-success-subtle text-success';
+                if (compScore < 80) compBadge = 'bg-danger-subtle text-danger';
+                else if (compScore < 92) compBadge = 'bg-warning-subtle text-warning-emphasis';
+
+                html += `
+                    <!-- Main Milestone Row -->
+                    <tr class="tr-parent ${isExpanded ? 'is-expanded' : ''}" id="tr-parent-ms-${s.id}" onclick="toggleExpandRow('ms-${s.id}', event)">
+                        <td>
+                            <span class="interactive-title font-13 d-block">${s.name}</span>
+                            <div class="font-11 text-muted">${s.founder}</div>
+                        </td>
+                        <td>
+                            <span class="badge bg-light text-dark border font-10">${s.sector}</span>
+                            <div class="font-10 text-muted mt-0.5">${s.cohort || 'Cohort 2022'}</div>
+                        </td>
+                        <td>
+                            <span class="font-12 fw-semibold text-dark"><i class="fa-solid fa-flag-checkered text-warning me-1"></i> ${ms}</span>
+                        </td>
+                        <td>
+                            <span class="badge bg-light text-primary border font-10 px-2 py-0.5">${s.assignedMentor || 'Dr. Alok Kumar'}</span>
+                        </td>
+                        <td class="text-end pe-3">
+                            <span class="badge ${compBadge} font-10 fw-bold px-2 py-0.5 me-1.5">${compScore}% Health</span>
+                            <button class="btn btn-sm btn-light border rounded-pill font-11 py-0.5 px-2 no-row-click" onclick="toggleExpandRow('ms-${s.id}')">
+                                <i class="fa-solid fa-chevron-down font-9 expand-chevron"></i>
+                            </button>
+                        </td>
+                    </tr>
+
+                    <!-- Expandable Sprints Drawer -->
+                    <tr class="tr-expand-tray ${isExpanded ? '' : 'd-none'}" id="tr-tray-ms-${s.id}">
+                        <td colspan="5">
+                            <div class="expand-content-wrap">
+                                <div class="bg-white p-3 rounded-3 border shadow-2xs">
+                                    <div class="d-flex align-items-center justify-content-between mb-2 pb-1 border-bottom">
+                                        <span class="font-11 text-muted text-uppercase fw-bold"><i class="fa-solid fa-list-check text-primary me-1"></i> Sprint Deliverables &amp; Compliance Checklist</span>
+                                        <span class="badge bg-primary-subtle text-primary font-10">Cohort Induction Cycle</span>
+                                    </div>
+                                    <div class="row g-2">
+                                        ${(s.milestones || []).map(m => `
+                                            <div class="col-md-6">
+                                                <div class="p-2 rounded bg-light border d-flex justify-content-between align-items-center font-12">
+                                                    <span><i class="fa-solid ${m.status === 'Completed' ? 'fa-circle-check text-success' : 'fa-hourglass-half text-warning'} me-1.5"></i> <strong>${m.title}</strong></span>
+                                                    <span class="badge ${m.status === 'Completed' ? 'bg-success-subtle text-success' : 'bg-warning-subtle text-warning'} font-9">${m.status}</span>
+                                                </div>
+                                            </div>
+                                        `).join('')}
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                `;
+            });
+            tbody.innerHTML = html;
+        }
+
+        // ==========================================
+        // 5. MENTORSHIP HUB & ADVISORY SESSIONS
+        // ==========================================
+        function renderMgrMentors() {
+            if (!window.CIMP_DB) return;
+            const mentors = window.CIMP_DB.getMentors();
+            const tbody = document.getElementById('tblMgrMentorsBody');
+            if (tbody) {
+                let html = '';
+                mentors.forEach(m => {
+                    const isExpanded = expandedRowIds.has('men-' + m.id);
+                    const assigned = (m.assignedStartups || []).join(', ') || 'Available for allocation';
+                    const exp = Array.isArray(m.expertise) ? m.expertise.join(', ') : (m.expertise || 'Strategy');
+                    const phone = m.phone || '+91 98765 43210';
+                    const cleanPhone = phone.replace(/\D/g, '');
+                    
+                    html += `
+                        <tr class="tr-parent ${isExpanded ? 'is-expanded' : ''}" id="tr-parent-men-${m.id}" onclick="toggleExpandRow('men-${m.id}', event)">
+                            <td>
+                                <span class="interactive-title font-13 d-block">${m.name}</span>
+                                <div class="font-11 text-muted">${m.title || 'Senior Advisory Faculty'}</div>
+                            </td>
+                            <td><span class="font-12 text-secondary">${m.organization || 'CIMP Patna'}</span></td>
+                            <td><span class="badge bg-light text-dark border font-10">${exp}</span></td>
+                            <td><strong class="text-dark font-12">${m.totalHoursLogged || 40} Hrs</strong></td>
+                            <td><span class="badge bg-warning-subtle text-warning-emphasis font-10">⭐ ${m.rating || 4.9}</span></td>
+                            <td class="text-end pe-3">
+                                <div class="d-flex align-items-center justify-content-end gap-1">
+                                    <button class="btn btn-sm btn-outline-primary font-11 py-0.5 px-2 no-row-click" onclick="openPairSpecificMentor('${m.id}')">
+                                        <i class="fa-solid fa-link me-1"></i> Pair
+                                    </button>
+                                    <button class="icon-action-pill no-row-click" onclick="toggleExpandRow('men-${m.id}')">
+                                        <i class="fa-solid fa-chevron-down font-9 expand-chevron"></i>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+
+                        <!-- Expandable Mentor Drawer -->
+                        <tr class="tr-expand-tray ${isExpanded ? '' : 'd-none'}" id="tr-tray-men-${m.id}">
+                            <td colspan="6">
+                                <div class="expand-content-wrap">
+                                    <div class="bg-white p-3 rounded-3 border shadow-2xs">
+                                        <div class="d-flex justify-content-between align-items-start mb-2">
+                                            <div>
+                                                <div class="font-10 text-muted text-uppercase fw-bold mb-1"><i class="fa-solid fa-address-card text-primary me-1"></i> Mentor Profile &amp; Domain Background</div>
+                                                <p class="font-12 text-secondary mb-2">${m.bio || 'Senior advisory mentor empaneled under CIMP-BIIF Incubation Faculty Network.'}</p>
+                                            </div>
+                                            <div class="d-flex align-items-center gap-1.5">
+                                                <a href="tel:${cleanPhone}" class="icon-action-pill pill-phone" title="Call"><i class="fa-solid fa-phone"></i></a>
+                                                <a href="https://wa.me/${cleanPhone}" target="_blank" class="icon-action-pill pill-wa" title="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
+                                                <a href="mailto:${m.email || 'mentor@cimp.ac.in'}" class="icon-action-pill pill-mail" title="Email"><i class="fa-solid fa-envelope"></i></a>
+                                            </div>
+                                        </div>
+                                        <div class="p-2 bg-light rounded border font-11">
+                                            <strong>Currently Guiding Incubatees: </strong><span class="text-primary fw-semibold">${assigned}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    `;
+                });
+                tbody.innerHTML = html;
+            }
+
+            // Render Sessions with Expandable Notes Tray
+            const sessions = window.CIMP_DB.getMentoringSessions ? window.CIMP_DB.getMentoringSessions() : [];
+            const tbodySes = document.getElementById('tblMgrSessionsBody');
+            if (tbodySes) {
+                let sHtml = '';
+                sessions.forEach(ses => {
+                    const isExpanded = expandedRowIds.has('ses-' + ses.id);
+                    sHtml += `
+                        <tr class="tr-parent ${isExpanded ? 'is-expanded' : ''}" id="tr-parent-ses-${ses.id}" onclick="toggleExpandRow('ses-${ses.id}', event)">
+                            <td class="nowrap-cell"><code>${ses.id}</code></td>
+                            <td><strong class="font-13 text-dark">${ses.startupName}</strong></td>
+                            <td>${ses.mentorName}</td>
+                            <td>${ses.date} &bull; <span class="badge bg-light text-dark border font-10">${ses.durationHours} Hrs</span></td>
+                            <td>
+                                <span class="font-12 text-dark fw-semibold">${ses.topic}</span>
+                            </td>
+                            <td class="text-end pe-3">
+                                <span class="badge bg-warning-subtle text-warning-emphasis font-10 me-1">⭐ ${ses.feedbackRating || 5}/5</span>
+                                <button class="btn btn-sm btn-light border rounded-pill font-11 py-0.5 px-2 no-row-click" onclick="toggleExpandRow('ses-${ses.id}')">
+                                    <i class="fa-solid fa-chevron-down font-9 expand-chevron"></i>
+                                </button>
+                            </td>
+                        </tr>
+                        <!-- Expandable Session Notes Tray -->
+                        <tr class="tr-expand-tray ${isExpanded ? '' : 'd-none'}" id="tr-tray-ses-${ses.id}">
+                            <td colspan="6">
+                                <div class="expand-content-wrap">
+                                    <div class="bg-white p-3 rounded-3 border shadow-2xs">
+                                        <div class="font-10 text-muted text-uppercase fw-bold mb-1"><i class="fa-solid fa-file-pen text-primary me-1"></i> Mentorship Advisory Notes &amp; Action Items</div>
+                                        <p class="font-12 text-dark mb-2" style="line-height:1.45;">${ses.notes || 'Detailed advisory discussion covering business modeling, customer pilot strategy, and milestone deadlines.'}</p>
+                                        <div class="d-flex justify-content-between align-items-center p-2 bg-light rounded border font-11">
+                                            <span><strong>Mentee Venture: </strong>${ses.startupName}</span>
+                                            <span><strong>Mentor: </strong>${ses.mentorName}</span>
+                                            <span><strong>Duration: </strong>${ses.durationHours} Hours</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    `;
+                });
+                tbodySes.innerHTML = sHtml || '<tr><td colspan="6" class="text-center py-3 text-muted">No advisory sessions logged yet.</td></tr>';
+            }
+        }
+
+        function openPairMentorModal() {
+            const startups = window.CIMP_DB.getStartups();
+            const mentors = window.CIMP_DB.getMentors();
+
+            document.getElementById('pairStartupSel').innerHTML = startups.map(s => `<option value="${s.id}">${s.name} (${s.founder} - ${s.sector})</option>`).join('');
+            document.getElementById('pairMentorSel').innerHTML = mentors.map(m => `<option value="${m.id}">${m.name} [${Array.isArray(m.expertise) ? m.expertise[0] : m.expertise}]</option>`).join('');
+
+            const modal = new bootstrap.Modal(document.getElementById('modalPairMentor'));
+            modal.show();
+        }
+
+        function openPairSpecificMentor(mentorId) {
+            openPairMentorModal();
+            const el = document.getElementById('pairMentorSel');
+            if (el) el.value = mentorId;
+        }
+
+        function submitPairMentor(e) {
+            e.preventDefault();
+            const stId = document.getElementById('pairStartupSel').value;
+            const menId = document.getElementById('pairMentorSel').value;
+
+            window.CIMP_DB.pairMentor(stId, menId);
+            bootstrap.Modal.getInstance(document.getElementById('modalPairMentor')).hide();
+            window.CIMP_DB.showToast("Mentor successfully paired with startup!", "success");
+            refreshMgrData();
+        }
+
+        function openLogSessionModal() {
+            const startups = window.CIMP_DB.getStartups();
+            const mentors = window.CIMP_DB.getMentors();
+
+            document.getElementById('logSessionStartup').innerHTML = startups.map(s => `<option value="${s.id}">${s.name}</option>`).join('');
+            document.getElementById('logSessionMentor').innerHTML = mentors.map(m => `<option value="${m.id}">${m.name}</option>`).join('');
+            document.getElementById('logSessionDate').value = new Date().toISOString().split('T')[0];
+
+            const modal = new bootstrap.Modal(document.getElementById('modalLogSession'));
+            modal.show();
+        }
+
+        function submitLogSession(e) {
+            e.preventDefault();
+            const stId = document.getElementById('logSessionStartup').value;
+            const menId = document.getElementById('logSessionMentor').value;
+            const date = document.getElementById('logSessionDate').value;
+            const hours = Number(document.getElementById('logSessionHours').value) || 1.5;
+            const topic = document.getElementById('logSessionTopic').value.trim();
+            const notes = document.getElementById('logSessionNotes').value.trim();
+
+            const startup = window.CIMP_DB.getStartupById(stId);
+            const mentor = window.CIMP_DB.getMentorById(menId);
+
+            window.CIMP_DB.logMentoringSession({
+                startupId: stId,
+                startupName: startup ? startup.name : 'Incubatee',
+                mentorId: menId,
+                mentorName: mentor ? mentor.name : 'Mentor',
+                date,
+                durationHours: hours,
+                topic,
+                notes,
+                feedbackRating: 5
+            });
+
+            bootstrap.Modal.getInstance(document.getElementById('modalLogSession')).hide();
+            window.CIMP_DB.showToast("Mentoring session successfully logged!", "success");
+            refreshMgrData();
+        }
+
+        function openAddMentorModal() {
+            const name = prompt("Enter Mentor Full Name with Title (e.g. Dr. Sanjeev Roy):");
+            if (!name) return;
+            const org = prompt("Enter Organization / Affiliation (e.g. IIT Patna / IIM Bodh Gaya):", "Academic & Industry Advisory");
+            const exp = prompt("Enter Domain Expertise (e.g. AI, AgriTech, FinTech, Legal):", "Strategy & Scale-up");
             
-            const modalEl = document.getElementById('mgrScoreModal');
-            const modalInstance = bootstrap.Modal.getInstance(modalEl);
-            if (modalInstance) modalInstance.hide();
+            window.CIMP_DB.saveMentor({
+                name,
+                organization: org,
+                title: 'Incubation Advisory Faculty',
+                expertise: [exp],
+                email: name.toLowerCase().replace(/[^a-z0-9]/g, '') + '@biif-advisor.org',
+                phone: '+91 98765 43210',
+                status: 'Active',
+                totalHoursLogged: 0,
+                rating: 5.0
+            });
 
-            alert('✅ Application scored (' + score + '/100) and escalated to Executive Director!');
+            window.CIMP_DB.showToast(`Mentor ${name} successfully empaneled!`, 'success');
             refreshMgrData();
         }
 
         // ==========================================
-        // BIHAR SEED CAPITAL & GRANT TRANCHE LOGIC
+        // 6. BIHAR SEED CAPITAL & GRANTS
         // ==========================================
         function renderMgrGrants() {
             if (!window.CIMP_DB) return;
@@ -785,6 +2222,7 @@
 
             let html = '';
             disbursements.forEach(d => {
+                const isExpanded = expandedRowIds.has('dsb-' + d.id);
                 const t1 = d.tranches.find(t => t.trancheNo === 1) || {};
                 const t2 = d.tranches.find(t => t.trancheNo === 2) || {};
                 const t3 = d.tranches.find(t => t.trancheNo === 3) || {};
@@ -795,22 +2233,68 @@
                 });
 
                 html += `
-                    <tr>
+                    <!-- Main Grant Row -->
+                    <tr class="tr-parent ${isExpanded ? 'is-expanded' : ''}" id="tr-parent-dsb-${d.id}" onclick="toggleExpandRow('dsb-${d.id}', event)">
                         <td>
-                            <strong class="font-14 text-dark">${d.startupName}</strong>
+                            <strong class="font-13 text-dark">${d.startupName}</strong>
                             <div class="font-11 text-muted"><i class="fa-solid fa-user me-1"></i> ${d.founderName}</div>
                         </td>
                         <td>
-                            <span class="badge bg-light text-dark border font-11">${d.scheme}</span>
+                            <span class="badge bg-light text-dark border font-10">${d.scheme}</span>
                             <div class="font-10 text-muted mt-0.5">Sanctioned: ₹ ${(d.totalSanctioned / 100000).toFixed(1)} Lakhs</div>
                         </td>
                         <td>${renderTranchePill(d.id, 1, t1)}</td>
                         <td>${renderTranchePill(d.id, 2, t2)}</td>
                         <td>${renderTranchePill(d.id, 3, t3)}</td>
                         <td class="text-end pe-3">
-                            <button class="btn btn-sm btn-outline-primary py-1 px-2 font-11" onclick="openUpdateTrancheModal('${d.id}', 1)">
-                                <i class="fa-solid fa-pen-to-square me-1"></i> Update
-                            </button>
+                            <div class="d-flex align-items-center justify-content-end gap-1">
+                                <button class="btn btn-sm btn-outline-primary py-0.5 px-2 font-11 no-row-click" onclick="openUpdateTrancheModal('${d.id}', 1)">
+                                    <i class="fa-solid fa-pen-to-square me-1"></i> Update
+                                </button>
+                                <button class="icon-action-pill no-row-click" onclick="toggleExpandRow('dsb-${d.id}')">
+                                    <i class="fa-solid fa-chevron-down font-9 expand-chevron"></i>
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+
+                    <!-- Expandable Grant Audit Tray -->
+                    <tr class="tr-expand-tray ${isExpanded ? '' : 'd-none'}" id="tr-tray-dsb-${d.id}">
+                        <td colspan="6">
+                            <div class="expand-content-wrap">
+                                <div class="bg-white p-3 rounded-3 border shadow-2xs">
+                                    <div class="d-flex justify-content-between align-items-center mb-2 pb-1 border-bottom">
+                                        <span class="font-11 text-muted text-uppercase fw-bold"><i class="fa-solid fa-file-invoice-dollar text-success me-1"></i> Bihar Startup Policy 2022 Tranche Disbursement &amp; UC Audit</span>
+                                        <span class="badge bg-success-subtle text-success font-10">Sanction Ref: BIIF/BSP/2026/G-0${d.id.slice(-2)}</span>
+                                    </div>
+                                    <div class="row g-2 font-12">
+                                        <div class="col-md-4">
+                                            <div class="p-2 rounded bg-light border">
+                                                <div class="font-11 text-muted fw-bold">TRANCHE 1 (₹ 2,50,000)</div>
+                                                <div class="font-12 fw-bold text-dark mt-0.5">Prototype &amp; Lab Validation</div>
+                                                <div class="font-11 text-muted">Status: <span class="badge bg-success-subtle text-success font-9">${t1.status || 'Pending'}</span></div>
+                                                <div class="font-10 text-secondary mt-1">${t1.remarks || 'Prototype testing & co-working check verified.'}</div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="p-2 rounded bg-light border">
+                                                <div class="font-11 text-muted fw-bold">TRANCHE 2 (₹ 5,00,000)</div>
+                                                <div class="font-12 fw-bold text-dark mt-0.5">Market Pilot &amp; Customers</div>
+                                                <div class="font-11 text-muted">Status: <span class="badge ${t2.status === 'Disbursed' ? 'bg-success-subtle text-success' : 'bg-warning-subtle text-warning'} font-9">${t2.status || 'Pending'}</span></div>
+                                                <div class="font-10 text-secondary mt-1">${t2.remarks || '5+ pilot customers onboarded & UC submitted.'}</div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="p-2 rounded bg-light border">
+                                                <div class="font-11 text-muted fw-bold">TRANCHE 3 (₹ 2,50,000)</div>
+                                                <div class="font-12 fw-bold text-dark mt-0.5">Commercial Scaling</div>
+                                                <div class="font-11 text-muted">Status: <span class="badge ${t3.status === 'Disbursed' ? 'bg-success-subtle text-success' : 'bg-warning-subtle text-warning'} font-9">${t3.status || 'Pending'}</span></div>
+                                                <div class="font-10 text-secondary mt-1">${t3.remarks || 'Commercial billing & hiring targets.'}</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </td>
                     </tr>
                 `;
@@ -841,8 +2325,8 @@
 
             return `
                 <div style="cursor: pointer;" onclick="openUpdateTrancheModal('${dsbId}', ${tNo})" title="Click to update status">
-                    <span class="badge ${badgeClass} font-11 fw-bold">
-                        <i class="fa-solid ${icon} me-1 font-10"></i> ${trancheObj.status}
+                    <span class="badge ${badgeClass} font-10 fw-bold">
+                        <i class="fa-solid ${icon} me-1 font-8"></i> ${trancheObj.status}
                     </span>
                     <div class="font-10 text-muted mt-0.5">
                         ${trancheObj.ucSubmitted ? '<span class="text-success"><i class="fa-solid fa-file-check me-0.5"></i> UC Verified</span>' : '<span class="text-muted">Pending UC</span>'}
@@ -882,68 +2366,189 @@
 
             window.CIMP_DB.updateTrancheStatus(dsbId, tNo, status, remarks);
             bootstrap.Modal.getInstance(document.getElementById('modalUpdateTranche')).hide();
+            window.CIMP_DB.showToast("Grant tranche status updated!", "success");
             renderMgrGrants();
         }
 
-        function renderMilestonesTable() {
+        // ==========================================
+        // 7. CIRCULARS & NOTICES BROADCAST
+        // ==========================================
+        function renderMgrCirculars() {
             if (!window.CIMP_DB) return;
-            const cohortFilter = document.getElementById('filterMgrCohort') ? document.getElementById('filterMgrCohort').value : '';
-            let startups = window.CIMP_DB.getStartups();
-            if (cohortFilter) startups = startups.filter(s => (s.cohort || '').includes(cohortFilter));
-
-            const tbody = document.getElementById('tblMgrMilestonesBody');
+            const circulars = window.CIMP_DB.getAnnouncements();
+            const tbody = document.getElementById('tblMgrCircularsBody');
             if (!tbody) return;
 
             let html = '';
-            startups.forEach(s => {
-                const ms = (s.milestones && s.milestones[0]) ? s.milestones[0].title : 'Onboarding';
+            circulars.forEach(c => {
+                const isExpanded = expandedRowIds.has('circ-' + c.id);
+                const target = Array.isArray(c.targetRoles) ? c.targetRoles.join(', ') : 'All Portals';
                 html += `
-                    <tr>
-                        <td><strong>${s.name}</strong><div class="font-11 text-muted">${s.founder}</div></td>
-                        <td>${s.cohort || 'Cohort 2022'}</td>
-                        <td><span class="font-12 fw-semibold">${s.sector}</span><div class="font-11 text-muted">${s.stage}</div></td>
-                        <td><span class="font-12 fw-semibold text-dark"><i class="fa-solid fa-flag-checkered text-warning me-1"></i> ${ms}</span></td>
-                        <td>${s.assignedMentor || 'Dr. Alok Kumar'}</td>
-                        <td><strong>${s.complianceScore || 90}%</strong></td>
-                        <td><span class="font-12 fw-semibold text-success"><i class="fa-solid fa-circle font-8 me-1"></i> Active</span></td>
-                    </tr>
-                `;
-            });
-            tbody.innerHTML = html;
-        }
-
-        function renderMgrMentors() {
-            if (!window.CIMP_DB) return;
-            const mentors = window.CIMP_DB.getMentors();
-            const tbody = document.getElementById('tblMgrMentorsBody');
-            if (!tbody) return;
-
-            let html = '';
-            mentors.forEach(m => {
-                const assigned = (m.assignedStartups || []).join(', ') || 'Available on request';
-                html += `
-                    <tr>
-                        <td><strong>${m.name}</strong></td>
-                        <td class="text-muted font-12">${m.title || 'Senior Advisory Faculty'}</td>
-                        <td><span class="font-12 fw-semibold">${m.expertise || 'Strategy'}</span></td>
-                        <td class="font-12 text-primary">${assigned}</td>
-                        <td><strong>12 Hours / Mo</strong></td>
+                    <!-- Main Circular Row -->
+                    <tr class="tr-parent ${isExpanded ? 'is-expanded' : ''}" id="tr-parent-circ-${c.id}" onclick="toggleExpandRow('circ-${c.id}', event)">
+                        <td class="nowrap-cell"><code>${c.id}</code></td>
                         <td>
-                            <button class="btn btn-sm btn-outline-primary font-11 py-1" onclick="alert('Pairing request sent to mentor.')">Pair Startup</button>
+                            <strong class="font-13 text-dark">${c.title}</strong>
+                            <div class="font-11 text-secondary mt-0.5 text-truncate" style="max-width: 320px;">${c.content}</div>
+                        </td>
+                        <td>
+                            <span class="badge bg-primary-subtle text-primary font-10">${c.category}</span>
+                            <div class="badge bg-warning-subtle text-warning-emphasis font-9 mt-1">${c.badge || 'Notice'}</div>
+                        </td>
+                        <td><span class="font-11 text-dark fw-semibold">${target}</span></td>
+                        <td class="text-end pe-3">
+                            <div class="d-flex align-items-center justify-content-end gap-1">
+                                <button class="btn btn-sm btn-light border rounded-pill font-11 py-0.5 px-2 no-row-click" onclick="toggleExpandRow('circ-${c.id}')">
+                                    <i class="fa-solid fa-chevron-down font-9 expand-chevron"></i>
+                                </button>
+                                <button class="icon-action-pill pill-danger no-row-click" onclick="deleteCircularRecord('${c.id}')" title="Delete Circular">
+                                    <i class="fa-solid fa-trash"></i>
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+
+                    <!-- Expandable Full Notice Tray -->
+                    <tr class="tr-expand-tray ${isExpanded ? '' : 'd-none'}" id="tr-tray-circ-${c.id}">
+                        <td colspan="5">
+                            <div class="expand-content-wrap">
+                                <div class="bg-white p-3 rounded-3 border shadow-2xs">
+                                    <div class="d-flex justify-content-between align-items-center mb-1.5">
+                                        <span class="font-10 text-muted text-uppercase fw-bold"><i class="fa-solid fa-bullhorn text-warning me-1"></i> Broadcast Announcement Body</span>
+                                        <span class="badge bg-light text-dark border font-9">Published to: ${target}</span>
+                                    </div>
+                                    <h6 class="font-13 fw-bold text-dark mb-1">${c.title}</h6>
+                                    <p class="font-12 text-secondary mb-2" style="line-height:1.5;">${c.content}</p>
+                                    <div class="font-10 text-muted border-top pt-1">
+                                        Broadcasting Authority: <strong>CIMP - BIIF Incubation Operations Desk</strong> &bull; Priority: <strong>${c.badge || 'Official Circular'}</strong>
+                                    </div>
+                                </div>
+                            </div>
                         </td>
                     </tr>
                 `;
             });
-            tbody.innerHTML = html;
+            tbody.innerHTML = html || '<tr><td colspan="5" class="text-center py-3 text-muted">No circulars broadcasted yet.</td></tr>';
         }
 
         function openBroadcastModal() {
-            const msg = prompt("Enter circular / ecosystem announcement to broadcast to all incubatees:", "Important: Quarterly compliance review submission due on Friday.");
-            if (msg) {
-                alert("âœ… Broadcast circular published to all startup founder portals.");
+            document.getElementById('formPostCircular').reset();
+            const modal = new bootstrap.Modal(document.getElementById('modalPostCircular'));
+            modal.show();
+        }
+
+        function submitPostCircular(e) {
+            e.preventDefault();
+            const title = document.getElementById('circTitle').value.trim();
+            const category = document.getElementById('circCategory').value;
+            const badge = document.getElementById('circBadge').value.trim();
+            const audience = document.getElementById('circAudience').value;
+            const content = document.getElementById('circContent').value.trim();
+
+            const targetRoles = audience === 'All' ? ['All', 'Startup', 'Mentor', 'Director'] : [audience];
+
+            window.CIMP_DB.addAnnouncement({
+                title,
+                category,
+                badge,
+                content,
+                targetRoles
+            });
+
+            bootstrap.Modal.getInstance(document.getElementById('modalPostCircular')).hide();
+            window.CIMP_DB.showToast("Broadcast circular posted to ecosystem!", "success");
+            refreshMgrData();
+        }
+
+        function deleteCircularRecord(annId) {
+            if (confirm("Are you sure you want to delete this broadcast circular?")) {
+                window.CIMP_DB.deleteAnnouncement(annId);
+                window.CIMP_DB.showToast("Circular notice deleted.", "danger");
+                renderMgrCirculars();
             }
         }
 
+        // ==========================================
+        // 8. GOVT MIS & REPORTS
+        // ==========================================
+        function renderMgrReports() {
+            if (!window.CIMP_DB) return;
+            const analytics = window.CIMP_DB.getAnalytics();
+            const startups = window.CIMP_DB.getStartups();
+
+            document.getElementById('misTotalRev').innerText = analytics.totalRevenueFormatted || '₹ 21.49 Cr';
+            document.getElementById('misTotalJobs').innerText = `${analytics.totalJobsCreated || 397}+`;
+
+            const tbody = document.getElementById('tblMgrMISBody');
+            if (tbody) {
+                let html = '';
+                startups.forEach(s => {
+                    const isExpanded = expandedRowIds.has('mis-' + s.id);
+                    html += `
+                        <!-- Main MIS Row -->
+                        <tr class="tr-parent ${isExpanded ? 'is-expanded' : ''}" id="tr-parent-mis-${s.id}" onclick="toggleExpandRow('mis-${s.id}', event)">
+                            <td>
+                                <strong>${s.name}</strong>
+                                <div class="font-10 text-muted mt-0.5"><code>${s.cin || 'U72900BR2022PTC054321'}</code></div>
+                            </td>
+                            <td>${s.founder} &bull; <span class="text-muted font-11">${s.location || 'Patna'}</span></td>
+                            <td><span class="badge bg-light text-dark border font-10">Pvt Ltd / LLP</span></td>
+                            <td><span class="badge bg-light text-dark border font-10">${s.sector}</span></td>
+                            <td><strong class="text-success">${s.jobsCreated || 4}</strong></td>
+                            <td><strong>${s.revenue || '₹ 0 / yr'}</strong></td>
+                            <td>
+                                <strong class="text-primary">${s.fundingRaised || '₹ 10L'}</strong>
+                                <button class="btn btn-sm btn-light border rounded-pill font-11 py-0 px-1.5 ms-1 no-row-click" onclick="toggleExpandRow('mis-${s.id}')">
+                                    <i class="fa-solid fa-chevron-down font-8 expand-chevron"></i>
+                                </button>
+                            </td>
+                        </tr>
+
+                        <!-- Expandable Govt Institutional MIS Tray -->
+                        <tr class="tr-expand-tray ${isExpanded ? '' : 'd-none'}" id="tr-tray-mis-${s.id}">
+                            <td colspan="7">
+                                <div class="expand-content-wrap">
+                                    <div class="bg-white p-3 rounded-3 border shadow-2xs">
+                                        <div class="d-flex justify-content-between align-items-center mb-2 pb-1 border-bottom">
+                                            <span class="font-11 text-muted text-uppercase fw-bold"><i class="fa-solid fa-landmark text-primary me-1"></i> Govt Compliance &amp; DPIIT Portfolio Breakdown</span>
+                                            <span class="badge bg-teal-subtle text-teal font-9">Verified by Incubation Operations</span>
+                                        </div>
+                                        <div class="row g-2 font-11">
+                                            <div class="col-md-3"><span>Legal CIN: </span><strong class="text-dark">${s.cin || 'U72900BR2022PTC054321'}</strong></div>
+                                            <div class="col-md-3"><span>DPIIT Recognition: </span><strong class="text-success">DIPP-${s.id}-2022</strong></div>
+                                            <div class="col-md-3"><span>Udyam Reg.: </span><strong class="text-dark">UDYAM-BR-01-0098${s.id.slice(-2)}</strong></div>
+                                            <div class="col-md-3"><span>Compliance Score: </span><strong class="text-teal">${s.complianceScore || 95}% (Audit Pass)</strong></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    `;
+                });
+                tbody.innerHTML = html;
+            }
+        }
+
+        function exportPortfolioCSV() {
+            const startups = window.CIMP_DB.getStartups();
+            let csv = 'Startup Name,Legal Name,Founder,Email,Phone,Sector,Cohort,Stage,Revenue,Funding Raised,Jobs Created,Compliance Score\n';
+            startups.forEach(s => {
+                csv += `"${s.name}","${s.legalName || ''}","${s.founder}","${s.email}","${s.phone || ''}","${s.sector}","${s.cohort || ''}","${s.stage}","${s.revenue || ''}","${s.fundingRaised || ''}","${s.jobsCreated || 0}","${s.complianceScore || 90}"\n`;
+            });
+
+            const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(blob);
+            link.setAttribute('download', `CIMP_BIIF_Incubation_Portfolio_MIS_${new Date().toISOString().split('T')[0]}.csv`);
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            window.CIMP_DB.showToast("Portfolio MIS CSV exported successfully!", "success");
+        }
+
+        // ==========================================
+        // OMNISEARCH HANDLER
+        // ==========================================
         function handleMgrSearch(query) {
             const q = (query || '').trim().toLowerCase();
             const inpDesktop = document.getElementById('mgrSearchInp');
@@ -951,30 +2556,41 @@
             if (inpDesktop && inpDesktop.value !== query) inpDesktop.value = query;
             if (inpMobile && inpMobile.value !== query) inpMobile.value = query;
 
-            if (!q) { renderScrutinyQueue(); return; }
-            switchMgrView('tab-mgr-queue', document.getElementById('mgrNavQueue'));
-            const apps = window.CIMP_DB.getApplications().filter(a => a.startupName.toLowerCase().includes(q) || a.founderName.toLowerCase().includes(q));
-            const tbody = document.getElementById('tblMgrScrutinyBody');
+            if (!q) { renderStartupsMasterTable(); renderScrutinyQueue(); return; }
+            
+            // Switch to startups tab for instant search
+            switchMgrView('tab-mgr-startups', document.getElementById('mgrNavStartups'));
+            const startups = window.CIMP_DB.getStartups().filter(s => 
+                s.name.toLowerCase().includes(q) || 
+                s.founder.toLowerCase().includes(q) || 
+                s.sector.toLowerCase().includes(q) ||
+                (s.assignedMentor && s.assignedMentor.toLowerCase().includes(q))
+            );
+
+            const tbody = document.getElementById('tblMgrStartupsMasterBody');
             if (tbody) {
                 let html = '';
-                apps.forEach(a => {
+                startups.forEach(s => {
+                    const phone = s.phone || '+91 98765 43210';
+                    const cleanPhone = phone.replace(/[^0-9]/g, '');
                     html += `
                         <tr>
-                            <td><code>${a.id}</code></td>
-                            <td><strong class="font-14 text-dark">${a.startupName}</strong></td>
-                            <td>${a.founderName}</td>
-                            <td>${a.sector}</td>
-                            <td>${a.stage}</td>
-                            <td><strong class="text-primary">${a.fundingRequired || '₹ 25 Lakhs'}</strong></td>
-                            <td><span class="font-12 fw-bold text-dark">${a.managerScore || 88}/100</span></td>
-                            <td><button class="app-btn-action" onclick="openScoreModal('${a.id}')">Score</button></td>
+                            <td><strong>${s.name}</strong><div class="font-11 text-muted">${s.legalName || ''}</div></td>
+                            <td>${s.founder}<div class="font-11 text-muted">${s.location || ''}</div></td>
+                            <td><span class="badge bg-light text-dark border font-11">${s.sector}</span></td>
+                            <td><strong>${s.revenue || '₹ 0'}</strong></td>
+                            <td>${s.assignedMentor || 'Dr. Alok Kumar'}</td>
+                            <td class="text-end pe-3">
+                                <div class="d-flex align-items-center justify-content-end gap-1">
+                                    <a class="icon-action-pill pill-wa" href="https://wa.me/${cleanPhone}" target="_blank"><i class="fa-brands fa-whatsapp"></i></a>
+                                </div>
+                            </td>
                         </tr>
                     `;
                 });
-                tbody.innerHTML = html || '<tr><td colspan="8" class="text-center py-3 text-muted">No applications found.</td></tr>';
+                tbody.innerHTML = html || '<tr><td colspan="6" class="text-center py-3 text-muted">No matching startups or applications found.</td></tr>';
             }
         }
     </script>
 </body>
 </html>
-
