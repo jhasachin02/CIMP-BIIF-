@@ -621,8 +621,11 @@
 
         document.addEventListener('DOMContentLoaded', function () {
             if (window.CIMP_DB) {
-                window.CIMP_DB.setCurrentUser('usr-mgr');
-                window.CIMP_DB.syncDOMUserProfile('usr-mgr');
+                const curUser = window.CIMP_DB.getCurrentUser();
+                if (!curUser || curUser.role !== 'Incubation Manager') {
+                    window.CIMP_DB.setCurrentUser('usr-mgr');
+                }
+                window.CIMP_DB.syncDOMUserProfile();
             }
             refreshMgrData();
 
@@ -630,7 +633,7 @@
         });
 
         function refreshMgrData() {
-            if (window.CIMP_DB) window.CIMP_DB.syncDOMUserProfile('usr-mgr');
+            if (window.CIMP_DB) window.CIMP_DB.syncDOMUserProfile();
             renderMgrOverview();
             renderScrutinyQueue();
             renderMilestonesTable();

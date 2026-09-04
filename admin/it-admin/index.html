@@ -1203,7 +1203,7 @@
                                     <option value="Startup">Startup Founder</option>
                                     <option value="Mentor">Faculty Mentor</option>
                                     <option value="Incubation Manager">Incubation Manager</option>
-                                    <option value="Director">Executive Director</option>
+                                    <option value="Director">Executive Director / CEO</option>
                                     <option value="IT Admin">IT Administrator</option>
                                 </select>
                             </div>
@@ -1287,10 +1287,10 @@
                             <div class="col-md-5">
                                 <label class="form-label font-12 fw-semibold text-secondary mb-1">Persona / Role</label>
                                 <select class="form-select font-13" id="euRole" required style="border-radius: 6px;">
-                                    <option value="Startup">Startup</option>
-                                    <option value="Mentor">Mentor</option>
+                                    <option value="Startup">Startup Founder</option>
+                                    <option value="Mentor">Faculty Mentor</option>
                                     <option value="Incubation Manager">Incubation Manager</option>
-                                    <option value="Director">Director</option>
+                                    <option value="Director">Executive Director / CEO</option>
                                     <option value="IT Admin">IT Admin</option>
                                 </select>
                             </div>
@@ -1430,15 +1430,18 @@
 
         document.addEventListener('DOMContentLoaded', function () {
             if (window.CIMP_DB) {
-                window.CIMP_DB.setCurrentUser('usr-it');
-                window.CIMP_DB.syncDOMUserProfile('usr-it');
+                const curUser = window.CIMP_DB.getCurrentUser();
+                if (!curUser || curUser.role !== 'IT Admin') {
+                    window.CIMP_DB.setCurrentUser('usr-it');
+                }
+                window.CIMP_DB.syncDOMUserProfile();
             }
             renderItUsers();
             renderFormStudio();
             renderItAudit();
 
             window.addEventListener('cimp:db_updated', function() {
-                if (window.CIMP_DB) window.CIMP_DB.syncDOMUserProfile('usr-it');
+                if (window.CIMP_DB) window.CIMP_DB.syncDOMUserProfile();
                 renderItUsers();
                 renderFormStudio();
                 renderItAudit();

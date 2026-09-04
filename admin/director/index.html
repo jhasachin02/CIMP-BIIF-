@@ -769,8 +769,11 @@
 
         document.addEventListener('DOMContentLoaded', function () {
             if (window.CIMP_DB) {
-                window.CIMP_DB.setCurrentUser('usr-dir');
-                window.CIMP_DB.syncDOMUserProfile('usr-dir');
+                const curUser = window.CIMP_DB.getCurrentUser();
+                if (!curUser || curUser.role !== 'Director') {
+                    window.CIMP_DB.setCurrentUser('usr-dir');
+                }
+                window.CIMP_DB.syncDOMUserProfile();
             }
             refreshAllData();
             initExecutiveBarChart();
@@ -783,7 +786,7 @@
         });
 
         function refreshAllData() {
-            if (window.CIMP_DB) window.CIMP_DB.syncDOMUserProfile('usr-dir');
+            if (window.CIMP_DB) window.CIMP_DB.syncDOMUserProfile();
             renderOverviewData();
             renderApprovalsTable();
             renderStartupsView();

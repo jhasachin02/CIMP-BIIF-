@@ -398,12 +398,15 @@
 
         document.addEventListener('DOMContentLoaded', function () {
             if (window.CIMP_DB) {
-                window.CIMP_DB.setCurrentUser('usr-mentor');
-                window.CIMP_DB.syncDOMUserProfile('usr-mentor');
+                const curUser = window.CIMP_DB.getCurrentUser();
+                if (!curUser || curUser.role !== 'Mentor') {
+                    window.CIMP_DB.setCurrentUser('usr-mentor');
+                }
+                window.CIMP_DB.syncDOMUserProfile();
             }
 
             window.addEventListener('cimp:db_updated', function() {
-                if (window.CIMP_DB) window.CIMP_DB.syncDOMUserProfile('usr-mentor');
+                if (window.CIMP_DB) window.CIMP_DB.syncDOMUserProfile();
             });
         });
 

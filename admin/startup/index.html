@@ -411,12 +411,15 @@
 
         document.addEventListener('DOMContentLoaded', function () {
             if (window.CIMP_DB) {
-                window.CIMP_DB.setCurrentUser('usr-founder');
-                window.CIMP_DB.syncDOMUserProfile('usr-founder');
+                const curUser = window.CIMP_DB.getCurrentUser();
+                if (!curUser || curUser.role !== 'Startup') {
+                    window.CIMP_DB.setCurrentUser('usr-founder');
+                }
+                window.CIMP_DB.syncDOMUserProfile();
             }
 
             window.addEventListener('cimp:db_updated', function() {
-                if (window.CIMP_DB) window.CIMP_DB.syncDOMUserProfile('usr-founder');
+                if (window.CIMP_DB) window.CIMP_DB.syncDOMUserProfile();
             });
         });
 

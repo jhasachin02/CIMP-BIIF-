@@ -1018,6 +1018,23 @@
             const elDropdownRole = document.getElementById('dropdownUserRole');
             if (elDropdownRole) elDropdownRole.textContent = user.role;
 
+            // Smart Branding Subtitle for Active Persona
+            const brandSub = document.querySelector('.app-brand-subtitle span');
+            if (brandSub) {
+                if (user.role === 'Director') {
+                    const isCeo = (user.title && user.title.toLowerCase().includes('ceo')) || (user.name && user.name.toLowerCase().includes('ceo'));
+                    brandSub.textContent = isCeo ? 'CEO Command' : (user.title || 'Director Command');
+                } else if (user.role === 'Incubation Manager') {
+                    brandSub.textContent = 'Manager Workspace';
+                } else if (user.role === 'IT Admin') {
+                    brandSub.textContent = 'IT & Security Stack';
+                } else if (user.role === 'Startup') {
+                    brandSub.textContent = `${user.name} Workspace`;
+                } else if (user.role === 'Mentor') {
+                    brandSub.textContent = 'Mentor Advisory Desk';
+                }
+            }
+
             // Generic fallback updates only for user profile widgets
             document.querySelectorAll('.app-user-profile #sidebarUserName').forEach(el => {
                 el.textContent = user.name;
