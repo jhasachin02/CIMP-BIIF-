@@ -817,30 +817,23 @@ h1, h2, h3, h4, h5, h6, .heading {
 }
 
 /* ==========================================================================
-   THE CATALYST FOR BIHAR'S ENTREPRENEURS SECTION
-   Exact layout & card styling matching cimp-biif.vercel.app
+   THE CATALYST FOR BIHAR'S ENTREPRENEURS SECTION (CLEAN EDITORIAL REVAMP)
+   High-prestige institutional design with real media & authentic branding
    ========================================================================== */
 .about-homepage-section {
   background: #FFFFFF;
-  padding: 85px 0 105px 0;
+  padding: 85px 0 95px 0;
   position: relative;
   overflow: hidden;
 }
 
 .about-homepage-inner {
   display: grid;
-  grid-template-columns: 0.9fr 1.1fr;
-  gap: 60px;
+  grid-template-columns: 0.95fr 1.05fr;
+  gap: 52px;
   align-items: center;
   position: relative;
   z-index: 1;
-}
-
-@media (max-width: 991px) {
-  .about-homepage-inner {
-    grid-template-columns: 1fr;
-    gap: 40px;
-  }
 }
 
 .about-homepage-editorial {
@@ -852,271 +845,489 @@ h1, h2, h3, h4, h5, h6, .heading {
 .about-homepage-editorial .catalyst-heading {
   font-family: 'Outfit', sans-serif;
   font-size: 46px;
-  font-weight: 800;
+  font-weight: 850;
   color: #0A192F;
   line-height: 1.15;
   margin-bottom: 20px;
-  letter-spacing: -0.5px;
+  letter-spacing: -0.6px;
 }
 
-.about-homepage-editorial .catalyst-heading span {
-  color: #F97316;
+.about-homepage-editorial .catalyst-heading span.catalyst-gradient-text {
+  background: linear-gradient(135deg, #F97316 0%, #EA580C 55%, #C2410C 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  display: inline-block;
 }
 
 .about-homepage-text {
   font-size: 16px;
-  color: #4A5568;
+  color: #475569;
   line-height: 1.75;
-  margin-bottom: 26px;
-  max-width: 500px;
+  margin-bottom: 28px;
+  max-width: 520px;
 }
 
-.about-homepage-govt-info {
+/* Institutional accreditation badge card */
+.catalyst-govt-card {
   display: flex;
   align-items: center;
   gap: 16px;
-  background: #F1F5F9;
+  background: #FFFFFF;
   border: 1px solid #E2E8F0;
-  padding: 16px 20px;
-  border-radius: 14px;
-  margin-bottom: 32px;
-  max-width: 460px;
+  border-left: 4px solid #1E40AF;
+  padding: 14px 18px;
+  border-radius: 12px;
+  margin-bottom: 30px;
+  max-width: 490px;
+  box-shadow: 0 4px 16px rgba(15, 23, 42, 0.035);
+  transition: all 0.25s ease;
 }
 
-.about-homepage-govt-info img {
+.catalyst-govt-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.07);
+  border-color: #CBD5E1;
+}
+
+.catalyst-govt-logos {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-shrink: 0;
+}
+
+.catalyst-govt-logos img {
   height: 42px;
   width: auto;
   object-fit: contain;
 }
 
-.about-homepage-govt-info p {
-  font-size: 13.5px;
+.catalyst-govt-details {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.catalyst-govt-verified {
+  font-size: 11px;
+  font-weight: 750;
+  color: #059669;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+.catalyst-govt-details p {
+  font-size: 13px;
   font-weight: 600;
   color: #0A192F;
   margin: 0;
-  line-height: 1.45;
+  line-height: 1.4;
 }
 
-.btn-catalyst-journey {
+/* Action button group */
+.catalyst-action-group {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+.btn-catalyst-primary {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 13px 28px;
-  font-size: 14px;
+  padding: 13px 26px;
+  font-size: 14.5px;
   font-weight: 700;
-  border-radius: 12px;
-  color: #0A192F;
-  border: 2px solid #0A192F;
-  background: transparent;
+  border-radius: 11px;
+  color: #FFFFFF !important;
+  background: #0A192F;
   text-decoration: none;
-  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 6px 18px rgba(10, 25, 47, 0.2);
+  transition: all 0.28s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.btn-catalyst-journey:hover {
-  background: #0A192F;
+.btn-catalyst-primary:hover {
+  background: #1E40AF;
   color: #FFFFFF !important;
   transform: translateY(-2px);
-  box-shadow: 0 8px 20px rgba(10, 25, 47, 0.15);
+  box-shadow: 0 10px 26px rgba(30, 64, 175, 0.3);
 }
 
-.about-homepage-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 20px;
-}
-
-.about-grid-card {
-  background: #FFFFFF;
-  border: 1px solid #E2E8F0;
-  border-top: 3.5px solid transparent;
-  border-radius: 16px;
-  padding: 26px 22px;
-  display: flex;
-  flex-direction: column;
-  transition: all 0.28s cubic-bezier(0.16, 1, 0.3, 1);
-  box-shadow: 0 4px 16px rgba(15, 23, 42, 0.04);
-  position: relative;
-  text-decoration: none !important;
-  height: 100%;
-}
-
-.about-grid-card.border-blue {
-  border-top-color: #1E40AF !important;
-}
-
-.about-grid-card.border-orange {
-  border-top-color: #F97316 !important;
-}
-
-.card-icon-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 18px;
-}
-
-.card-icon-box {
-  width: 44px;
-  height: 44px;
-  border-radius: 12px;
-  display: flex;
+.btn-catalyst-secondary {
+  display: inline-flex;
   align-items: center;
   justify-content: center;
-  transition: transform 0.25s ease, background 0.25s ease;
+  padding: 12px 22px;
+  font-size: 14px;
+  font-weight: 650;
+  border-radius: 11px;
+  color: #1E293B;
+  background: #FFFFFF;
+  border: 1.5px solid #CBD5E1;
+  text-decoration: none;
+  transition: all 0.25s ease;
 }
 
-.about-grid-card.border-blue .card-icon-box {
-  background: #EFF6FF;
-  border: 1px solid rgba(30, 64, 175, 0.12);
-  color: #1E40AF;
+.btn-catalyst-secondary:hover {
+  background: #F1F5F9;
+  border-color: #94A3B8;
+  color: #0A192F;
+  transform: translateY(-2px);
 }
 
-.about-grid-card.border-orange .card-icon-box {
-  background: #FFF7ED;
-  border: 1px solid rgba(249, 115, 22, 0.16);
-  color: #EA580C;
+/* --------------------------------------------------------------------------
+   RIGHT SIDE: 2x2 PROFESSIONAL CARDS GRID
+   -------------------------------------------------------------------------- */
+.catalyst-bento-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 18px;
 }
 
-.card-icon-box svg {
-  width: 22px;
-  height: 22px;
+/* Base Card */
+.bento-card {
+  background: #FFFFFF;
+  border: 1px solid #E2E8F0;
+  border-radius: 16px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  text-decoration: none !important;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 4px 18px rgba(15, 23, 42, 0.035);
+  overflow: hidden;
+  height: 100%;
+  min-height: 275px;
 }
 
-.card-tag-year,
-.card-tag-status,
-.card-tag-sectors,
-.card-tag-grants {
-  font-size: 11px;
-  font-weight: 700;
-  text-transform: uppercase;
+.bento-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 16px 32px -4px rgba(15, 23, 42, 0.09);
+  border-color: #CBD5E1;
+}
+
+/* Full Media Cards (Infrastructure & CIMP Genesis) */
+.bento-card-media {
+  background: #0A192F;
+  color: #FFFFFF;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  padding: 24px 22px;
+  justify-content: space-between;
+}
+
+.bento-card-media .bento-media-bg {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background-size: cover;
+  background-position: center;
+  transition: transform 0.55s cubic-bezier(0.16, 1, 0.3, 1);
+  z-index: 0;
+}
+
+.bento-card-bhub .bento-media-bg {
+  background-image: url('../images/banners/Co-Working.jpg');
+}
+
+.bento-card-cimp .bento-media-bg {
+  background-image: url('../images/CIMP-Building-02.jpg');
+}
+
+.bento-card-media .bento-media-overlay {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: linear-gradient(180deg, rgba(10, 25, 47, 0.35) 0%, rgba(10, 25, 47, 0.85) 65%, rgba(10, 25, 47, 0.98) 100%);
+  z-index: 1;
+}
+
+.bento-card-media:hover .bento-media-bg {
+  transform: scale(1.06);
+}
+
+.bento-card-media .bento-media-content {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  justify-content: space-between;
+}
+
+.bento-glass-pill {
+  font-size: 10.5px;
+  font-weight: 750;
   letter-spacing: 0.6px;
-  padding: 4px 10px;
+  text-transform: uppercase;
+  background: rgba(255, 255, 255, 0.18);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  color: #FFFFFF;
+  padding: 4px 11px;
   border-radius: 6px;
-  border: 1px solid transparent;
+  display: inline-block;
+  margin-bottom: 24px;
 }
 
-.card-tag-year,
-.card-tag-grants {
-  background: #F0F7FF;
+.bento-card-media h3 {
+  font-size: 18px;
+  font-weight: 750;
+  color: #FFFFFF;
+  margin: 0 0 8px 0;
+  letter-spacing: -0.2px;
+}
+
+.bento-card-media p {
+  font-size: 12.5px;
+  color: #E2E8F0;
+  line-height: 1.5;
+  margin: 0 0 16px 0;
+}
+
+.bento-link-light {
+  font-size: 12px;
+  font-weight: 750;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  color: #F97316;
+  display: inline-block;
+  position: relative;
+  transition: color 0.2s ease;
+}
+
+.bento-link-light::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -2px;
+  width: 0;
+  height: 1.5px;
+  background: #F97316;
+  transition: width 0.25s ease;
+}
+
+.bento-card-media:hover .bento-link-light::after {
+  width: 100%;
+}
+
+/* Card 2: Capital Support & Startup Bihar Logo */
+.bento-card-funding {
+  background: linear-gradient(155deg, #FFFFFF 0%, #FFF8F1 100%);
+  border-color: rgba(249, 115, 22, 0.22);
+  padding: 24px 22px;
+  justify-content: space-between;
+}
+
+.bento-card-funding:hover {
+  border-color: #F97316;
+}
+
+.bento-funding-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.bento-startup-bihar-logo {
+  height: 36px;
+  width: auto;
+  object-fit: contain;
+}
+
+.bento-funding-badge {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 3px;
+  font-family: 'Outfit', sans-serif;
+  font-size: 26px;
+  font-weight: 850;
+  color: #EA580C;
+  margin: 4px 0 4px 0;
+  line-height: 1.1;
+}
+
+.bento-funding-badge span.funding-sub {
+  font-size: 12.5px;
+  font-weight: 700;
+  color: #C2410C;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+  margin-left: 3px;
+}
+
+/* Card 4: Sector Focus with Tech Lab Photo + Points */
+.bento-card-sectors {
+  background: #FFFFFF;
+  padding: 16px 16px 20px 16px;
+  justify-content: space-between;
+}
+
+.bento-sector-top {
+  margin-bottom: 10px;
+}
+
+.bento-sector-img-wrap {
+  position: relative;
+  border-radius: 10px;
+  overflow: hidden;
+  height: 80px;
+}
+
+.bento-sector-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.45s ease;
+}
+
+.bento-card-sectors:hover .bento-sector-img {
+  transform: scale(1.05);
+}
+
+.bento-sector-badge {
+  position: absolute;
+  top: 6px;
+  right: 8px;
+  font-size: 9.5px;
+  font-weight: 750;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  background: rgba(10, 25, 47, 0.78);
+  color: #FFFFFF;
+  padding: 3px 8px;
+  border-radius: 4px;
+  backdrop-filter: blur(4px);
+}
+
+.bento-points-list {
+  list-style: none;
+  padding: 0;
+  margin: 6px 0 12px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 3.5px;
+}
+
+.bento-points-list li {
+  font-size: 11.5px;
+  color: #334155;
+  font-weight: 600;
+  position: relative;
+  padding-left: 12px;
+  line-height: 1.35;
+}
+
+.bento-points-list li::before {
+  content: '•';
+  position: absolute;
+  left: 0;
   color: #1E40AF;
-  border-color: rgba(30, 64, 175, 0.12);
+  font-size: 14px;
+  line-height: 1;
+  top: 0px;
 }
 
-.card-tag-status,
-.card-tag-sectors {
+/* Shared Typography & Links */
+.bento-tag-pill {
+  font-size: 10.5px;
+  font-weight: 750;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  padding: 3px 8px;
+  border-radius: 6px;
+}
+
+.tag-orange {
   background: #FFF7ED;
   color: #EA580C;
-  border-color: rgba(234, 88, 12, 0.16);
+  border: 1px solid rgba(249, 115, 22, 0.15);
 }
 
-.about-grid-card h3 {
-  font-size: 17.5px;
+.bento-card-title {
+  font-size: 17px;
   font-weight: 750;
   color: #0F172A;
   margin: 0 0 6px 0;
   letter-spacing: -0.2px;
-  transition: color 0.25s ease;
 }
 
-.about-grid-card p {
-  font-size: 13px;
+.bento-card-text {
+  font-size: 12.5px;
   color: #475569;
-  line-height: 1.55;
-  margin: 0 0 16px 0;
+  line-height: 1.5;
+  margin: 0 0 14px 0;
 }
 
-.card-footer-link {
+.bento-card-footer {
   margin-top: auto;
-  font-size: 11.5px;
+  padding-top: 4px;
+}
+
+.bento-footer-link {
+  font-size: 12px;
   font-weight: 750;
-  letter-spacing: 0.6px;
+  letter-spacing: 0.5px;
   text-transform: uppercase;
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
+  display: inline-block;
+  position: relative;
+  transition: color 0.2s ease;
 }
 
-.card-footer-link i {
-  transition: transform 0.25s ease;
+.bento-footer-link::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -2px;
+  width: 0;
+  height: 1.5px;
+  background: currentColor;
+  transition: width 0.25s ease;
 }
 
-.about-grid-card.border-blue .card-footer-link {
-  color: #1E40AF;
+.bento-card:hover .bento-footer-link::after {
+  width: 100%;
 }
 
-.about-grid-card.border-orange .card-footer-link {
-  color: #EA580C;
-}
+.link-orange { color: #EA580C; }
+.link-blue { color: #1E40AF; }
 
-/* Hover effects */
-.about-grid-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 14px 30px -4px rgba(15, 23, 42, 0.09);
-  border-color: #CBD5E1;
-}
-
-.about-grid-card.border-blue:hover {
-  border-top-color: #1E40AF !important;
-}
-
-.about-grid-card.border-orange:hover {
-  border-top-color: #F97316 !important;
-}
-
-.about-grid-card:hover .card-footer-link i {
-  transform: translateX(4px);
-}
-
-.about-grid-card:hover .card-icon-box {
-  transform: scale(1.06);
+/* Responsive adjustments */
+@media (max-width: 991px) {
+  .about-homepage-inner {
+    grid-template-columns: 1fr;
+    gap: 42px;
+  }
+  .about-homepage-editorial .catalyst-heading {
+    font-size: 38px;
+  }
 }
 
 @media (max-width: 575px) {
-  .about-homepage-grid {
-    grid-template-columns: 1fr 1fr !important;
-    gap: 10px !important;
+  .about-homepage-section {
+    padding: 60px 0 70px 0;
   }
-  .about-grid-card {
-    padding: 14px 11px !important;
-    border-radius: 12px !important;
+  .about-homepage-editorial .catalyst-heading {
+    font-size: 30px;
   }
-  .card-icon-header {
-    margin-bottom: 10px !important;
+  .catalyst-bento-grid {
+    grid-template-columns: 1fr;
+    gap: 14px;
   }
-  .card-icon-box {
-    width: 32px !important;
-    height: 32px !important;
-    border-radius: 8px !important;
+  .bento-card {
+    min-height: auto;
+    padding: 20px 18px;
   }
-  .card-icon-box svg {
-    width: 16px !important;
-    height: 16px !important;
+  .catalyst-action-group {
+    flex-direction: column;
+    align-items: stretch;
+    width: 100%;
   }
-  .card-tag-year,
-  .card-tag-status,
-  .card-tag-sectors,
-  .card-tag-grants {
-    font-size: 9px !important;
-    padding: 2px 6px !important;
-    letter-spacing: 0.3px !important;
-  }
-  .about-grid-card h3 {
-    font-size: 13.5px !important;
-    margin: 4px 0 3px !important;
-  }
-  .about-grid-card p {
-    font-size: 11px !important;
-    line-height: 1.35 !important;
-    margin-bottom: 8px !important;
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-  }
-  .about-grid-card .card-footer-link {
-    font-size: 10.5px !important;
-    margin-top: 2px !important;
+  .btn-catalyst-primary,
+  .btn-catalyst-secondary {
+    justify-content: center;
+    width: 100%;
   }
 }
 
