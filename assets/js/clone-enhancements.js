@@ -358,19 +358,117 @@ document.addEventListener("DOMContentLoaded", function () {
         return '';
     }
 
+    // Modal popup handler for Startups
+    window.openStartupModal = function (id) {
+        const list = getActiveStartupsList();
+        const startup = list.find(item => String(item.id) === String(id) || (item.name && item.name.toLowerCase() === String(id).toLowerCase())) || list[0] || MOCK_STARTUPS[0];
+        if (!startup) return;
+
+        let modal = document.getElementById("startup-detail-modal");
+        if (!modal) {
+            modal = document.createElement("div");
+            modal.id = "startup-detail-modal";
+            modal.className = "startup-modal-backdrop";
+            modal.onclick = function (e) {
+                if (e.target === modal) modal.style.display = "none";
+            };
+            document.body.appendChild(modal);
+        }
+
+        const rawLogo = resolveStartupLogo(startup);
+        const logoSrc = rawLogo ? resolveAssetPath(rawLogo) : '';
+        const initial = (startup.initial || (startup.name ? startup.name.charAt(0) : 'S')).toUpperCase();
+        const brandColor = startup.color || '#1E3A8A';
+        const detailUrl = window.location.pathname.includes('/pages/') ? `startups-details.html?id=${encodeURIComponent(startup.id)}` : `pages/startups-details.html?id=${encodeURIComponent(startup.id)}`;
+        const websiteUrl = startup.website ? (startup.website.startsWith('http') ? startup.website : 'https://' + startup.website) : '';
+
+        modal.innerHTML = `
+            <div class="startup-modal-box">
+                <div class="modal-head-banner">
+                    <h3 class="fw-bold mb-1 text-white font-22">${startup.name}</h3>
+                    <p class="mb-0 text-white-50 font-13"><i class="fa-solid fa-tag text-warning me-1"></i> ${startup.sector || 'Incubated Venture'} · ${startup.district ? startup.district + ', Bihar' : 'Incubation Portfolio'}</p>
+                    <button class="modal-close-icon" onclick="document.getElementById('startup-detail-modal').style.display='none'">✕</button>
+                </div>
+                <div class="modal-content-area">
+                    <div class="d-flex align-items-center gap-3 mb-4">
+                        <div style="width:64px; height:64px; border-radius:14px; border:1px solid #E2E8F0; padding:6px; background:#FFFFFF; display:flex; align-items:center; justify-content:center; overflow:hidden; flex-shrink:0;">
+                            ${logoSrc ? `
+                                <img src="${logoSrc}" alt="${startup.name}" style="width:100%; height:100%; object-fit:contain; border-radius:8px;" onerror="this.onerror=null; this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                                <div style="display:none; width:100%; height:100%; background:${brandColor}; color:#fff; font-weight:800; font-size:20px; border-radius:8px; align-items:center; justify-content:center; font-family:'Outfit', sans-serif;">${initial}</div>
+                            ` : `
+                                <div style="display:flex; width:100%; height:100%; background:${brandColor}; color:#fff; font-weight:800; font-size:20px; border-radius:8px; align-items:center; justify-content:center; font-family:'Outfit', sans-serif;">${initial}</div>
+                            `}
+                        </div>
+                        <div>
+                            <h5 class="fw-bold text-navy mb-1">${startup.name}</h5>
+                            <p class="text-muted font-13 mb-0"><i class="fa-solid fa-building text-primary me-1"></i> Legal: <strong>${startup.legalName || startup.name}</strong></p>
+                            <p class="text-muted font-12 mb-0"><i class="fa-solid fa-user-tie text-primary me-1"></i> Founder: <strong>${startup.founder}</strong> (Est. ${startup.year || 2024})</p>
+                        </div>
+                    </div>
+                    
+                    <div class="p-3 bg-light rounded-3 mb-4 border">
+                        <p class="text-secondary font-14 mb-0" style="line-height:1.65;">${startup.desc || 'Venture incubated at CIMP-BIIF.'}</p>
+                    </div>
+
+                    <div class="row g-3 mb-4 text-center">
+                        <div class="col-4">
+                            <div class="p-2 border rounded-3 bg-white">
+                                <span class="d-block font-11 text-muted text-uppercase fw-bold">Stage</span>
+                                <strong class="font-13 text-navy">${startup.stage || 'Active'}</strong>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="p-2 border rounded-3 bg-white">
+                                <span class="d-block font-11 text-muted text-uppercase fw-bold">District</span>
+                                <strong class="font-13 text-navy">${startup.district || startup.location || 'Patna'}</strong>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="p-2 border rounded-3 bg-white">
+                                <span class="d-block font-11 text-muted text-uppercase fw-bold">Funding Status</span>
+                                <strong class="font-13 text-success">${startup.fundingRemark === 'FUNDED' ? 'FUNDED' : (startup.funding || 'Applied')}</strong>
+                            </div>
+                        </div>
+                    </div>
+
+                    ${startup.regNoBihar ? `
+                    <div class="mb-4 p-2 px-3 bg-soft-primary rounded-2 d-flex align-items-center justify-content-between font-12">
+                        <span class="text-primary fw-semibold"><i class="fa-solid fa-shield-check me-1"></i> Bihar Reg: ${startup.regNoBihar}</span>
+                        <span class="text-muted">DPIIT: ${startup.dpiit || 'Applied'}</span>
+                    </div>
+                    ` : ''}
+
+                    <div class="d-flex gap-3 flex-wrap">
+                        <a href="${detailUrl}" class="btn btn-primary flex-grow-1 py-2 font-13 fw-semibold">
+                            <i class="fa-solid fa-arrow-up-right-from-square me-1"></i> View Full Profile
+                        </a>
+                        ${websiteUrl ? `
+                        <a href="${websiteUrl}" target="_blank" class="btn btn-outline-secondary px-3 py-2 font-13" title="Visit Website">
+                            <i class="fa-solid fa-globe me-1"></i> Website
+                        </a>
+                        ` : ''}
+                        <button class="btn btn-outline-secondary px-4 py-2 font-13" onclick="document.getElementById('startup-detail-modal').style.display='none'">Close</button>
+                    </div>
+                </div>
+            </div>
+        `;
+        modal.style.display = "flex";
+    };
+
     function renderStartupItem(s) {
         let bulletClass = 'bullet-green';
-        if (s.stage === 'Pre-Revenue' || s.stage === 'Proof of Concept') bulletClass = 'bullet-amber';
-        if (s.stage === 'Idea Stage') bulletClass = 'bullet-blue';
+        if (s.stage === 'Pre-Revenue' || s.stage === 'Proof of Concept' || s.stageRaw === 'Prototype' || s.stageRaw === 'MVP') bulletClass = 'bullet-amber';
+        if (s.stage === 'Idea Stage' || s.stageRaw === 'Ideation') bulletClass = 'bullet-blue';
 
         const rawLogo = resolveStartupLogo(s);
         const logoSrc = rawLogo ? resolveAssetPath(rawLogo) : '';
         const initial = (s.initial || (s.name ? s.name.charAt(0) : 'S')).toUpperCase();
         const brandColor = s.color || '#1E3A8A';
-        const startupIdStr = JSON.stringify(s.id);
+        const isFunded = s.fundingRemark === 'FUNDED';
+        const districtName = s.district || 'Patna';
 
         return `
-            <div class="startup-card-item" data-sector="${s.sector || ''}" data-stage="${s.stage || ''}" data-status="${s.status || ''}" data-name="${(s.name || '').toLowerCase()}" data-founder="${(s.founder || '').toLowerCase()}">
+            <div class="startup-card-item" data-sector="${(s.sector || '').toLowerCase()}" data-stage="${s.stage || ''}" data-status="${s.status || ''}" data-incubation="${(s.incubationStage || '').toLowerCase()}" data-district="${districtName.toLowerCase()}" data-name="${(s.name || '').toLowerCase()}" data-founder="${(s.founder || '').toLowerCase()}">
                 <div class="startup-card-header-bar">
                     <span class="startup-sector-tag-pill" style="color: ${brandColor}; background: ${brandColor}18; border: 1px solid ${brandColor}30;">${s.sector || 'Venture'}</span>
                     <span class="startup-stage-pill">
@@ -396,22 +494,23 @@ document.addEventListener("DOMContentLoaded", function () {
                     <div class="startup-meta-details">
                         <div class="meta-line">
                             <i class="fa-solid fa-user-tie text-primary font-12"></i>
-                            <span>Founder: <strong>${s.founder || 'Founder'}</strong> (Est. ${s.year || 2023})</span>
+                            <span>Founder: <strong>${s.founder || 'Founder'}</strong> (Est. ${s.year || 2024})</span>
                         </div>
                         <div class="meta-line">
                             <i class="fa-solid fa-location-dot text-danger font-12"></i>
-                            <span>${s.location || 'Patna, Bihar'}</span>
+                            <span>${districtName}, Bihar</span>
+                            ${isFunded ? `<span class="badge bg-success text-white ms-auto font-10 px-2 py-1"><i class="fa-solid fa-check-circle me-1"></i> Startup Bihar Funded</span>` : ''}
                         </div>
                     </div>
 
                     <div class="startup-metric-card">
-                        <span class="metric-lbl"><i class="fa-solid fa-chart-line text-primary me-1"></i> ${s.metricLabel || 'Traction'}</span>
-                        <span class="metric-val">${s.metric || 'Active'}</span>
+                        <span class="metric-lbl"><i class="fa-solid fa-chart-line text-primary me-1"></i> ${s.metricLabel || 'Funding / Status'}</span>
+                        <span class="metric-val">${s.metric || s.fundingRemark || 'Active'}</span>
                     </div>
                 </div>
 
                 <div class="startup-card-footer">
-                    <button class="startup-view-btn" onclick="openStartupModal(${startupIdStr})">
+                    <button class="startup-view-btn" onclick="openStartupModal('${s.id}')">
                         <span>View Venture Profile</span>
                         <i class="fa-solid fa-arrow-right font-12 ms-1"></i>
                     </button>
@@ -429,6 +528,54 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     const gridContainer = document.getElementById("startups-grid");
+
+    function applyStartupFilters() {
+        if (!gridContainer) return;
+        const searchInput = document.getElementById("startup-search");
+        const sectorSelect = document.getElementById("filter-sector");
+        const stageSelect = document.getElementById("filter-stage");
+        const statusSelect = document.getElementById("filter-status");
+        const districtSelect = document.getElementById("filter-district");
+        const countDisplay = document.getElementById("results-count");
+
+        const query = searchInput ? searchInput.value.toLowerCase().trim() : "";
+        const sector = sectorSelect ? sectorSelect.value.toLowerCase().trim() : "";
+        const stage = stageSelect ? stageSelect.value : "";
+        const status = statusSelect ? statusSelect.value.toLowerCase().trim() : "";
+        const district = districtSelect ? districtSelect.value.toLowerCase().trim() : "";
+
+        const cards = gridContainer.querySelectorAll(".startup-card-item");
+        let visibleCount = 0;
+
+        cards.forEach(function (card) {
+            const cardSector = card.getAttribute("data-sector") || "";
+            const cardStage = card.getAttribute("data-stage") || "";
+            const cardStatus = card.getAttribute("data-status") || "";
+            const cardIncubation = card.getAttribute("data-incubation") || "";
+            const cardDistrict = card.getAttribute("data-district") || "";
+            const cardName = card.getAttribute("data-name") || "";
+            const cardFounder = card.getAttribute("data-founder") || "";
+
+            const matchQuery = !query || cardName.includes(query) || cardFounder.includes(query) || cardSector.includes(query) || cardDistrict.includes(query);
+            const matchSector = !sector || cardSector.includes(sector);
+            const matchStage = !stage || cardStage === stage;
+            const matchStatus = !status || cardStatus.toLowerCase() === status || cardIncubation.includes(status);
+            const matchDistrict = !district || cardDistrict === district;
+
+            if (matchQuery && matchSector && matchStage && matchStatus && matchDistrict) {
+                card.style.display = "flex";
+                visibleCount++;
+            } else {
+                card.style.display = "none";
+            }
+        });
+
+        if (countDisplay) {
+            countDisplay.textContent = `Showing ${visibleCount} startup${visibleCount !== 1 ? 's' : ''}`;
+        }
+    }
+    window.applyStartupFilters = applyStartupFilters;
+
     function renderLiveStartupsGrid() {
         if (!gridContainer) return;
         const list = getActiveStartupsList();
@@ -437,57 +584,23 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     if (gridContainer) {
-        renderLiveStartupsGrid();
-
-        window.addEventListener("cimp:db_updated", function () {
-            renderLiveStartupsGrid();
-        });
-
         const searchInput = document.getElementById("startup-search");
         const sectorSelect = document.getElementById("filter-sector");
         const stageSelect = document.getElementById("filter-stage");
         const statusSelect = document.getElementById("filter-status");
-        const countDisplay = document.getElementById("results-count");
-
-        function applyStartupFilters() {
-            const query = searchInput ? searchInput.value.toLowerCase().trim() : "";
-            const sector = sectorSelect ? sectorSelect.value : "";
-            const stage = stageSelect ? stageSelect.value : "";
-            const status = statusSelect ? statusSelect.value : "";
-
-            const cards = gridContainer.querySelectorAll(".startup-card-item");
-            let visibleCount = 0;
-
-            cards.forEach(function (card) {
-                const cardSector = card.getAttribute("data-sector") || "";
-                const cardStage = card.getAttribute("data-stage") || "";
-                const cardStatus = card.getAttribute("data-status") || "";
-                const cardName = card.getAttribute("data-name") || "";
-                const cardFounder = card.getAttribute("data-founder") || "";
-
-                const matchQuery = !query || cardName.includes(query) || cardFounder.includes(query) || cardSector.toLowerCase().includes(query);
-                const matchSector = !sector || cardSector === sector;
-                const matchStage = !stage || cardStage === stage;
-                const matchStatus = !status || cardStatus === status;
-
-                if (matchQuery && matchSector && matchStage && matchStatus) {
-                    card.style.display = "flex";
-                    visibleCount++;
-                } else {
-                    card.style.display = "none";
-                }
-            });
-
-            if (countDisplay) {
-                countDisplay.textContent = `Showing ${visibleCount} startup${visibleCount !== 1 ? 's' : ''}`;
-            }
-        }
-        window.applyStartupFilters = applyStartupFilters;
+        const districtSelect = document.getElementById("filter-district");
 
         if (searchInput) searchInput.addEventListener("input", applyStartupFilters);
         if (sectorSelect) sectorSelect.addEventListener("change", applyStartupFilters);
         if (stageSelect) stageSelect.addEventListener("change", applyStartupFilters);
         if (statusSelect) statusSelect.addEventListener("change", applyStartupFilters);
+        if (districtSelect) districtSelect.addEventListener("change", applyStartupFilters);
+
+        renderLiveStartupsGrid();
+
+        window.addEventListener("cimp:db_updated", function () {
+            renderLiveStartupsGrid();
+        });
     }
 
     // 8.1 Homepage Startups Seamless Infinite Marquee Renderer
@@ -505,16 +618,85 @@ document.addEventListener("DOMContentLoaded", function () {
         renderHomeStartupsMarquee();
     });
 
-    // Modal popup handler
-    window.openStartupModal = function (id) {
-        const list = getActiveStartupsList();
-        const startup = list.find(item => String(item.id) === String(id) || item.name.toLowerCase() === String(id).toLowerCase()) || MOCK_STARTUPS[0];
-        if (!startup) return;
+    // 8.2 Mentors Dynamic Directory (on mentors.html)
+    function getActiveMentorsList() {
+        if (typeof window.CIMP_DB !== "undefined" && window.CIMP_DB.getMentors) {
+            return window.CIMP_DB.getMentors();
+        }
+        return [];
+    }
 
-        let modal = document.getElementById("startup-detail-modal");
+    function renderMentorItem(m) {
+        const initials = (m.name || 'M')
+            .replace(/^(Dr\.|Prof\.|Adv\.)\s*/i, '')
+            .trim()
+            .split(' ')
+            .map(n => n[0])
+            .slice(0, 2)
+            .join('')
+            .toUpperCase() || 'M';
+
+        const bgColors = ['#1E3A8A', '#0D9488', '#B45309', '#4F46E5', '#C2410C', '#2E7D32', '#6366F1', '#0891B2'];
+        const charCodeSum = (m.id || 'MEN').split('').reduce((acc, c) => acc + c.charCodeAt(0), 0);
+        const brandColor = bgColors[charCodeSum % bgColors.length];
+        const expStr = m.experience || '10+ Years';
+        const locationBase = (m.location || 'Patna').split('/')[0].trim();
+        const modeClean = (m.mode || 'Hybrid').includes('Hybrid') ? 'Hybrid' : ((m.mode || '').includes('Online') ? 'Online' : 'In-Person');
+        const expertisePills = (m.expertise || []).slice(0, 3).map(e => `<span class="badge bg-light text-dark border font-11">${e}</span>`).join(' ');
+
+        return `
+            <div class="col-lg-4 col-md-6 col-12 mentor-card-item" data-name="${(m.name || '').toLowerCase()}" data-domain="${(m.primaryDomain || '').toLowerCase()}" data-mode="${modeClean.toLowerCase()}" data-location="${locationBase.toLowerCase()}" data-affiliation="${(m.title || m.affiliation || '').toLowerCase()}" data-expertise="${(m.expertise || []).join(' ').toLowerCase()}">
+                <div class="card border-0 rounded-4 shadow-sm h-100 p-4 transition-all" style="background:#FFFFFF; border:1px solid #E2E8F0 !important; transition: transform 0.25s ease, box-shadow 0.25s ease;">
+                    <div class="d-flex align-items-center gap-3 mb-3">
+                        <div style="width:58px; height:58px; border-radius:50%; background: linear-gradient(135deg, ${brandColor} 0%, ${brandColor}CC 100%); color:#FFFFFF; display:flex; align-items:center; justify-content:center; font-weight:800; font-size:19px; box-shadow: 0 4px 12px ${brandColor}33; font-family:'Outfit', sans-serif; flex-shrink:0;">
+                            ${initials}
+                        </div>
+                        <div style="min-width:0;">
+                            <h5 class="fw-bold mb-0 text-navy text-truncate font-16" title="${m.name}">${m.name}</h5>
+                            <span class="badge bg-soft-primary text-primary font-11 mt-1"><i class="fa fa-briefcase me-1"></i> ${expStr} Exp</span>
+                        </div>
+                    </div>
+
+                    <p class="font-13 text-secondary mb-2" style="display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; min-height:38px; line-height:1.45;" title="${m.title || m.affiliation}">
+                        ${m.title || m.affiliation}
+                    </p>
+
+                    <div class="d-flex flex-wrap gap-1 mb-3" style="min-height:28px;">
+                        ${expertisePills}
+                    </div>
+
+                    <div class="border-top pt-3 mt-auto">
+                        <div class="d-flex align-items-center justify-content-between font-12 text-muted mb-3">
+                            <span><i class="fa fa-location-dot text-danger me-1"></i> ${locationBase}</span>
+                            <span class="badge bg-soft-info text-info font-11">${modeClean} Mode</span>
+                        </div>
+
+                        <div class="d-flex gap-2">
+                            <button class="btn btn-primary btn-sm flex-grow-1 font-12 fw-semibold py-2" onclick="openMentorModal('${m.id}')">
+                                <i class="fa fa-user-circle me-1"></i> Full Bio &amp; Profile
+                            </button>
+                            ${m.linkedin ? `
+                                <a href="${m.linkedin}" target="_blank" class="btn btn-outline-secondary btn-sm px-3 font-13" title="LinkedIn Profile" aria-label="LinkedIn">
+                                    <i class="fab fa-linkedin text-primary"></i>
+                                </a>
+                            ` : ''}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `;
+    }
+
+    // Modal popup handler for Mentors
+    window.openMentorModal = function (id) {
+        const list = getActiveMentorsList();
+        const mentor = list.find(m => String(m.id) === String(id) || (m.name && m.name.toLowerCase() === String(id).toLowerCase())) || list[0];
+        if (!mentor) return;
+
+        let modal = document.getElementById("mentor-detail-modal");
         if (!modal) {
             modal = document.createElement("div");
-            modal.id = "startup-detail-modal";
+            modal.id = "mentor-detail-modal";
             modal.className = "startup-modal-backdrop";
             modal.onclick = function (e) {
                 if (e.target === modal) modal.style.display = "none";
@@ -522,69 +704,161 @@ document.addEventListener("DOMContentLoaded", function () {
             document.body.appendChild(modal);
         }
 
-        const rawLogo = resolveStartupLogo(startup);
-        const logoSrc = rawLogo ? resolveAssetPath(rawLogo) : '';
-        const initial = (startup.initial || (startup.name ? startup.name.charAt(0) : 'S')).toUpperCase();
-        const brandColor = startup.color || '#1E3A8A';
-        const applyUrl = window.location.pathname.includes('/pages/') ? 'incubation-registration.html' : 'pages/incubation-registration.html';
+        const initials = (mentor.name || 'M')
+            .replace(/^(Dr\.|Prof\.|Adv\.)\s*/i, '')
+            .trim()
+            .split(' ')
+            .map(n => n[0])
+            .slice(0, 2)
+            .join('')
+            .toUpperCase() || 'M';
+
+        const bgColors = ['#1E3A8A', '#0D9488', '#B45309', '#4F46E5', '#C2410C', '#2E7D32', '#6366F1'];
+        const charCodeSum = (mentor.id || 'MEN').split('').reduce((acc, c) => acc + c.charCodeAt(0), 0);
+        const brandColor = bgColors[charCodeSum % bgColors.length];
+        const allExpertiseTags = (mentor.expertise || []).map(e => `<span class="badge bg-soft-primary text-primary font-12 px-2 py-1">${e}</span>`).join(' ');
+        const contactUrl = window.location.pathname.includes('/pages/') ? `contact-us.html?subject=Mentorship+Advisory+with+${encodeURIComponent(mentor.name)}` : `pages/contact-us.html?subject=Mentorship+Advisory+with+${encodeURIComponent(mentor.name)}`;
 
         modal.innerHTML = `
-            <div class="startup-modal-box">
-                <div class="modal-head-banner">
-                    <h3 class="fw-bold mb-1 text-white font-22">${startup.name}</h3>
-                    <p class="mb-0 text-white-50 font-13"><i class="fa-solid fa-tag text-warning me-1"></i> ${startup.sector || 'Incubated Venture'} · Incubation Portfolio</p>
-                    <button class="modal-close-icon" onclick="document.getElementById('startup-detail-modal').style.display='none'">✕</button>
+            <div class="startup-modal-box" style="max-width: 650px;">
+                <div class="modal-head-banner" style="background: linear-gradient(135deg, #0A192F 0%, #1E3A8A 100%);">
+                    <h3 class="fw-bold mb-1 text-white font-22">${mentor.name}</h3>
+                    <p class="mb-0 text-white-50 font-13"><i class="fa-solid fa-graduation-cap text-warning me-1"></i> ${mentor.primaryDomain || 'Advisory'} · CIMP-BIIF Mentorship Board</p>
+                    <button class="modal-close-icon" onclick="document.getElementById('mentor-detail-modal').style.display='none'">✕</button>
                 </div>
-                <div class="modal-content-area">
+                <div class="modal-content-area" style="max-height: 78vh; overflow-y: auto;">
                     <div class="d-flex align-items-center gap-3 mb-4">
-                        <div style="width:64px; height:64px; border-radius:14px; border:1px solid #E2E8F0; padding:6px; background:#FFFFFF; display:flex; align-items:center; justify-content:center; overflow:hidden;">
-                            ${logoSrc ? `
-                                <img src="${logoSrc}" alt="${startup.name}" style="width:100%; height:100%; object-fit:contain; border-radius:8px;" onerror="this.onerror=null; this.style.display='none'; this.nextElementSibling.style.display='flex';">
-                                <div style="display:none; width:100%; height:100%; background:${brandColor}; color:#fff; font-weight:800; font-size:20px; border-radius:8px; align-items:center; justify-content:center; font-family:'Outfit', sans-serif;">${initial}</div>
-                            ` : `
-                                <div style="display:flex; width:100%; height:100%; background:${brandColor}; color:#fff; font-weight:800; font-size:20px; border-radius:8px; align-items:center; justify-content:center; font-family:'Outfit', sans-serif;">${initial}</div>
-                            `}
+                        <div style="width:68px; height:68px; border-radius:50%; background: linear-gradient(135deg, ${brandColor} 0%, ${brandColor}DD 100%); color:#FFFFFF; display:flex; align-items:center; justify-content:center; font-weight:800; font-size:24px; box-shadow: 0 4px 15px ${brandColor}33; font-family:'Outfit', sans-serif; flex-shrink:0;">
+                            ${initials}
                         </div>
                         <div>
-                            <h5 class="fw-bold text-navy mb-1">${startup.name}</h5>
-                            <p class="text-muted font-13 mb-0"><i class="fa-solid fa-user-tie text-primary me-1"></i> Founder: <strong>${startup.founder}</strong> (Est. ${startup.year || 2023})</p>
+                            <h5 class="fw-bold text-navy mb-1">${mentor.name}</h5>
+                            <p class="text-secondary font-13 mb-1"><i class="fa-solid fa-university text-primary me-1"></i> ${mentor.title || mentor.affiliation}</p>
+                            ${mentor.qualification ? `<p class="text-muted font-12 mb-0"><i class="fa-solid fa-certificate text-warning me-1"></i> ${mentor.qualification}</p>` : ''}
                         </div>
                     </div>
-                    
-                    <div class="p-3 bg-light rounded-3 mb-4 border">
-                        <p class="text-secondary font-14 mb-0" style="line-height:1.65;">${startup.desc || 'Venture incubated at CIMP-BIIF.'}</p>
-                    </div>
 
-                    <div class="row g-3 mb-4 text-center">
+                    <div class="row g-2 mb-4 text-center">
                         <div class="col-4">
-                            <div class="p-2 border rounded-3 bg-white">
-                                <span class="d-block font-11 text-muted text-uppercase fw-bold">Stage</span>
-                                <strong class="font-13 text-navy">${startup.stage || 'Active'}</strong>
+                            <div class="p-2 border rounded-3 bg-light">
+                                <span class="d-block font-11 text-muted text-uppercase fw-bold">Experience</span>
+                                <strong class="font-13 text-navy">${mentor.experience || '10+ Years'}</strong>
                             </div>
                         </div>
                         <div class="col-4">
-                            <div class="p-2 border rounded-3 bg-white">
+                            <div class="p-2 border rounded-3 bg-light">
                                 <span class="d-block font-11 text-muted text-uppercase fw-bold">Location</span>
-                                <strong class="font-13 text-navy">${startup.location || 'Patna'}</strong>
+                                <strong class="font-13 text-navy">${mentor.location || 'Patna'}</strong>
                             </div>
                         </div>
                         <div class="col-4">
-                            <div class="p-2 border rounded-3 bg-white">
-                                <span class="d-block font-11 text-muted text-uppercase fw-bold">${startup.metricLabel || 'Traction'}</span>
-                                <strong class="font-13 text-orange">${startup.metric || 'Active'}</strong>
+                            <div class="p-2 border rounded-3 bg-light">
+                                <span class="d-block font-11 text-muted text-uppercase fw-bold">Session Mode</span>
+                                <strong class="font-13 text-primary">${mentor.mode || 'Hybrid'}</strong>
                             </div>
                         </div>
                     </div>
 
-                    <div class="d-flex gap-3">
-                        <a href="${applyUrl}" class="btn btn-primary flex-grow-1 py-2 font-13 fw-semibold">Apply for Incubation</a>
-                        <button class="btn btn-outline-secondary px-4 py-2 font-13" onclick="document.getElementById('startup-detail-modal').style.display='none'">Close</button>
+                    <div class="mb-4">
+                        <h6 class="fw-bold text-navy mb-2 font-14"><i class="fa-solid fa-star text-warning me-1"></i> Core Domain &amp; Expertise</h6>
+                        <div class="d-flex flex-wrap gap-1">
+                            ${allExpertiseTags}
+                        </div>
+                    </div>
+
+                    <div class="mb-4 p-3 bg-light rounded-3 border">
+                        <h6 class="fw-bold text-navy mb-2 font-14"><i class="fa-solid fa-align-left text-primary me-1"></i> Mentor Bio &amp; Advisory Scope</h6>
+                        <p class="text-secondary font-13 mb-0" style="line-height:1.7; text-align:justify;">
+                            ${mentor.bio || 'Distinguished mentor on the advisory board of CIMP Business Innovation and Incubation Foundation.'}
+                        </p>
+                    </div>
+
+                    <div class="d-flex gap-3 flex-wrap">
+                        <a href="${contactUrl}" class="btn btn-primary flex-grow-1 py-2 font-13 fw-semibold">
+                            <i class="fa-solid fa-calendar-check me-1"></i> Request Mentoring Clinic
+                        </a>
+                        ${mentor.linkedin ? `
+                        <a href="${mentor.linkedin}" target="_blank" class="btn btn-outline-secondary px-3 py-2 font-13" title="View LinkedIn Profile">
+                            <i class="fab fa-linkedin text-primary me-1"></i> LinkedIn
+                        </a>
+                        ` : ''}
+                        <button class="btn btn-outline-secondary px-4 py-2 font-13" onclick="document.getElementById('mentor-detail-modal').style.display='none'">Close</button>
                     </div>
                 </div>
             </div>
         `;
         modal.style.display = "flex";
     };
+
+    const mentorsGridContainer = document.getElementById("mentors-grid");
+
+    function applyMentorFilters() {
+        if (!mentorsGridContainer) return;
+        const searchInput = document.getElementById("mentor-search");
+        const domainSelect = document.getElementById("filter-mentor-domain");
+        const modeSelect = document.getElementById("filter-mentor-mode");
+        const locationSelect = document.getElementById("filter-mentor-location");
+        const countDisplay = document.getElementById("mentors-results-count");
+
+        const query = searchInput ? searchInput.value.toLowerCase().trim() : "";
+        const domain = domainSelect ? domainSelect.value.toLowerCase().trim() : "";
+        const mode = modeSelect ? modeSelect.value.toLowerCase().trim() : "";
+        const location = locationSelect ? locationSelect.value.toLowerCase().trim() : "";
+
+        const cards = mentorsGridContainer.querySelectorAll(".mentor-card-item");
+        let visibleCount = 0;
+
+        cards.forEach(function (card) {
+            const cardName = card.getAttribute("data-name") || "";
+            const cardDomain = card.getAttribute("data-domain") || "";
+            const cardMode = card.getAttribute("data-mode") || "";
+            const cardLocation = card.getAttribute("data-location") || "";
+            const cardAffiliation = card.getAttribute("data-affiliation") || "";
+            const cardExpertise = card.getAttribute("data-expertise") || "";
+
+            const matchQuery = !query || cardName.includes(query) || cardAffiliation.includes(query) || cardExpertise.includes(query) || cardLocation.includes(query);
+            const matchDomain = !domain || cardDomain.includes(domain) || cardExpertise.includes(domain);
+            const matchMode = !mode || cardMode.includes(mode);
+            const matchLocation = !location || cardLocation.includes(location);
+
+            if (matchQuery && matchDomain && matchMode && matchLocation) {
+                card.style.display = "block";
+                visibleCount++;
+            } else {
+                card.style.display = "none";
+            }
+        });
+
+        if (countDisplay) {
+            countDisplay.textContent = `Showing ${visibleCount} Empanelled Mentor${visibleCount !== 1 ? 's' : ''}`;
+        }
+    }
+    window.applyMentorFilters = applyMentorFilters;
+
+    function renderLiveMentorsGrid() {
+        if (!mentorsGridContainer) return;
+        const list = getActiveMentorsList();
+        mentorsGridContainer.innerHTML = list.map(renderMentorItem).join("");
+        applyMentorFilters();
+    }
+
+    if (mentorsGridContainer) {
+        const searchInput = document.getElementById("mentor-search");
+        const domainSelect = document.getElementById("filter-mentor-domain");
+        const modeSelect = document.getElementById("filter-mentor-mode");
+        const locationSelect = document.getElementById("filter-mentor-location");
+
+        if (searchInput) searchInput.addEventListener("input", applyMentorFilters);
+        if (domainSelect) domainSelect.addEventListener("change", applyMentorFilters);
+        if (modeSelect) modeSelect.addEventListener("change", applyMentorFilters);
+        if (locationSelect) locationSelect.addEventListener("change", applyMentorFilters);
+
+        renderLiveMentorsGrid();
+
+        window.addEventListener("cimp:db_updated", function () {
+            renderLiveMentorsGrid();
+        });
+    }
 
     // 9. High-Performance IntersectionObserver Animated Number Counters (Repeats on every scroll into view)
     const statCounters = document.querySelectorAll(".stat-counter");

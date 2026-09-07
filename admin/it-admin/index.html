@@ -23,6 +23,254 @@
 
     <!-- Google Forms-Level Visual Studio CSS -->
     <style>
+        /* Modern Executive SaaS Design System */
+        :root {
+            --mgr-teal: #0D9488;
+            --mgr-teal-dark: #0F766E;
+            --mgr-teal-light: #F0FDFA;
+            --mgr-teal-subtle: #CCFBF1;
+            --mgr-navy: #0F172A;
+            --mgr-slate-50: #F8FAFC;
+            --mgr-slate-100: #F1F5F9;
+            --mgr-slate-200: #E2E8F0;
+            --mgr-slate-300: #CBD5E1;
+            --mgr-slate-400: #94A3B8;
+            --mgr-slate-500: #64748B;
+            --mgr-slate-600: #475569;
+            --mgr-slate-700: #334155;
+            --mgr-slate-800: #1E293B;
+        }
+
+        body.admin-unified-body {
+            font-family: 'Plus Jakarta Sans', sans-serif !important;
+            background-color: #F8FAFC !important;
+            color: #0F172A !important;
+        }
+
+        /* Sidebar Brand & Navigation Refinement */
+        .app-sidebar {
+            background: #091222 !important;
+            border-right: 1px solid #1E293B !important;
+        }
+
+        .app-sidebar-brand {
+            padding: 22px 18px 18px !important;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06) !important;
+            text-align: left !important;
+            display: flex !important;
+            flex-direction: column !important;
+            align-items: flex-start !important;
+        }
+
+        .sidebar-brand-card {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: #FFFFFF;
+            padding: 6px 12px;
+            border-radius: 8px;
+            margin-bottom: 14px;
+        }
+
+        .app-sidebar-brand h4 {
+            font-family: 'Plus Jakarta Sans', sans-serif !important;
+            font-size: 15px !important;
+            font-weight: 700 !important;
+            color: #FFFFFF !important;
+            letter-spacing: -0.2px;
+            margin: 0 !important;
+        }
+
+        .app-sidebar-brand span {
+            font-size: 11px !important;
+            color: #94A3B8 !important;
+            font-weight: 500 !important;
+            letter-spacing: 0.3px;
+            margin-top: 3px !important;
+            display: block !important;
+        }
+
+        .app-nav-group {
+            padding: 16px 10px !important;
+        }
+
+        .app-nav-btn {
+            display: flex !important;
+            align-items: center !important;
+            justify-content: space-between !important;
+            padding: 9px 12px !important;
+            border-radius: 7px !important;
+            color: #94A3B8 !important;
+            font-size: 12.5px !important;
+            font-weight: 500 !important;
+            transition: all 0.15s ease !important;
+            border: 1px solid transparent !important;
+            margin-bottom: 3px !important;
+            background: transparent !important;
+            width: 100% !important;
+            text-decoration: none !important;
+        }
+
+        .app-nav-btn:hover {
+            color: #FFFFFF !important;
+            background: rgba(255, 255, 255, 0.04) !important;
+        }
+
+        .app-nav-btn.active {
+            color: #FFFFFF !important;
+            background: rgba(13, 148, 136, 0.14) !important;
+            border-color: rgba(13, 148, 136, 0.3) !important;
+            font-weight: 600 !important;
+        }
+
+        .app-nav-btn.active .left-grp i {
+            color: var(--mgr-teal) !important;
+        }
+
+        /* Topbar Refinement */
+        .app-topbar {
+            background: #FFFFFF !important;
+            border-bottom: 1px solid #E2E8F0 !important;
+            height: 60px !important;
+            padding: 0 24px !important;
+        }
+
+        /* Table Card & Modern Toolbar */
+        .app-table-card {
+            background: #FFFFFF !important;
+            border: 1px solid #E2E8F0 !important;
+            border-radius: 10px !important;
+            box-shadow: 0 1px 3px rgba(15, 23, 42, 0.04) !important;
+            overflow: hidden !important;
+            margin-bottom: 24px !important;
+        }
+
+        .table-toolbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            padding: 12px 16px;
+            background: #FAFAFC;
+            border-bottom: 1px solid #E2E8F0;
+            flex-wrap: wrap;
+        }
+
+        .table-toolbar-group {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .table-search-box {
+            position: relative;
+            min-width: 220px;
+        }
+
+        .table-search-box i {
+            position: absolute;
+            left: 11px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #94A3B8;
+            font-size: 11px;
+            pointer-events: none;
+        }
+
+        .table-search-box input {
+            width: 100%;
+            padding: 6px 12px 6px 30px;
+            font-size: 12px;
+            background: #FFFFFF;
+            border: 1px solid #CBD5E1;
+            border-radius: 6px;
+            color: #0F172A;
+            transition: all 0.15s ease;
+        }
+
+        .table-search-box input:focus {
+            border-color: var(--mgr-teal);
+            outline: none;
+            box-shadow: 0 0 0 2.5px rgba(13, 148, 136, 0.15);
+        }
+
+        .table-filter-select {
+            padding: 6px 26px 6px 10px;
+            font-size: 12px;
+            font-weight: 500;
+            color: #334155;
+            background-color: #FFFFFF;
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%2364748B' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/%3e%3c/svg%3e");
+            background-repeat: no-repeat;
+            background-position: right 8px center;
+            background-size: 10px 10px;
+            border: 1px solid #CBD5E1;
+            border-radius: 6px;
+            cursor: pointer;
+            outline: none;
+            transition: border-color 0.15s ease;
+        }
+
+        .table-filter-select:focus {
+            border-color: var(--mgr-teal);
+        }
+
+        /* Subtle Status Pills */
+        .status-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            padding: 2.5px 8px;
+            border-radius: 5px;
+            font-size: 11px;
+            font-weight: 600;
+            white-space: nowrap;
+            letter-spacing: 0.1px;
+        }
+
+        .status-pill::before {
+            content: "";
+            width: 5px;
+            height: 5px;
+            border-radius: 50%;
+        }
+
+        .status-active {
+            background: #ECFDF5;
+            color: #065F46;
+            border: 1px solid #A7F3D0;
+        }
+        .status-active::before { background: #10B981; }
+
+        .status-suspended {
+            background: #FFF1F2;
+            color: #9F1239;
+            border: 1px solid #FECDD3;
+        }
+        .status-suspended::before { background: #F43F5E; }
+
+        .btn-icon-subtle {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 28px;
+            height: 28px;
+            border-radius: 6px;
+            border: 1px solid transparent;
+            background: transparent;
+            color: #64748B;
+            transition: all 0.15s ease;
+            cursor: pointer;
+            padding: 0;
+        }
+
+        .btn-icon-subtle:hover {
+            background: #F1F5F9;
+            color: #0F172A;
+            border-color: #E2E8F0;
+        }
+
         /* Breadcrumb Bar */
         .studio-breadcrumb {
             display: flex;
@@ -295,10 +543,10 @@
                 <button class="btn btn-sm text-white-50 d-lg-none position-absolute top-0 end-0 m-2 p-1" onclick="toggleMobileSidebar()" title="Close Navigation Drawer" style="border: none; background: transparent;">
                     <i class="fa-solid fa-xmark font-20 text-white"></i>
                 </button>
-                <div class="app-sidebar-emblem">
-                    <img src="../../assets/images/CIMP-Icon.png" height="32" alt="CIMP Logo" style="object-fit: contain;">
-                    <div style="border-left: 1.5px solid #CBD5E1; height: 24px;"></div>
-                    <img src="../../assets/images/logo.png" height="28" alt="CIMP-BIIF Logo" style="object-fit: contain;">
+                <div class="sidebar-brand-card">
+                    <img src="../../assets/images/CIMP-Icon.png" height="24" alt="CIMP" style="object-fit: contain;">
+                    <div style="border-left: 1.5px solid #CBD5E1; height: 18px;"></div>
+                    <img src="../../assets/images/logo.png" height="20" alt="BIIF" style="object-fit: contain;">
                 </div>
                 <h4>CIMP - BIIF</h4>
                 <span>IT &amp; Security Stack</span>
@@ -382,9 +630,6 @@
 
             <!-- Right Controls: Action & Mobile Profile -->
             <div class="d-flex align-items-center gap-2 gap-sm-3">
-                <button class="btn btn-sm btn-outline-danger font-11 fw-semibold d-none d-sm-inline-block" onclick="confirmResetDB()">
-                    <i class="fa-solid fa-rotate-left me-1"></i> Reset DB
-                </button>
                 <button class="app-btn-action d-none d-sm-inline-block" onclick="exportDatabaseJson()">
                     <i class="fa-solid fa-download me-1"></i> Backup JSON
                 </button>
@@ -433,19 +678,24 @@
 
             <!-- TAB 1: USERS & RBAC TABLE -->
             <div class="app-tab-pane active" id="tab-it-users">
-                <div class="d-flex align-items-center justify-content-between mb-4 flex-wrap gap-3">
+                <div class="d-flex align-items-center justify-content-between mb-3 flex-wrap gap-2">
                     <div>
-                        <h3 class="fw-bold font-20 mb-1" style="font-family: 'Outfit', sans-serif;">Authorized Ecosystem Users &amp; Credentials</h3>
-                        <p class="text-muted font-13 mb-0">Role-Based Access Control (RBAC), User ID &amp; Password provisioning, and security management.</p>
+                        <h3 class="page-header-title">Authorized Ecosystem Users &amp; Credentials</h3>
+                        <p class="page-header-sub">Role-Based Access Control (RBAC), User ID &amp; Password provisioning, and security management.</p>
                     </div>
-                    <div class="d-flex flex-column flex-md-row align-items-stretch align-items-md-center gap-2 w-100 w-md-auto">
-                        <!-- Filters row strictly on a single line -->
-                        <div class="d-flex align-items-center gap-2 flex-nowrap w-100 w-md-auto" style="min-width: 0;">
-                            <div class="input-group input-group-sm flex-grow-1" style="min-width: 0;">
-                                <span class="input-group-text bg-white border-end-0"><i class="fa-solid fa-magnifying-glass text-muted font-11"></i></span>
-                                <input type="text" id="itUserFilterInp" class="form-control border-start-0 font-12" placeholder="Search user by name..." oninput="filterItUsers()" style="min-width: 0;">
+                    <button class="app-btn-action text-nowrap" onclick="openCreateUserModal()">
+                        <i class="fa-solid fa-user-plus me-1"></i> Create User &amp; Password
+                    </button>
+                </div>
+
+                <div class="app-table-card">
+                    <div class="table-toolbar">
+                        <div class="table-toolbar-group">
+                            <div class="table-search-box">
+                                <i class="fa-solid fa-magnifying-glass"></i>
+                                <input type="text" id="itUserFilterInp" placeholder="Search user by name or email..." oninput="filterItUsers()">
                             </div>
-                            <select id="itRoleFilterSel" class="form-select form-select-sm font-12" style="width: 125px; min-width: 105px; font-weight: 600;" onchange="filterItUsers()">
+                            <select id="itRoleFilterSel" class="table-filter-select" onchange="filterItUsers()">
                                 <option value="">All Roles</option>
                                 <option value="Director">Director</option>
                                 <option value="Incubation Manager">Incubation Manager</option>
@@ -454,13 +704,7 @@
                                 <option value="Mentor">Faculty Mentor</option>
                             </select>
                         </div>
-                        <button class="app-btn-action text-nowrap" onclick="openCreateUserModal()">
-                            <i class="fa-solid fa-user-plus me-1"></i> Create User &amp; Password
-                        </button>
                     </div>
-                </div>
-
-                <div class="app-table-card">
                     <div class="table-responsive">
                         <table class="app-table">
                             <thead>
@@ -3024,8 +3268,8 @@
                 const isExpanded = expandedUserIds.has(u.id);
                 const isSuspended = u.status === 'Suspended';
                 const statusBadge = isSuspended
-                    ? '<span class="badge bg-secondary font-11">Suspended</span>' 
-                    : '<span class="badge bg-success font-11"><i class="fa-solid fa-circle font-8 me-1"></i> Active</span>';
+                    ? '<span class="status-pill status-suspended">Suspended</span>' 
+                    : '<span class="status-pill status-active">Active</span>';
 
                 html += `
                     <!-- Clickable Master Row -->
@@ -3037,16 +3281,17 @@
                                 </div>
                                 <div class="text-nowrap">
                                     <span class="fw-bold font-13 text-dark d-block">${u.name}</span>
-                                    <span class="font-11 text-muted">ID: <code>${u.id}</code></span>
+                                    <span class="font-11 text-muted">ID: <span class="fw-semibold">${u.id}</span></span>
                                 </div>
                             </div>
                         </td>
-                        <td class="text-nowrap"><code class="font-12 text-primary fw-semibold">${u.email}</code></td>
+                        <td class="text-nowrap"><span class="font-12 text-primary fw-semibold">${u.email}</span></td>
                         <td class="text-nowrap">${getRoleBadge(u.role, u)}</td>
                         <td class="text-nowrap">${statusBadge}</td>
                         <td class="text-end pe-3 text-nowrap">
-                            <span class="font-12 text-muted me-2" id="user_expand_lbl_${u.id}">${isExpanded ? 'Collapse' : 'Details'}</span>
-                            <i class="fa-solid fa-chevron-down row-chevron"></i>
+                            <button class="btn-icon-subtle no-row-click" title="${isExpanded ? 'Collapse' : 'Details'}">
+                                <i class="fa-solid fa-chevron-down row-chevron"></i>
+                            </button>
                         </td>
                     </tr>
 

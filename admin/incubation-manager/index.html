@@ -25,147 +25,459 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
     <style>
-        /* Modern Micro-styles & Expandable Row Architecture */
+        /* Modern Executive SaaS Design System */
         :root {
             --mgr-teal: #0D9488;
             --mgr-teal-dark: #0F766E;
-            --mgr-teal-light: #CCFBF1;
+            --mgr-teal-light: #F0FDFA;
+            --mgr-teal-subtle: #CCFBF1;
+            --mgr-navy: #0F172A;
+            --mgr-slate-50: #F8FAFC;
+            --mgr-slate-100: #F1F5F9;
+            --mgr-slate-200: #E2E8F0;
+            --mgr-slate-300: #CBD5E1;
+            --mgr-slate-400: #94A3B8;
+            --mgr-slate-500: #64748B;
+            --mgr-slate-600: #475569;
+            --mgr-slate-700: #334155;
+            --mgr-slate-800: #1E293B;
         }
 
+        body.admin-unified-body {
+            font-family: 'Plus Jakarta Sans', sans-serif !important;
+            background-color: #F8FAFC !important;
+            color: #0F172A !important;
+        }
+
+        /* Sidebar Brand & Navigation Refinement */
+        .app-sidebar {
+            background: #091222 !important;
+            border-right: 1px solid #1E293B !important;
+        }
+
+        .app-sidebar-brand {
+            padding: 22px 18px 18px !important;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06) !important;
+            text-align: left !important;
+            display: flex !important;
+            flex-direction: column !important;
+            align-items: flex-start !important;
+        }
+
+        .sidebar-brand-card {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: #FFFFFF;
+            padding: 6px 12px;
+            border-radius: 8px;
+            margin-bottom: 14px;
+        }
+
+        .app-sidebar-brand h4 {
+            font-family: 'Plus Jakarta Sans', sans-serif !important;
+            font-size: 15px !important;
+            font-weight: 700 !important;
+            color: #FFFFFF !important;
+            letter-spacing: -0.2px;
+            margin: 0 !important;
+        }
+
+        .app-sidebar-brand span {
+            font-size: 11px !important;
+            color: #94A3B8 !important;
+            font-weight: 500 !important;
+            letter-spacing: 0.3px;
+            margin-top: 3px !important;
+            display: block !important;
+        }
+
+        .app-nav-group {
+            padding: 16px 10px !important;
+        }
+
+        .app-nav-label {
+            font-size: 10.5px !important;
+            font-weight: 700 !important;
+            text-transform: uppercase !important;
+            letter-spacing: 0.8px !important;
+            color: #64748B !important;
+            padding: 0 12px 10px !important;
+            display: block !important;
+        }
+
+        .app-nav-btn {
+            width: 100% !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: space-between !important;
+            padding: 9px 12px !important;
+            border-radius: 6px !important;
+            color: #94A3B8 !important;
+            font-size: 13px !important;
+            font-weight: 500 !important;
+            background: transparent !important;
+            border: none !important;
+            cursor: pointer !important;
+            margin-bottom: 2px !important;
+            transition: all 0.15s ease !important;
+            text-decoration: none !important;
+            text-align: left !important;
+        }
+
+        .app-nav-btn:hover {
+            color: #FFFFFF !important;
+            background: rgba(255, 255, 255, 0.05) !important;
+        }
+
+        .app-nav-btn.active {
+            color: #FFFFFF !important;
+            background: rgba(255, 255, 255, 0.08) !important;
+            font-weight: 600 !important;
+            box-shadow: none !important;
+            border-left: 3px solid #0D9488 !important;
+            border-radius: 0 6px 6px 0 !important;
+        }
+
+        .app-nav-btn .left-grp {
+            display: flex !important;
+            align-items: center !important;
+            gap: 10px !important;
+        }
+
+        .app-nav-badge {
+            background: rgba(255, 255, 255, 0.12) !important;
+            color: #94A3B8 !important;
+            font-size: 11px !important;
+            font-weight: 600 !important;
+            padding: 1px 7px !important;
+            border-radius: 999px !important;
+        }
+
+        .app-user-profile {
+            padding: 14px 16px !important;
+            border-top: 1px solid rgba(255, 255, 255, 0.06) !important;
+            background: rgba(0, 0, 0, 0.2) !important;
+        }
+
+        /* Topbar Header */
+        .app-topbar {
+            height: 56px !important;
+            background: #FFFFFF !important;
+            border-bottom: 1px solid #E2E8F0 !important;
+            padding: 0 24px !important;
+        }
+
+        .app-top-search {
+            position: relative !important;
+            width: 380px !important;
+        }
+
+        .app-top-search input {
+            width: 100% !important;
+            padding: 7px 14px 7px 34px !important;
+            font-size: 12.5px !important;
+            border: 1px solid #E2E8F0 !important;
+            border-radius: 8px !important;
+            background: #F8FAFC !important;
+            outline: none !important;
+            color: #0F172A !important;
+            transition: all 0.15s ease !important;
+        }
+
+        .app-top-search input:focus {
+            background: #FFFFFF !important;
+            border-color: #0D9488 !important;
+            box-shadow: 0 0 0 3px rgba(13, 148, 136, 0.1) !important;
+        }
+
+        .app-top-search i {
+            position: absolute !important;
+            left: 11px !important;
+            top: 50% !important;
+            transform: translateY(-50%) !important;
+            color: #94A3B8 !important;
+            font-size: 12px !important;
+        }
+
+        /* Page Titles & Headers */
         .page-header-title {
-            font-family: 'Outfit', sans-serif !important;
-            font-size: 19px !important;
+            font-family: 'Plus Jakarta Sans', sans-serif !important;
+            font-size: 18px !important;
             font-weight: 700 !important;
             color: #0F172A !important;
-            letter-spacing: -0.2px;
+            letter-spacing: -0.3px;
             margin-bottom: 2px !important;
         }
+
         .page-header-sub {
-            font-size: 12px !important;
+            font-size: 12.5px !important;
             color: #64748B !important;
             margin-bottom: 0 !important;
+            font-weight: 400 !important;
         }
 
-        /* Compact & High-Legibility Tables with No Text Squishing */
+        /* Modern Table Card */
         .app-table-card {
-            border-radius: 12px !important;
+            border-radius: 10px !important;
             border: 1px solid #E2E8F0 !important;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.02) !important;
+            box-shadow: 0 1px 2px rgba(16, 24, 40, 0.04) !important;
             background: #FFFFFF !important;
             overflow: hidden !important;
         }
-        .app-table-header {
-            padding: 12px 18px !important;
-            border-bottom: 1px solid #E2E8F0 !important;
+
+        /* Integrated Clean Filter Toolbar */
+        .table-toolbar {
+            padding: 12px 16px !important;
             background: #FFFFFF !important;
+            border-bottom: 1px solid #E2E8F0 !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: space-between !important;
+            gap: 10px !important;
+            flex-wrap: wrap !important;
         }
+
+        .table-toolbar-group {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .table-search-box {
+            position: relative;
+            min-width: 260px;
+        }
+
+        .table-search-box input {
+            width: 100%;
+            height: 34px;
+            padding: 6px 12px 6px 32px;
+            font-size: 12.5px;
+            border: 1px solid #E2E8F0;
+            border-radius: 6px;
+            background: #F8FAFC;
+            outline: none;
+            color: #0F172A;
+            transition: all 0.15s ease;
+        }
+
+        .table-search-box input:focus {
+            background: #FFFFFF;
+            border-color: #0D9488;
+            box-shadow: 0 0 0 3px rgba(13, 148, 136, 0.1);
+        }
+
+        .table-search-box i {
+            position: absolute;
+            left: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #94A3B8;
+            font-size: 12px;
+        }
+
+        .table-filter-select {
+            height: 34px;
+            padding: 5px 28px 5px 10px;
+            font-size: 12px;
+            font-weight: 500;
+            color: #334155;
+            background-color: #F8FAFC;
+            border: 1px solid #E2E8F0;
+            border-radius: 6px;
+            outline: none;
+            cursor: pointer;
+            transition: all 0.15s ease;
+        }
+
+        .table-filter-select:focus {
+            background-color: #FFFFFF;
+            border-color: #0D9488;
+        }
+
+        /* High-Legibility Clean Tables */
         .app-table {
             width: 100% !important;
             margin-bottom: 0 !important;
-            font-size: 12.5px !important;
+            font-size: 13px !important;
+            border-collapse: collapse !important;
         }
+
         .app-table th {
-            background: #F8FAFC !important;
-            color: #475569 !important;
-            font-weight: 700 !important;
-            font-size: 10.5px !important;
+            background: #FAFAFA !important;
+            color: #64748B !important;
+            font-weight: 600 !important;
+            font-size: 11px !important;
             text-transform: uppercase !important;
-            letter-spacing: 0.6px !important;
-            padding: 10px 14px !important;
+            letter-spacing: 0.04em !important;
+            padding: 11px 16px !important;
             border-bottom: 1px solid #E2E8F0 !important;
+            border-top: none !important;
             white-space: nowrap !important;
             vertical-align: middle !important;
         }
+
         .app-table td {
-            padding: 11px 14px !important;
+            padding: 13px 16px !important;
             border-bottom: 1px solid #F1F5F9 !important;
             vertical-align: middle !important;
-            color: #1E293B !important;
+            color: #0F172A !important;
+            background: #FFFFFF;
         }
 
-        /* Expandable Row Styling */
         .tr-parent {
             cursor: pointer;
-            transition: background-color 0.15s ease;
+            transition: background-color 0.1s ease;
         }
-        .tr-parent:hover {
+
+        .tr-parent:hover td {
             background-color: #F8FAFC !important;
         }
-        .tr-parent.is-expanded {
-            background-color: #F0FDFA !important;
+
+        .tr-parent.is-expanded td {
+            background-color: #F8FAFC !important;
             border-bottom-color: transparent !important;
         }
+
         .expand-chevron {
-            transition: transform 0.25s ease;
+            transition: transform 0.2s ease;
             display: inline-block;
+            color: #94A3B8;
         }
+
         .is-expanded .expand-chevron {
             transform: rotate(180deg);
-        }
-
-        .tr-expand-tray {
-            background: #F8FAFC;
-        }
-        .tr-expand-tray td {
-            padding: 0 !important;
-            border-bottom: 1px solid #E2E8F0 !important;
-        }
-        .expand-content-wrap {
-            padding: 14px 18px 18px;
-            background: linear-gradient(180deg, #F0FDFA 0%, #F8FAFC 100%);
-            border-left: 3.5px solid #0D9488;
-            animation: expandFadeIn 0.2s ease-out;
-        }
-        @keyframes expandFadeIn {
-            from { opacity: 0; transform: translateY(-4px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .interactive-title {
-            color: #0F172A;
-            font-weight: 700;
-            cursor: pointer;
-            transition: color 0.15s ease;
-        }
-        .interactive-title:hover {
             color: #0D9488;
         }
 
-        /* Action Icon Pills */
-        .icon-action-pill {
+        .tr-expand-tray td {
+            padding: 0 !important;
+            border-bottom: 1px solid #E2E8F0 !important;
+            background: #F8FAFC !important;
+        }
+
+        .expand-content-wrap {
+            padding: 16px 20px 20px;
+            background: #F8FAFC;
+            border-top: 1px solid #E2E8F0;
+        }
+
+        /* Data Cell Specific Typography */
+        .venture-name {
+            font-weight: 600;
+            font-size: 13.5px;
+            color: #0F172A;
+            line-height: 1.3;
+        }
+
+        .venture-meta {
+            font-size: 11px;
+            color: #64748B;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .meta-sep {
+            color: #CBD5E1;
+        }
+
+        .founder-name {
+            font-weight: 600;
+            font-size: 12.5px;
+            color: #1E293B;
+        }
+
+        .founder-loc {
+            font-size: 11.5px;
+            color: #64748B;
+        }
+
+        /* Status Pills */
+        .status-pill {
+            font-size: 11px;
+            font-weight: 600;
+            padding: 2px 8px;
+            border-radius: 999px;
+            display: inline-flex;
+            align-items: center;
+            line-height: 1.3;
+        }
+
+        .status-active {
+            background: #ECFDF5;
+            color: #047857;
+        }
+
+        .status-graduated {
+            background: #EFF6FF;
+            color: #1D4ED8;
+        }
+
+        .status-suspended {
+            background: #FEF2F2;
+            color: #B91C1C;
+        }
+
+        .status-pending {
+            background: #FFFBEB;
+            color: #B45309;
+        }
+
+        /* Minimal Button Icons */
+        .btn-icon-subtle {
+            width: 28px;
+            height: 28px;
+            padding: 0;
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            width: 28px;
-            height: 28px;
+            background: transparent;
+            border: 1px solid transparent;
             border-radius: 6px;
-            border: 1px solid #E2E8F0;
-            background: #FFFFFF;
-            color: #475569;
-            text-decoration: none;
+            color: #64748B;
+            cursor: pointer;
             transition: all 0.15s ease;
-            font-size: 11px;
-        }
-        .icon-action-pill:hover {
-            background: #0D9488;
-            color: #FFFFFF;
-            border-color: #0D9488;
-            transform: translateY(-1px);
-        }
-        .icon-action-pill.pill-phone:hover { background: #D97706; border-color: #D97706; }
-        .icon-action-pill.pill-wa:hover { background: #059669; border-color: #059669; }
-        .icon-action-pill.pill-mail:hover { background: #2563EB; border-color: #2563EB; }
-        .icon-action-pill.pill-danger:hover { background: #DC2626; border-color: #DC2626; }
-
-        .score-slider-box {
-            background: #FFFFFF;
-            border: 1px solid #E2E8F0;
-            border-radius: 10px;
-            padding: 12px 14px;
         }
 
-        .nowrap-cell {
-            white-space: nowrap !important;
+        .btn-icon-subtle:hover {
+            background: #EDF2F7;
+            color: #0F172A;
+            border-color: #E2E8F0;
+        }
+
+        /* Modern KPI Cards */
+        .app-kpi-card {
+            background: #FFFFFF !important;
+            border: 1px solid #E2E8F0 !important;
+            border-radius: 10px !important;
+            padding: 16px 18px !important;
+            box-shadow: 0 1px 2px rgba(16, 24, 40, 0.03) !important;
+        }
+
+        .app-kpi-lbl {
+            font-size: 11.5px !important;
+            font-weight: 600 !important;
+            color: #64748B !important;
+            margin-bottom: 4px !important;
+            display: block !important;
+        }
+
+        .app-kpi-val {
+            font-family: 'Plus Jakarta Sans', sans-serif !important;
+            font-size: 22px !important;
+            font-weight: 700 !important;
+            color: #0F172A !important;
+            line-height: 1.2 !important;
+        }
+
+        .app-kpi-sub {
+            font-size: 11.5px !important;
+            font-weight: 500 !important;
+            color: #64748B !important;
+            margin-top: 4px !important;
         }
     </style>
 </head>
@@ -183,139 +495,92 @@
                 <button class="btn btn-sm text-white-50 d-lg-none position-absolute top-0 end-0 m-2 p-1" onclick="toggleMobileSidebar()" title="Close Navigation Drawer" style="border: none; background: transparent;">
                     <i class="fa-solid fa-xmark font-20 text-white"></i>
                 </button>
-                <div class="app-sidebar-emblem">
-                    <img src="../../assets/images/CIMP-Icon.png" height="32" alt="CIMP Logo" style="object-fit: contain;">
-                    <div style="border-left: 1.5px solid #CBD5E1; height: 24px;"></div>
-                    <img src="../../assets/images/logo.png" height="28" alt="CIMP-BIIF Logo" style="object-fit: contain;">
+                <div class="sidebar-brand-card shadow-xs">
+                    <img src="../../assets/images/CIMP-Icon.png" height="26" alt="CIMP Logo" style="object-fit: contain;">
+                    <div style="border-left: 1px solid #E2E8F0; height: 20px;"></div>
+                    <img src="../../assets/images/logo.png" height="22" alt="CIMP-BIIF Logo" style="object-fit: contain;">
                 </div>
                 <h4>CIMP - BIIF</h4>
                 <span>Incubation Operations</span>
             </div>
 
-            <!-- Page-Wise Structured Nav Tabs with Collapsible Section Groups -->
+            <!-- Page-Wise Structured Nav Tabs -->
             <div class="app-nav-group">
-                
-                <!-- Section 1: Workspaces Group -->
-                <div class="app-nav-section" id="secNavWorkspaces">
-                    <button class="app-nav-section-header" onclick="toggleNavSection('secNavWorkspaces')" type="button" title="Toggle Workspaces">
-                        <span class="d-flex align-items-center gap-2">
-                            <i class="fa-solid fa-layer-group font-11 opacity-75"></i>
-                            <span>Workspaces</span>
-                        </span>
-                        <i class="fa-solid fa-chevron-down nav-section-chevron font-9"></i>
-                    </button>
-                    
-                    <div class="app-nav-section-body">
-                        <button class="app-nav-btn active" id="mgrNavOverview" onclick="switchMgrView('tab-mgr-overview', this)">
-                            <span class="left-grp">
-                                <i class="fa-solid fa-chart-line font-14"></i>
-                                <span>Intake Overview</span>
-                            </span>
-                        </button>
+                <span class="app-nav-label">Workspaces</span>
 
-                        <button class="app-nav-btn" id="mgrNavQueue" onclick="switchMgrView('tab-mgr-queue', this)">
-                            <span class="left-grp">
-                                <i class="fa-solid fa-clipboard-check font-14"></i>
-                                <span>Scrutiny Queue</span>
-                            </span>
-                            <span class="app-nav-badge" id="navMgrPendingBadge">0</span>
-                        </button>
+                <button class="app-nav-btn active" id="mgrNavOverview" onclick="switchMgrView('tab-mgr-overview', this)">
+                    <span class="left-grp">
+                        <i class="fa-solid fa-chart-pie font-13 opacity-75"></i>
+                        <span>Intake Overview</span>
+                    </span>
+                </button>
 
-                        <button class="app-nav-btn" id="mgrNavStartups" onclick="switchMgrView('tab-mgr-startups', this)">
-                            <span class="left-grp">
-                                <i class="fa-solid fa-building font-14"></i>
-                                <span>360° Incubatees</span>
-                            </span>
-                            <span class="badge bg-primary-subtle text-primary font-10 px-2 py-0.5 rounded-pill" id="navMgrStartupsCount">0</span>
-                        </button>
+                <button class="app-nav-btn" id="mgrNavQueue" onclick="switchMgrView('tab-mgr-queue', this)">
+                    <span class="left-grp">
+                        <i class="fa-solid fa-clipboard-check font-13 opacity-75"></i>
+                        <span>Scrutiny Queue</span>
+                    </span>
+                    <span class="app-nav-badge" id="navMgrPendingBadge">0</span>
+                </button>
 
-                        <button class="app-nav-btn" id="mgrNavMilestones" onclick="switchMgrView('tab-mgr-milestones', this)">
-                            <span class="left-grp">
-                                <i class="fa-solid fa-rocket font-14"></i>
-                                <span>Milestones &amp; Sprints</span>
-                            </span>
-                        </button>
+                <button class="app-nav-btn" id="mgrNavStartups" onclick="switchMgrView('tab-mgr-startups', this)">
+                    <span class="left-grp">
+                        <i class="fa-solid fa-building-columns font-13 opacity-75"></i>
+                        <span>360° Incubatees</span>
+                    </span>
+                    <span class="app-nav-badge" id="navMgrStartupsCount">0</span>
+                </button>
 
-                        <button class="app-nav-btn" id="mgrNavMentors" onclick="switchMgrView('tab-mgr-mentors', this)">
-                            <span class="left-grp">
-                                <i class="fa-solid fa-handshake-angle font-14"></i>
-                                <span>Mentorship Hub</span>
-                            </span>
-                        </button>
+                <button class="app-nav-btn" id="mgrNavMilestones" onclick="switchMgrView('tab-mgr-milestones', this)">
+                    <span class="left-grp">
+                        <i class="fa-solid fa-list-check font-13 opacity-75"></i>
+                        <span>Milestones &amp; Sprints</span>
+                    </span>
+                </button>
 
-                        <button class="app-nav-btn" id="mgrNavGrants" onclick="switchMgrView('tab-mgr-grants', this)">
-                            <span class="left-grp">
-                                <i class="fa-solid fa-coins font-14"></i>
-                                <span>Seed Grants &amp; UCs</span>
-                            </span>
-                            <span class="badge bg-success-subtle text-success font-10 px-2 py-0.5 rounded-pill">₹10L Cap</span>
-                        </button>
+                <button class="app-nav-btn" id="mgrNavMentors" onclick="switchMgrView('tab-mgr-mentors', this)">
+                    <span class="left-grp">
+                        <i class="fa-solid fa-user-group font-13 opacity-75"></i>
+                        <span>Mentorship Hub</span>
+                    </span>
+                </button>
 
-                        <button class="app-nav-btn" id="mgrNavCirculars" onclick="switchMgrView('tab-mgr-circulars', this)">
-                            <span class="left-grp">
-                                <i class="fa-solid fa-bullhorn font-14"></i>
-                                <span>Circulars &amp; Notices</span>
-                            </span>
-                        </button>
+                <button class="app-nav-btn" id="mgrNavGrants" onclick="switchMgrView('tab-mgr-grants', this)">
+                    <span class="left-grp">
+                        <i class="fa-solid fa-coins font-13 opacity-75"></i>
+                        <span>Seed Grants &amp; UCs</span>
+                    </span>
+                </button>
 
-                        <button class="app-nav-btn" id="mgrNavReports" onclick="switchMgrView('tab-mgr-reports', this)">
-                            <span class="left-grp">
-                                <i class="fa-solid fa-file-invoice-dollar font-14"></i>
-                                <span>Govt MIS Reports</span>
-                            </span>
-                        </button>
-                    </div>
-                </div>
+                <button class="app-nav-btn" id="mgrNavCirculars" onclick="switchMgrView('tab-mgr-circulars', this)">
+                    <span class="left-grp">
+                        <i class="fa-solid fa-bullhorn font-13 opacity-75"></i>
+                        <span>Circulars &amp; Notices</span>
+                    </span>
+                </button>
 
-                <!-- Section 2: Quick Actions Group -->
-                <div class="app-nav-section mt-2" id="secNavQuickActions">
-                    <button class="app-nav-section-header" onclick="toggleNavSection('secNavQuickActions')" type="button" title="Toggle Quick Actions">
-                        <span class="d-flex align-items-center gap-2">
-                            <i class="fa-solid fa-bolt font-11 opacity-75 text-warning"></i>
-                            <span>Quick Actions</span>
-                        </span>
-                        <i class="fa-solid fa-chevron-down nav-section-chevron font-9"></i>
-                    </button>
-
-                    <div class="app-nav-section-body">
-                        <button class="app-nav-btn text-success" onclick="openAddStartupModal()">
-                            <span class="left-grp">
-                                <i class="fa-solid fa-plus-circle font-14 text-success"></i>
-                                <span>Add Incubatee</span>
-                            </span>
-                        </button>
-
-                        <button class="app-nav-btn text-primary" onclick="openPairMentorModal()">
-                            <span class="left-grp">
-                                <i class="fa-solid fa-user-plus font-14 text-primary"></i>
-                                <span>Pair Mentor</span>
-                            </span>
-                        </button>
-
-                        <button class="app-nav-btn text-info" onclick="openBroadcastModal()">
-                            <span class="left-grp">
-                                <i class="fa-solid fa-paper-plane font-14 text-info"></i>
-                                <span>Post Circular</span>
-                            </span>
-                        </button>
-                    </div>
-                </div>
+                <button class="app-nav-btn" id="mgrNavReports" onclick="switchMgrView('tab-mgr-reports', this)">
+                    <span class="left-grp">
+                        <i class="fa-solid fa-file-lines font-13 opacity-75"></i>
+                        <span>Govt MIS Reports</span>
+                    </span>
+                </button>
             </div>
         </div>
 
         <!-- Logged In User Strip (Minimal Clean Workspace Identity) -->
         <div class="app-user-profile">
-            <div class="d-flex align-items-center gap-2 overflow-hidden">
-                <div class="d-flex align-items-center justify-content-center rounded-circle flex-shrink-0" style="width: 34px; height: 34px; background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.2);">
-                    <i class="fa-solid fa-user-check text-white font-14"></i>
+            <div class="d-flex align-items-center gap-2.5 overflow-hidden">
+                <div class="d-flex align-items-center justify-content-center rounded-circle flex-shrink-0" style="width: 32px; height: 32px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.15);">
+                    <i class="fa-solid fa-user text-white font-12"></i>
                 </div>
                 <div class="overflow-hidden">
-                    <div class="font-12 fw-bold text-white text-truncate" id="sidebarUserName">Manager</div>
-                    <div class="font-11 text-white-50 text-truncate" id="sidebarUserTitle">Incubation Manager</div>
+                    <div class="font-12 fw-semibold text-white text-truncate" id="sidebarUserName">Manager</div>
+                    <div class="font-11 text-white-50 text-truncate" id="sidebarUserTitle">Incubation Operations</div>
                 </div>
             </div>
             <div>
-                <a href="../../login.html" class="text-white-50 font-14 p-1 text-decoration-none" title="Sign Out">
+                <a href="../../login.html" class="text-white-50 font-13 p-1 text-decoration-none" title="Sign Out">
                     <i class="fa-solid fa-arrow-right-from-bracket"></i>
                 </a>
             </div>
@@ -328,62 +593,53 @@
         <!-- Topbar Header -->
         <header class="app-topbar">
             <!-- Mobile Left: Hamburger Drawer Toggle -->
-            <button class="btn btn-light d-lg-none p-0 rounded-circle border shadow-sm d-flex align-items-center justify-content-center" style="width: 38px; height: 38px; min-width: 38px;" onclick="toggleMobileSidebar()" title="Open Menu">
-                <i class="fa-solid fa-bars font-16 text-dark"></i>
+            <button class="btn btn-light d-lg-none p-0 rounded-2 border d-flex align-items-center justify-content-center" style="width: 36px; height: 36px; min-width: 36px;" onclick="toggleMobileSidebar()" title="Open Menu">
+                <i class="fa-solid fa-bars font-14 text-dark"></i>
             </button>
 
             <!-- Mobile Center: Both Official Emblems & Logos -->
             <div class="d-flex d-lg-none align-items-center justify-content-center gap-1" style="cursor: pointer;" onclick="switchMgrView('tab-mgr-overview')">
-                <img src="../../assets/images/CIMP-Icon.png" height="24" alt="CIMP Logo" style="object-fit: contain;">
-                <div style="border-left: 1.5px solid #CBD5E1; height: 18px; margin: 0 4px;"></div>
-                <img src="../../assets/images/logo.png" height="22" alt="CIMP - BIIF Logo" style="object-fit: contain;">
+                <img src="../../assets/images/CIMP-Icon.png" height="22" alt="CIMP Logo" style="object-fit: contain;">
+                <div style="border-left: 1.5px solid #CBD5E1; height: 16px; margin: 0 4px;"></div>
+                <img src="../../assets/images/logo.png" height="20" alt="CIMP - BIIF Logo" style="object-fit: contain;">
             </div>
 
             <!-- Desktop Left: Omnisearch -->
             <div class="app-top-search d-none d-lg-block">
                 <i class="fa-solid fa-magnifying-glass"></i>
-                <input type="text" id="mgrSearchInp" placeholder="Search applications, ventures, founders, mentors..." oninput="handleMgrSearch(this.value)">
+                <input type="text" id="mgrSearchInp" placeholder="Search ventures, founders, mentors..." oninput="handleMgrSearch(this.value)">
             </div>
 
             <!-- Right Controls: Manager Info & Mobile Profile -->
             <div class="d-flex align-items-center gap-2 gap-sm-3">
-                <button class="btn btn-sm btn-outline-primary d-none d-sm-inline-flex align-items-center gap-1.5 font-12 fw-semibold" onclick="openBroadcastModal()">
-                    <i class="fa-solid fa-bullhorn"></i>
-                    <span>Broadcast Notice</span>
-                </button>
-
                 <!-- Executive Profile Dropdown -->
                 <div class="dropdown">
-                    <button class="btn p-1 d-flex align-items-center gap-2 rounded-pill border bg-white shadow-xs" type="button" id="userProfileDropdownBtn" data-bs-toggle="dropdown" aria-expanded="false" style="transition: all 0.2s ease;">
-                        <div class="position-relative">
-                            <div class="d-flex align-items-center justify-content-center rounded-circle text-white fw-bold shadow-xs" style="width: 34px; height: 34px; background: linear-gradient(135deg, #0D9488 0%, #14B8A6 100%); font-size: 13px;">
-                                <i class="fa-solid fa-user-check"></i>
-                            </div>
-                            <span class="position-absolute bottom-0 end-0 bg-success border border-white rounded-circle" style="width: 9px; height: 9px;"></span>
+                    <button class="btn p-1 pe-2.5 d-flex align-items-center gap-2 rounded-2 border bg-white shadow-2xs" type="button" id="userProfileDropdownBtn" data-bs-toggle="dropdown" aria-expanded="false" style="height: 36px; border-color: #E2E8F0 !important;">
+                        <div class="d-flex align-items-center justify-content-center rounded-circle text-white fw-bold" style="width: 26px; height: 26px; background: #0D9488; font-size: 11px;">
+                            M
                         </div>
-                        <div class="d-none d-md-flex flex-column align-items-start pe-2 text-start" style="line-height: 1.15;">
-                            <span class="font-12 fw-bold text-dark text-truncate" style="max-width: 130px;" id="topbarUserName">Manager</span>
-                            <span class="font-10 text-muted text-truncate" style="max-width: 130px;" id="topbarUserTitle">Incubation Manager</span>
+                        <div class="d-none d-md-flex flex-column align-items-start text-start" style="line-height: 1.15;">
+                            <span class="font-12 fw-semibold text-dark text-truncate" style="max-width: 120px;" id="topbarUserName">Manager</span>
+                            <span class="font-10 text-muted text-truncate" style="max-width: 120px;" id="topbarUserTitle">Operations Hub</span>
                         </div>
-                        <i class="fa-solid fa-chevron-down font-10 text-muted me-1 d-none d-md-inline-block"></i>
+                        <i class="fa-solid fa-chevron-down font-9 text-muted ms-1 d-none d-md-inline-block"></i>
                     </button>
-                    <div class="dropdown-menu dropdown-menu-end shadow-lg border-0 p-2 mt-2" style="width: 260px; border-radius: 12px; z-index: 1060;">
-                        <div class="px-3 py-2 bg-light rounded-3 mb-2">
-                            <div class="fw-bold font-13 text-dark text-truncate" id="dropdownUserName">Manager</div>
+                    <div class="dropdown-menu dropdown-menu-end shadow-sm border p-2 mt-1" style="width: 250px; border-radius: 8px; border-color: #E2E8F0 !important; z-index: 1060;">
+                        <div class="px-2 py-1.5 bg-light rounded-2 mb-1.5">
+                            <div class="fw-semibold font-12 text-dark text-truncate" id="dropdownUserName">Manager</div>
                             <div class="font-11 text-muted text-truncate" id="dropdownUserEmail">incubation@cimpbiif.com</div>
-                            <span class="badge bg-teal-subtle text-teal font-10 px-2 py-0.5 mt-1" id="dropdownUserRole">Incubation Manager</span>
                         </div>
-                        <a class="dropdown-item d-flex align-items-center gap-2 py-2 rounded-2 font-12 fw-semibold text-dark" href="javascript:void(0)" onclick="CIMP_DB.openProfileModal()">
-                            <i class="fa-regular fa-id-badge text-teal font-14"></i>
-                            <span>Edit Profile &amp; Password</span>
+                        <a class="dropdown-item d-flex align-items-center gap-2 py-1.5 rounded-2 font-12 text-dark" href="javascript:void(0)" onclick="CIMP_DB.openProfileModal()">
+                            <i class="fa-regular fa-id-badge text-muted font-13"></i>
+                            <span>Edit Profile</span>
                         </a>
-                        <a class="dropdown-item d-flex align-items-center gap-2 py-2 rounded-2 font-12 text-secondary" href="../../index.html" target="_blank">
-                            <i class="fa-solid fa-arrow-up-right-from-square font-12 text-muted"></i>
+                        <a class="dropdown-item d-flex align-items-center gap-2 py-1.5 rounded-2 font-12 text-secondary" href="../../index.html" target="_blank">
+                            <i class="fa-solid fa-arrow-up-right-from-square font-11 text-muted"></i>
                             <span>Public Website</span>
                         </a>
                         <hr class="dropdown-divider my-1">
-                        <a class="dropdown-item d-flex align-items-center gap-2 py-2 rounded-2 font-12 fw-semibold text-danger" href="../../login.html">
-                            <i class="fa-solid fa-arrow-right-from-bracket font-13"></i>
+                        <a class="dropdown-item d-flex align-items-center gap-2 py-1.5 rounded-2 font-12 text-danger" href="../../login.html">
+                            <i class="fa-solid fa-arrow-right-from-bracket font-12"></i>
                             <span>Sign Out</span>
                         </a>
                     </div>
@@ -469,13 +725,10 @@
 
                 <!-- Recent Filings Table with Expandable Row Trays -->
                 <div class="app-table-card mb-4">
-                    <div class="app-table-header d-flex align-items-center justify-content-between">
-                        <div>
-                            <h5 class="mb-0 font-14 fw-bold text-dark"><i class="fa-solid fa-file-signature text-primary me-2"></i> Recent Incubation Intake Applications</h5>
-                            <span class="font-11 text-muted">Tap on any application row to expand details, founder contacts &amp; evaluation scorecard</span>
-                        </div>
-                        <button class="btn btn-sm btn-outline-primary font-12" onclick="switchMgrView('tab-mgr-queue', document.getElementById('mgrNavQueue'))">
-                            Open Scrutiny Queue <i class="fa-solid fa-arrow-right font-11 ms-1"></i>
+                    <div class="app-table-header d-flex align-items-center justify-content-between py-2.5 px-3">
+                        <h5 class="mb-0 font-13 fw-bold text-dark">Recent Intake Applications</h5>
+                        <button class="btn btn-sm btn-light border font-11 py-1 px-2.5 text-secondary" onclick="switchMgrView('tab-mgr-queue', document.getElementById('mgrNavQueue'))">
+                            Scrutiny Queue <i class="fa-solid fa-arrow-right font-9 ms-1"></i>
                         </button>
                     </div>
                     <div class="table-responsive">
@@ -504,18 +757,15 @@
             <div class="app-tab-pane" id="tab-mgr-queue">
                 <div class="d-flex align-items-center justify-content-between mb-3 flex-wrap gap-2">
                     <div>
-                        <h3 class="page-header-title">Level-1 Incubation Scrutiny &amp; Scoring Matrix</h3>
-                        <p class="page-header-sub">Evaluate applicant innovation, prototyping readiness, team commitment, and escalate qualified ventures to Executive Director.</p>
+                        <h3 class="page-header-title">Level-1 Incubation Scrutiny</h3>
+                        <p class="page-header-sub">Evaluate applicant innovation, prototyping readiness, and recommend for Director induction.</p>
                     </div>
                     <div class="d-flex align-items-center gap-2">
-                        <span class="badge bg-warning-subtle text-warning-emphasis font-12 px-3 py-1.5 rounded-pill" id="badgeQueueCount">0 Pending</span>
+                        <span class="badge bg-warning-subtle text-warning-emphasis font-12 px-2.5 py-1 rounded-pill" id="badgeQueueCount">0 Pending</span>
                     </div>
                 </div>
 
                 <div class="app-table-card">
-                    <div class="app-table-header">
-                        <span class="font-12 text-muted"><i class="fa-solid fa-hand-pointer text-primary me-1"></i> <strong>Tap on any row</strong> to expand the full 4-pillar evaluation matrix, problem statement, pitch deck, and founder WhatsApp/call actions.</span>
-                    </div>
                     <div class="table-responsive">
                         <table class="app-table">
                             <thead>
@@ -525,7 +775,7 @@
                                     <th style="width: 20%;">Founder &amp; Location</th>
                                     <th style="width: 17%;">Incubation Track</th>
                                     <th style="width: 12%;">Manager Score</th>
-                                    <th style="width: 12%;" class="text-end">Action</th>
+                                    <th style="width: 12%;" class="text-end pe-3">Action</th>
                                 </tr>
                             </thead>
                             <tbody id="tblMgrScrutinyBody">
@@ -542,47 +792,99 @@
             <div class="app-tab-pane" id="tab-mgr-startups">
                 <div class="d-flex align-items-center justify-content-between mb-3 flex-wrap gap-2">
                     <div>
-                        <h3 class="page-header-title">360° Incubatee Portfolio Directory</h3>
-                        <p class="page-header-sub">Master record of all incubated ventures, legal CIN/GST details, financials, assigned mentors, and founder dossiers.</p>
+                        <div class="d-flex align-items-center gap-2">
+                            <h3 class="page-header-title mb-0">360° Incubatee Directory</h3>
+                            <span class="badge bg-light text-secondary border font-11 px-2 py-0.5" id="headerStartupsCount">50 Ventures</span>
+                        </div>
+                        <p class="page-header-sub mt-1">Portfolio ventures, legal compliance, and advisory assignments.</p>
                     </div>
-                    <div class="d-flex align-items-center gap-2 flex-wrap">
-                        <select class="form-select form-select-sm font-12 border" id="filterStartupSector" style="width: 130px; font-weight: 600;" onchange="renderStartupsMasterTable()">
-                            <option value="">All Sectors</option>
-                            <option value="AgriTech">AgriTech</option>
-                            <option value="CleanTech">CleanTech / EV</option>
-                            <option value="EduTech">EduTech</option>
-                            <option value="FinTech">FinTech</option>
-                            <option value="HealthTech">HealthTech</option>
-                            <option value="Technology">Technology</option>
-                            <option value="E-commerce">E-commerce</option>
-                        </select>
-                        <select class="form-select form-select-sm font-12 border" id="filterStartupCohort" style="width: 130px; font-weight: 600;" onchange="renderStartupsMasterTable()">
-                            <option value="">All Cohorts</option>
-                            <option value="Cohort 2026">Cohort 2026</option>
-                            <option value="Cohort 2023">Cohort 2023</option>
-                            <option value="Cohort 2022">Cohort 2022</option>
-                            <option value="Cohort 2021">Cohort 2021</option>
-                        </select>
-                        <button class="btn btn-sm btn-primary font-12 fw-semibold" onclick="openAddStartupModal()">
-                            <i class="fa-solid fa-plus me-1"></i> Add Incubatee
+                    <div class="d-flex align-items-center gap-2">
+                        <button class="btn btn-sm btn-primary d-inline-flex align-items-center gap-1.5 font-12 fw-semibold px-3 py-1.5 rounded-2 shadow-xs" onclick="openAddStartupModal()">
+                            <i class="fa-solid fa-plus font-11"></i>
+                            <span>Add Incubatee</span>
                         </button>
                     </div>
                 </div>
 
                 <div class="app-table-card">
-                    <div class="app-table-header">
-                        <span class="font-12 text-muted"><i class="fa-solid fa-hand-pointer text-primary me-1"></i> <strong>Tap on any venture row</strong> to expand legal entity CIN, Bihar Seed Grant tranches, co-working &amp; lab allocations.</span>
+                    <!-- Integrated Modern Filter Toolbar -->
+                    <div class="table-toolbar">
+                        <div class="table-toolbar-group flex-grow-1">
+                            <div class="table-search-box flex-grow-1" style="max-width: 300px;">
+                                <i class="fa-solid fa-magnifying-glass"></i>
+                                <input type="text" id="searchMgrStartups" placeholder="Search venture, founder, reg..." oninput="renderStartupsMasterTable()">
+                            </div>
+                            <select class="table-filter-select" id="filterStartupDistrict" onchange="renderStartupsMasterTable()">
+                                <option value="">All Districts</option>
+                                <option value="Patna">Patna</option>
+                                <option value="Gaya">Gaya</option>
+                                <option value="Muzaffarpur">Muzaffarpur</option>
+                                <option value="Bhagalpur">Bhagalpur</option>
+                                <option value="Darbhanga">Darbhanga</option>
+                                <option value="Purnia">Purnia</option>
+                                <option value="Begusarai">Begusarai</option>
+                                <option value="Samastipur">Samastipur</option>
+                                <option value="Madhubani">Madhubani</option>
+                                <option value="Bhojpur">Bhojpur</option>
+                                <option value="Saran">Saran</option>
+                                <option value="Rohtas">Rohtas</option>
+                                <option value="Vaishali">Vaishali</option>
+                                <option value="Saharsa">Saharsa</option>
+                                <option value="Katihar">Katihar</option>
+                                <option value="Nalanda">Nalanda</option>
+                                <option value="Siwan">Siwan</option>
+                                <option value="Buxar">Buxar</option>
+                                <option value="West Champaran">West Champaran</option>
+                                <option value="East Champaran">East Champaran</option>
+                            </select>
+                            <select class="table-filter-select" id="filterStartupSector" onchange="renderStartupsMasterTable()">
+                                <option value="">All Sectors</option>
+                                <option value="AgriTech">AgriTech</option>
+                                <option value="CleanTech">CleanTech / EV</option>
+                                <option value="EduTech">EduTech</option>
+                                <option value="FinTech">FinTech</option>
+                                <option value="HealthTech">HealthTech</option>
+                                <option value="FoodTech">FoodTech</option>
+                                <option value="SaaS">SaaS &amp; AI</option>
+                                <option value="Logistics">Logistics</option>
+                                <option value="Drone">Drone &amp; Robotics</option>
+                                <option value="Mobility">Mobility &amp; EV</option>
+                                <option value="Handloom">Handloom &amp; Rural</option>
+                                <option value="Waste">Waste Management</option>
+                                <option value="Technology">Technology</option>
+                                <option value="E-commerce">E-commerce</option>
+                            </select>
+                            <select class="table-filter-select" id="filterStartupStage" onchange="renderStartupsMasterTable()">
+                                <option value="">All Stages</option>
+                                <option value="Idea Stage">Idea Stage</option>
+                                <option value="Pre-Revenue">Pre-Revenue</option>
+                                <option value="Revenue Stage">Revenue Stage</option>
+                                <option value="Scaling">Scaling</option>
+                            </select>
+                            <select class="table-filter-select" id="filterStartupCohort" onchange="renderStartupsMasterTable()">
+                                <option value="">All Cohorts</option>
+                                <option value="Cohort 2026">Cohort 2026</option>
+                                <option value="Cohort 2025">Cohort 2025</option>
+                                <option value="Cohort 2024">Cohort 2024</option>
+                                <option value="Cohort 2023">Cohort 2023</option>
+                                <option value="Cohort 2022">Cohort 2022</option>
+                                <option value="Cohort 2021">Cohort 2021</option>
+                            </select>
+                        </div>
+                        <button class="btn btn-sm btn-light border font-11 text-secondary px-2.5 py-1 rounded-2" onclick="resetStartupFilters()" title="Reset Filters">
+                            <i class="fa-solid fa-arrow-rotate-left font-10 me-1"></i> Reset
+                        </button>
                     </div>
                     <div class="table-responsive">
                         <table class="app-table">
                             <thead>
                                 <tr>
-                                    <th style="width: 26%;">Venture &amp; Legal Entity</th>
-                                    <th style="width: 20%;">Founder &amp; Location</th>
-                                    <th style="width: 16%;">Sector &amp; Cohort</th>
-                                    <th style="width: 14%;">Annual Turnover</th>
-                                    <th style="width: 14%;">Assigned Mentor</th>
-                                    <th style="width: 10%;" class="text-end">Actions</th>
+                                    <th style="width: 27%;">Venture</th>
+                                    <th style="width: 19%;">Founder &amp; Location</th>
+                                    <th style="width: 16%;">Sector &amp; Stage</th>
+                                    <th style="width: 14%;">Turnover &amp; Seed</th>
+                                    <th style="width: 16%;">Mentor</th>
+                                    <th style="width: 8%;" class="text-end pe-3"></th>
                                 </tr>
                             </thead>
                             <tbody id="tblMgrStartupsMasterBody">
@@ -602,7 +904,7 @@
                         <h3 class="page-header-title">Portfolio Milestones &amp; Sprints</h3>
                         <p class="page-header-sub">Track sprint deliverables, compliance audit scores, and revenue progression across batches.</p>
                     </div>
-                    <select class="form-select form-select-sm font-12 border" id="filterMgrCohort" style="width: 140px; font-weight: 600;" onchange="renderMilestonesTable()">
+                    <select class="table-filter-select" id="filterMgrCohort" style="width: 140px; font-weight: 500;" onchange="renderMilestonesTable()">
                         <option value="">All Cohorts</option>
                         <option value="Cohort 2026">Cohort 2026</option>
                         <option value="Cohort 2023">Cohort 2023</option>
@@ -612,9 +914,6 @@
                 </div>
 
                 <div class="app-table-card">
-                    <div class="app-table-header">
-                        <span class="font-12 text-muted"><i class="fa-solid fa-hand-pointer text-primary me-1"></i> <strong>Tap on any row</strong> to view sprint checklist, deliverable progress, and compliance health.</span>
-                    </div>
                     <div class="table-responsive">
                         <table class="app-table">
                             <thead>
@@ -623,7 +922,7 @@
                                     <th style="width: 16%;">Cohort &amp; Sector</th>
                                     <th style="width: 24%;">Current Active Milestone Sprint</th>
                                     <th style="width: 16%;">Assigned Mentor</th>
-                                    <th style="width: 16%;" class="text-end">Compliance &amp; Health</th>
+                                    <th style="width: 16%;" class="text-end pe-3">Compliance &amp; Health</th>
                                 </tr>
                             </thead>
                             <tbody id="tblMgrMilestonesBody">
@@ -640,37 +939,36 @@
             <div class="app-tab-pane" id="tab-mgr-mentors">
                 <div class="d-flex align-items-center justify-content-between mb-3 flex-wrap gap-2">
                     <div>
-                        <h3 class="page-header-title">Mentorship Allocations &amp; Advisory Console</h3>
-                        <p class="page-header-sub">Empaneled domain mentors, startup pairing allocations, and delivered advisory session logs.</p>
+                        <h3 class="page-header-title">Mentorship Allocations &amp; Advisory</h3>
+                        <p class="page-header-sub">Empaneled domain mentors, startup pairings, and advisory logs.</p>
                     </div>
                     <div class="d-flex align-items-center gap-2 flex-wrap">
                         <button class="btn btn-sm btn-primary font-12 fw-semibold" onclick="openPairMentorModal()">
-                            <i class="fa-solid fa-handshake me-1"></i> Pair Startup with Mentor
+                            <i class="fa-solid fa-plus me-1"></i> Pair Mentor
                         </button>
-                        <button class="btn btn-sm btn-outline-primary font-12 fw-semibold" onclick="openLogSessionModal()">
-                            <i class="fa-solid fa-calendar-plus me-1"></i> Log Advisory Session
+                        <button class="btn btn-sm btn-outline-secondary font-12 fw-semibold" onclick="openLogSessionModal()">
+                            Log Session
                         </button>
                         <button class="btn btn-sm btn-outline-secondary font-12 fw-semibold" onclick="openAddMentorModal()">
-                            <i class="fa-solid fa-user-plus me-1"></i> Empanel Mentor
+                            Empanel Mentor
                         </button>
                     </div>
                 </div>
 
                 <!-- Empaneled Mentors Table -->
                 <div class="app-table-card mb-4">
-                    <div class="app-table-header">
-                        <h5 class="mb-0 font-14 fw-bold text-dark"><i class="fa-solid fa-user-tie text-primary me-2"></i> Empaneled Mentors Directory (Tap row to inspect bio &amp; allotted ventures)</h5>
+                    <div class="app-table-header py-2.5 px-3">
+                        <h5 class="mb-0 font-13 fw-bold text-dark">Empaneled Mentors Directory</h5>
                     </div>
                     <div class="table-responsive">
                         <table class="app-table">
                             <thead>
                                 <tr>
-                                    <th style="width: 24%;">Mentor Name</th>
-                                    <th style="width: 20%;">Affiliation / Organization</th>
-                                    <th style="width: 22%;">Domain Expertise</th>
-                                    <th style="width: 12%;">Total Hours</th>
-                                    <th style="width: 10%;">Rating</th>
-                                    <th style="width: 12%;" class="text-end">Action</th>
+                                    <th style="width: 26%;">Mentor Profile</th>
+                                    <th style="width: 20%;">Designation</th>
+                                    <th style="width: 24%;">Institution / Affiliation</th>
+                                    <th style="width: 18%;">Domain Expertise</th>
+                                    <th style="width: 12%;" class="text-end pe-3">Action</th>
                                 </tr>
                             </thead>
                             <tbody id="tblMgrMentorsBody">
@@ -682,13 +980,10 @@
 
                 <!-- Logged Advisory Sessions Table -->
                 <div class="app-table-card">
-                    <div class="app-table-header d-flex align-items-center justify-content-between">
-                        <div>
-                            <h5 class="mb-0 font-14 fw-bold text-dark"><i class="fa-solid fa-clock-rotate-left text-success me-2"></i> Delivered Advisory Sessions Log</h5>
-                            <span class="font-11 text-muted">Tap on any session row to expand detailed advisory guidance &amp; action items</span>
-                        </div>
-                        <button class="btn btn-sm btn-outline-primary font-11" onclick="openLogSessionModal()">
-                            <i class="fa-solid fa-plus me-1"></i> Log New Session
+                    <div class="app-table-header d-flex align-items-center justify-content-between py-2.5 px-3">
+                        <h5 class="mb-0 font-13 fw-bold text-dark">Delivered Advisory Sessions</h5>
+                        <button class="btn btn-sm btn-light border font-11 py-1 px-2.5 text-secondary" onclick="openLogSessionModal()">
+                            <i class="fa-solid fa-plus me-1 font-9"></i> New Session
                         </button>
                     </div>
                     <div class="table-responsive">
@@ -700,7 +995,7 @@
                                     <th style="width: 20%;">Mentor</th>
                                     <th style="width: 16%;">Date &amp; Duration</th>
                                     <th style="width: 20%;">Discussion Topic</th>
-                                    <th style="width: 10%;" class="text-end">Feedback</th>
+                                    <th style="width: 10%;" class="text-end pe-3">Feedback</th>
                                 </tr>
                             </thead>
                             <tbody id="tblMgrSessionsBody">
@@ -718,14 +1013,14 @@
                 <div class="d-flex align-items-start justify-content-between flex-wrap gap-3 mb-3">
                     <div>
                         <div class="d-flex align-items-center gap-2">
-                            <h3 class="page-header-title">Bihar Startup Policy 2022 — Seed Grants &amp; UCs</h3>
-                            <span class="badge bg-success-subtle text-success font-11 px-2.5 py-1 rounded-pill">₹10 Lakhs Interest-Free</span>
+                            <h3 class="page-header-title mb-0">Bihar Startup Policy — Seed Grants &amp; UCs</h3>
+                            <span class="badge bg-success-subtle text-success font-11 px-2.5 py-0.5 rounded-pill">₹10 Lakhs Interest-Free</span>
                         </div>
-                        <p class="page-header-sub">Milestone-linked tranche disbursement tracker, Utilization Certificate (UC) records, and grant audit verification.</p>
+                        <p class="page-header-sub mt-1">Tranche disbursement tracker, Utilization Certificate (UC) records, and audit status.</p>
                     </div>
                     <div>
-                        <button class="btn btn-sm btn-outline-primary font-12 fw-semibold shadow-xs" onclick="renderMgrGrants()">
-                            <i class="fa-solid fa-rotate me-1"></i> Refresh Grants
+                        <button class="btn btn-sm btn-light border font-12 text-secondary" onclick="renderMgrGrants()">
+                            <i class="fa-solid fa-rotate me-1 font-11"></i> Refresh
                         </button>
                     </div>
                 </div>
@@ -733,40 +1028,37 @@
                 <!-- Grant Stats Ribbon -->
                 <div class="row g-2 g-md-3 mb-3 mb-md-4">
                     <div class="col-6 col-md-3">
-                        <div class="p-3 bg-white border rounded-3 shadow-xs">
-                            <span class="font-11 text-muted text-uppercase fw-bold">Total Sanctioned</span>
-                            <h3 class="fw-bold font-20 mb-0 text-dark mt-1">₹ 30.0 L</h3>
-                            <span class="font-10 text-muted">Across 3 Seed Incubatees</span>
+                        <div class="app-kpi-card">
+                            <span class="app-kpi-lbl">Total Sanctioned</span>
+                            <div class="app-kpi-val">₹ 30.0 L</div>
+                            <span class="app-kpi-sub">Across Seed Incubatees</span>
                         </div>
                     </div>
                     <div class="col-6 col-md-3">
-                        <div class="p-3 bg-white border rounded-3 shadow-xs">
-                            <span class="font-11 text-muted text-uppercase fw-bold">Released Tranches</span>
-                            <h3 class="fw-bold font-20 mb-0 text-success mt-1" id="mgrGrantsDisbursedTotal">₹ 20.0 L</h3>
-                            <span class="font-10 text-success"><i class="fa-solid fa-check-double me-1"></i> UCs Verified</span>
+                        <div class="app-kpi-card">
+                            <span class="app-kpi-lbl">Released Tranches</span>
+                            <div class="app-kpi-val text-success" id="mgrGrantsDisbursedTotal">₹ 20.0 L</div>
+                            <span class="app-kpi-sub text-success">UCs Verified</span>
                         </div>
                     </div>
                     <div class="col-6 col-md-3">
-                        <div class="p-3 bg-white border rounded-3 shadow-xs">
-                            <span class="font-11 text-muted text-uppercase fw-bold">Under Scrutiny</span>
-                            <h3 class="fw-bold font-20 mb-0 text-warning mt-1" id="mgrGrantsScrutinyTotal">₹ 5.0 L</h3>
-                            <span class="font-10 text-muted">Awaiting milestone audit</span>
+                        <div class="app-kpi-card">
+                            <span class="app-kpi-lbl">Under Scrutiny</span>
+                            <div class="app-kpi-val text-warning" id="mgrGrantsScrutinyTotal">₹ 5.0 L</div>
+                            <span class="app-kpi-sub">Awaiting milestone audit</span>
                         </div>
                     </div>
                     <div class="col-6 col-md-3">
-                        <div class="p-3 bg-white border rounded-3 shadow-xs">
-                            <span class="font-11 text-muted text-uppercase fw-bold">Tenure Terms</span>
-                            <h3 class="fw-bold font-20 mb-0 text-primary mt-1">10 Yrs</h3>
-                            <span class="font-10 text-primary">0% Interest Soft Loan</span>
+                        <div class="app-kpi-card">
+                            <span class="app-kpi-lbl">Tenure Terms</span>
+                            <div class="app-kpi-val">10 Yrs</div>
+                            <span class="app-kpi-sub">0% Interest Soft Loan</span>
                         </div>
                     </div>
                 </div>
 
                 <!-- Disbursements Table -->
                 <div class="app-table-card">
-                    <div class="app-table-header">
-                        <span class="font-12 text-muted"><i class="fa-solid fa-hand-pointer text-primary me-1"></i> <strong>Tap on any grant row</strong> to expand the full 3-tranche audit breakdown, milestone criteria, and UC status.</span>
-                    </div>
                     <div class="table-responsive">
                         <table class="app-table align-middle">
                             <thead>
@@ -794,24 +1086,21 @@
                 <div class="d-flex align-items-center justify-content-between mb-3 flex-wrap gap-2">
                     <div>
                         <h3 class="page-header-title">Circulars &amp; Ecosystem Broadcasts</h3>
-                        <p class="page-header-sub">Publish official notices, grant opportunities, workshop schedules, and compliance deadlines to startup and mentor portals.</p>
+                        <p class="page-header-sub">Publish official notices, grant opportunities, workshop schedules, and compliance deadlines.</p>
                     </div>
                     <button class="btn btn-sm btn-primary font-12 fw-semibold" onclick="openBroadcastModal()">
-                        <i class="fa-solid fa-plus me-1"></i> Post New Circular
+                        <i class="fa-solid fa-plus me-1 font-11"></i> Post Circular
                     </button>
                 </div>
 
                 <div class="app-table-card">
-                    <div class="app-table-header">
-                        <span class="font-12 text-muted"><i class="fa-solid fa-hand-pointer text-primary me-1"></i> <strong>Tap on any circular row</strong> to expand the complete announcement text and portal visibility logs.</span>
-                    </div>
                     <div class="table-responsive">
                         <table class="app-table">
                             <thead>
                                 <tr>
                                     <th style="width: 12%;">Notice ID</th>
-                                    <th style="width: 44%;">Title &amp; Announcement Content</th>
-                                    <th style="width: 18%;">Category &amp; Badge</th>
+                                    <th style="width: 44%;">Title &amp; Content</th>
+                                    <th style="width: 18%;">Category</th>
                                     <th style="width: 14%;">Target Audience</th>
                                     <th style="width: 12%;" class="text-end pe-3">Action</th>
                                 </tr>
@@ -830,15 +1119,15 @@
             <div class="app-tab-pane" id="tab-mgr-reports">
                 <div class="d-flex align-items-center justify-content-between mb-3 flex-wrap gap-2">
                     <div>
-                        <h3 class="page-header-title">Govt MIS &amp; Institutional Performance Reports</h3>
-                        <p class="page-header-sub">Export standardized MIS summaries for Bihar Startup Council, Dept. of Industries, MSME, and NITI Aayog.</p>
+                        <h3 class="page-header-title">Govt MIS &amp; Institutional Reports</h3>
+                        <p class="page-header-sub">Standardized MIS summaries for Bihar Startup Council, Dept. of Industries, MSME, and NITI Aayog.</p>
                     </div>
                     <div class="d-flex align-items-center gap-2">
-                        <button class="btn btn-sm btn-success font-12 fw-semibold" onclick="exportPortfolioCSV()">
-                            <i class="fa-solid fa-file-csv me-1"></i> Export MIS (CSV)
+                        <button class="btn btn-sm btn-outline-success font-12 fw-semibold" onclick="exportPortfolioCSV()">
+                            <i class="fa-solid fa-file-csv me-1"></i> Export CSV
                         </button>
-                        <button class="btn btn-sm btn-outline-dark font-12 fw-semibold" onclick="window.print()">
-                            <i class="fa-solid fa-print me-1"></i> Print Report
+                        <button class="btn btn-sm btn-outline-secondary font-12 fw-semibold" onclick="window.print()">
+                            <i class="fa-solid fa-print me-1"></i> Print
                         </button>
                     </div>
                 </div>
@@ -846,32 +1135,32 @@
                 <!-- Executive Summary Cards -->
                 <div class="row g-2 g-md-3 mb-3 mb-md-4">
                     <div class="col-md-4">
-                        <div class="p-3 bg-white border rounded-3">
-                            <span class="font-11 text-muted text-uppercase fw-bold">Incubation Success Rate</span>
-                            <h3 class="fw-bold font-20 mb-0 text-success mt-1" id="misSuccessRate">92.4%</h3>
-                            <span class="font-11 text-muted">Active ventures with positive traction</span>
+                        <div class="app-kpi-card">
+                            <span class="app-kpi-lbl">Incubation Success Rate</span>
+                            <div class="app-kpi-val text-success" id="misSuccessRate">92.4%</div>
+                            <span class="app-kpi-sub">Active ventures with positive traction</span>
                         </div>
                     </div>
                     <div class="col-md-4">
-                        <div class="p-3 bg-white border rounded-3">
-                            <span class="font-11 text-muted text-uppercase fw-bold">Direct Jobs Created in Bihar</span>
-                            <h3 class="fw-bold font-20 mb-0 text-primary mt-1" id="misTotalJobs">397+</h3>
-                            <span class="font-11 text-muted">Youth employment facilitated</span>
+                        <div class="app-kpi-card">
+                            <span class="app-kpi-lbl">Direct Jobs Created in Bihar</span>
+                            <div class="app-kpi-val text-primary" id="misTotalJobs">397+</div>
+                            <span class="app-kpi-sub">Youth employment facilitated</span>
                         </div>
                     </div>
                     <div class="col-md-4">
-                        <div class="p-3 bg-white border rounded-3">
-                            <span class="font-11 text-muted text-uppercase fw-bold">Cumulative Portfolio Revenue</span>
-                            <h3 class="fw-bold font-20 mb-0 text-dark mt-1" id="misTotalRev">₹ 21.49 Cr</h3>
-                            <span class="font-11 text-muted">Generated across all cohorts</span>
+                        <div class="app-kpi-card">
+                            <span class="app-kpi-lbl">Cumulative Portfolio Revenue</span>
+                            <div class="app-kpi-val" id="misTotalRev">₹ 21.49 Cr</div>
+                            <span class="app-kpi-sub">Generated across cohorts</span>
                         </div>
                     </div>
                 </div>
 
                 <!-- Portfolio MIS Breakdown Table -->
                 <div class="app-table-card">
-                    <div class="app-table-header">
-                        <h5 class="mb-0 font-14 fw-bold text-dark"><i class="fa-solid fa-table-list text-primary me-2"></i> Incubated Ventures MIS Data (Tap row for full DPIIT &amp; registration breakdown)</h5>
+                    <div class="app-table-header py-2.5 px-3">
+                        <h5 class="mb-0 font-13 fw-bold text-dark">Incubated Ventures MIS Data</h5>
                     </div>
                     <div class="table-responsive">
                         <table class="app-table">
@@ -956,8 +1245,29 @@
                                 <input type="tel" class="form-control font-13 bg-white" id="addStPhone" placeholder="+91 98765 43210">
                             </div>
                             <div class="col-md-6">
-                                <label class="form-label font-11 text-uppercase fw-bold text-muted">Location / District</label>
-                                <input type="text" class="form-control font-13 bg-white" id="addStLoc" placeholder="Patna, Bihar">
+                                <label class="form-label font-11 text-uppercase fw-bold text-muted">Bihar District *</label>
+                                <select class="form-select font-13 bg-white" id="addStLoc">
+                                    <option value="Patna, Bihar">Patna</option>
+                                    <option value="Gaya, Bihar">Gaya</option>
+                                    <option value="Muzaffarpur, Bihar">Muzaffarpur</option>
+                                    <option value="Bhagalpur, Bihar">Bhagalpur</option>
+                                    <option value="Darbhanga, Bihar">Darbhanga</option>
+                                    <option value="Purnia, Bihar">Purnia</option>
+                                    <option value="Begusarai, Bihar">Begusarai</option>
+                                    <option value="Samastipur, Bihar">Samastipur</option>
+                                    <option value="Madhubani, Bihar">Madhubani</option>
+                                    <option value="Bhojpur, Bihar">Bhojpur</option>
+                                    <option value="Saran, Bihar">Saran</option>
+                                    <option value="Rohtas, Bihar">Rohtas</option>
+                                    <option value="Vaishali, Bihar">Vaishali</option>
+                                    <option value="Saharsa, Bihar">Saharsa</option>
+                                    <option value="Katihar, Bihar">Katihar</option>
+                                    <option value="Nalanda, Bihar">Nalanda</option>
+                                    <option value="Siwan, Bihar">Siwan</option>
+                                    <option value="Buxar, Bihar">Buxar</option>
+                                    <option value="West Champaran, Bihar">West Champaran</option>
+                                    <option value="East Champaran, Bihar">East Champaran</option>
+                                </select>
                             </div>
                             <div class="col-md-4">
                                 <label class="form-label font-11 text-uppercase fw-bold text-muted">Sector</label>
@@ -967,7 +1277,12 @@
                                     <option value="EduTech">EduTech</option>
                                     <option value="FinTech">FinTech</option>
                                     <option value="HealthTech">HealthTech</option>
-                                    <option value="Technology">Technology / SaaS</option>
+                                    <option value="FoodTech">FoodTech</option>
+                                    <option value="SaaS">SaaS & AI</option>
+                                    <option value="Logistics">Logistics</option>
+                                    <option value="Drone & Robotics">Drone & Robotics</option>
+                                    <option value="Handloom & Rural">Handloom & Rural</option>
+                                    <option value="Technology">Technology</option>
                                     <option value="E-commerce">E-commerce</option>
                                     <option value="Other">Other</option>
                                 </select>
@@ -976,6 +1291,7 @@
                                 <label class="form-label font-11 text-uppercase fw-bold text-muted">Stage</label>
                                 <select class="form-select font-13 bg-white" id="addStStage">
                                     <option value="Idea Stage">Idea Stage</option>
+                                    <option value="Pre-Revenue">Pre-Revenue</option>
                                     <option value="Proof of Concept">Proof of Concept / MVP</option>
                                     <option value="Revenue Stage">Revenue Stage</option>
                                     <option value="Scaling">Scaling</option>
@@ -985,6 +1301,8 @@
                                 <label class="form-label font-11 text-uppercase fw-bold text-muted">Cohort</label>
                                 <select class="form-select font-13 bg-white" id="addStCohort">
                                     <option value="Cohort 2026">Cohort 2026</option>
+                                    <option value="Cohort 2025">Cohort 2025</option>
+                                    <option value="Cohort 2024">Cohort 2024</option>
                                     <option value="Cohort 2023">Cohort 2023</option>
                                     <option value="Cohort 2022">Cohort 2022</option>
                                     <option value="Cohort 2021">Cohort 2021</option>
@@ -1445,28 +1763,27 @@
 
                     html += `
                         <tr class="tr-parent ${isExpanded ? 'is-expanded' : ''}" id="tr-parent-rec-${a.id}" onclick="toggleExpandRow('rec-${a.id}', event)">
-                            <td class="nowrap-cell"><code>${a.id}</code></td>
+                            <td class="nowrap-cell font-11 fw-semibold text-secondary">${a.id}</td>
                             <td>
-                                <span class="interactive-title font-13 d-block">${a.startupName}</span>
+                                <span class="font-13 fw-semibold text-dark d-block">${a.startupName}</span>
                                 <div class="font-11 text-muted text-truncate" style="max-width: 240px;">${a.productDescription}</div>
                             </td>
                             <td>
-                                <strong class="text-dark font-12">${a.founderName}</strong>
-                                <div class="font-11 text-muted">${a.city || 'Patna'}, ${a.state || 'Bihar'}</div>
+                                <div class="text-dark font-12 fw-medium">${a.founderName}</div>
+                                <div class="font-11 text-muted mt-0.5">${a.city || 'Patna'}, ${a.state || 'Bihar'}</div>
                             </td>
                             <td>
-                                <span class="badge bg-teal-subtle text-teal border border-teal-subtle font-10 px-2 py-0.5 d-inline-block text-truncate" style="max-width: 170px;">${track}</span>
+                                <div class="font-12 fw-medium text-dark">${track}</div>
                                 <div class="font-11 text-muted mt-0.5">${a.sector} &bull; ${a.stage || 'MVP Stage'}</div>
                             </td>
                             <td>
-                                <span class="badge ${a.status.includes('Approval') ? 'bg-primary-subtle text-primary border border-primary-subtle' : 'bg-warning-subtle text-warning-emphasis border border-warning-subtle'} font-10 px-2 py-0.5">
-                                    <i class="fa-solid fa-circle font-7 me-1"></i> ${a.status}
+                                <span class="status-pill ${a.status.includes('Approval') ? 'status-active' : 'status-pending'}">
+                                    ${a.status}
                                 </span>
                             </td>
                             <td class="text-end pe-3">
-                                <button class="btn btn-sm btn-light border rounded-pill font-11 py-0.5 px-2 text-nowrap no-row-click" onclick="toggleExpandRow('rec-${a.id}')">
-                                    <span class="me-1">View</span>
-                                    <i class="fa-solid fa-chevron-down font-9 expand-chevron"></i>
+                                <button class="btn-icon-subtle" onclick="toggleExpandRow('rec-${a.id}', event)" title="View Details">
+                                    <i class="fa-solid fa-chevron-down font-10 expand-chevron"></i>
                                 </button>
                             </td>
                         </tr>
@@ -1476,37 +1793,37 @@
                                 <div class="expand-content-wrap">
                                     <div class="row g-3">
                                         <div class="col-md-5">
-                                            <div class="bg-white p-3 rounded-3 border h-100 shadow-2xs">
-                                                <div class="font-10 text-muted text-uppercase fw-bold mb-1"><i class="fa-solid fa-lightbulb text-warning me-1"></i> Problem Statement &amp; Solution</div>
+                                            <div class="bg-white p-3 rounded-2 border h-100 shadow-2xs">
+                                                <div class="font-11 text-muted text-uppercase fw-semibold mb-1">Problem &amp; Value Proposition</div>
                                                 <p class="font-12 text-secondary mb-2" style="line-height:1.45;">${a.productDescription}</p>
-                                                <div class="p-2 bg-light rounded border font-11">
-                                                    <strong>Innovation Moat: </strong>${a.innovative || 'Proprietary regional execution model in Bihar.'}
+                                                <div class="p-2 bg-light rounded-2 border font-11">
+                                                    <strong>Innovation Moat: </strong>${a.innovative || 'Regional execution model in Bihar.'}
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="col-md-4">
-                                            <div class="bg-white p-3 rounded-3 border h-100 shadow-2xs">
-                                                <div class="font-10 text-muted text-uppercase fw-bold mb-1"><i class="fa-solid fa-building-columns text-primary me-1"></i> Incubation Support Applied</div>
+                                            <div class="bg-white p-3 rounded-2 border h-100 shadow-2xs">
+                                                <div class="font-11 text-muted text-uppercase fw-semibold mb-1">Support Applied</div>
                                                 <div class="font-12 text-dark fw-bold mb-1">${track}</div>
-                                                <div class="font-11 text-muted mb-1">Facilities: <strong>${a.facilitiesRequested || 'Co-working Desks + Prototyping FabLab'}</strong></div>
-                                                <div class="font-11 text-muted mb-2">Support: <strong>${a.supportRequired || 'Mentorship, Lab Access & Bihar Seed Grant (₹10L)'}</strong></div>
-                                                <div class="d-flex align-items-center gap-1.5 pt-2 border-top">
-                                                    <a href="tel:${cleanPhone}" class="icon-action-pill pill-phone" title="Call ${phone}"><i class="fa-solid fa-phone"></i></a>
-                                                    <a href="https://wa.me/${cleanPhone}" target="_blank" class="icon-action-pill pill-wa" title="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
-                                                    <a href="mailto:${a.email}" class="icon-action-pill pill-mail" title="Email"><i class="fa-solid fa-envelope"></i></a>
-                                                    ${a.pitchDeckUrl && a.pitchDeckUrl !== '#' ? `<a href="${a.pitchDeckUrl}" target="_blank" class="btn btn-sm btn-outline-primary py-0.5 px-2 font-11 ms-auto"><i class="fa-solid fa-arrow-up-right-from-square me-1"></i> Pitch Deck</a>` : ''}
+                                                <div class="font-11 text-muted mb-1">Facilities: <strong>${a.facilitiesRequested || 'Workspace & Infrastructure'}</strong></div>
+                                                <div class="font-11 text-muted mb-2">Support: <strong>${a.supportRequired || 'Mentorship & Grant Guidance'}</strong></div>
+                                                <div class="d-flex align-items-center gap-1.5 pt-2 border-top flex-wrap">
+                                                    <a href="tel:${cleanPhone}" class="btn btn-sm btn-light border py-1 px-2.5 font-11 text-secondary rounded-2">Call</a>
+                                                    <a href="https://wa.me/${cleanPhone}" target="_blank" class="btn btn-sm btn-light border py-1 px-2.5 font-11 text-success rounded-2">WhatsApp</a>
+                                                    <a href="mailto:${a.email}" class="btn btn-sm btn-light border py-1 px-2.5 font-11 text-secondary rounded-2">Email</a>
+                                                    ${a.pitchDeckUrl && a.pitchDeckUrl !== '#' ? `<a href="${a.pitchDeckUrl}" target="_blank" class="btn btn-sm btn-outline-primary py-1 px-2.5 font-11 ms-auto rounded-2">Pitch Deck <i class="fa-solid fa-arrow-up-right-from-square font-9 ms-1"></i></a>` : ''}
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="col-md-3">
-                                            <div class="bg-white p-3 rounded-3 border h-100 shadow-2xs d-flex flex-column justify-content-between">
+                                            <div class="bg-white p-3 rounded-2 border h-100 shadow-2xs d-flex flex-column justify-content-between">
                                                 <div>
-                                                    <div class="font-10 text-muted text-uppercase fw-bold mb-1"><i class="fa-solid fa-clipboard-check text-success me-1"></i> Manager Scrutiny</div>
-                                                    <div class="font-13 fw-bold text-dark">${a.managerScore ? (a.managerScore + '/100') : 'Awaiting Evaluation'}</div>
-                                                    <div class="font-10 text-muted mt-0.5">${a.managerNotes || 'KYC and incubation readiness review pending.'}</div>
+                                                    <div class="font-11 text-muted text-uppercase fw-semibold mb-1">Scrutiny Status</div>
+                                                    <div class="font-13 fw-bold text-dark">${a.managerScore ? (a.managerScore + '/100') : 'Awaiting Score'}</div>
+                                                    <div class="font-11 text-muted mt-1">${a.managerNotes || 'KYC and viability review pending.'}</div>
                                                 </div>
-                                                <button class="btn btn-sm btn-primary font-11 fw-bold w-100 mt-2" onclick="switchMgrView('tab-mgr-queue', document.getElementById('mgrNavQueue'))">
-                                                    <i class="fa-solid fa-pen-to-square me-1"></i> Open in Scrutiny Queue
+                                                <button class="btn btn-sm btn-primary font-11 fw-semibold w-100 mt-2 py-1.5 rounded-2" onclick="switchMgrView('tab-mgr-queue', document.getElementById('mgrNavQueue'))">
+                                                    Open in Scrutiny Queue
                                                 </button>
                                             </div>
                                         </div>
@@ -1542,7 +1859,7 @@
             let html = '';
             queue.forEach(a => {
                 const isExpanded = expandedRowIds.has('scr-' + a.id);
-                const scoreDisp = a.managerScore ? `<span class="badge bg-primary-subtle text-primary font-11 fw-bold">${a.managerScore}/100</span>` : '<span class="badge bg-secondary-subtle text-secondary font-10">Unscored</span>';
+                const scoreDisp = a.managerScore ? `<span class="badge bg-teal-subtle text-teal font-11 fw-semibold">${a.managerScore}/100</span>` : '<span class="text-muted font-11">Unscored</span>';
                 const phone = a.mobile || '+91 98765 43210';
                 const cleanPhone = phone.replace(/\D/g, '');
                 const track = a.incubationTrack || 'Incubation';
@@ -1550,32 +1867,31 @@
                 html += `
                     <!-- Main Scrutiny Row -->
                     <tr class="tr-parent ${isExpanded ? 'is-expanded' : ''}" id="tr-parent-scr-${a.id}" onclick="toggleExpandRow('scr-${a.id}', event)">
-                        <td class="nowrap-cell">
-                            <code>${a.id}</code>
+                        <td class="nowrap-cell font-11 fw-semibold text-secondary">
+                            ${a.id}
                         </td>
                         <td>
-                            <span class="interactive-title font-13 d-block">${a.startupName}</span>
+                            <span class="font-13 fw-semibold text-dark d-block">${a.startupName}</span>
                             <div class="font-11 text-muted text-truncate" style="max-width: 250px;">${a.productDescription}</div>
                         </td>
                         <td>
-                            <strong class="text-dark font-12">${a.founderName}</strong>
-                            <div class="font-11 text-muted">${a.city || 'Patna'}, ${a.state || 'Bihar'}</div>
+                            <div class="text-dark font-12 fw-medium">${a.founderName}</div>
+                            <div class="font-11 text-muted mt-0.5">${a.city || 'Patna'}, ${a.state || 'Bihar'}</div>
                         </td>
                         <td>
-                            <span class="badge bg-teal-subtle text-teal border border-teal-subtle font-10 px-2 py-0.5 d-inline-block text-truncate" style="max-width: 170px;">${track}</span>
+                            <div class="font-12 fw-medium text-dark">${track}</div>
                             <div class="font-11 text-muted mt-0.5">${a.sector} &bull; ${a.stage || 'Idea Stage'}</div>
                         </td>
                         <td>
                             ${scoreDisp}
                         </td>
-                        <td class="text-end pe-3">
-                            <div class="d-flex align-items-center justify-content-end gap-1">
-                                <button class="btn btn-sm btn-primary font-11 fw-bold py-0.5 px-2.5 text-nowrap no-row-click" onclick="toggleExpandRow('scr-${a.id}')">
-                                    <i class="fa-solid fa-clipboard-check me-1"></i> Evaluate
-                                    <i class="fa-solid fa-chevron-down font-9 expand-chevron ms-1"></i>
+                        <td class="text-end pe-3" onclick="event.stopPropagation();">
+                            <div class="d-flex align-items-center justify-content-end gap-1.5">
+                                <button class="btn btn-sm btn-primary font-11 fw-semibold py-1 px-2.5 rounded-2" onclick="toggleExpandRow('scr-${a.id}')">
+                                    Evaluate
                                 </button>
-                                <button class="icon-action-pill pill-danger no-row-click" onclick="rejectFromQueue('${a.id}')" title="Reject Application">
-                                    <i class="fa-solid fa-xmark"></i>
+                                <button class="btn-icon-subtle" onclick="toggleExpandRow('scr-${a.id}', event)" title="Expand Details">
+                                    <i class="fa-solid fa-chevron-down font-10 expand-chevron"></i>
                                 </button>
                             </div>
                         </td>
@@ -1589,21 +1905,21 @@
                                     
                                     <!-- Left: Venture Pitch, Incubation Facilities & Contacts -->
                                     <div class="col-md-5">
-                                        <div class="bg-white p-3 rounded-3 border h-100 shadow-2xs">
+                                        <div class="bg-white p-3 rounded-2 border h-100 shadow-2xs">
                                             <div class="d-flex align-items-center justify-content-between mb-1.5">
-                                                <span class="font-10 text-muted text-uppercase fw-bold"><i class="fa-solid fa-lightbulb text-warning me-1"></i> Incubation Applicant Dossier</span>
-                                                <span class="badge bg-teal-subtle text-teal font-9">Cohort 2026 Intake</span>
+                                                <span class="font-11 text-muted text-uppercase fw-semibold">Applicant Dossier</span>
+                                                <span class="badge bg-light text-secondary border font-9">Cohort 2026 Intake</span>
                                             </div>
                                             <div class="font-13 fw-bold text-dark">${a.startupName}</div>
                                             <p class="font-12 text-secondary mb-2 mt-1" style="line-height:1.45;">${a.productDescription}</p>
 
-                                            <div class="p-2 bg-light rounded border font-11 mb-2">
+                                            <div class="p-2 bg-light rounded-2 border font-11 mb-2">
                                                 <strong class="text-dark">Innovation Moat: </strong><span class="text-secondary">${a.innovative || 'Unique regional market value proposition.'}</span>
                                             </div>
 
-                                            <div class="p-2 bg-light rounded border font-11 mb-2">
-                                                <div class="text-dark mb-0.5"><strong>Requested Support: </strong>${a.supportRequired || 'Mentorship, Lab Access & Bihar Seed Grant (₹10L)'}</div>
-                                                <div class="text-muted"><strong>Facilities: </strong>${a.facilitiesRequested || 'Co-working Desks + Prototyping FabLab'}</div>
+                                            <div class="p-2 bg-light rounded-2 border font-11 mb-2">
+                                                <div class="text-dark mb-0.5"><strong>Requested Support: </strong>${a.supportRequired || 'Mentorship & Incubation Support'}</div>
+                                                <div class="text-muted"><strong>Facilities: </strong>${a.facilitiesRequested || 'Workspace & Infrastructure'}</div>
                                             </div>
 
                                             <div class="row g-1 font-11 text-muted mb-2">
@@ -1611,23 +1927,23 @@
                                                 <div class="col-6"><span>Experience: </span><strong class="text-dark">${a.founderExperience || 'Entrepreneur'}</strong></div>
                                             </div>
 
-                                            <div class="d-flex align-items-center justify-content-between pt-2 border-top">
-                                                <div class="d-flex align-items-center gap-1.5">
-                                                    <a href="tel:${cleanPhone}" class="icon-action-pill pill-phone" title="Call ${phone}"><i class="fa-solid fa-phone"></i></a>
-                                                    <a href="https://wa.me/${cleanPhone}" target="_blank" class="icon-action-pill pill-wa" title="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
-                                                    <a href="mailto:${a.email}" class="icon-action-pill pill-mail" title="Email"><i class="fa-solid fa-envelope"></i></a>
+                                            <div class="d-flex align-items-center justify-content-between pt-2 border-top flex-wrap gap-1">
+                                                <div class="d-flex align-items-center gap-1.5 flex-wrap">
+                                                    <a href="tel:${cleanPhone}" class="btn btn-sm btn-light border py-1 px-2 font-11 text-secondary rounded-2" title="Call">Call</a>
+                                                    <a href="https://wa.me/${cleanPhone}" target="_blank" class="btn btn-sm btn-light border py-1 px-2 font-11 text-success rounded-2" title="WhatsApp">WhatsApp</a>
+                                                    <a href="mailto:${a.email}" class="btn btn-sm btn-light border py-1 px-2 font-11 text-secondary rounded-2" title="Email">Email</a>
                                                 </div>
-                                                ${a.pitchDeckUrl && a.pitchDeckUrl !== '#' ? `<a href="${a.pitchDeckUrl}" target="_blank" class="btn btn-sm btn-outline-primary py-0.5 px-2 font-11"><i class="fa-solid fa-arrow-up-right-from-square me-1"></i> Pitch Deck</a>` : ''}
+                                                ${a.pitchDeckUrl && a.pitchDeckUrl !== '#' ? `<a href="${a.pitchDeckUrl}" target="_blank" class="btn btn-sm btn-outline-primary py-1 px-2 font-11 rounded-2 ms-auto"><i class="fa-solid fa-arrow-up-right-from-square font-9 me-1"></i> Pitch Deck</a>` : ''}
                                             </div>
                                         </div>
                                     </div>
 
                                     <!-- Right: Live 4-Pillar Scoring Matrix & Action -->
                                     <div class="col-md-7">
-                                        <div class="bg-white p-3 rounded-3 border h-100 shadow-2xs">
+                                        <div class="bg-white p-3 rounded-2 border h-100 shadow-2xs">
                                             <div class="d-flex align-items-center justify-content-between mb-2">
-                                                <span class="font-10 text-muted text-uppercase fw-bold"><i class="fa-solid fa-sliders text-primary me-1"></i> Level-1 Incubation Scoring Matrix (Max 25 pts each)</span>
-                                                <span class="badge bg-primary text-white font-12 fw-bold px-2.5 py-1" id="dispTotalScore-${a.id}">${a.managerScore || 88} / 100</span>
+                                                <span class="font-11 text-muted text-uppercase fw-semibold">Level-1 Incubation Scoring Matrix</span>
+                                                <span class="badge bg-teal-subtle text-teal font-12 fw-bold px-2.5 py-1" id="dispTotalScore-${a.id}">${a.managerScore || 88} / 100</span>
                                             </div>
 
                                             <div class="row g-2 mb-2.5">
@@ -1666,11 +1982,11 @@
                                             </div>
 
                                             <div class="d-flex align-items-center justify-content-end gap-2 pt-2 border-top">
-                                                <button class="btn btn-sm btn-outline-danger font-11 py-1 px-2.5" onclick="rejectFromQueue('${a.id}')">
-                                                    <i class="fa-solid fa-xmark me-1"></i> Reject
+                                                <button class="btn btn-sm btn-light border text-danger font-11 py-1 px-2.5 rounded-2" onclick="rejectFromQueue('${a.id}')">
+                                                    Reject
                                                 </button>
-                                                <button class="btn btn-sm btn-success font-11 fw-bold py-1 px-3 shadow-xs" onclick="submitInlineScore('${a.id}')">
-                                                    <i class="fa-solid fa-paper-plane me-1"></i> Save &amp; Escalate to Director
+                                                <button class="btn btn-sm btn-primary font-11 fw-semibold py-1 px-3 rounded-2" onclick="submitInlineScore('${a.id}')">
+                                                    Save &amp; Escalate to Director
                                                 </button>
                                             </div>
                                         </div>
@@ -1719,71 +2035,120 @@
             }
         }
 
+        function resetStartupFilters() {
+            const sInp = document.getElementById('searchMgrStartups');
+            const dSel = document.getElementById('filterStartupDistrict');
+            const scSel = document.getElementById('filterStartupSector');
+            const stSel = document.getElementById('filterStartupStage');
+            const coSel = document.getElementById('filterStartupCohort');
+            if (sInp) sInp.value = '';
+            if (dSel) dSel.value = '';
+            if (scSel) scSel.value = '';
+            if (stSel) stSel.value = '';
+            if (coSel) coSel.value = '';
+            renderStartupsMasterTable();
+        }
+
         // ==========================================
         // 3. 360° STARTUPS MASTER DIRECTORY
         // ==========================================
         function renderStartupsMasterTable() {
             if (!window.CIMP_DB) return;
+            const searchFilter = (document.getElementById('searchMgrStartups')?.value || '').trim().toLowerCase();
+            const districtFilter = document.getElementById('filterStartupDistrict')?.value || '';
             const sectorFilter = document.getElementById('filterStartupSector')?.value || '';
+            const stageFilter = document.getElementById('filterStartupStage')?.value || '';
             const cohortFilter = document.getElementById('filterStartupCohort')?.value || '';
 
             let startups = window.CIMP_DB.getStartups();
-            if (sectorFilter) startups = startups.filter(s => s.sector === sectorFilter);
+            if (searchFilter) {
+                startups = startups.filter(s => 
+                    (s.name && s.name.toLowerCase().includes(searchFilter)) ||
+                    (s.founder && s.founder.toLowerCase().includes(searchFilter)) ||
+                    (s.regNoBihar && s.regNoBihar.toLowerCase().includes(searchFilter)) ||
+                    (s.district && s.district.toLowerCase().includes(searchFilter)) ||
+                    (s.sector && s.sector.toLowerCase().includes(searchFilter))
+                );
+            }
+            if (districtFilter) startups = startups.filter(s => (s.district || s.location || '').toLowerCase().includes(districtFilter.toLowerCase()));
+            if (sectorFilter) startups = startups.filter(s => (s.sector || '').toLowerCase().includes(sectorFilter.toLowerCase()));
+            if (stageFilter) startups = startups.filter(s => (s.stage || '').toLowerCase().includes(stageFilter.toLowerCase()));
             if (cohortFilter) startups = startups.filter(s => (s.cohort || '').includes(cohortFilter));
+
+            const headerCountEl = document.getElementById('headerStartupsCount');
+            if (headerCountEl) headerCountEl.innerText = `${startups.length} Ventures`;
+            const navCountEl = document.getElementById('navMgrStartupsCount');
+            if (navCountEl) navCountEl.innerText = startups.length;
 
             const tbody = document.getElementById('tblMgrStartupsMasterBody');
             if (!tbody) return;
 
+            if (startups.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="6" class="text-center py-4 text-muted font-12">No matching incubatees found.</td></tr>';
+                return;
+            }
+
             let html = '';
             startups.forEach(s => {
                 const isExpanded = expandedRowIds.has('st-' + s.id);
-                const initial = s.initial || s.name.charAt(0).toUpperCase();
                 const phone = s.phone || '+91 98765 43210';
                 const cleanPhone = phone.replace(/\D/g, '');
+                const districtStr = s.district || (s.location ? s.location.replace(', Bihar', '').trim() : 'Patna');
+                const statusStr = s.status || 'Active';
+                const statusClass = statusStr.toLowerCase() === 'active' ? 'status-active' : (statusStr.toLowerCase() === 'graduated' ? 'status-graduated' : 'status-suspended');
+
+                const coFoundersList = (s.coFounders && s.coFounders.length > 0)
+                    ? s.coFounders.map(c => `<span class="badge bg-white text-dark border font-10 me-1 mb-1">${c}</span>`).join('')
+                    : '<span class="text-muted font-11">Solo Founder</span>';
 
                 html += `
                     <!-- Main Incubatee Row -->
                     <tr class="tr-parent ${isExpanded ? 'is-expanded' : ''}" id="tr-parent-st-${s.id}" onclick="toggleExpandRow('st-${s.id}', event)">
                         <td>
-                            <div class="d-flex align-items-center gap-2.5">
-                                <div class="d-flex align-items-center justify-content-center rounded-2 bg-teal-subtle text-teal fw-bold font-12" style="width: 32px; height: 32px; min-width: 32px;">
-                                    ${initial}
+                            <div>
+                                <div class="d-flex align-items-center gap-2">
+                                    <span class="venture-name text-truncate" style="max-width: 220px;" title="${s.name}">${s.name}</span>
+                                    <span class="status-pill ${statusClass}">${statusStr}</span>
                                 </div>
-                                <div>
-                                    <span class="interactive-title font-13 d-block text-truncate" style="max-width: 220px;">${s.name}</span>
-                                    <div class="font-10 text-muted mt-0.5"><code>${s.cin || 'U72900BR2022PTC054321'}</code> &bull; <span class="badge bg-success-subtle text-success font-9">Active</span></div>
+                                <div class="venture-meta mt-1">
+                                    <span>${s.regNoBihar || s.id}</span>
+                                    <span class="meta-sep">&bull;</span>
+                                    <span class="text-truncate" style="max-width: 140px;">${s.cin || 'CIN Registered'}</span>
                                 </div>
                             </div>
                         </td>
                         <td>
-                            <strong class="text-dark font-12">${s.founder}</strong>
-                            <div class="font-11 text-muted">${s.location || 'Patna, Bihar'}</div>
+                            <div class="founder-name">${s.founder}</div>
+                            <div class="founder-loc mt-0.5">${districtStr}, Bihar</div>
                         </td>
                         <td>
-                            <span class="badge bg-light text-dark border font-10 px-2 py-0.5">${s.sector}</span>
-                            <div class="font-10 text-muted mt-0.5">${s.cohort || 'Cohort 2022'}</div>
+                            <div class="font-12 fw-semibold text-dark">${s.sector}</div>
+                            <div class="text-muted font-11 mt-0.5">${s.stage || 'Pre-Revenue'} &bull; ${s.cohort || 'Cohort 2025'}</div>
                         </td>
                         <td>
-                            <strong class="text-dark font-12">${s.revenue || '₹ 0 / yr'}</strong>
-                            <div class="font-10 text-success fw-semibold mt-0.5">${s.jobsCreated || 4} Jobs Created</div>
+                            <div class="font-12 fw-semibold text-dark">${s.revenue || '₹ 0 / yr'}</div>
+                            <div class="text-muted font-11 mt-0.5">${s.fundingRaised || '₹ 10 Lakhs Seed'}</div>
                         </td>
                         <td>
-                            <span class="badge bg-light text-primary border font-10 px-2 py-0.5">
-                                <i class="fa-solid fa-user-tie font-9 me-1"></i> ${s.assignedMentor || 'Dr. Alok Kumar'}
-                            </span>
+                            <div class="font-12 fw-medium text-dark">${s.assignedMentor || 'Dr. Alok Kumar'}</div>
+                            <div class="text-muted font-11 mt-0.5">Assigned Advisor</div>
                         </td>
-                        <td class="text-end pe-3">
+                        <td class="text-end pe-3" onclick="event.stopPropagation();">
                             <div class="d-flex align-items-center justify-content-end gap-1">
-                                <button class="btn btn-sm btn-light border rounded-pill font-11 py-0.5 px-2 text-nowrap no-row-click" onclick="toggleExpandRow('st-${s.id}')">
-                                    <span class="me-1">Dossier</span>
-                                    <i class="fa-solid fa-chevron-down font-9 expand-chevron"></i>
+                                <button class="btn-icon-subtle" onclick="toggleExpandRow('st-${s.id}', event)" title="Expand Dossier">
+                                    <i class="fa-solid fa-chevron-down font-10 expand-chevron"></i>
                                 </button>
-                                <button class="icon-action-pill no-row-click" onclick="openEditStartupModal('${s.id}')" title="Edit Metrics">
-                                    <i class="fa-solid fa-pen-to-square"></i>
-                                </button>
-                                <button class="icon-action-pill pill-danger no-row-click" onclick="deleteStartupRecord('${s.id}')" title="Delete">
-                                    <i class="fa-solid fa-trash"></i>
-                                </button>
+                                <div class="dropdown">
+                                    <button class="btn-icon-subtle" type="button" data-bs-toggle="dropdown" aria-expanded="false" title="Actions">
+                                        <i class="fa-solid fa-ellipsis font-12"></i>
+                                    </button>
+                                    <ul class="dropdown-menu dropdown-menu-end shadow-sm border p-1" style="border-radius: 8px; font-size: 12px; min-width: 140px; border-color: #E2E8F0 !important;">
+                                        <li><a class="dropdown-item py-1.5 px-3 rounded-2" href="javascript:void(0)" onclick="toggleExpandRow('st-${s.id}')"><i class="fa-regular fa-folder-open me-2 text-muted font-11"></i> View Dossier</a></li>
+                                        <li><a class="dropdown-item py-1.5 px-3 rounded-2" href="javascript:void(0)" onclick="openEditStartupModal('${s.id}')"><i class="fa-regular fa-pen-to-square me-2 text-muted font-11"></i> Edit Metrics</a></li>
+                                        <li><hr class="dropdown-divider my-1"></li>
+                                        <li><a class="dropdown-item py-1.5 px-3 rounded-2 text-danger" href="javascript:void(0)" onclick="deleteStartupRecord('${s.id}')"><i class="fa-regular fa-trash-can me-2 font-11"></i> Delete Record</a></li>
+                                    </ul>
+                                </div>
                             </div>
                         </td>
                     </tr>
@@ -1795,64 +2160,70 @@
                                 <div class="row g-3">
                                     <!-- Col 1: Founder & Legal Details -->
                                     <div class="col-md-4">
-                                        <div class="bg-white p-3 rounded-3 border h-100 shadow-2xs">
+                                        <div class="bg-white p-3 rounded-2 border h-100 shadow-2xs">
                                             <div class="d-flex align-items-center justify-content-between mb-1.5">
-                                                <span class="font-10 text-muted text-uppercase fw-bold"><i class="fa-solid fa-building text-primary me-1"></i> Legal &amp; Entity Details</span>
-                                                <span class="badge bg-light text-dark border font-9">DPIIT Reg.</span>
+                                                <span class="font-11 text-muted text-uppercase fw-semibold">Legal &amp; Founding Team</span>
+                                                <span class="badge bg-light text-secondary border font-9">DPIIT: ${s.dpiit || 'Registered'}</span>
                                             </div>
                                             <div class="font-12 fw-bold text-dark">${s.legalName || (s.name + ' Pvt Ltd')}</div>
-                                            <div class="font-11 text-muted mb-2">CIN: <code>${s.cin || 'U72900BR2022PTC054321'}</code></div>
-                                            <div class="font-11 text-secondary mb-2">${s.desc || 'Active incubated venture.'}</div>
+                                            <div class="font-11 text-muted mb-2">Bihar Reg: <strong>${s.regNoBihar || s.id}</strong> &bull; CIN: <strong>${s.cin || 'U72900BR2022PTC054321'}</strong></div>
+                                            
+                                            <div class="mb-2.5">
+                                                <span class="font-10 text-muted d-block mb-1">Co-Founders:</span>
+                                                <div>${coFoundersList}</div>
+                                            </div>
 
-                                            <div class="d-flex align-items-center gap-1.5 pt-2 border-top">
-                                                <a href="tel:${cleanPhone}" class="icon-action-pill pill-phone" title="Call"><i class="fa-solid fa-phone"></i></a>
-                                                <a href="https://wa.me/${cleanPhone}" target="_blank" class="icon-action-pill pill-wa" title="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
-                                                <a href="mailto:${s.email}" class="icon-action-pill pill-mail" title="Email"><i class="fa-solid fa-envelope"></i></a>
-                                                <a href="${s.website || '#'}" target="_blank" class="icon-action-pill" title="Website"><i class="fa-solid fa-globe"></i></a>
+                                            <div class="d-flex align-items-center gap-1.5 pt-2 border-top flex-wrap">
+                                                <a href="tel:${cleanPhone}" class="btn btn-sm btn-light border py-1 px-2.5 font-11 text-secondary rounded-2" title="Call">Call</a>
+                                                <a href="https://wa.me/${cleanPhone}" target="_blank" class="btn btn-sm btn-light border py-1 px-2.5 font-11 text-success rounded-2" title="WhatsApp">WhatsApp</a>
+                                                <a href="mailto:${s.email}" class="btn btn-sm btn-light border py-1 px-2.5 font-11 text-secondary rounded-2" title="Email">Email</a>
+                                                <a href="../../pages/startups-details.html?id=${s.id}" target="_blank" class="btn btn-sm btn-outline-primary py-1 px-2.5 font-11 rounded-2 ms-auto" title="Public Profile">Profile <i class="fa-solid fa-arrow-up-right-from-square font-9 ms-1"></i></a>
                                             </div>
                                         </div>
                                     </div>
 
                                     <!-- Col 2: Bihar Seed Grant & Facilities -->
                                     <div class="col-md-5">
-                                        <div class="bg-white p-3 rounded-3 border h-100 shadow-2xs">
+                                        <div class="bg-white p-3 rounded-2 border h-100 shadow-2xs">
                                             <div class="d-flex align-items-center justify-content-between mb-1.5">
-                                                <span class="font-10 text-muted text-uppercase fw-bold"><i class="fa-solid fa-indian-rupee-sign text-success me-1"></i> Bihar Seed Grant Sprints</span>
-                                                <span class="badge bg-success-subtle text-success font-9">₹10 Lakhs Eligible</span>
+                                                <span class="font-11 text-muted text-uppercase fw-semibold">Startup Bihar Seed Sanction</span>
+                                                <span class="badge bg-success-subtle text-success font-9">Govt. Sanctioned</span>
                                             </div>
 
-                                            <div class="d-flex flex-column gap-1 font-11 mb-2">
-                                                <div class="d-flex justify-content-between align-items-center p-1 rounded bg-light border">
-                                                    <span><strong>Tranche 1 (MVP/Prototype):</strong> ₹ 2.50L</span>
-                                                    <span class="badge bg-success-subtle text-success font-9"><i class="fa-solid fa-check font-8 me-1"></i> Disbursed</span>
-                                                </div>
-                                                <div class="d-flex justify-content-between align-items-center p-1 rounded bg-light border">
-                                                    <span><strong>Tranche 2 (Validation):</strong> ₹ 5.00L</span>
-                                                    <span class="badge bg-success-subtle text-success font-9"><i class="fa-solid fa-check font-8 me-1"></i> Disbursed</span>
-                                                </div>
-                                                <div class="d-flex justify-content-between align-items-center p-1 rounded bg-light border">
-                                                    <span><strong>Tranche 3 (Commercial Scale):</strong> ₹ 2.50L</span>
-                                                    <span class="badge bg-warning-subtle text-warning font-9">Under Scrutiny</span>
-                                                </div>
+                                            <div class="p-2 rounded-2 bg-light border font-11 mb-2">
+                                                <div class="font-10 text-muted text-uppercase fw-semibold mb-0.5">Sanction Terms:</div>
+                                                <div class="text-dark fw-medium" style="line-height: 1.35;">${s.fundingRemark || '₹10,00,000 Seed Grant Sanctioned under Bihar Startup Policy 2022'}</div>
                                             </div>
 
-                                            <div class="font-11 text-muted border-top pt-1.5 mt-1">
-                                                <span>Allotted Resources: </span><strong class="text-dark">Co-working Desk #04, IoT Lab Access, AWS Cloud Credits ($2,000)</strong>
+                                            <div class="row g-2 font-11 mb-2">
+                                                <div class="col-6">
+                                                    <div class="p-2 rounded-2 bg-light border">
+                                                        <span class="text-muted d-block font-10">Seed Capital:</span>
+                                                        <strong class="text-dark font-12">${s.fundingRaised || '₹ 10 Lakhs'}</strong>
+                                                    </div>
+                                                </div>
+                                                <div class="col-6">
+                                                    <div class="p-2 rounded-2 bg-light border">
+                                                        <span class="text-muted d-block font-10">Turnover:</span>
+                                                        <strong class="text-dark font-12">${s.revenue || '₹ 0 / yr'}</strong>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
 
                                     <!-- Col 3: Compliance & Mentor -->
                                     <div class="col-md-3">
-                                        <div class="bg-white p-3 rounded-3 border h-100 shadow-2xs d-flex flex-column justify-content-between">
+                                        <div class="bg-white p-3 rounded-2 border h-100 shadow-2xs d-flex flex-column justify-content-between">
                                             <div>
-                                                <div class="font-10 text-muted text-uppercase fw-bold mb-1"><i class="fa-solid fa-shield-halved text-warning me-1"></i> Incubation Health</div>
-                                                <div class="font-13 fw-bold text-teal">${s.complianceScore || 95}% Compliance</div>
-                                                <div class="font-11 text-muted mt-1">Assigned Advisor: <strong class="text-dark">${s.assignedMentor || 'Dr. Alok Kumar'}</strong></div>
+                                                <div class="font-11 text-muted text-uppercase fw-semibold mb-1">Incubation Health</div>
+                                                <div class="font-14 fw-bold text-dark">${s.complianceScore || 95}% Compliance</div>
+                                                <div class="font-11 text-muted mt-1.5">Advisor: <strong class="text-dark">${s.assignedMentor || 'Dr. Alok Kumar'}</strong></div>
+                                                <div class="font-11 text-muted mt-1">District: <strong class="text-dark">${districtStr}</strong></div>
                                             </div>
-                                            <div class="d-flex gap-1.5 mt-2">
-                                                <button class="btn btn-sm btn-primary font-11 fw-bold w-100" onclick="openEditStartupModal('${s.id}')">
-                                                    <i class="fa-solid fa-pen-to-square me-1"></i> Edit Metrics
+                                            <div class="mt-3">
+                                                <button class="btn btn-sm btn-light border font-11 fw-semibold w-100 py-1.5 rounded-2" onclick="openEditStartupModal('${s.id}')">
+                                                    Edit Metrics
                                                 </button>
                                             </div>
                                         </div>
@@ -1892,6 +2263,7 @@
                 email,
                 phone,
                 location: loc,
+                district: loc.replace(', Bihar', '').trim(),
                 sector,
                 stage,
                 cohort,
@@ -1985,32 +2357,36 @@
                 const isExpanded = expandedRowIds.has('ms-' + s.id);
                 const ms = (s.milestones && s.milestones[0]) ? s.milestones[0].title : 'Onboarding & Induction';
                 const compScore = s.complianceScore || 90;
-                let compBadge = 'bg-success-subtle text-success';
-                if (compScore < 80) compBadge = 'bg-danger-subtle text-danger';
-                else if (compScore < 92) compBadge = 'bg-warning-subtle text-warning-emphasis';
+                let compClass = 'status-active';
+                if (compScore < 80) compClass = 'status-suspended';
+                else if (compScore < 92) compClass = 'status-pending';
 
                 html += `
                     <!-- Main Milestone Row -->
                     <tr class="tr-parent ${isExpanded ? 'is-expanded' : ''}" id="tr-parent-ms-${s.id}" onclick="toggleExpandRow('ms-${s.id}', event)">
                         <td>
-                            <span class="interactive-title font-13 d-block">${s.name}</span>
-                            <div class="font-11 text-muted">${s.founder}</div>
+                            <span class="font-13 fw-semibold text-dark d-block">${s.name}</span>
+                            <div class="font-11 text-muted mt-0.5">${s.founder}</div>
                         </td>
                         <td>
-                            <span class="badge bg-light text-dark border font-10">${s.sector}</span>
-                            <div class="font-10 text-muted mt-0.5">${s.cohort || 'Cohort 2022'}</div>
+                            <div class="font-12 fw-medium text-dark">${s.sector}</div>
+                            <div class="font-11 text-muted mt-0.5">${s.cohort || 'Cohort 2022'}</div>
                         </td>
                         <td>
-                            <span class="font-12 fw-semibold text-dark"><i class="fa-solid fa-flag-checkered text-warning me-1"></i> ${ms}</span>
+                            <div class="font-12 fw-semibold text-dark">${ms}</div>
+                            <div class="font-11 text-muted mt-0.5">Active Sprint</div>
                         </td>
                         <td>
-                            <span class="badge bg-light text-primary border font-10 px-2 py-0.5">${s.assignedMentor || 'Dr. Alok Kumar'}</span>
+                            <div class="font-12 text-dark">${s.assignedMentor || 'Dr. Alok Kumar'}</div>
+                            <div class="font-11 text-muted mt-0.5">Assigned Advisor</div>
                         </td>
-                        <td class="text-end pe-3">
-                            <span class="badge ${compBadge} font-10 fw-bold px-2 py-0.5 me-1.5">${compScore}% Health</span>
-                            <button class="btn btn-sm btn-light border rounded-pill font-11 py-0.5 px-2 no-row-click" onclick="toggleExpandRow('ms-${s.id}')">
-                                <i class="fa-solid fa-chevron-down font-9 expand-chevron"></i>
-                            </button>
+                        <td class="text-end pe-3" onclick="event.stopPropagation();">
+                            <div class="d-flex align-items-center justify-content-end gap-2">
+                                <span class="status-pill ${compClass}">${compScore}% Health</span>
+                                <button class="btn-icon-subtle" onclick="toggleExpandRow('ms-${s.id}', event)" title="Expand Deliverables">
+                                    <i class="fa-solid fa-chevron-down font-10 expand-chevron"></i>
+                                </button>
+                            </div>
                         </td>
                     </tr>
 
@@ -2018,17 +2394,17 @@
                     <tr class="tr-expand-tray ${isExpanded ? '' : 'd-none'}" id="tr-tray-ms-${s.id}">
                         <td colspan="5">
                             <div class="expand-content-wrap">
-                                <div class="bg-white p-3 rounded-3 border shadow-2xs">
-                                    <div class="d-flex align-items-center justify-content-between mb-2 pb-1 border-bottom">
-                                        <span class="font-11 text-muted text-uppercase fw-bold"><i class="fa-solid fa-list-check text-primary me-1"></i> Sprint Deliverables &amp; Compliance Checklist</span>
-                                        <span class="badge bg-primary-subtle text-primary font-10">Cohort Induction Cycle</span>
+                                <div class="bg-white p-3 rounded-2 border shadow-2xs">
+                                    <div class="d-flex align-items-center justify-content-between mb-2 pb-2 border-bottom">
+                                        <span class="font-11 text-muted text-uppercase fw-semibold">Sprint Deliverables &amp; Compliance Checklist</span>
+                                        <span class="badge bg-light text-secondary border font-9">Cohort Induction Cycle</span>
                                     </div>
                                     <div class="row g-2">
                                         ${(s.milestones || []).map(m => `
                                             <div class="col-md-6">
-                                                <div class="p-2 rounded bg-light border d-flex justify-content-between align-items-center font-12">
-                                                    <span><i class="fa-solid ${m.status === 'Completed' ? 'fa-circle-check text-success' : 'fa-hourglass-half text-warning'} me-1.5"></i> <strong>${m.title}</strong></span>
-                                                    <span class="badge ${m.status === 'Completed' ? 'bg-success-subtle text-success' : 'bg-warning-subtle text-warning'} font-9">${m.status}</span>
+                                                <div class="p-2.5 rounded-2 bg-light border d-flex justify-content-between align-items-center font-12">
+                                                    <span class="fw-medium text-dark">${m.title}</span>
+                                                    <span class="status-pill ${m.status === 'Completed' ? 'status-active' : 'status-pending'}">${m.status}</span>
                                                 </div>
                                             </div>
                                         `).join('')}
@@ -2053,28 +2429,85 @@
                 let html = '';
                 mentors.forEach(m => {
                     const isExpanded = expandedRowIds.has('men-' + m.id);
-                    const assigned = (m.assignedStartups || []).join(', ') || 'Available for allocation';
-                    const exp = Array.isArray(m.expertise) ? m.expertise.join(', ') : (m.expertise || 'Strategy');
+                    const assignedList = (m.assignedStartups || []);
+                    const assignedBadges = assignedList.length > 0 
+                        ? assignedList.map(v => `<span class="badge bg-primary-subtle text-primary border border-primary-subtle font-10 me-1 mb-1"><i class="fa-solid fa-cube font-9 me-1"></i>${v}</span>`).join('') 
+                        : '<span class="badge bg-success-subtle text-success font-10">Available for allocation</span>';
+
+                    // Parse clean designation & organization
+                    const rawAff = m.affiliation || m.title || '';
+                    let desig = '';
+                    let org = '';
+                    if (rawAff.includes(',')) {
+                        const parts = rawAff.split(',');
+                        desig = parts[0].trim();
+                        org = parts.slice(1).join(',').trim();
+                    } else {
+                        desig = m.title || 'Senior Advisory Faculty';
+                        org = m.organization || 'CIMP Patna';
+                    }
+
+                    // Format clean avatar with high contrast initials fallback
+                    const cleanName = (m.name || 'Mentor').replace(/^(Dr\.|Prof\.|Adv\.)\s*/i, '').trim();
+                    const initials = cleanName.split(' ').map(n => n[0]).slice(0, 2).join('').toUpperCase() || 'M';
+                    const bgColors = ['1E3A8A', '0D9488', 'B45309', '4F46E5', 'C2410C', '2E7D32', '6366F1', '0891B2'];
+                    const charCodeSum = (m.id || 'MEN').split('').reduce((acc, c) => acc + c.charCodeAt(0), 0);
+                    const brandColorHex = bgColors[charCodeSum % bgColors.length];
+                    const avatarUrl = m.image || `https://ui-avatars.com/api/?name=${encodeURIComponent(cleanName)}&background=${brandColorHex}&color=fff&size=128&bold=true&font-size=0.42`;
+
+                    const expPills = (Array.isArray(m.expertise) ? m.expertise.slice(0, 2) : [m.expertise || 'Strategy'])
+                        .map(e => `<span class="badge bg-light text-dark border font-10 me-1 mb-0.5">${e}</span>`).join('');
+
                     const phone = m.phone || '+91 98765 43210';
                     const cleanPhone = phone.replace(/\D/g, '');
-                    
+
                     html += `
                         <tr class="tr-parent ${isExpanded ? 'is-expanded' : ''}" id="tr-parent-men-${m.id}" onclick="toggleExpandRow('men-${m.id}', event)">
                             <td>
-                                <span class="interactive-title font-13 d-block">${m.name}</span>
-                                <div class="font-11 text-muted">${m.title || 'Senior Advisory Faculty'}</div>
+                                <div class="d-flex align-items-center gap-2.5">
+                                    <div class="position-relative flex-shrink-0">
+                                        <img src="${avatarUrl}" 
+                                             alt="${m.name}" 
+                                             class="rounded-circle border shadow-2xs" 
+                                             style="width: 42px; height: 42px; object-fit: cover;"
+                                             onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                                        <div class="rounded-circle align-items-center justify-content-center text-white fw-bold font-13 shadow-2xs" 
+                                             style="width: 42px; height: 42px; background: #${brandColorHex}; display: none;">
+                                            ${initials}
+                                        </div>
+                                        <span class="position-absolute bottom-0 end-0 bg-success border border-white rounded-circle" style="width: 9px; height: 9px;" title="Active Faculty"></span>
+                                    </div>
+                                    <div class="min-w-0">
+                                        <span class="interactive-title font-13 fw-bold text-dark d-block text-truncate" style="max-width: 190px;" title="${m.name}">${m.name}</span>
+                                        <div class="font-10 text-muted d-flex align-items-center gap-1 mt-0.5">
+                                            <span class="badge bg-light text-secondary border font-9 px-1.5 py-0.2">${m.experience || '15+ Yrs'} Exp</span>
+                                            <span>&bull;</span>
+                                            <span class="text-truncate" style="max-width: 95px;">${(m.location || 'Patna').split('/')[0].trim()}</span>
+                                        </div>
+                                    </div>
+                                </div>
                             </td>
-                            <td><span class="font-12 text-secondary">${m.organization || 'CIMP Patna'}</span></td>
-                            <td><span class="badge bg-light text-dark border font-10">${exp}</span></td>
-                            <td><strong class="text-dark font-12">${m.totalHoursLogged || 40} Hrs</strong></td>
-                            <td><span class="badge bg-warning-subtle text-warning-emphasis font-10">⭐ ${m.rating || 4.9}</span></td>
-                            <td class="text-end pe-3">
-                                <div class="d-flex align-items-center justify-content-end gap-1">
-                                    <button class="btn btn-sm btn-outline-primary font-11 py-0.5 px-2 no-row-click" onclick="openPairSpecificMentor('${m.id}')">
-                                        <i class="fa-solid fa-link me-1"></i> Pair
+                            <td>
+                                <strong class="text-dark font-12 d-block text-truncate" style="max-width: 200px;" title="${desig}">${desig}</strong>
+                                <span class="badge bg-primary-subtle text-primary border border-primary-subtle font-9 mt-0.5">${m.primaryDomain || 'Advisory Track'}</span>
+                            </td>
+                            <td>
+                                <div class="font-12 text-secondary fw-semibold" style="line-height: 1.35;" title="${org}">
+                                    <i class="fa-solid fa-building-columns text-primary me-1.5 font-10"></i>${org}
+                                </div>
+                            </td>
+                            <td>
+                                <div class="d-flex flex-wrap gap-1">
+                                    ${expPills}
+                                </div>
+                            </td>
+                            <td class="text-end pe-3" onclick="event.stopPropagation();">
+                                <div class="d-flex align-items-center justify-content-end gap-1.5">
+                                    <button class="btn btn-sm btn-light border font-11 py-1 px-2.5 rounded-2" onclick="openPairSpecificMentor('${m.id}')">
+                                        Pair
                                     </button>
-                                    <button class="icon-action-pill no-row-click" onclick="toggleExpandRow('men-${m.id}')">
-                                        <i class="fa-solid fa-chevron-down font-9 expand-chevron"></i>
+                                    <button class="btn-icon-subtle" onclick="toggleExpandRow('men-${m.id}', event)" title="View Bio">
+                                        <i class="fa-solid fa-chevron-down font-10 expand-chevron"></i>
                                     </button>
                                 </div>
                             </td>
@@ -2082,22 +2515,40 @@
 
                         <!-- Expandable Mentor Drawer -->
                         <tr class="tr-expand-tray ${isExpanded ? '' : 'd-none'}" id="tr-tray-men-${m.id}">
-                            <td colspan="6">
+                            <td colspan="5">
                                 <div class="expand-content-wrap">
-                                    <div class="bg-white p-3 rounded-3 border shadow-2xs">
-                                        <div class="d-flex justify-content-between align-items-start mb-2">
-                                            <div>
-                                                <div class="font-10 text-muted text-uppercase fw-bold mb-1"><i class="fa-solid fa-address-card text-primary me-1"></i> Mentor Profile &amp; Domain Background</div>
-                                                <p class="font-12 text-secondary mb-2">${m.bio || 'Senior advisory mentor empaneled under CIMP-BIIF Incubation Faculty Network.'}</p>
-                                            </div>
-                                            <div class="d-flex align-items-center gap-1.5">
-                                                <a href="tel:${cleanPhone}" class="icon-action-pill pill-phone" title="Call"><i class="fa-solid fa-phone"></i></a>
-                                                <a href="https://wa.me/${cleanPhone}" target="_blank" class="icon-action-pill pill-wa" title="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
-                                                <a href="mailto:${m.email || 'mentor@cimp.ac.in'}" class="icon-action-pill pill-mail" title="Email"><i class="fa-solid fa-envelope"></i></a>
+                                    <div class="row g-3">
+                                        <div class="col-md-7">
+                                            <div class="bg-white p-3 rounded-2 border h-100 shadow-2xs">
+                                                <div class="font-11 text-muted text-uppercase fw-semibold mb-1.5">Advisory Profile &amp; Credentials</div>
+                                                <p class="font-12 text-secondary mb-2" style="line-height: 1.55;">${m.bio || 'Senior advisory mentor empaneled under CIMP-BIIF Incubation Faculty Network.'}</p>
+                                                <div class="d-flex align-items-center gap-2 flex-wrap font-11 text-muted pt-2 border-top">
+                                                    <span><strong>Qualification:</strong> ${m.qualification || 'Doctorate / Post-Graduate'}</span>
+                                                    <span>&bull;</span>
+                                                    <span><strong>Advisory Mode:</strong> ${m.mode || 'Hybrid (Online & In-Person)'}</span>
+                                                </div>
                                             </div>
                                         </div>
-                                        <div class="p-2 bg-light rounded border font-11">
-                                            <strong>Currently Guiding Incubatees: </strong><span class="text-primary fw-semibold">${assigned}</span>
+                                        <div class="col-md-5">
+                                            <div class="bg-white p-3 rounded-2 border h-100 shadow-2xs d-flex flex-column justify-content-between">
+                                                <div>
+                                                    <div class="font-11 text-muted text-uppercase fw-semibold mb-1.5">Assigned Incubatees</div>
+                                                    <div class="p-2 bg-light rounded-2 border font-11 mb-2">
+                                                        <span class="text-primary fw-semibold">${assignedBadges}</span>
+                                                    </div>
+                                                </div>
+                                                <div>
+                                                    <div class="font-11 text-muted text-uppercase fw-semibold mb-1">Direct Contact</div>
+                                                    <div class="d-flex align-items-center gap-1.5 pt-1 flex-wrap">
+                                                        <a href="tel:${cleanPhone}" class="btn btn-sm btn-light border py-1 px-2 font-11 text-secondary rounded-2" title="Call">Call</a>
+                                                        <a href="https://wa.me/${cleanPhone}" target="_blank" class="btn btn-sm btn-light border py-1 px-2 font-11 text-success rounded-2" title="WhatsApp">WhatsApp</a>
+                                                        <a href="mailto:${m.email || 'mentor@cimp.ac.in'}" class="btn btn-sm btn-light border py-1 px-2 font-11 text-secondary rounded-2" title="Email">Email</a>
+                                                        <button class="btn btn-sm btn-primary font-11 py-1 px-2.5 ms-auto fw-semibold rounded-2" onclick="openPairSpecificMentor('${m.id}')">
+                                                            Pair Startup
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -2117,28 +2568,30 @@
                     const isExpanded = expandedRowIds.has('ses-' + ses.id);
                     sHtml += `
                         <tr class="tr-parent ${isExpanded ? 'is-expanded' : ''}" id="tr-parent-ses-${ses.id}" onclick="toggleExpandRow('ses-${ses.id}', event)">
-                            <td class="nowrap-cell"><code>${ses.id}</code></td>
-                            <td><strong class="font-13 text-dark">${ses.startupName}</strong></td>
-                            <td>${ses.mentorName}</td>
-                            <td>${ses.date} &bull; <span class="badge bg-light text-dark border font-10">${ses.durationHours} Hrs</span></td>
+                            <td class="nowrap-cell font-11 fw-semibold text-secondary">${ses.id}</td>
+                            <td><span class="font-13 fw-semibold text-dark d-block">${ses.startupName}</span></td>
+                            <td><span class="font-12 text-dark">${ses.mentorName}</span></td>
+                            <td><span class="font-12 text-dark">${ses.date}</span> &bull; <span class="badge bg-light text-dark border font-10">${ses.durationHours} Hrs</span></td>
                             <td>
-                                <span class="font-12 text-dark fw-semibold">${ses.topic}</span>
+                                <span class="font-12 text-secondary">${ses.topic}</span>
                             </td>
-                            <td class="text-end pe-3">
-                                <span class="badge bg-warning-subtle text-warning-emphasis font-10 me-1">⭐ ${ses.feedbackRating || 5}/5</span>
-                                <button class="btn btn-sm btn-light border rounded-pill font-11 py-0.5 px-2 no-row-click" onclick="toggleExpandRow('ses-${ses.id}')">
-                                    <i class="fa-solid fa-chevron-down font-9 expand-chevron"></i>
-                                </button>
+                            <td class="text-end pe-3" onclick="event.stopPropagation();">
+                                <div class="d-flex align-items-center justify-content-end gap-1.5">
+                                    <span class="badge bg-light text-dark border font-10">${ses.feedbackRating || 5}/5</span>
+                                    <button class="btn-icon-subtle" onclick="toggleExpandRow('ses-${ses.id}', event)">
+                                        <i class="fa-solid fa-chevron-down font-10 expand-chevron"></i>
+                                    </button>
+                                </div>
                             </td>
                         </tr>
                         <!-- Expandable Session Notes Tray -->
                         <tr class="tr-expand-tray ${isExpanded ? '' : 'd-none'}" id="tr-tray-ses-${ses.id}">
                             <td colspan="6">
                                 <div class="expand-content-wrap">
-                                    <div class="bg-white p-3 rounded-3 border shadow-2xs">
-                                        <div class="font-10 text-muted text-uppercase fw-bold mb-1"><i class="fa-solid fa-file-pen text-primary me-1"></i> Mentorship Advisory Notes &amp; Action Items</div>
+                                    <div class="bg-white p-3 rounded-2 border shadow-2xs">
+                                        <div class="font-11 text-muted text-uppercase fw-semibold mb-1">Advisory Notes &amp; Action Items</div>
                                         <p class="font-12 text-dark mb-2" style="line-height:1.45;">${ses.notes || 'Detailed advisory discussion covering business modeling, customer pilot strategy, and milestone deadlines.'}</p>
-                                        <div class="d-flex justify-content-between align-items-center p-2 bg-light rounded border font-11">
+                                        <div class="d-flex justify-content-between align-items-center p-2 bg-light rounded-2 border font-11 flex-wrap gap-2">
                                             <span><strong>Mentee Venture: </strong>${ses.startupName}</span>
                                             <span><strong>Mentor: </strong>${ses.mentorName}</span>
                                             <span><strong>Duration: </strong>${ses.durationHours} Hours</span>
@@ -2149,7 +2602,7 @@
                         </tr>
                     `;
                 });
-                tbodySes.innerHTML = sHtml || '<tr><td colspan="6" class="text-center py-3 text-muted">No advisory sessions logged yet.</td></tr>';
+                tbodySes.innerHTML = sHtml || '<tr><td colspan="6" class="text-center py-3 text-muted font-12">No advisory sessions logged yet.</td></tr>';
             }
         }
 
@@ -2272,23 +2725,23 @@
                     <!-- Main Grant Row -->
                     <tr class="tr-parent ${isExpanded ? 'is-expanded' : ''}" id="tr-parent-dsb-${d.id}" onclick="toggleExpandRow('dsb-${d.id}', event)">
                         <td>
-                            <strong class="font-13 text-dark">${d.startupName}</strong>
-                            <div class="font-11 text-muted"><i class="fa-solid fa-user me-1"></i> ${d.founderName}</div>
+                            <span class="font-13 fw-semibold text-dark d-block">${d.startupName}</span>
+                            <div class="font-11 text-muted mt-0.5">${d.founderName}</div>
                         </td>
                         <td>
-                            <span class="badge bg-light text-dark border font-10">${d.scheme}</span>
-                            <div class="font-10 text-muted mt-0.5">Sanctioned: ₹ ${(d.totalSanctioned / 100000).toFixed(1)} Lakhs</div>
+                            <div class="font-12 fw-medium text-dark">${d.scheme}</div>
+                            <div class="font-11 text-muted mt-0.5">Sanctioned: ₹ ${(d.totalSanctioned / 100000).toFixed(1)} Lakhs</div>
                         </td>
                         <td>${renderTranchePill(d.id, 1, t1)}</td>
                         <td>${renderTranchePill(d.id, 2, t2)}</td>
                         <td>${renderTranchePill(d.id, 3, t3)}</td>
-                        <td class="text-end pe-3">
-                            <div class="d-flex align-items-center justify-content-end gap-1">
-                                <button class="btn btn-sm btn-outline-primary py-0.5 px-2 font-11 no-row-click" onclick="openUpdateTrancheModal('${d.id}', 1)">
-                                    <i class="fa-solid fa-pen-to-square me-1"></i> Update
+                        <td class="text-end pe-3" onclick="event.stopPropagation();">
+                            <div class="d-flex align-items-center justify-content-end gap-1.5">
+                                <button class="btn btn-sm btn-light border font-11 py-1 px-2.5 rounded-2" onclick="openUpdateTrancheModal('${d.id}', 1)">
+                                    Update
                                 </button>
-                                <button class="icon-action-pill no-row-click" onclick="toggleExpandRow('dsb-${d.id}')">
-                                    <i class="fa-solid fa-chevron-down font-9 expand-chevron"></i>
+                                <button class="btn-icon-subtle" onclick="toggleExpandRow('dsb-${d.id}', event)" title="Expand Audit Details">
+                                    <i class="fa-solid fa-chevron-down font-10 expand-chevron"></i>
                                 </button>
                             </div>
                         </td>
@@ -2298,34 +2751,34 @@
                     <tr class="tr-expand-tray ${isExpanded ? '' : 'd-none'}" id="tr-tray-dsb-${d.id}">
                         <td colspan="6">
                             <div class="expand-content-wrap">
-                                <div class="bg-white p-3 rounded-3 border shadow-2xs">
-                                    <div class="d-flex justify-content-between align-items-center mb-2 pb-1 border-bottom">
-                                        <span class="font-11 text-muted text-uppercase fw-bold"><i class="fa-solid fa-file-invoice-dollar text-success me-1"></i> Bihar Startup Policy 2022 Tranche Disbursement &amp; UC Audit</span>
-                                        <span class="badge bg-success-subtle text-success font-10">Sanction Ref: BIIF/BSP/2026/G-0${d.id.slice(-2)}</span>
+                                <div class="bg-white p-3 rounded-2 border shadow-2xs">
+                                    <div class="d-flex justify-content-between align-items-center mb-2 pb-2 border-bottom">
+                                        <span class="font-11 text-muted text-uppercase fw-semibold">Bihar Startup Policy Tranche Disbursement &amp; UC Audit</span>
+                                        <span class="badge bg-light text-secondary border font-9">Sanction Ref: BIIF/BSP/2026/G-0${d.id.slice(-2)}</span>
                                     </div>
                                     <div class="row g-2 font-12">
                                         <div class="col-md-4">
-                                            <div class="p-2 rounded bg-light border">
-                                                <div class="font-11 text-muted fw-bold">TRANCHE 1 (₹ 2,50,000)</div>
+                                            <div class="p-2.5 rounded-2 bg-light border">
+                                                <div class="font-11 text-muted fw-semibold">Tranche 1 (₹ 2,50,000)</div>
                                                 <div class="font-12 fw-bold text-dark mt-0.5">Prototype &amp; Lab Validation</div>
-                                                <div class="font-11 text-muted">Status: <span class="badge bg-success-subtle text-success font-9">${t1.status || 'Pending'}</span></div>
-                                                <div class="font-10 text-secondary mt-1">${t1.remarks || 'Prototype testing & co-working check verified.'}</div>
+                                                <div class="font-11 text-muted mt-1">Status: <span class="status-pill status-active font-10">${t1.status || 'Pending'}</span></div>
+                                                <div class="font-11 text-secondary mt-1">${t1.remarks || 'Prototype testing & co-working check verified.'}</div>
                                             </div>
                                         </div>
                                         <div class="col-md-4">
-                                            <div class="p-2 rounded bg-light border">
-                                                <div class="font-11 text-muted fw-bold">TRANCHE 2 (₹ 5,00,000)</div>
+                                            <div class="p-2.5 rounded-2 bg-light border">
+                                                <div class="font-11 text-muted fw-semibold">Tranche 2 (₹ 5,00,000)</div>
                                                 <div class="font-12 fw-bold text-dark mt-0.5">Market Pilot &amp; Customers</div>
-                                                <div class="font-11 text-muted">Status: <span class="badge ${t2.status === 'Disbursed' ? 'bg-success-subtle text-success' : 'bg-warning-subtle text-warning'} font-9">${t2.status || 'Pending'}</span></div>
-                                                <div class="font-10 text-secondary mt-1">${t2.remarks || '5+ pilot customers onboarded & UC submitted.'}</div>
+                                                <div class="font-11 text-muted mt-1">Status: <span class="status-pill ${t2.status === 'Disbursed' ? 'status-active' : 'status-pending'} font-10">${t2.status || 'Pending'}</span></div>
+                                                <div class="font-11 text-secondary mt-1">${t2.remarks || '5+ pilot customers onboarded & UC submitted.'}</div>
                                             </div>
                                         </div>
                                         <div class="col-md-4">
-                                            <div class="p-2 rounded bg-light border">
-                                                <div class="font-11 text-muted fw-bold">TRANCHE 3 (₹ 2,50,000)</div>
+                                            <div class="p-2.5 rounded-2 bg-light border">
+                                                <div class="font-11 text-muted fw-semibold">Tranche 3 (₹ 2,50,000)</div>
                                                 <div class="font-12 fw-bold text-dark mt-0.5">Commercial Scaling</div>
-                                                <div class="font-11 text-muted">Status: <span class="badge ${t3.status === 'Disbursed' ? 'bg-success-subtle text-success' : 'bg-warning-subtle text-warning'} font-9">${t3.status || 'Pending'}</span></div>
-                                                <div class="font-10 text-secondary mt-1">${t3.remarks || 'Commercial billing & hiring targets.'}</div>
+                                                <div class="font-11 text-muted mt-1">Status: <span class="status-pill ${t3.status === 'Disbursed' ? 'status-active' : 'status-pending'} font-10">${t3.status || 'Pending'}</span></div>
+                                                <div class="font-11 text-secondary mt-1">${t3.remarks || 'Commercial billing & hiring targets.'}</div>
                                             </div>
                                         </div>
                                     </div>
@@ -2346,26 +2799,18 @@
 
         function renderTranchePill(dsbId, tNo, trancheObj) {
             if (!trancheObj || !trancheObj.status) return '<span class="text-muted font-11">N/A</span>';
-            let badgeClass = 'bg-secondary-subtle text-secondary';
-            let icon = 'fa-clock';
-            if (trancheObj.status === 'Disbursed') {
-                badgeClass = 'bg-success-subtle text-success border border-success-subtle';
-                icon = 'fa-circle-check';
-            } else if (trancheObj.status === 'Under Scrutiny') {
-                badgeClass = 'bg-warning-subtle text-warning-emphasis border border-warning-subtle';
-                icon = 'fa-hourglass-half';
-            } else if (trancheObj.status === 'Approved') {
-                badgeClass = 'bg-primary-subtle text-primary border border-primary-subtle';
-                icon = 'fa-stamp';
-            }
+            let pillClass = 'status-pending';
+            if (trancheObj.status === 'Disbursed') pillClass = 'status-active';
+            else if (trancheObj.status === 'Under Scrutiny') pillClass = 'status-suspended';
+            else if (trancheObj.status === 'Approved') pillClass = 'status-active';
 
             return `
                 <div style="cursor: pointer;" onclick="openUpdateTrancheModal('${dsbId}', ${tNo})" title="Click to update status">
-                    <span class="badge ${badgeClass} font-10 fw-bold">
-                        <i class="fa-solid ${icon} me-1 font-8"></i> ${trancheObj.status}
+                    <span class="status-pill ${pillClass}">
+                        ${trancheObj.status}
                     </span>
                     <div class="font-10 text-muted mt-0.5">
-                        ${trancheObj.ucSubmitted ? '<span class="text-success"><i class="fa-solid fa-file-check me-0.5"></i> UC Verified</span>' : '<span class="text-muted">Pending UC</span>'}
+                        ${trancheObj.ucSubmitted ? '<span class="text-success fw-medium">UC Verified</span>' : '<span class="text-muted">Pending UC</span>'}
                     </div>
                 </div>
             `;
@@ -2422,23 +2867,23 @@
                 html += `
                     <!-- Main Circular Row -->
                     <tr class="tr-parent ${isExpanded ? 'is-expanded' : ''}" id="tr-parent-circ-${c.id}" onclick="toggleExpandRow('circ-${c.id}', event)">
-                        <td class="nowrap-cell"><code>${c.id}</code></td>
+                        <td class="nowrap-cell font-11 fw-semibold text-secondary">${c.id}</td>
                         <td>
-                            <strong class="font-13 text-dark">${c.title}</strong>
+                            <span class="font-13 fw-semibold text-dark d-block">${c.title}</span>
                             <div class="font-11 text-secondary mt-0.5 text-truncate" style="max-width: 320px;">${c.content}</div>
                         </td>
                         <td>
-                            <span class="badge bg-primary-subtle text-primary font-10">${c.category}</span>
-                            <div class="badge bg-warning-subtle text-warning-emphasis font-9 mt-1">${c.badge || 'Notice'}</div>
+                            <span class="badge bg-light text-secondary border font-10">${c.category}</span>
+                            <div class="status-pill status-pending mt-1">${c.badge || 'Notice'}</div>
                         </td>
-                        <td><span class="font-11 text-dark fw-semibold">${target}</span></td>
-                        <td class="text-end pe-3">
+                        <td><span class="font-11 text-dark fw-medium">${target}</span></td>
+                        <td class="text-end pe-3" onclick="event.stopPropagation();">
                             <div class="d-flex align-items-center justify-content-end gap-1">
-                                <button class="btn btn-sm btn-light border rounded-pill font-11 py-0.5 px-2 no-row-click" onclick="toggleExpandRow('circ-${c.id}')">
-                                    <i class="fa-solid fa-chevron-down font-9 expand-chevron"></i>
+                                <button class="btn-icon-subtle" onclick="toggleExpandRow('circ-${c.id}', event)" title="View Circular Details">
+                                    <i class="fa-solid fa-chevron-down font-10 expand-chevron"></i>
                                 </button>
-                                <button class="icon-action-pill pill-danger no-row-click" onclick="deleteCircularRecord('${c.id}')" title="Delete Circular">
-                                    <i class="fa-solid fa-trash"></i>
+                                <button class="btn-icon-subtle text-danger" onclick="deleteCircularRecord('${c.id}')" title="Delete Circular">
+                                    <i class="fa-regular fa-trash-can font-11"></i>
                                 </button>
                             </div>
                         </td>
@@ -2448,14 +2893,14 @@
                     <tr class="tr-expand-tray ${isExpanded ? '' : 'd-none'}" id="tr-tray-circ-${c.id}">
                         <td colspan="5">
                             <div class="expand-content-wrap">
-                                <div class="bg-white p-3 rounded-3 border shadow-2xs">
-                                    <div class="d-flex justify-content-between align-items-center mb-1.5">
-                                        <span class="font-10 text-muted text-uppercase fw-bold"><i class="fa-solid fa-bullhorn text-warning me-1"></i> Broadcast Announcement Body</span>
+                                <div class="bg-white p-3 rounded-2 border shadow-2xs">
+                                    <div class="d-flex justify-content-between align-items-center mb-1.5 pb-2 border-bottom">
+                                        <span class="font-11 text-muted text-uppercase fw-semibold">Broadcast Announcement</span>
                                         <span class="badge bg-light text-dark border font-9">Published to: ${target}</span>
                                     </div>
                                     <h6 class="font-13 fw-bold text-dark mb-1">${c.title}</h6>
                                     <p class="font-12 text-secondary mb-2" style="line-height:1.5;">${c.content}</p>
-                                    <div class="font-10 text-muted border-top pt-1">
+                                    <div class="font-11 text-muted border-top pt-2">
                                         Broadcasting Authority: <strong>CIMP - BIIF Incubation Operations Desk</strong> &bull; Priority: <strong>${c.badge || 'Official Circular'}</strong>
                                     </div>
                                 </div>
@@ -2464,7 +2909,7 @@
                     </tr>
                 `;
             });
-            tbody.innerHTML = html || '<tr><td colspan="5" class="text-center py-3 text-muted">No circulars broadcasted yet.</td></tr>';
+            tbody.innerHTML = html || '<tr><td colspan="5" class="text-center py-3 text-muted font-12">No circulars broadcasted yet.</td></tr>';
         }
 
         function openBroadcastModal() {
@@ -2524,19 +2969,24 @@
                         <!-- Main MIS Row -->
                         <tr class="tr-parent ${isExpanded ? 'is-expanded' : ''}" id="tr-parent-mis-${s.id}" onclick="toggleExpandRow('mis-${s.id}', event)">
                             <td>
-                                <strong>${s.name}</strong>
-                                <div class="font-10 text-muted mt-0.5"><code>${s.cin || 'U72900BR2022PTC054321'}</code></div>
+                                <span class="font-13 fw-semibold text-dark d-block">${s.name}</span>
+                                <div class="font-11 text-muted mt-0.5">${s.cin || 'CIN Registered'}</div>
                             </td>
-                            <td>${s.founder} &bull; <span class="text-muted font-11">${s.location || 'Patna'}</span></td>
+                            <td>
+                                <div class="font-12 text-dark">${s.founder}</div>
+                                <div class="font-11 text-muted mt-0.5">${s.location || 'Patna'}</div>
+                            </td>
                             <td><span class="badge bg-light text-dark border font-10">Pvt Ltd / LLP</span></td>
                             <td><span class="badge bg-light text-dark border font-10">${s.sector}</span></td>
-                            <td><strong class="text-success">${s.jobsCreated || 4}</strong></td>
-                            <td><strong>${s.revenue || '₹ 0 / yr'}</strong></td>
-                            <td>
-                                <strong class="text-primary">${s.fundingRaised || '₹ 10L'}</strong>
-                                <button class="btn btn-sm btn-light border rounded-pill font-11 py-0 px-1.5 ms-1 no-row-click" onclick="toggleExpandRow('mis-${s.id}')">
-                                    <i class="fa-solid fa-chevron-down font-8 expand-chevron"></i>
-                                </button>
+                            <td><span class="font-12 fw-semibold text-success">${s.jobsCreated || 4}</span></td>
+                            <td><span class="font-12 fw-semibold text-dark">${s.revenue || '₹ 0 / yr'}</span></td>
+                            <td class="text-end pe-3" onclick="event.stopPropagation();">
+                                <div class="d-flex align-items-center justify-content-end gap-2">
+                                    <span class="font-12 fw-semibold text-dark">${s.fundingRaised || '₹ 10L'}</span>
+                                    <button class="btn-icon-subtle" onclick="toggleExpandRow('mis-${s.id}', event)" title="Expand MIS Breakdown">
+                                        <i class="fa-solid fa-chevron-down font-10 expand-chevron"></i>
+                                    </button>
+                                </div>
                             </td>
                         </tr>
 
@@ -2544,16 +2994,16 @@
                         <tr class="tr-expand-tray ${isExpanded ? '' : 'd-none'}" id="tr-tray-mis-${s.id}">
                             <td colspan="7">
                                 <div class="expand-content-wrap">
-                                    <div class="bg-white p-3 rounded-3 border shadow-2xs">
-                                        <div class="d-flex justify-content-between align-items-center mb-2 pb-1 border-bottom">
-                                            <span class="font-11 text-muted text-uppercase fw-bold"><i class="fa-solid fa-landmark text-primary me-1"></i> Govt Compliance &amp; DPIIT Portfolio Breakdown</span>
-                                            <span class="badge bg-teal-subtle text-teal font-9">Verified by Incubation Operations</span>
+                                    <div class="bg-white p-3 rounded-2 border shadow-2xs">
+                                        <div class="d-flex justify-content-between align-items-center mb-2 pb-2 border-bottom">
+                                            <span class="font-11 text-muted text-uppercase fw-semibold">Govt Compliance &amp; DPIIT Portfolio Breakdown</span>
+                                            <span class="badge bg-light text-secondary border font-9">Verified by Operations</span>
                                         </div>
                                         <div class="row g-2 font-11">
                                             <div class="col-md-3"><span>Legal CIN: </span><strong class="text-dark">${s.cin || 'U72900BR2022PTC054321'}</strong></div>
                                             <div class="col-md-3"><span>DPIIT Recognition: </span><strong class="text-success">DIPP-${s.id}-2022</strong></div>
                                             <div class="col-md-3"><span>Udyam Reg.: </span><strong class="text-dark">UDYAM-BR-01-0098${s.id.slice(-2)}</strong></div>
-                                            <div class="col-md-3"><span>Compliance Score: </span><strong class="text-teal">${s.complianceScore || 95}% (Audit Pass)</strong></div>
+                                            <div class="col-md-3"><span>Compliance Score: </span><strong class="text-dark">${s.complianceScore || 95}% (Audit Pass)</strong></div>
                                         </div>
                                     </div>
                                 </div>
@@ -2611,20 +3061,20 @@
                     const cleanPhone = phone.replace(/[^0-9]/g, '');
                     html += `
                         <tr>
-                            <td><strong>${s.name}</strong><div class="font-11 text-muted">${s.legalName || ''}</div></td>
-                            <td>${s.founder}<div class="font-11 text-muted">${s.location || ''}</div></td>
+                            <td><span class="font-13 fw-semibold text-dark d-block">${s.name}</span><div class="font-11 text-muted">${s.legalName || ''}</div></td>
+                            <td><div class="font-12 text-dark">${s.founder}</div><div class="font-11 text-muted">${s.location || ''}</div></td>
                             <td><span class="badge bg-light text-dark border font-11">${s.sector}</span></td>
-                            <td><strong>${s.revenue || '₹ 0'}</strong></td>
-                            <td>${s.assignedMentor || 'Dr. Alok Kumar'}</td>
+                            <td><span class="font-12 fw-semibold text-dark">${s.revenue || '₹ 0'}</span></td>
+                            <td><span class="font-12 text-dark">${s.assignedMentor || 'Dr. Alok Kumar'}</span></td>
                             <td class="text-end pe-3">
                                 <div class="d-flex align-items-center justify-content-end gap-1">
-                                    <a class="icon-action-pill pill-wa" href="https://wa.me/${cleanPhone}" target="_blank"><i class="fa-brands fa-whatsapp"></i></a>
+                                    <a class="btn btn-sm btn-light border py-1 px-2.5 font-11 text-success rounded-2" href="https://wa.me/${cleanPhone}" target="_blank">WhatsApp</a>
                                 </div>
                             </td>
                         </tr>
                     `;
                 });
-                tbody.innerHTML = html || '<tr><td colspan="6" class="text-center py-3 text-muted">No matching startups or applications found.</td></tr>';
+                tbody.innerHTML = html || '<tr><td colspan="6" class="text-center py-3 text-muted font-12">No matching startups or applications found.</td></tr>';
             }
         }
     </script>

@@ -25,129 +25,462 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
     <style>
-        /* Custom Executive Refinements */
+        /* Modern Executive SaaS Design System */
         :root {
-            --exec-navy: #09192F;
-            --exec-blue: #1E3A8A;
-            --exec-blue-light: #2563EB;
-            --exec-slate: #F8FAFC;
-            --exec-border: #E2E8F0;
+            --mgr-teal: #0D9488;
+            --mgr-teal-dark: #0F766E;
+            --mgr-teal-light: #F0FDFA;
+            --mgr-teal-subtle: #CCFBF1;
+            --mgr-navy: #0F172A;
+            --mgr-slate-50: #F8FAFC;
+            --mgr-slate-100: #F1F5F9;
+            --mgr-slate-200: #E2E8F0;
+            --mgr-slate-300: #CBD5E1;
+            --mgr-slate-400: #94A3B8;
+            --mgr-slate-500: #64748B;
+            --mgr-slate-600: #475569;
+            --mgr-slate-700: #334155;
+            --mgr-slate-800: #1E293B;
         }
 
-        /* Typography & Alignment Standardization */
+        body.admin-unified-body {
+            font-family: 'Plus Jakarta Sans', sans-serif !important;
+            background-color: #F8FAFC !important;
+            color: #0F172A !important;
+        }
+
+        /* Sidebar Brand & Navigation Refinement */
+        .app-sidebar {
+            background: #091222 !important;
+            border-right: 1px solid #1E293B !important;
+        }
+
+        .app-sidebar-brand {
+            padding: 22px 18px 18px !important;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06) !important;
+            text-align: left !important;
+            display: flex !important;
+            flex-direction: column !important;
+            align-items: flex-start !important;
+        }
+
+        .sidebar-brand-card {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: #FFFFFF;
+            padding: 6px 12px;
+            border-radius: 8px;
+            margin-bottom: 14px;
+        }
+
+        .app-sidebar-brand h4 {
+            font-family: 'Plus Jakarta Sans', sans-serif !important;
+            font-size: 15px !important;
+            font-weight: 700 !important;
+            color: #FFFFFF !important;
+            letter-spacing: -0.2px;
+            margin: 0 !important;
+        }
+
+        .app-sidebar-brand span {
+            font-size: 11px !important;
+            color: #94A3B8 !important;
+            font-weight: 500 !important;
+            letter-spacing: 0.3px;
+            margin-top: 3px !important;
+            display: block !important;
+        }
+
+        .app-nav-group {
+            padding: 16px 10px !important;
+        }
+
+        .app-nav-section-header {
+            font-size: 11px !important;
+            font-weight: 700 !important;
+            text-transform: uppercase !important;
+            letter-spacing: 0.8px !important;
+            color: #64748B !important;
+            padding: 6px 12px !important;
+            margin-bottom: 4px !important;
+            background: transparent !important;
+            border: none !important;
+            width: 100% !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: space-between !important;
+        }
+
+        .app-nav-btn {
+            display: flex !important;
+            align-items: center !important;
+            justify-content: space-between !important;
+            padding: 9px 12px !important;
+            border-radius: 7px !important;
+            color: #94A3B8 !important;
+            font-size: 12.5px !important;
+            font-weight: 500 !important;
+            transition: all 0.15s ease !important;
+            border: 1px solid transparent !important;
+            margin-bottom: 3px !important;
+            background: transparent !important;
+            width: 100% !important;
+            text-decoration: none !important;
+        }
+
+        .app-nav-btn:hover {
+            color: #FFFFFF !important;
+            background: rgba(255, 255, 255, 0.04) !important;
+        }
+
+        .app-nav-btn.active {
+            color: #FFFFFF !important;
+            background: rgba(13, 148, 136, 0.14) !important;
+            border-color: rgba(13, 148, 136, 0.3) !important;
+            font-weight: 600 !important;
+        }
+
+        .app-nav-btn.active .left-grp i {
+            color: var(--mgr-teal) !important;
+        }
+
+        .app-nav-badge {
+            background: #E11D48 !important;
+            color: #FFFFFF !important;
+            font-size: 10px !important;
+            font-weight: 700 !important;
+            padding: 2px 7px !important;
+            border-radius: 10px !important;
+        }
+
+        .app-user-profile {
+            padding: 14px 16px !important;
+            border-top: 1px solid rgba(255, 255, 255, 0.06) !important;
+            background: rgba(0, 0, 0, 0.18) !important;
+        }
+
+        /* Topbar Refinement */
+        .app-topbar {
+            background: #FFFFFF !important;
+            border-bottom: 1px solid #E2E8F0 !important;
+            height: 60px !important;
+            padding: 0 24px !important;
+        }
+
+        .app-top-search input {
+            background: #F1F5F9 !important;
+            border: 1px solid #E2E8F0 !important;
+            border-radius: 8px !important;
+            font-size: 12.5px !important;
+            color: #0F172A !important;
+            padding: 7px 12px 7px 34px !important;
+            transition: all 0.15s ease !important;
+        }
+
+        .app-top-search input:focus {
+            background: #FFFFFF !important;
+            border-color: var(--mgr-teal) !important;
+            box-shadow: 0 0 0 3px rgba(13, 148, 136, 0.12) !important;
+            outline: none !important;
+        }
+
+        /* Section Headings */
         .page-header-title {
             font-family: 'Outfit', sans-serif !important;
-            font-size: 19px !important;
+            font-size: 20px !important;
             font-weight: 700 !important;
             color: #0F172A !important;
-            letter-spacing: -0.2px;
+            letter-spacing: -0.3px;
             margin-bottom: 2px !important;
         }
+
         .page-header-sub {
-            font-size: 12px !important;
+            font-size: 12.5px !important;
             color: #64748B !important;
             margin-bottom: 0 !important;
         }
 
-        /* Compact & High-Legibility Tables */
-        .app-table-card {
-            border-radius: 12px !important;
-            border: 1px solid #E2E8F0 !important;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.02) !important;
+        /* Modern Executive KPI Cards */
+        .app-kpi-card {
             background: #FFFFFF !important;
-            overflow: hidden !important;
+            border: 1px solid #E2E8F0 !important;
+            border-radius: 10px !important;
+            padding: 16px 18px !important;
+            box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04) !important;
+            transition: transform 0.15s ease, box-shadow 0.15s ease !important;
         }
+
+        .app-kpi-card:hover {
+            box-shadow: 0 4px 12px rgba(15, 23, 42, 0.06) !important;
+        }
+
+        .app-kpi-lbl {
+            font-size: 11px !important;
+            font-weight: 600 !important;
+            text-transform: uppercase !important;
+            letter-spacing: 0.6px !important;
+            color: #64748B !important;
+            display: block !important;
+            margin-bottom: 6px !important;
+        }
+
+        .app-kpi-val {
+            font-family: 'Outfit', sans-serif !important;
+            font-size: 24px !important;
+            font-weight: 700 !important;
+            color: #0F172A !important;
+            letter-spacing: -0.5px;
+            line-height: 1.15 !important;
+        }
+
+        .app-kpi-sub {
+            font-size: 11.5px !important;
+            color: #64748B !important;
+            margin-top: 5px !important;
+            display: block !important;
+        }
+
+        /* Table Card & Modern Toolbar */
+        .app-table-card {
+            background: #FFFFFF !important;
+            border: 1px solid #E2E8F0 !important;
+            border-radius: 10px !important;
+            box-shadow: 0 1px 3px rgba(15, 23, 42, 0.04) !important;
+            overflow: hidden !important;
+            margin-bottom: 24px !important;
+        }
+
         .app-table-header {
-            padding: 12px 18px !important;
+            padding: 14px 18px !important;
             border-bottom: 1px solid #E2E8F0 !important;
             background: #FFFFFF !important;
         }
+
+        .table-toolbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            padding: 12px 16px;
+            background: #FAFAFC;
+            border-bottom: 1px solid #E2E8F0;
+            flex-wrap: wrap;
+        }
+
+        .table-toolbar-group {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .table-search-box {
+            position: relative;
+            min-width: 200px;
+        }
+
+        .table-search-box i {
+            position: absolute;
+            left: 11px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #94A3B8;
+            font-size: 11px;
+            pointer-events: none;
+        }
+
+        .table-search-box input {
+            width: 100%;
+            padding: 6px 12px 6px 30px;
+            font-size: 12px;
+            background: #FFFFFF;
+            border: 1px solid #CBD5E1;
+            border-radius: 6px;
+            color: #0F172A;
+            transition: all 0.15s ease;
+        }
+
+        .table-search-box input:focus {
+            border-color: var(--mgr-teal);
+            outline: none;
+            box-shadow: 0 0 0 2.5px rgba(13, 148, 136, 0.15);
+        }
+
+        .table-filter-select {
+            padding: 6px 26px 6px 10px;
+            font-size: 12px;
+            font-weight: 500;
+            color: #334155;
+            background-color: #FFFFFF;
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%2364748B' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/%3e%3c/svg%3e");
+            background-repeat: no-repeat;
+            background-position: right 8px center;
+            background-size: 10px 10px;
+            border: 1px solid #CBD5E1;
+            border-radius: 6px;
+            cursor: pointer;
+            outline: none;
+            transition: border-color 0.15s ease;
+        }
+
+        .table-filter-select:focus {
+            border-color: var(--mgr-teal);
+        }
+
+        /* Modern Tabular Layout */
         .app-table {
             width: 100% !important;
             margin-bottom: 0 !important;
-            font-size: 12.5px !important;
+            border-collapse: collapse !important;
         }
+
         .app-table th {
             background: #F8FAFC !important;
             color: #475569 !important;
-            font-weight: 700 !important;
-            font-size: 10.5px !important;
+            font-size: 11px !important;
+            font-weight: 600 !important;
             text-transform: uppercase !important;
             letter-spacing: 0.6px !important;
-            padding: 10px 14px !important;
+            padding: 10px 16px !important;
             border-bottom: 1px solid #E2E8F0 !important;
             white-space: nowrap !important;
             vertical-align: middle !important;
         }
+
         .app-table td {
-            padding: 11px 14px !important;
+            padding: 12px 16px !important;
+            font-size: 12.5px !important;
+            color: #1E293B !important;
             border-bottom: 1px solid #F1F5F9 !important;
             vertical-align: middle !important;
-            color: #1E293B !important;
         }
 
-        /* Expandable Row Styling */
-        .tr-parent {
-            cursor: pointer;
-            transition: background-color 0.15s ease;
+        .app-table tbody tr {
+            transition: background-color 0.12s ease;
         }
-        .tr-parent:hover {
+
+        .app-table tbody tr:hover {
             background-color: #F8FAFC !important;
         }
-        .tr-parent.is-expanded {
-            background-color: #F1F5F9 !important;
-            border-bottom-color: transparent !important;
+
+        .app-table tbody tr.is-expanded {
+            background-color: #F8FAFC !important;
         }
+
+        /* Subtle Status Pills */
+        .status-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            padding: 2.5px 8px;
+            border-radius: 5px;
+            font-size: 11px;
+            font-weight: 600;
+            white-space: nowrap;
+            letter-spacing: 0.1px;
+        }
+
+        .status-pill::before {
+            content: "";
+            width: 5px;
+            height: 5px;
+            border-radius: 50%;
+        }
+
+        .status-active {
+            background: #ECFDF5;
+            color: #065F46;
+            border: 1px solid #A7F3D0;
+        }
+        .status-active::before { background: #10B981; }
+
+        .status-graduated {
+            background: #EFF6FF;
+            color: #1E40AF;
+            border: 1px solid #BFDBFE;
+        }
+        .status-graduated::before { background: #3B82F6; }
+
+        .status-suspended {
+            background: #FFF1F2;
+            color: #9F1239;
+            border: 1px solid #FECDD3;
+        }
+        .status-suspended::before { background: #F43F5E; }
+
+        .status-pending {
+            background: #FFFBEB;
+            color: #92400E;
+            border: 1px solid #FDE68A;
+        }
+        .status-pending::before { background: #F59E0B; }
+
+        /* Typography Helpers for Table Cells */
+        .venture-name {
+            font-weight: 600;
+            color: #0F172A;
+            font-size: 13px;
+        }
+
+        .venture-meta {
+            font-size: 11px;
+            color: #64748B;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .founder-name {
+            font-size: 12.5px;
+            font-weight: 500;
+            color: #0F172A;
+        }
+
+        .founder-loc {
+            font-size: 11px;
+            color: #64748B;
+        }
+
+        /* Subtle Action Buttons */
+        .btn-icon-subtle {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 28px;
+            height: 28px;
+            border-radius: 6px;
+            border: 1px solid transparent;
+            background: transparent;
+            color: #64748B;
+            transition: all 0.15s ease;
+            cursor: pointer;
+            padding: 0;
+        }
+
+        .btn-icon-subtle:hover {
+            background: #F1F5F9;
+            color: #0F172A;
+            border-color: #E2E8F0;
+        }
+
         .expand-chevron {
-            transition: transform 0.25s ease;
-            display: inline-block;
+            transition: transform 0.2s ease;
         }
         .is-expanded .expand-chevron {
             transform: rotate(180deg);
         }
 
-        .tr-expand-tray {
-            background: #F8FAFC;
-        }
         .tr-expand-tray td {
             padding: 0 !important;
             border-bottom: 1px solid #E2E8F0 !important;
         }
-        .expand-content-wrap {
-            padding: 14px 18px 18px;
-            background: linear-gradient(180deg, #F1F5F9 0%, #F8FAFC 100%);
-            border-left: 3.5px solid #2563EB;
-            animation: expandFadeIn 0.2s ease-out;
-        }
-        @keyframes expandFadeIn {
-            from { opacity: 0; transform: translateY(-4px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
 
-        /* Action Icon Pills */
-        .icon-action-pill {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            width: 30px;
-            height: 30px;
-            border-radius: 6px;
-            border: 1px solid #E2E8F0;
-            background: #FFFFFF;
-            color: #475569;
-            text-decoration: none;
-            transition: all 0.15s ease;
-            font-size: 11.5px;
+        .expand-content-wrap {
+            padding: 16px 20px;
+            background: #F8FAFC;
+            border-top: 1px solid #F1F5F9;
         }
-        .icon-action-pill:hover {
-            background: #1E3A8A;
-            color: #FFFFFF;
-            border-color: #1E3A8A;
-            transform: translateY(-1px);
-        }
-        .icon-action-pill.pill-phone:hover { background: #D97706; border-color: #D97706; }
-        .icon-action-pill.pill-wa:hover { background: #059669; border-color: #059669; }
-        .icon-action-pill.pill-mail:hover { background: #2563EB; border-color: #2563EB; }
 
         /* Batch Action Bar */
         .batch-action-bar {
@@ -165,16 +498,6 @@
             from { opacity: 0; transform: translateY(10px); }
             to { opacity: 1; transform: translateY(0); }
         }
-
-        .interactive-title {
-            color: #0F172A;
-            font-weight: 700;
-            cursor: pointer;
-            transition: color 0.15s ease;
-        }
-        .interactive-title:hover {
-            color: #2563EB;
-        }
     </style>
 </head>
 
@@ -191,20 +514,17 @@
                 <button class="btn btn-sm text-white-50 d-lg-none position-absolute top-0 end-0 m-2 p-1" onclick="toggleMobileSidebar()" title="Close Navigation Drawer">
                     <i class="fa-solid fa-xmark font-20"></i>
                 </button>
-                <div class="app-sidebar-emblem">
-                    <img src="../../assets/images/CIMP-Icon.png" height="30" alt="CIMP Logo" style="object-fit: contain;">
-                    <div style="border-left: 1.5px solid #CBD5E1; height: 22px;"></div>
-                    <img src="../../assets/images/logo.png" height="26" alt="CIMP-BIIF Logo" style="object-fit: contain;">
+                <div class="sidebar-brand-card">
+                    <img src="../../assets/images/CIMP-Icon.png" height="24" alt="CIMP" style="object-fit: contain;">
+                    <div style="border-left: 1.5px solid #CBD5E1; height: 18px;"></div>
+                    <img src="../../assets/images/logo.png" height="20" alt="BIIF" style="object-fit: contain;">
                 </div>
                 <h4>CIMP - BIIF</h4>
-                <span>Director Command</span>
+                <span>Director Command Center</span>
             </div>
 
-            <!-- Page-Wise Structured Nav Tabs -->
-            <div class="app-nav-group">
             <!-- Page-Wise Structured Nav Tabs with Collapsible Section Groups -->
             <div class="app-nav-group">
-                
                 <!-- Section 1: Workspaces Group -->
                 <div class="app-nav-section" id="dirSecWorkspaces">
                     <button class="app-nav-section-header" onclick="toggleNavSection('dirSecWorkspaces')" type="button" title="Toggle Workspaces">
@@ -218,14 +538,14 @@
                     <div class="app-nav-section-body">
                         <button class="app-nav-btn active" id="sideNavOverview" onclick="switchView('tab-overview', this); closeMobileSidebarIfOpen();">
                             <span class="left-grp">
-                                <i class="fa-solid fa-chart-pie font-14"></i>
+                                <i class="fa-solid fa-chart-pie font-14 me-2"></i>
                                 <span>Executive Overview</span>
                             </span>
                         </button>
 
                         <button class="app-nav-btn" id="sideNavApprovals" onclick="switchView('tab-approvals', this); closeMobileSidebarIfOpen();">
                             <span class="left-grp">
-                                <i class="fa-solid fa-stamp font-14"></i>
+                                <i class="fa-solid fa-stamp font-14 me-2"></i>
                                 <span>Incubation Approvals</span>
                             </span>
                             <span class="app-nav-badge" id="navPendingBadge">0</span>
@@ -233,14 +553,14 @@
 
                         <button class="app-nav-btn" id="sideNavStartups" onclick="switchView('tab-startups', this); closeMobileSidebarIfOpen();">
                             <span class="left-grp">
-                                <i class="fa-solid fa-cubes font-14"></i>
+                                <i class="fa-solid fa-cubes font-14 me-2"></i>
                                 <span>Incubated Startups</span>
                             </span>
                         </button>
 
                         <button class="app-nav-btn" id="sideNavMentors" onclick="switchView('tab-mentors', this); closeMobileSidebarIfOpen();">
                             <span class="left-grp">
-                                <i class="fa-solid fa-chalkboard-user font-14"></i>
+                                <i class="fa-solid fa-chalkboard-user font-14 me-2"></i>
                                 <span>Mentors &amp; Advisors</span>
                             </span>
                         </button>
@@ -260,14 +580,14 @@
                     <div class="app-nav-section-body">
                         <button class="app-nav-btn" id="sideNavAudit" onclick="switchView('tab-audit', this); closeMobileSidebarIfOpen();">
                             <span class="left-grp">
-                                <i class="fa-solid fa-clock-rotate-left font-14"></i>
+                                <i class="fa-solid fa-clock-rotate-left font-14 me-2"></i>
                                 <span>Audit &amp; Logs</span>
                             </span>
                         </button>
 
                         <a href="javascript:void(0)" onclick="openBoardMemorandumModal(); closeMobileSidebarIfOpen();" class="app-nav-btn">
                             <span class="left-grp">
-                                <i class="fa-solid fa-file-pdf font-14 text-danger"></i>
+                                <i class="fa-solid fa-file-pdf font-14 text-danger me-2"></i>
                                 <span>Export Board Report</span>
                             </span>
                         </a>
@@ -504,31 +824,64 @@
 
                 <!-- Streamlined Table with Click-to-Expand Row Detail Trays -->
                 <div class="app-table-card">
-                    <div class="app-table-header d-flex align-items-center justify-content-between flex-wrap gap-2">
-                        <div>
-                            <h5 class="mb-0 font-14 fw-bold text-dark"><i class="fa-solid fa-cubes text-primary me-2"></i> Incubated Enterprises Portfolio</h5>
-                            <span class="font-11 text-muted" id="tblVentureCount">Showing 8 incubated enterprises</span>
+                    <div class="table-toolbar">
+                        <div class="d-flex align-items-center gap-2">
+                            <span class="font-12 fw-bold text-dark"><i class="fa-solid fa-cubes text-secondary me-1.5"></i> Incubated Portfolio</span>
+                            <span class="font-11 text-muted" id="tblVentureCount">Showing 8 enterprises</span>
                         </div>
                         
-                        <!-- Inline Single-Row Filters -->
-                        <div class="d-flex align-items-center gap-2 flex-wrap">
-                            <select id="tblFilterSector" class="form-select form-select-sm font-12 border" style="font-weight: 600; width: 130px;" onchange="applySimpleFilters()">
+                        <!-- Docked Single-Row Filter Toolbar -->
+                        <div class="table-toolbar-group">
+                            <select id="tblFilterDistrict" class="table-filter-select" onchange="applySimpleFilters()">
+                                <option value="">All Districts</option>
+                                <option value="Patna">Patna</option>
+                                <option value="Gaya">Gaya</option>
+                                <option value="Muzaffarpur">Muzaffarpur</option>
+                                <option value="Bhagalpur">Bhagalpur</option>
+                                <option value="Darbhanga">Darbhanga</option>
+                                <option value="Purnia">Purnia</option>
+                                <option value="Begusarai">Begusarai</option>
+                                <option value="Samastipur">Samastipur</option>
+                                <option value="Madhubani">Madhubani</option>
+                                <option value="Bhojpur">Bhojpur</option>
+                                <option value="Saran">Saran</option>
+                                <option value="Rohtas">Rohtas</option>
+                                <option value="Vaishali">Vaishali</option>
+                                <option value="Saharsa">Saharsa</option>
+                                <option value="Katihar">Katihar</option>
+                                <option value="Nalanda">Nalanda</option>
+                                <option value="Siwan">Siwan</option>
+                                <option value="Buxar">Buxar</option>
+                                <option value="West Champaran">West Champaran</option>
+                                <option value="East Champaran">East Champaran</option>
+                            </select>
+
+                            <select id="tblFilterSector" class="table-filter-select" onchange="applySimpleFilters()">
                                 <option value="">All Sectors</option>
                                 <option value="AgriTech">AgriTech</option>
-                                <option value="Technology">Technology</option>
                                 <option value="HealthTech">HealthTech</option>
+                                <option value="EdTech">EdTech</option>
+                                <option value="FinTech">FinTech</option>
                                 <option value="CleanTech">CleanTech</option>
-                                <option value="E-commerce">E-commerce</option>
+                                <option value="FoodTech">FoodTech</option>
+                                <option value="SaaS">SaaS &amp; AI</option>
+                                <option value="Logistics">Logistics</option>
+                                <option value="Drone">Drone &amp; Robotics</option>
+                                <option value="Mobility">Mobility &amp; EV</option>
+                                <option value="Handloom">Handloom &amp; Rural</option>
+                                <option value="Waste">Waste Management</option>
+                                <option value="Technology">Technology</option>
                             </select>
 
-                            <select id="tblFilterStage" class="form-select form-select-sm font-12 border" style="font-weight: 600; width: 140px;" onchange="applySimpleFilters()">
+                            <select id="tblFilterStage" class="table-filter-select" onchange="applySimpleFilters()">
                                 <option value="">All Stages</option>
-                                <option value="Scaling">Scaling</option>
+                                <option value="Idea Stage">Idea Stage</option>
+                                <option value="Pre-Revenue">Pre-Revenue</option>
                                 <option value="Revenue Stage">Revenue Stage</option>
-                                <option value="Seed">Seed Funded</option>
+                                <option value="Scaling">Scaling</option>
                             </select>
 
-                            <button class="btn btn-sm btn-outline-danger font-11 py-1 px-2 d-none text-nowrap" id="btnResetSimpleFilters" onclick="resetSimpleFilters()">
+                            <button class="btn btn-sm btn-outline-secondary font-11 py-1 px-2 d-none text-nowrap" id="btnResetSimpleFilters" onclick="resetSimpleFilters()">
                                 <i class="fa-solid fa-rotate-left me-1"></i> Reset
                             </button>
                         </div>
@@ -542,7 +895,7 @@
                                     <th style="width: 18%;">Sector &amp; Stage</th>
                                     <th style="width: 22%;">Seed Grant vs Turnover</th>
                                     <th style="width: 18%;">Mentor &amp; Status</th>
-                                    <th style="width: 10%;" class="text-end">Drilldown</th>
+                                    <th style="width: 10%;" class="text-end">Action</th>
                                 </tr>
                             </thead>
                             <tbody id="tblRecentOverviewBody">
@@ -562,19 +915,23 @@
                         <h3 class="page-header-title">Incubation Admission &amp; Induction Sanctions</h3>
                         <p class="page-header-sub">Review intake applications evaluated by the Incubation Manager to grant final incubation admission &amp; cohort induction.</p>
                     </div>
-                    <div class="d-flex align-items-center gap-2">
-                        <select class="app-filter-select" id="filterApprovalSector" onchange="renderApprovalsTable()">
-                            <option value="">All Sectors</option>
-                            <option value="AgriTech">AgriTech</option>
-                            <option value="Technology">Technology</option>
-                            <option value="HealthTech">HealthTech</option>
-                            <option value="E-commerce">E-commerce</option>
-                            <option value="EduTech">EduTech</option>
-                        </select>
-                    </div>
                 </div>
 
                 <div class="app-table-card position-relative">
+                    <div class="table-toolbar">
+                        <div class="table-toolbar-group">
+                            <span class="font-12 fw-semibold text-secondary">Sector Filter:</span>
+                            <select class="table-filter-select" id="filterApprovalSector" onchange="renderApprovalsTable()">
+                                <option value="">All Sectors</option>
+                                <option value="AgriTech">AgriTech</option>
+                                <option value="Technology">Technology</option>
+                                <option value="HealthTech">HealthTech</option>
+                                <option value="E-commerce">E-commerce</option>
+                                <option value="EduTech">EduTech</option>
+                            </select>
+                        </div>
+                    </div>
+
                     <div class="table-responsive">
                         <table class="app-table">
                             <thead>
@@ -605,7 +962,7 @@
                             <div class="d-flex align-items-center gap-2">
                                 <button class="btn btn-sm btn-outline-light font-11 py-1 px-2.5" onclick="clearBatchSelection()">Cancel</button>
                                 <button class="btn btn-sm btn-success font-11 fw-bold py-1 px-3 shadow-xs" onclick="executeBatchApprove()">
-                                    <i class="fa-solid fa-stamp me-1"></i> Grant Incubation Admission to Selected
+                                    Grant Incubation Admission
                                 </button>
                             </div>
                         </div>
@@ -622,26 +979,64 @@
                         <h3 class="page-header-title">Incubated Startups Directory</h3>
                         <p class="page-header-sub">Complete roster of active and graduated ventures supported by CIMP-BIIF.</p>
                     </div>
-                    <div class="d-flex align-items-center gap-2">
-                        <input type="text" class="app-filter-select" id="searchStartupTbl" placeholder="Filter by name..." oninput="renderStartupsView()" style="width: 150px;">
-                        <select class="app-filter-select" id="filterSectorSelect" onchange="renderStartupsView()">
-                            <option value="">All Sectors</option>
-                            <option value="AgriTech">AgriTech</option>
-                            <option value="Technology">Technology</option>
-                            <option value="HealthTech">HealthTech</option>
-                            <option value="E-commerce">E-commerce</option>
-                            <option value="CleanTech">CleanTech</option>
-                        </select>
-                        <select class="app-filter-select" id="filterStageSelect" onchange="renderStartupsView()">
-                            <option value="">All Stages</option>
-                            <option value="Revenue Stage">Revenue Stage</option>
-                            <option value="Scaling">Scaling</option>
-                            <option value="Idea Stage">Idea Stage</option>
-                        </select>
-                    </div>
                 </div>
 
                 <div class="app-table-card">
+                    <div class="table-toolbar">
+                        <div class="table-toolbar-group">
+                            <div class="table-search-box">
+                                <i class="fa-solid fa-magnifying-glass"></i>
+                                <input type="text" id="searchStartupTbl" placeholder="Search startup, founder, reg..." oninput="renderStartupsView()">
+                            </div>
+                            <select class="table-filter-select" id="filterDistrictSelect" onchange="renderStartupsView()">
+                                <option value="">All Districts</option>
+                                <option value="Patna">Patna</option>
+                                <option value="Gaya">Gaya</option>
+                                <option value="Muzaffarpur">Muzaffarpur</option>
+                                <option value="Bhagalpur">Bhagalpur</option>
+                                <option value="Darbhanga">Darbhanga</option>
+                                <option value="Purnia">Purnia</option>
+                                <option value="Begusarai">Begusarai</option>
+                                <option value="Samastipur">Samastipur</option>
+                                <option value="Madhubani">Madhubani</option>
+                                <option value="Bhojpur">Bhojpur</option>
+                                <option value="Saran">Saran</option>
+                                <option value="Rohtas">Rohtas</option>
+                                <option value="Vaishali">Vaishali</option>
+                                <option value="Saharsa">Saharsa</option>
+                                <option value="Katihar">Katihar</option>
+                                <option value="Nalanda">Nalanda</option>
+                                <option value="Siwan">Siwan</option>
+                                <option value="Buxar">Buxar</option>
+                                <option value="West Champaran">West Champaran</option>
+                                <option value="East Champaran">East Champaran</option>
+                            </select>
+                            <select class="table-filter-select" id="filterSectorSelect" onchange="renderStartupsView()">
+                                <option value="">All Sectors</option>
+                                <option value="AgriTech">AgriTech</option>
+                                <option value="HealthTech">HealthTech</option>
+                                <option value="EdTech">EdTech</option>
+                                <option value="FinTech">FinTech</option>
+                                <option value="CleanTech">CleanTech</option>
+                                <option value="FoodTech">FoodTech</option>
+                                <option value="SaaS">SaaS &amp; AI</option>
+                                <option value="Logistics">Logistics</option>
+                                <option value="Drone">Drone &amp; Robotics</option>
+                                <option value="Mobility">Mobility &amp; EV</option>
+                                <option value="Handloom">Handloom &amp; Rural</option>
+                                <option value="Waste">Waste Management</option>
+                                <option value="Technology">Technology</option>
+                            </select>
+                            <select class="table-filter-select" id="filterStageSelect" onchange="renderStartupsView()">
+                                <option value="">All Stages</option>
+                                <option value="Idea Stage">Idea Stage</option>
+                                <option value="Pre-Revenue">Pre-Revenue</option>
+                                <option value="Revenue Stage">Revenue Stage</option>
+                                <option value="Scaling">Scaling</option>
+                            </select>
+                        </div>
+                    </div>
+
                     <div class="table-responsive">
                         <table class="app-table">
                             <thead>
@@ -650,7 +1045,7 @@
                                     <th style="width: 18%;">Sector &amp; Stage</th>
                                     <th style="width: 22%;">Seed Grant vs Turnover</th>
                                     <th style="width: 18%;">Mentor &amp; Status</th>
-                                    <th style="width: 10%;" class="text-end">Drilldown</th>
+                                    <th style="width: 10%;" class="text-end">Action</th>
                                 </tr>
                             </thead>
                             <tbody id="tblStartupsBody">
@@ -670,21 +1065,27 @@
                         <h3 class="page-header-title">Empaneled Mentors &amp; Advisory Council</h3>
                         <p class="page-header-sub">Advisory council members guiding incubated enterprises across domains.</p>
                     </div>
-                    <div class="d-flex align-items-center gap-2">
-                        <input type="text" class="app-filter-select" id="searchMentorTbl" placeholder="Filter mentors..." oninput="renderMentorsView()" style="width: 180px;">
-                    </div>
                 </div>
 
                 <div class="app-table-card">
+                    <div class="table-toolbar">
+                        <div class="table-toolbar-group">
+                            <div class="table-search-box">
+                                <i class="fa-solid fa-magnifying-glass"></i>
+                                <input type="text" id="searchMentorTbl" placeholder="Filter mentors..." oninput="renderMentorsView()">
+                            </div>
+                        </div>
+                    </div>
+
                     <div class="table-responsive">
                         <table class="app-table">
                             <thead>
                                 <tr>
-                                    <th style="width: 30%;">Mentor &amp; Affiliation</th>
-                                    <th style="width: 25%;">Domain Expertise</th>
-                                    <th style="width: 22%;">Assigned Portfolios</th>
-                                    <th style="width: 13%;">Advisory Hours</th>
-                                    <th style="width: 10%;" class="text-end">Status</th>
+                                    <th style="width: 26%;">Mentor Profile</th>
+                                    <th style="width: 20%;">Designation</th>
+                                    <th style="width: 24%;">Institution / Affiliation</th>
+                                    <th style="width: 18%;">Domain Expertise</th>
+                                    <th style="width: 12%;" class="text-end pe-3">Action</th>
                                 </tr>
                             </thead>
                             <tbody id="tblMentorsBody">
@@ -980,15 +1381,29 @@
         }
 
         function initExecutiveBarChart() {
-            if (!window.Chart) return;
+            if (!window.Chart || !window.CIMP_DB) return;
             const canvas = document.getElementById('chartSectorBars');
             if (!canvas) return;
 
             if (sectorBarChartInstance) sectorBarChartInstance.destroy();
 
-            const sectors = ['AgriTech', 'Technology', 'HealthTech', 'CleanTech', 'E-commerce'];
-            const capitalDisbursed = [80, 50, 40, 25, 500];
-            const annualTurnover = [125, 42.5, 95, 35, 1850];
+            const startups = window.CIMP_DB.getStartups();
+            const sectorAgg = {};
+            startups.forEach(s => {
+                const sec = (s.sector || 'Technology').split('&')[0].trim();
+                if (!sectorAgg[sec]) sectorAgg[sec] = { count: 0, funding: 0, revenue: 0 };
+                sectorAgg[sec].count += 1;
+                sectorAgg[sec].funding += (s.fundingNumeric || 0) / 100000; // in Lakhs
+                sectorAgg[sec].revenue += (s.revenueNumeric || 0) / 100000; // in Lakhs
+            });
+
+            const topSectors = Object.keys(sectorAgg)
+                .sort((a, b) => sectorAgg[b].count - sectorAgg[a].count)
+                .slice(0, 6);
+
+            const sectors = topSectors;
+            const capitalDisbursed = topSectors.map(k => Math.round(sectorAgg[k].funding));
+            const annualTurnover = topSectors.map(k => Math.round(sectorAgg[k].revenue));
 
             sectorBarChartInstance = new Chart(canvas, {
                 type: 'bar',
@@ -1074,28 +1489,32 @@
 
         function renderStartupRowWithTray(s, prefix = 'ov') {
             const isExpanded = expandedRowIds.has(s.id);
-            const initial = (s.name || 'S').charAt(0).toUpperCase();
             const phone = s.phone || '+91 98765 43210';
             const email = s.email || 'founder@cimp.ac.in';
             const mentor = s.assignedMentor || 'Dr. Alok Kumar';
+            const districtStr = s.district || (s.location ? s.location.replace(', Bihar', '').trim() : 'Patna');
+
+            const coFoundersList = (s.coFounders && s.coFounders.length > 0)
+                ? s.coFounders.map(c => `<span class="badge bg-light text-dark border font-10 me-1 mb-1">${c}</span>`).join('')
+                : '<span class="text-muted font-11">Solo Founder</span>';
+
+            const statusClass = s.status === 'Graduated' ? 'status-graduated' : (s.status === 'Suspended' ? 'status-suspended' : 'status-active');
 
             return `
                 <!-- Main Visible Row -->
                 <tr class="tr-parent ${isExpanded ? 'is-expanded' : ''}" id="tr-parent-${s.id}" onclick="toggleExpandRow('${s.id}', event)">
                     <td>
-                        <div class="d-flex align-items-center gap-2.5">
-                            <div class="d-flex align-items-center justify-content-center rounded-2 bg-primary-subtle border border-primary-subtle fw-bold text-primary font-12" style="width: 32px; height: 32px; min-width: 32px;">
-                                ${initial}
-                            </div>
-                            <div>
-                                <span class="interactive-title font-13 d-block text-truncate" style="max-width: 220px;" title="Click row to drill down">
+                        <div>
+                            <div class="d-flex align-items-center gap-1.5 flex-wrap">
+                                <span class="interactive-title font-13 fw-semibold text-dark text-truncate" style="max-width: 220px;" title="Click row to drill down">
                                     ${s.name}
                                 </span>
-                                <div class="font-11 text-muted d-flex align-items-center gap-1.5 mt-0.5">
-                                    <span>${s.founder}</span>
-                                    <span>&bull;</span>
-                                    <span class="text-truncate" style="max-width: 110px;">${s.location || 'Patna'}</span>
-                                </div>
+                                <span class="badge bg-light text-secondary border font-9 px-1.5 py-0.2">${s.regNoBihar || s.id}</span>
+                            </div>
+                            <div class="font-11 text-muted d-flex align-items-center gap-1.5 mt-0.5">
+                                <span>${s.founder}</span>
+                                <span>&bull;</span>
+                                <span class="text-truncate fw-semibold text-secondary" style="max-width: 120px;">${districtStr}, Bihar</span>
                             </div>
                         </div>
                     </td>
@@ -1104,23 +1523,24 @@
                         <div class="font-11 text-muted mt-0.5">${s.stage}</div>
                     </td>
                     <td>
-                        <div class="font-12 fw-bold text-primary">${s.fundingRaised || '₹ 25 Lakhs'}</div>
-                        <div class="font-11 text-success fw-semibold mt-0.5">${s.revenue || '₹ 42.5 Lakhs / yr'}</div>
+                        <div class="font-12 fw-bold text-primary">${s.fundingRaised || '₹ 10 Lakhs'}</div>
+                        <div class="font-11 text-success fw-semibold mt-0.5">${s.revenue || '₹ 0 (Pre-Revenue)'}</div>
                     </td>
                     <td>
-                        <span class="badge bg-light text-primary border font-10 px-2 py-1 d-inline-flex align-items-center gap-1 mb-0.5">
-                            <i class="fa-solid fa-chalkboard-user font-9"></i> ${mentor}
-                        </span>
+                        <div class="mb-1">
+                            <span class="badge bg-light text-secondary border font-10 px-2 py-0.5 d-inline-flex align-items-center gap-1">
+                                <i class="fa-solid fa-user-check font-9 text-muted"></i> ${mentor}
+                            </span>
+                        </div>
                         <div>
-                            <span class="badge ${s.status === 'Graduated' ? 'bg-info-subtle text-info border' : 'bg-success-subtle text-success border border-success-subtle'} font-10 px-1.5 py-0.5">
-                                <i class="fa-solid fa-circle font-7 me-1"></i> ${s.status || 'Active'}
+                            <span class="status-pill ${statusClass}">
+                                ${s.status || 'Active'}
                             </span>
                         </div>
                     </td>
                     <td class="text-end">
-                        <button class="btn btn-sm btn-light border rounded-pill font-11 py-0.5 px-2 text-nowrap no-row-click" onclick="toggleExpandRow('${s.id}')" title="Expand Details">
-                            <span class="me-1">Drilldown</span>
-                            <i class="fa-solid fa-chevron-down font-9 expand-chevron"></i>
+                        <button class="btn-icon-subtle no-row-click" onclick="toggleExpandRow('${s.id}')" title="Expand Details">
+                            <i class="fa-solid fa-chevron-down expand-chevron"></i>
                         </button>
                     </td>
                 </tr>
@@ -1130,49 +1550,55 @@
                     <td colspan="5">
                         <div class="expand-content-wrap">
                             <div class="row g-3">
-                                <!-- Col 1: Direct Connect & Moat -->
+                                <!-- Col 1: Direct Connect & Founding Team -->
                                 <div class="col-md-4">
-                                    <div class="bg-white p-2.5 rounded-3 border h-100 shadow-2xs">
+                                    <div class="bg-white p-3 rounded-3 border h-100 shadow-2xs">
                                         <div class="d-flex align-items-center justify-content-between mb-1.5">
-                                            <span class="font-10 text-muted text-uppercase fw-bold"><i class="fa-solid fa-user-tie text-primary me-1"></i> Founder &amp; Connect</span>
-                                            <span class="badge bg-success-subtle text-success font-9">Verified</span>
+                                            <span class="font-10 text-muted text-uppercase fw-bold">Founding Team &amp; District</span>
+                                            <span class="badge bg-success-subtle text-success font-9"><i class="fa-solid fa-map-pin me-1"></i>${districtStr}</span>
                                         </div>
                                         <div class="font-12 fw-bold text-dark">${s.founder}</div>
-                                        <div class="font-11 text-muted mb-2">${s.location || 'Patna, Bihar'}</div>
+                                        <div class="font-11 text-muted mb-1.5">${s.legalName || (s.name + ' Pvt Ltd')}</div>
+
+                                        <div class="mb-2">
+                                            <span class="font-10 text-muted d-block mb-1">Co-Founders &amp; Team:</span>
+                                            <div>${coFoundersList}</div>
+                                        </div>
                                         
-                                        <div class="d-flex align-items-center gap-1.5 pt-2 border-top">
-                                            <a href="tel:${phone.replace(/\s+/g, '')}" class="icon-action-pill pill-phone" title="Call: ${phone}"><i class="fa-solid fa-phone"></i></a>
-                                            <a href="https://wa.me/${phone.replace(/\D/g, '')}?text=Hello%20${encodeURIComponent(s.founder)},%20Director%20Office%20CIMP-BIIF" target="_blank" class="icon-action-pill pill-wa" title="WhatsApp Chat"><i class="fa-brands fa-whatsapp"></i></a>
-                                            <a href="mailto:${email}?subject=CIMP-BIIF%20Executive%20Briefing%20-${encodeURIComponent(s.name)}" class="icon-action-pill pill-mail" title="Email Founder"><i class="fa-solid fa-envelope"></i></a>
-                                            <a href="${s.website || '#'}" target="_blank" class="icon-action-pill" title="Official Website"><i class="fa-solid fa-globe"></i></a>
+                                        <div class="d-flex align-items-center gap-1.5 pt-2 border-top flex-wrap">
+                                            <a href="tel:${phone.replace(/\s+/g, '')}" class="btn btn-sm btn-light border font-11 py-1 px-2 text-secondary" title="Call"><i class="fa-solid fa-phone me-1"></i> Call</a>
+                                            <a href="https://wa.me/${phone.replace(/\D/g, '')}?text=Hello%20${encodeURIComponent(s.founder)},%20Director%20Office%20CIMP-BIIF" target="_blank" class="btn btn-sm btn-light border font-11 py-1 px-2 text-success" title="WhatsApp"><i class="fa-brands fa-whatsapp me-1"></i> WhatsApp</a>
+                                            <a href="mailto:${email}?subject=CIMP-BIIF%20Executive%20Briefing%20-${encodeURIComponent(s.name)}" class="btn btn-sm btn-light border font-11 py-1 px-2 text-secondary" title="Email"><i class="fa-solid fa-envelope me-1"></i> Email</a>
+                                            <a href="../../pages/startups-details.html?id=${s.id}" target="_blank" class="btn btn-sm btn-outline-primary font-11 py-1 px-2" title="Public Profile"><i class="fa-solid fa-arrow-up-right-from-square me-1"></i> Profile</a>
                                         </div>
                                     </div>
                                 </div>
 
-                                <!-- Col 2: Bihar Seed Grant Tranches -->
+                                <!-- Col 2: Bihar Seed Grant & Financial Remark -->
                                 <div class="col-md-5">
-                                    <div class="bg-white p-2.5 rounded-3 border h-100 shadow-2xs">
+                                    <div class="bg-white p-3 rounded-3 border h-100 shadow-2xs">
                                         <div class="d-flex align-items-center justify-content-between mb-1.5">
-                                            <span class="font-10 text-muted text-uppercase fw-bold"><i class="fa-solid fa-indian-rupee-sign text-success me-1"></i> Seed Grant Tranches (Bihar Startup Policy)</span>
-                                            <span class="badge bg-light text-dark border font-9">Govt. Sanction</span>
+                                            <span class="font-10 text-muted text-uppercase fw-bold">Startup Bihar Grant &amp; Financials</span>
+                                            <span class="badge bg-success-subtle text-success font-9">Govt. Sanctioned</span>
                                         </div>
                                         
-                                        <div class="d-flex flex-column gap-1 font-11">
-                                            <div class="d-flex justify-content-between align-items-center p-1 rounded bg-light border">
-                                                <span><strong>T1 (Prototype):</strong> ₹ 2.50L</span>
-                                                <span class="badge bg-success-subtle text-success font-9"><i class="fa-solid fa-check font-8 me-1"></i> Disbursed</span>
+                                        <div class="p-2 rounded bg-light border font-11 mb-2">
+                                            <div class="font-10 text-muted text-uppercase fw-semibold mb-0.5">Government Sanction Remark:</div>
+                                            <strong class="text-dark d-block" style="line-height: 1.35;">${s.fundingRemark || '₹10,00,000 Seed Grant Sanctioned under Bihar Startup Policy 2022'}</strong>
+                                        </div>
+
+                                        <div class="row g-2 font-11">
+                                            <div class="col-6">
+                                                <div class="p-1.5 rounded bg-light border">
+                                                    <span class="text-muted d-block font-10">Seed Capital:</span>
+                                                    <strong class="text-primary font-12">${s.fundingRaised || '₹ 10 Lakhs'}</strong>
+                                                </div>
                                             </div>
-                                            <div class="d-flex justify-content-between align-items-center p-1 rounded bg-light border">
-                                                <span><strong>T2 (Validation):</strong> ₹ 5.00L</span>
-                                                <span class="badge ${s.stage === 'Idea Stage' ? 'bg-warning-subtle text-warning' : 'bg-success-subtle text-success'} font-9">
-                                                    ${s.stage === 'Idea Stage' ? 'Under Scrutiny' : 'Disbursed'}
-                                                </span>
-                                            </div>
-                                            <div class="d-flex justify-content-between align-items-center p-1 rounded bg-light border">
-                                                <span><strong>T3 (Scale):</strong> ₹ 2.50L</span>
-                                                <span class="badge ${s.status === 'Graduated' ? 'bg-success-subtle text-success' : 'bg-secondary-subtle text-secondary'} font-9">
-                                                    ${s.status === 'Graduated' ? 'Disbursed' : 'In Progress'}
-                                                </span>
+                                            <div class="col-6">
+                                                <div class="p-1.5 rounded bg-light border">
+                                                    <span class="text-muted d-block font-10">Annual Turnover:</span>
+                                                    <strong class="text-success font-12">${s.revenue || '₹ 0 / yr'}</strong>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -1180,14 +1606,17 @@
 
                                 <!-- Col 3: Compliance & Moat -->
                                 <div class="col-md-3">
-                                    <div class="bg-white p-2.5 rounded-3 border h-100 shadow-2xs d-flex flex-column justify-content-between">
+                                    <div class="bg-white p-3 rounded-3 border h-100 shadow-2xs d-flex flex-column justify-content-between">
                                         <div>
-                                            <div class="font-10 text-muted text-uppercase fw-bold mb-1"><i class="fa-solid fa-shield-halved text-warning me-1"></i> Compliance &amp; CIN</div>
-                                            <div class="font-11 text-dark fw-bold">${s.cin || 'U72900BR2022PTC054321'}</div>
-                                            <div class="font-10 text-muted mt-0.5">DPIIT-Recognized &bull; Score: <strong class="text-dark">${s.complianceScore || 95}/100</strong></div>
+                                            <div class="font-10 text-muted text-uppercase fw-bold mb-1">Registration &amp; DPIIT</div>
+                                            <div class="font-11 text-dark fw-semibold">Bihar Reg: ${s.regNoBihar || s.id}</div>
+                                            <div class="font-10 text-muted mt-0.5">CIN: ${s.cin || 'U72900BR2022PTC054321'}</div>
+                                            <div class="mt-1">
+                                                <span class="badge bg-success-subtle text-success border border-success-subtle font-9">DPIIT: ${s.dpiit || 'Recognized'}</span>
+                                            </div>
                                         </div>
                                         <div class="pt-2 mt-2 border-top font-10 text-secondary">
-                                            <strong>Key Moat: </strong>${s.innovative || 'Proprietary regional market distribution across Bihar.'}
+                                            <strong>Key Moat: </strong>${s.innovative || s.desc || 'Proprietary regional innovation.'}
                                         </div>
                                     </div>
                                 </div>
@@ -1202,19 +1631,23 @@
         function applySimpleFilters() {
             if (!window.CIMP_DB) return;
 
+            const districtVal = document.getElementById('tblFilterDistrict')?.value || '';
             const sectorVal = document.getElementById('tblFilterSector')?.value || '';
             const stageVal = document.getElementById('tblFilterStage')?.value || '';
             const searchVal = (document.getElementById('dirSearchInp')?.value || '').trim().toLowerCase();
 
             let startups = window.CIMP_DB.getStartups();
-            if (sectorVal) startups = startups.filter(s => s.sector === sectorVal);
+            if (districtVal) startups = startups.filter(s => (s.district || s.location || '').toLowerCase().includes(districtVal.toLowerCase()));
+            if (sectorVal) startups = startups.filter(s => (s.sector || '').toLowerCase().includes(sectorVal.toLowerCase()));
             if (stageVal) startups = startups.filter(s => (s.stage || s.fundingRaised || '').toLowerCase().includes(stageVal.toLowerCase()));
             if (searchVal) {
                 startups = startups.filter(s => 
                     (s.name && s.name.toLowerCase().includes(searchVal)) ||
                     (s.founder && s.founder.toLowerCase().includes(searchVal)) ||
                     (s.sector && s.sector.toLowerCase().includes(searchVal)) ||
-                    (s.location && s.location.toLowerCase().includes(searchVal))
+                    (s.location && s.location.toLowerCase().includes(searchVal)) ||
+                    (s.district && s.district.toLowerCase().includes(searchVal)) ||
+                    (s.regNoBihar && s.regNoBihar.toLowerCase().includes(searchVal))
                 );
             }
 
@@ -1223,7 +1656,7 @@
 
             const resetBtn = document.getElementById('btnResetSimpleFilters');
             if (resetBtn) {
-                if (sectorVal || stageVal || searchVal) resetBtn.classList.remove('d-none');
+                if (districtVal || sectorVal || stageVal || searchVal) resetBtn.classList.remove('d-none');
                 else resetBtn.classList.add('d-none');
             }
 
@@ -1243,6 +1676,7 @@
         }
 
         function resetSimpleFilters() {
+            if (document.getElementById('tblFilterDistrict')) document.getElementById('tblFilterDistrict').value = '';
             if (document.getElementById('tblFilterSector')) document.getElementById('tblFilterSector').value = '';
             if (document.getElementById('tblFilterStage')) document.getElementById('tblFilterStage').value = '';
             const searchInp = document.getElementById('dirSearchInp');
@@ -1372,8 +1806,8 @@
                             <input type="checkbox" class="form-check-input app-row-chk no-row-click" value="${app.id}" ${isChecked ? 'checked' : ''} onchange="toggleAppCheckbox('${app.id}', this.checked)">
                         </td>
                         <td>
-                            <span class="interactive-title font-13 d-block">${app.startupName}</span>
-                            <div class="font-10 text-muted mt-0.5"><code>${app.id}</code> &bull; <span class="badge bg-light text-dark border font-9">${app.sector}</span> &bull; <span class="text-primary">${app.stage || 'Prototype'}</span></div>
+                            <span class="interactive-title font-13 fw-semibold text-dark d-block">${app.startupName}</span>
+                            <div class="font-10 text-muted mt-0.5"><span class="fw-semibold">${app.id}</span> &bull; <span class="badge bg-light text-secondary border font-9">${app.sector}</span> &bull; <span class="text-primary">${app.stage || 'Prototype'}</span></div>
                         </td>
                         <td>
                             <div class="font-12 fw-semibold text-dark">${app.founderName}</div>
@@ -1381,25 +1815,25 @@
                         </td>
                         <td>
                             <span class="badge bg-warning-subtle text-dark border border-warning-subtle font-11 fw-bold px-2 py-0.5">
-                                <i class="fa-solid fa-circle-check font-9 text-warning me-1"></i> ${app.managerScore || 88}/100
+                                ${app.managerScore || 88}/100
                             </span>
                             <div class="font-10 text-muted mt-0.5 text-truncate" style="max-width: 140px;" title="${app.managerNotes || ''}">Recommended by Manager</div>
                         </td>
                         <td>
-                            <span class="badge bg-primary-subtle text-primary border border-primary-subtle font-10 px-2 py-0.5">
+                            <span class="badge bg-light text-secondary border font-10 px-2 py-0.5">
                                 Incubation
                             </span>
                         </td>
                         <td class="text-end">
                             <div class="d-flex align-items-center justify-content-end gap-1">
                                 <button class="btn btn-sm btn-success font-11 fw-bold py-1 px-2.5 text-nowrap no-row-click" onclick="approveApp('${app.id}')" title="Grant Incubation Sanction">
-                                    <i class="fa-solid fa-stamp me-1"></i> Sanction
+                                    Sanction
                                 </button>
-                                <button class="icon-action-pill no-row-click" onclick="toggleExpandRow('${app.id}')" title="Inspect Pitch & Evaluation">
-                                    <i class="fa-solid fa-chevron-down font-9 expand-chevron"></i>
+                                <button class="btn-icon-subtle no-row-click" onclick="toggleExpandRow('${app.id}')" title="Inspect Pitch & Evaluation">
+                                    <i class="fa-solid fa-chevron-down expand-chevron"></i>
                                 </button>
-                                <button class="icon-action-pill no-row-click" onclick="rejectApp('${app.id}')" title="Reject Application">
-                                    <i class="fa-solid fa-xmark text-danger"></i>
+                                <button class="btn-icon-subtle no-row-click text-danger" onclick="rejectApp('${app.id}')" title="Reject Application">
+                                    <i class="fa-solid fa-xmark"></i>
                                 </button>
                             </div>
                         </td>
@@ -1413,7 +1847,7 @@
                                     <!-- Col 1: Problem & Innovation -->
                                     <div class="col-md-5">
                                         <div class="bg-white p-3 rounded-3 border h-100 shadow-2xs">
-                                            <div class="font-10 text-muted text-uppercase fw-bold mb-1"><i class="fa-solid fa-lightbulb text-warning me-1"></i> Venture Solution &amp; Innovation Moat</div>
+                                            <div class="font-10 text-muted text-uppercase fw-bold mb-1">Venture Solution &amp; Innovation Moat</div>
                                             <p class="font-12 text-secondary mb-2" style="line-height:1.5;">${app.productDescription || 'Venture application for cohort incubation admission.'}</p>
                                             <div class="p-2 bg-light rounded border font-11">
                                                 <strong class="text-dark">Moat: </strong><span class="text-secondary">${app.innovative || 'Unique regional competitive advantage in Bihar.'}</span>
@@ -1425,7 +1859,7 @@
                                     <div class="col-md-4">
                                         <div class="bg-white p-3 rounded-3 border h-100 shadow-2xs">
                                             <div class="d-flex align-items-center justify-content-between mb-1.5">
-                                                <span class="font-10 text-muted text-uppercase fw-bold"><i class="fa-solid fa-clipboard-check text-primary me-1"></i> Manager Evaluation Scorecard</span>
+                                                <span class="font-10 text-muted text-uppercase fw-bold">Manager Evaluation Scorecard</span>
                                                 <span class="badge bg-warning text-dark font-10 fw-bold">${app.managerScore || 88} / 100</span>
                                             </div>
                                             <p class="font-11 text-secondary mb-2" style="line-height:1.4;">${app.managerNotes || 'Evaluated on team strength, scalability, and impact in Bihar.'}</p>
@@ -1439,15 +1873,15 @@
                                     <div class="col-md-3">
                                         <div class="bg-white p-3 rounded-3 border h-100 shadow-2xs d-flex flex-column justify-content-between">
                                             <div>
-                                                <div class="font-10 text-muted text-uppercase fw-bold mb-1"><i class="fa-solid fa-stamp text-success me-1"></i> Executive Incubation Decision</div>
+                                                <div class="font-10 text-muted text-uppercase fw-bold mb-1">Executive Incubation Decision</div>
                                                 <div class="font-11 text-muted mb-2">Sanctioning will issue official offer letter and add startup to active cohort directory.</div>
                                             </div>
                                             <div class="d-flex flex-column gap-1.5 pt-2 border-top">
                                                 <button class="btn btn-sm btn-success font-11 fw-bold w-100 py-1.5" onclick="approveApp('${app.id}')">
-                                                    <i class="fa-solid fa-stamp me-1"></i> Grant Incubation Sanction
+                                                    Grant Incubation Sanction
                                                 </button>
                                                 <button class="btn btn-sm btn-outline-danger font-11 w-100 py-1" onclick="rejectApp('${app.id}')">
-                                                    <i class="fa-solid fa-xmark me-1"></i> Reject Application
+                                                    Reject Application
                                                 </button>
                                             </div>
                                         </div>
@@ -1540,13 +1974,22 @@
         function renderStartupsView() {
             if (!window.CIMP_DB) return;
             const searchVal = document.getElementById('searchStartupTbl') ? document.getElementById('searchStartupTbl').value.toLowerCase().trim() : '';
+            const filterDistrict = document.getElementById('filterDistrictSelect') ? document.getElementById('filterDistrictSelect').value : '';
             const filterSector = document.getElementById('filterSectorSelect') ? document.getElementById('filterSectorSelect').value : '';
             const filterStage = document.getElementById('filterStageSelect') ? document.getElementById('filterStageSelect').value : '';
 
             let startups = window.CIMP_DB.getStartups();
-            if (searchVal) startups = startups.filter(s => s.name.toLowerCase().includes(searchVal) || s.founder.toLowerCase().includes(searchVal));
-            if (filterSector) startups = startups.filter(s => s.sector === filterSector);
-            if (filterStage) startups = startups.filter(s => s.stage === filterStage);
+            if (searchVal) {
+                startups = startups.filter(s => 
+                    s.name.toLowerCase().includes(searchVal) || 
+                    s.founder.toLowerCase().includes(searchVal) ||
+                    (s.regNoBihar && s.regNoBihar.toLowerCase().includes(searchVal)) ||
+                    (s.district && s.district.toLowerCase().includes(searchVal))
+                );
+            }
+            if (filterDistrict) startups = startups.filter(s => (s.district || s.location || '').toLowerCase().includes(filterDistrict.toLowerCase()));
+            if (filterSector) startups = startups.filter(s => (s.sector || '').toLowerCase().includes(filterSector.toLowerCase()));
+            if (filterStage) startups = startups.filter(s => (s.stage || '').toLowerCase().includes(filterStage.toLowerCase()));
 
             const tbody = document.getElementById('tblStartupsBody');
             if (!tbody) return;
@@ -1579,38 +2022,80 @@
             mentors.forEach(m => {
                 const assignedBadges = (m.assignedStartups && m.assignedStartups.length > 0)
                     ? m.assignedStartups.map(v => `<span class="badge bg-primary-subtle text-primary border border-primary-subtle font-10 me-1 mb-1 d-inline-block"><i class="fa-solid fa-cube me-1"></i>${v}</span>`).join('')
-                    : '<span class="text-muted font-10">Available</span>';
+                    : '<span class="badge bg-success-subtle text-success font-10">Available</span>';
 
-                const expertiseBadges = (Array.isArray(m.expertise) ? m.expertise : [m.expertise || 'General Advisory'])
+                // Parse clean designation & organization
+                const rawAff = m.affiliation || m.title || '';
+                let desig = '';
+                let org = '';
+                if (rawAff.includes(',')) {
+                    const parts = rawAff.split(',');
+                    desig = parts[0].trim();
+                    org = parts.slice(1).join(',').trim();
+                } else {
+                    desig = m.title || 'Senior Incubation Advisor';
+                    org = m.organization || 'CIMP Patna';
+                }
+
+                // Format clean avatar with initials fallback
+                const cleanName = (m.name || 'Mentor').replace(/^(Dr\.|Prof\.|Adv\.)\s*/i, '').trim();
+                const initials = cleanName.split(' ').map(n => n[0]).slice(0, 2).join('').toUpperCase() || 'M';
+                const bgColors = ['1E3A8A', '0D9488', 'B45309', '4F46E5', 'C2410C', '2E7D32', '6366F1', '0891B2'];
+                const charCodeSum = (m.id || 'MEN').split('').reduce((acc, c) => acc + c.charCodeAt(0), 0);
+                const brandColorHex = bgColors[charCodeSum % bgColors.length];
+                const avatarUrl = m.image || `https://ui-avatars.com/api/?name=${encodeURIComponent(cleanName)}&background=${brandColorHex}&color=fff&size=128&bold=true&font-size=0.42`;
+
+                const expertiseBadges = (Array.isArray(m.expertise) ? m.expertise.slice(0, 2) : [m.expertise || 'General Advisory'])
                     .map(e => `<span class="badge bg-light text-dark border font-10 me-1 mb-1">${e}</span>`).join('');
 
                 const phone = m.phone || '+91 94310 11223';
+                const cleanPhone = phone.replace(/\D/g, '');
                 const email = m.email || 'mentor@cimp.ac.in';
                 const isExpanded = expandedRowIds.has(m.id || m.name);
 
                 html += `
                     <tr class="tr-parent ${isExpanded ? 'is-expanded' : ''}" id="tr-parent-${m.id || m.name}" onclick="toggleExpandRow('${m.id || m.name}', event)">
                         <td>
-                            <div class="d-flex align-items-center gap-2">
-                                <div class="rounded-circle d-flex align-items-center justify-content-center bg-primary-subtle text-primary fw-bold font-12" style="width: 32px; height: 32px; min-width: 32px;">
-                                    ${m.name.charAt(0)}
+                            <div class="d-flex align-items-center gap-2.5">
+                                <div class="position-relative flex-shrink-0">
+                                    <img src="${avatarUrl}" 
+                                         alt="${m.name}" 
+                                         class="rounded-circle border shadow-2xs" 
+                                         style="width: 42px; height: 42px; object-fit: cover;"
+                                         onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                                    <div class="rounded-circle align-items-center justify-content-center text-white fw-bold font-13 shadow-2xs" 
+                                         style="width: 42px; height: 42px; background: #${brandColorHex}; display: none;">
+                                        ${initials}
+                                    </div>
+                                    <span class="position-absolute bottom-0 end-0 bg-success border border-white rounded-circle" style="width: 9px; height: 9px;" title="Active Advisor"></span>
                                 </div>
-                                <div>
-                                    <span class="interactive-title font-13 d-block">${m.name}</span>
-                                    <div class="font-10 text-muted">${m.title || 'Senior Incubation Advisor'}</div>
+                                <div class="min-w-0">
+                                    <span class="interactive-title font-13 fw-bold text-dark d-block text-truncate" style="max-width: 190px;" title="${m.name}">${m.name}</span>
+                                    <div class="font-10 text-muted d-flex align-items-center gap-1 mt-0.5">
+                                        <span class="badge bg-light text-secondary border font-9 px-1.5 py-0.2">${m.experience || '15+ Yrs'} Exp</span>
+                                        <span>&bull;</span>
+                                        <span class="text-truncate" style="max-width: 95px;">${(m.location || 'Patna').split('/')[0].trim()}</span>
+                                    </div>
                                 </div>
                             </div>
                         </td>
-                        <td>${expertiseBadges}</td>
-                        <td>${assignedBadges}</td>
                         <td>
-                            <div class="font-12 fw-bold text-dark">${m.totalHoursLogged || 12} Hrs/Mo</div>
-                            <div class="font-10 text-success fw-semibold"><i class="fa-solid fa-star text-warning font-9"></i> ${m.rating || 4.9}</div>
+                            <strong class="text-dark font-12 d-block text-truncate" style="max-width: 200px;" title="${desig}">${desig}</strong>
+                            <span class="badge bg-primary-subtle text-primary border border-primary-subtle font-9 mt-0.5">${m.primaryDomain || 'General Advisory'}</span>
                         </td>
-                        <td class="text-end">
-                            <button class="btn btn-sm btn-light border rounded-pill font-11 py-0.5 px-2 text-nowrap no-row-click" onclick="toggleExpandRow('${m.id || m.name}')">
-                                <span class="me-1">Drilldown</span>
-                                <i class="fa-solid fa-chevron-down font-9 expand-chevron"></i>
+                        <td>
+                            <div class="font-12 text-secondary fw-semibold" style="line-height: 1.35;" title="${org}">
+                                <i class="fa-solid fa-building-columns text-primary me-1.5 font-10"></i>${org}
+                            </div>
+                        </td>
+                        <td>
+                            <div class="d-flex flex-wrap gap-1">
+                                ${expertiseBadges}
+                            </div>
+                        </td>
+                        <td class="text-end pe-3">
+                            <button class="btn-icon-subtle no-row-click" onclick="toggleExpandRow('${m.id || m.name}')" title="Drilldown Profile">
+                                <i class="fa-solid fa-chevron-down expand-chevron"></i>
                             </button>
                         </td>
                     </tr>
@@ -1619,21 +2104,31 @@
                         <td colspan="5">
                             <div class="expand-content-wrap">
                                 <div class="row g-3">
-                                    <div class="col-md-6">
-                                        <div class="bg-white p-2.5 rounded-3 border h-100 shadow-2xs font-11 text-secondary">
-                                            <div class="font-10 text-muted text-uppercase fw-bold mb-1">Advisory Track Record</div>
-                                            <p class="mb-0" style="line-height:1.4;">${m.bio || '20+ years of academic and industry consulting experience in corporate strategy, technology policy, and enterprise growth.'}</p>
+                                    <div class="col-md-7">
+                                        <div class="bg-white p-3 rounded-3 border h-100 shadow-2xs font-11 text-secondary">
+                                            <div class="font-10 text-muted text-uppercase fw-bold mb-1.5">Executive Track Record &amp; Background</div>
+                                            <p class="mb-2" style="line-height: 1.55;">${m.bio || '20+ years of academic and industry consulting experience in corporate strategy, technology policy, and enterprise growth.'}</p>
+                                            <div class="d-flex align-items-center gap-2 flex-wrap font-11 text-muted pt-2 border-top">
+                                                <span><strong>Qualification:</strong> ${m.qualification || 'Doctorate / Post-Graduate'}</span>
+                                                <span>&bull;</span>
+                                                <span><strong>Mode:</strong> ${m.mode || 'Hybrid'}</span>
+                                            </div>
                                         </div>
                                     </div>
-                                    <div class="col-md-6">
-                                        <div class="bg-white p-2.5 rounded-3 border h-100 shadow-2xs font-11">
-                                            <div class="font-10 text-muted text-uppercase fw-bold mb-1">Direct Advisor Contact</div>
-                                            <div><strong>Phone:</strong> ${phone}</div>
-                                            <div><strong>Email:</strong> ${email}</div>
-                                            <div class="d-flex align-items-center gap-1.5 mt-2 pt-1 border-top">
-                                                <a href="tel:${phone.replace(/\s+/g, '')}" class="icon-action-pill pill-phone" title="Call"><i class="fa-solid fa-phone"></i></a>
-                                                <a href="https://wa.me/${phone.replace(/\D/g, '')}" target="_blank" class="icon-action-pill pill-wa" title="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
-                                                <a href="mailto:${email}" class="icon-action-pill pill-mail" title="Email"><i class="fa-solid fa-envelope"></i></a>
+                                    <div class="col-md-5">
+                                        <div class="bg-white p-3 rounded-3 border h-100 shadow-2xs font-11 d-flex flex-column justify-content-between">
+                                            <div>
+                                                <div class="font-10 text-muted text-uppercase fw-bold mb-1.5">Assigned Incubated Ventures</div>
+                                                <div class="mb-2">${assignedBadges}</div>
+                                            </div>
+                                            <div class="pt-2 border-top">
+                                                <div class="font-10 text-muted text-uppercase fw-bold mb-1">Direct Advisor Contact</div>
+                                                <div class="d-flex align-items-center gap-1.5 mt-1 flex-wrap">
+                                                    <a href="tel:${cleanPhone}" class="btn btn-sm btn-light border font-11 py-1 px-2 text-secondary" title="Call"><i class="fa-solid fa-phone me-1"></i> Call</a>
+                                                    <a href="https://wa.me/${cleanPhone}" target="_blank" class="btn btn-sm btn-light border font-11 py-1 px-2 text-success" title="WhatsApp"><i class="fa-brands fa-whatsapp me-1"></i> WhatsApp</a>
+                                                    <a href="mailto:${email}" class="btn btn-sm btn-light border font-11 py-1 px-2 text-secondary" title="Email"><i class="fa-solid fa-envelope me-1"></i> Email</a>
+                                                    <a href="${m.linkedin || '#'}" target="_blank" class="btn btn-sm btn-light border font-11 py-1 px-2 text-primary" title="LinkedIn"><i class="fa-brands fa-linkedin-in me-1"></i> LinkedIn</a>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -1745,10 +2240,11 @@
             const startups = window.CIMP_DB.getStartups();
             let csv = "CIMP-BIIF Incubation Center - NIRF / NAAC Accreditation Report\n";
             csv += "Report Generated: " + new Date().toISOString() + "\n\n";
-            csv += "Registration ID,Enterprise Name,Legal Entity,Sector,Incorporation Year,Founder Name,Annual Turnover (INR),Seed Funding (INR),Direct Employment,Current Status\n";
+            csv += "ID,Bihar Reg No,Enterprise Name,Legal Entity,Sector,Stage,District,Incorporation Year,Founder Name,Co-Founders,DPIIT Recognition,Annual Turnover (INR),Seed Funding (INR),Funding Remark,Direct Employment,Current Status\n";
 
             startups.forEach(s => {
-                csv += `"${s.id}","${s.name}","${s.legalName || s.name}","${s.sector}","${s.year || 2022}","${s.founder}","${s.revenueNumeric || 0}","${s.fundingNumeric || 0}","${s.jobsCreated || 10}","${s.status || 'Active'}"\n`;
+                const coFounders = (s.coFounders || []).join('; ');
+                csv += `"${s.id}","${s.regNoBihar || ''}","${s.name}","${s.legalName || s.name}","${s.sector}","${s.stage}","${s.district || s.location || 'Bihar'}","${s.year || 2022}","${s.founder}","${coFounders}","${s.dpiit || 'Yes'}","${s.revenueNumeric || 0}","${s.fundingNumeric || 0}","${(s.fundingRemark || '').replace(/"/g, '""')}","${s.jobsCreated || 10}","${s.status || 'Active'}"\n`;
             });
 
             const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });

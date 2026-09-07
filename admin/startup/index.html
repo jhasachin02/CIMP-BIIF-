@@ -20,6 +20,342 @@
     
     <!-- Unified Admin CSS -->
     <link href="../../assets/css/admin-dashboard.css" rel="stylesheet" type="text/css">
+
+    <style>
+        /* Modern Executive SaaS Design System */
+        :root {
+            --mgr-teal: #0D9488;
+            --mgr-teal-dark: #0F766E;
+            --mgr-teal-light: #F0FDFA;
+            --mgr-teal-subtle: #CCFBF1;
+            --mgr-navy: #0F172A;
+            --mgr-slate-50: #F8FAFC;
+            --mgr-slate-100: #F1F5F9;
+            --mgr-slate-200: #E2E8F0;
+            --mgr-slate-300: #CBD5E1;
+            --mgr-slate-400: #94A3B8;
+            --mgr-slate-500: #64748B;
+            --mgr-slate-600: #475569;
+            --mgr-slate-700: #334155;
+            --mgr-slate-800: #1E293B;
+        }
+
+        body.admin-unified-body {
+            font-family: 'Plus Jakarta Sans', sans-serif !important;
+            background-color: #F8FAFC !important;
+            color: #0F172A !important;
+        }
+
+        /* Sidebar Brand & Navigation Refinement */
+        .app-sidebar {
+            background: #091222 !important;
+            border-right: 1px solid #1E293B !important;
+        }
+
+        .app-sidebar-brand {
+            padding: 22px 18px 18px !important;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06) !important;
+            text-align: left !important;
+            display: flex !important;
+            flex-direction: column !important;
+            align-items: flex-start !important;
+        }
+
+        .sidebar-brand-card {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: #FFFFFF;
+            padding: 6px 12px;
+            border-radius: 8px;
+            margin-bottom: 14px;
+        }
+
+        .app-sidebar-brand h4 {
+            font-family: 'Plus Jakarta Sans', sans-serif !important;
+            font-size: 15px !important;
+            font-weight: 700 !important;
+            color: #FFFFFF !important;
+            letter-spacing: -0.2px;
+            margin: 0 !important;
+        }
+
+        .app-sidebar-brand span {
+            font-size: 11px !important;
+            color: #94A3B8 !important;
+            font-weight: 500 !important;
+            letter-spacing: 0.3px;
+            margin-top: 3px !important;
+            display: block !important;
+        }
+
+        .app-nav-group {
+            padding: 16px 10px !important;
+        }
+
+        .app-nav-section-header {
+            font-size: 11px !important;
+            font-weight: 700 !important;
+            text-transform: uppercase !important;
+            letter-spacing: 0.8px !important;
+            color: #64748B !important;
+            padding: 6px 12px !important;
+            margin-bottom: 4px !important;
+            display: block;
+        }
+
+        .app-nav-btn {
+            display: flex !important;
+            align-items: center !important;
+            justify-content: space-between !important;
+            padding: 9px 12px !important;
+            border-radius: 7px !important;
+            color: #94A3B8 !important;
+            font-size: 12.5px !important;
+            font-weight: 500 !important;
+            transition: all 0.15s ease !important;
+            border: 1px solid transparent !important;
+            margin-bottom: 3px !important;
+            background: transparent !important;
+            width: 100% !important;
+            text-decoration: none !important;
+        }
+
+        .app-nav-btn:hover {
+            color: #FFFFFF !important;
+            background: rgba(255, 255, 255, 0.04) !important;
+        }
+
+        .app-nav-btn.active {
+            color: #FFFFFF !important;
+            background: rgba(13, 148, 136, 0.14) !important;
+            border-color: rgba(13, 148, 136, 0.3) !important;
+            font-weight: 600 !important;
+        }
+
+        .app-nav-btn.active .left-grp i {
+            color: var(--mgr-teal) !important;
+        }
+
+        .app-user-profile {
+            padding: 14px 16px !important;
+            border-top: 1px solid rgba(255, 255, 255, 0.06) !important;
+            background: rgba(0, 0, 0, 0.18) !important;
+        }
+
+        /* Topbar Refinement */
+        .app-topbar {
+            background: #FFFFFF !important;
+            border-bottom: 1px solid #E2E8F0 !important;
+            height: 60px !important;
+            padding: 0 24px !important;
+        }
+
+        /* Section Headings */
+        .page-header-title {
+            font-family: 'Outfit', sans-serif !important;
+            font-size: 20px !important;
+            font-weight: 700 !important;
+            color: #0F172A !important;
+            letter-spacing: -0.3px;
+            margin-bottom: 2px !important;
+        }
+
+        .page-header-sub {
+            font-size: 12.5px !important;
+            color: #64748B !important;
+            margin-bottom: 0 !important;
+        }
+
+        /* KPI Cards */
+        .app-kpi-card {
+            background: #FFFFFF !important;
+            border: 1px solid #E2E8F0 !important;
+            border-radius: 10px !important;
+            padding: 16px 18px !important;
+            box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04) !important;
+            transition: transform 0.15s ease, box-shadow 0.15s ease !important;
+        }
+
+        .app-kpi-card:hover {
+            box-shadow: 0 4px 12px rgba(15, 23, 42, 0.06) !important;
+        }
+
+        .app-kpi-lbl {
+            font-size: 11px !important;
+            font-weight: 600 !important;
+            text-transform: uppercase !important;
+            letter-spacing: 0.6px !important;
+            color: #64748B !important;
+            display: block !important;
+            margin-bottom: 6px !important;
+        }
+
+        .app-kpi-val {
+            font-family: 'Outfit', sans-serif !important;
+            font-size: 24px !important;
+            font-weight: 700 !important;
+            color: #0F172A !important;
+            letter-spacing: -0.5px;
+            line-height: 1.15 !important;
+        }
+
+        .app-kpi-sub {
+            font-size: 11.5px !important;
+            color: #64748B !important;
+            margin-top: 5px !important;
+            display: block !important;
+        }
+
+        /* Table Card & Modern Toolbar */
+        .app-table-card {
+            background: #FFFFFF !important;
+            border: 1px solid #E2E8F0 !important;
+            border-radius: 10px !important;
+            box-shadow: 0 1px 3px rgba(15, 23, 42, 0.04) !important;
+            overflow: hidden !important;
+            margin-bottom: 24px !important;
+        }
+
+        .table-toolbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            padding: 12px 16px;
+            background: #FAFAFC;
+            border-bottom: 1px solid #E2E8F0;
+            flex-wrap: wrap;
+        }
+
+        .table-toolbar-group {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        /* Modern Tabular Layout */
+        .app-table {
+            width: 100% !important;
+            margin-bottom: 0 !important;
+            border-collapse: collapse !important;
+        }
+
+        .app-table th {
+            background: #F8FAFC !important;
+            color: #475569 !important;
+            font-size: 11px !important;
+            font-weight: 600 !important;
+            text-transform: uppercase !important;
+            letter-spacing: 0.6px !important;
+            padding: 10px 16px !important;
+            border-bottom: 1px solid #E2E8F0 !important;
+            white-space: nowrap !important;
+            vertical-align: middle !important;
+        }
+
+        .app-table td {
+            padding: 12px 16px !important;
+            font-size: 12.5px !important;
+            color: #1E293B !important;
+            border-bottom: 1px solid #F1F5F9 !important;
+            vertical-align: middle !important;
+        }
+
+        .app-table tbody tr {
+            transition: background-color 0.12s ease;
+        }
+
+        .app-table tbody tr:hover {
+            background-color: #F8FAFC !important;
+        }
+
+        .app-table tbody tr.is-expanded {
+            background-color: #F8FAFC !important;
+        }
+
+        /* Subtle Status Pills */
+        .status-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            padding: 2.5px 8px;
+            border-radius: 5px;
+            font-size: 11px;
+            font-weight: 600;
+            white-space: nowrap;
+            letter-spacing: 0.1px;
+        }
+
+        .status-pill::before {
+            content: "";
+            width: 5px;
+            height: 5px;
+            border-radius: 50%;
+        }
+
+        .status-active {
+            background: #ECFDF5;
+            color: #065F46;
+            border: 1px solid #A7F3D0;
+        }
+        .status-active::before { background: #10B981; }
+
+        .status-completed {
+            background: #EFF6FF;
+            color: #1E40AF;
+            border: 1px solid #BFDBFE;
+        }
+        .status-completed::before { background: #3B82F6; }
+
+        .status-pending {
+            background: #FFFBEB;
+            color: #92400E;
+            border: 1px solid #FDE68A;
+        }
+        .status-pending::before { background: #F59E0B; }
+
+        /* Subtle Action Buttons */
+        .btn-icon-subtle {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 28px;
+            height: 28px;
+            border-radius: 6px;
+            border: 1px solid transparent;
+            background: transparent;
+            color: #64748B;
+            transition: all 0.15s ease;
+            cursor: pointer;
+            padding: 0;
+        }
+
+        .btn-icon-subtle:hover {
+            background: #F1F5F9;
+            color: #0F172A;
+            border-color: #E2E8F0;
+        }
+
+        .expand-chevron {
+            transition: transform 0.2s ease;
+        }
+        .is-expanded .expand-chevron {
+            transform: rotate(180deg);
+        }
+
+        .tr-expand-tray td {
+            padding: 0 !important;
+            border-bottom: 1px solid #E2E8F0 !important;
+        }
+
+        .expand-content-wrap {
+            padding: 16px 20px;
+            background: #F8FAFC;
+            border-top: 1px solid #F1F5F9;
+        }
+    </style>
 </head>
 
 <body class="admin-unified-body">
@@ -35,10 +371,10 @@
                 <button class="btn btn-sm text-white-50 d-lg-none position-absolute top-0 end-0 m-2 p-1" onclick="toggleMobileSidebar()" title="Close Navigation Drawer" style="border: none; background: transparent;">
                     <i class="fa-solid fa-xmark font-20 text-white"></i>
                 </button>
-                <div class="app-sidebar-emblem">
-                    <img src="../../assets/images/CIMP-Icon.png" height="32" alt="CIMP Logo" style="object-fit: contain;">
-                    <div style="border-left: 1.5px solid #CBD5E1; height: 24px;"></div>
-                    <img src="../../assets/images/logo.png" height="28" alt="CIMP-BIIF Logo" style="object-fit: contain;">
+                <div class="sidebar-brand-card">
+                    <img src="../../assets/images/CIMP-Icon.png" height="24" alt="CIMP" style="object-fit: contain;">
+                    <div style="border-left: 1.5px solid #CBD5E1; height: 18px;"></div>
+                    <img src="../../assets/images/logo.png" height="20" alt="BIIF" style="object-fit: contain;">
                 </div>
                 <h4>CIMP - BIIF</h4>
                 <span>Founder Desk</span>
@@ -46,45 +382,44 @@
 
             <!-- Page-Wise Structured Nav Tabs -->
             <div class="app-nav-group">
-                <span class="app-nav-header">Venture Workspace</span>
+                <div class="app-nav-section-header">Venture Workspace</div>
                 
                 <button class="app-nav-btn active" id="stNavOverview" onclick="switchStView('tab-st-overview', this)">
                     <span class="left-grp">
-                        <i class="fa-solid fa-gauge-high font-14"></i>
+                        <i class="fa-solid fa-gauge-high font-14 me-2"></i>
                         <span>Venture Overview</span>
                     </span>
                 </button>
 
                 <button class="app-nav-btn" id="stNavTraction" onclick="switchStView('tab-st-traction', this)">
                     <span class="left-grp">
-                        <i class="fa-solid fa-chart-line font-14"></i>
+                        <i class="fa-solid fa-chart-line font-14 me-2"></i>
                         <span>Monthly Traction</span>
                     </span>
                 </button>
 
                 <button class="app-nav-btn" id="stNavMentors" onclick="switchStView('tab-st-mentors', this)">
                     <span class="left-grp">
-                        <i class="fa-solid fa-handshake-simple font-14"></i>
+                        <i class="fa-solid fa-handshake-simple font-14 me-2"></i>
                         <span>Book Mentor</span>
                     </span>
                 </button>
             </div>
         </div>
 
-        <!-- Logged In User Strip with Profile Edit -->
-        <!-- Logged In User Strip (Minimal Clean Workspace Identity) -->
+        <!-- Logged In User Strip -->
         <div class="app-user-profile">
             <div class="d-flex align-items-center gap-2 overflow-hidden">
-                <div class="d-flex align-items-center justify-content-center rounded-circle flex-shrink-0" style="width: 34px; height: 34px; background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.2);">
-                    <i class="fa-solid fa-rocket text-white font-14"></i>
+                <div class="d-flex align-items-center justify-content-center rounded-circle flex-shrink-0" style="width: 32px; height: 32px; background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.2);">
+                    <i class="fa-solid fa-rocket text-white font-13"></i>
                 </div>
                 <div class="overflow-hidden">
                     <div class="font-12 fw-bold text-white text-truncate" id="sidebarUserName">Founder</div>
-                    <div class="font-11 text-white-50 text-truncate" id="sidebarUserTitle">Founder &amp; CEO</div>
+                    <div class="font-10 text-white-50 text-truncate" id="sidebarUserTitle">Founder &amp; CEO</div>
                 </div>
             </div>
             <div>
-                <a href="../../login.html" class="text-white-50 font-14 p-1 text-decoration-none" title="Sign Out">
+                <a href="../../login.html" class="text-white-50 font-13 p-1 text-decoration-none" title="Sign Out">
                     <i class="fa-solid fa-arrow-right-from-bracket"></i>
                 </a>
             </div>
@@ -94,57 +429,52 @@
     <!-- 2. Main Workspace Viewport -->
     <div class="app-main-wrap">
         
-        <!-- Topbar Header (Native Mobile App Bar on Mobile) -->
+        <!-- Topbar Header -->
         <header class="app-topbar">
             <!-- Mobile Left: Hamburger Drawer Toggle -->
-            <button class="btn btn-light d-lg-none p-0 rounded-circle border shadow-sm d-flex align-items-center justify-content-center" style="width: 38px; height: 38px; min-width: 38px;" onclick="toggleMobileSidebar()" title="Open Menu">
-                <i class="fa-solid fa-bars font-16 text-dark"></i>
+            <button class="btn btn-light d-lg-none p-0 rounded-circle border shadow-sm d-flex align-items-center justify-content-center" style="width: 36px; height: 36px; min-width: 36px;" onclick="toggleMobileSidebar()" title="Open Menu">
+                <i class="fa-solid fa-bars font-15 text-dark"></i>
             </button>
 
-            <!-- Mobile Center: Both Official Emblems & Logos -->
+            <!-- Mobile Center: Official Emblems -->
             <div class="d-flex d-lg-none align-items-center justify-content-center gap-1" style="cursor: pointer;" onclick="switchStView('tab-st-overview')">
-                <img src="../../assets/images/CIMP-Icon.png" height="24" alt="CIMP Logo" style="object-fit: contain;">
-                <div style="border-left: 1.5px solid #CBD5E1; height: 18px; margin: 0 4px;"></div>
-                <img src="../../assets/images/logo.png" height="22" alt="CIMP - BIIF Logo" style="object-fit: contain;">
+                <img src="../../assets/images/CIMP-Icon.png" height="22" alt="CIMP Logo" style="object-fit: contain;">
+                <div style="border-left: 1.5px solid #CBD5E1; height: 16px; margin: 0 4px;"></div>
+                <img src="../../assets/images/logo.png" height="20" alt="CIMP - BIIF Logo" style="object-fit: contain;">
             </div>
 
             <!-- Desktop Left: Venture Name -->
             <div class="d-none d-lg-flex align-items-center gap-2">
-                <h5 class="mb-0 fw-bold font-15 text-dark"><i class="fa-solid fa-rocket text-primary me-2"></i> Digital Labour Chowk (DLC Tech Solutions Pvt Ltd)</h5>
+                <h5 class="mb-0 fw-bold font-14 text-dark"><i class="fa-solid fa-rocket text-secondary me-2"></i> Digital Labour Chowk (DLC Tech Solutions Pvt Ltd)</h5>
             </div>
 
-            <!-- Right Controls: Action & Mobile Profile -->
+            <!-- Right Controls -->
             <div class="d-flex align-items-center gap-2 gap-sm-3">
-                <button class="app-btn-action d-none d-sm-inline-block" onclick="fileMonthlyTraction()">
+                <button class="app-btn-action" onclick="openFileTractionModal()">
                     <i class="fa-solid fa-plus me-1"></i> File Monthly Traction
                 </button>
 
-                <!-- Executive Profile Dropdown (Desktop & Mobile) -->
+                <!-- Profile Dropdown -->
                 <div class="dropdown">
-                    <button class="btn p-1 d-flex align-items-center gap-2 rounded-pill border bg-white shadow-xs" type="button" id="userProfileDropdownBtn" data-bs-toggle="dropdown" aria-expanded="false" style="transition: all 0.2s ease;">
+                    <button class="btn p-1 d-flex align-items-center gap-2 rounded-pill border bg-white shadow-xs" type="button" id="userProfileDropdownBtn" data-bs-toggle="dropdown" aria-expanded="false">
                         <div class="position-relative">
-                            <div class="d-flex align-items-center justify-content-center rounded-circle text-white fw-bold shadow-xs" style="width: 34px; height: 34px; background: linear-gradient(135deg, #2563EB 0%, #3B82F6 100%); font-size: 13px;">
+                            <div class="d-flex align-items-center justify-content-center rounded-circle text-white fw-bold shadow-xs" style="width: 32px; height: 32px; background: #2563EB; font-size: 12px;">
                                 <i class="fa-solid fa-rocket"></i>
                             </div>
-                            <span class="position-absolute bottom-0 end-0 bg-success border border-white rounded-circle" style="width: 9px; height: 9px;"></span>
                         </div>
                         <div class="d-none d-md-flex flex-column align-items-start pe-2 text-start" style="line-height: 1.15;">
                             <span class="font-12 fw-bold text-dark text-truncate" style="max-width: 130px;" id="topbarUserName">Founder</span>
                             <span class="font-10 text-muted text-truncate" style="max-width: 130px;" id="topbarUserTitle">Founder &amp; CEO</span>
                         </div>
-                        <i class="fa-solid fa-chevron-down font-10 text-muted me-1 d-none d-md-inline-block"></i>
+                        <i class="fa-solid fa-chevron-down font-9 text-muted me-1 d-none d-md-inline-block"></i>
                     </button>
-                    <div class="dropdown-menu dropdown-menu-end shadow-lg border-0 p-2 mt-2" style="width: 260px; border-radius: 12px; z-index: 1060; box-shadow: 0 12px 32px rgba(15,23,42,0.14) !important;">
-                        <div class="px-3 py-2 bg-light rounded-3 mb-2">
-                            <div class="fw-bold font-13 text-dark text-truncate" id="dropdownUserName">Founder</div>
-                            <div class="font-11 text-muted text-truncate" id="dropdownUserEmail">founder@abc.com</div>
-                            <span class="badge bg-primary-subtle text-primary font-10 px-2 py-0.5 mt-1" id="dropdownUserRole">Startup Founder</span>
+                    <div class="dropdown-menu dropdown-menu-end shadow-lg border-0 p-2 mt-2" style="width: 240px; border-radius: 10px; z-index: 1060;">
+                        <div class="px-3 py-2 bg-light rounded-2 mb-2">
+                            <div class="fw-bold font-12 text-dark text-truncate" id="dropdownUserName">Founder</div>
+                            <div class="font-10 text-muted text-truncate" id="dropdownUserEmail">founder@abc.com</div>
+                            <span class="badge bg-secondary font-9 px-2 py-0.5 mt-1" id="dropdownUserRole">Startup Founder</span>
                         </div>
-                        <a class="dropdown-item d-flex align-items-center gap-2 py-2 rounded-2 font-12 fw-semibold text-dark" href="javascript:void(0)" onclick="CIMP_DB.openProfileModal()">
-                            <i class="fa-regular fa-id-badge text-primary font-14"></i>
-                            <span>Edit Profile &amp; Password</span>
-                        </a>
-                        <a class="dropdown-item d-flex align-items-center gap-2 py-2 rounded-2 font-12 text-secondary" href="../../index.html" target="_blank">
+                        <a class="dropdown-item d-flex align-items-center gap-2 py-2 rounded-2 font-12 text-dark" href="../../index.html" target="_blank">
                             <i class="fa-solid fa-arrow-up-right-from-square font-12 text-muted"></i>
                             <span>Public Website</span>
                         </a>
@@ -163,92 +493,95 @@
 
             <!-- TAB 1: OVERVIEW -->
             <div class="app-tab-pane active" id="tab-st-overview">
-                <div class="mb-4">
-                    <h3 class="fw-bold font-20 mb-1" style="font-family: 'Outfit', sans-serif;">Incubatee Venture Dashboard</h3>
-                    <p class="text-muted font-13 mb-0">Track commercial metrics, milestone completion rate, and Bihar Startup Policy seed grant compliance.</p>
+                <div class="mb-3">
+                    <h3 class="page-header-title">Incubatee Venture Dashboard</h3>
+                    <p class="page-header-sub">Track commercial metrics, milestone completion rate, and Bihar Startup Policy seed grant compliance.</p>
                 </div>
 
-                <!-- 4 Clean Stats (2x2 Grid on Mobile) -->
+                <!-- 4 KPI Cards -->
                 <div class="row g-2 g-md-3 mb-3 mb-md-4">
                     <div class="col-6 col-lg-3">
-                        <div class="app-kpi-card p-2.5 p-md-3">
+                        <div class="app-kpi-card p-3">
                             <span class="app-kpi-lbl">Annual Run-Rate</span>
-                            <div class="app-kpi-val text-dark">₹ 42.5 L</div>
-                            <div class="app-kpi-sub" style="color:#059669;"><i class="fa-solid fa-arrow-trend-up"></i> +34% YoY Growth</div>
+                            <div class="app-kpi-val text-dark" id="kpiRunRate">₹ 42.5 L</div>
+                            <div class="app-kpi-sub" style="color:#059669;"><i class="fa-solid fa-arrow-trend-up me-1"></i> +34% YoY Growth</div>
                         </div>
                     </div>
                     <div class="col-6 col-lg-3">
-                        <div class="app-kpi-card p-2.5 p-md-3">
+                        <div class="app-kpi-card p-3">
                             <span class="app-kpi-lbl">Seed Capital Raised</span>
                             <div class="app-kpi-val text-primary">₹ 25.0 Lakhs</div>
-                            <div class="app-kpi-sub"><i class="fa-solid fa-shield-halved text-success"></i> Bihar Startup Policy</div>
+                            <div class="app-kpi-sub"><i class="fa-solid fa-shield text-secondary me-1"></i> Bihar Startup Policy</div>
                         </div>
                     </div>
                     <div class="col-6 col-lg-3">
-                        <div class="app-kpi-card p-2.5 p-md-3">
+                        <div class="app-kpi-card p-3">
                             <span class="app-kpi-lbl">Direct Bihar Jobs</span>
-                            <div class="app-kpi-val">28 Full-Time</div>
-                            <div class="app-kpi-sub"><i class="fa-solid fa-users"></i> 5,200+ Wage Workers</div>
+                            <div class="app-kpi-val" id="kpiJobs">28 Full-Time</div>
+                            <div class="app-kpi-sub"><i class="fa-solid fa-users text-secondary me-1"></i> 5,200+ Wage Workers</div>
                         </div>
                     </div>
                     <div class="col-6 col-lg-3">
-                        <div class="app-kpi-card p-2.5 p-md-3">
+                        <div class="app-kpi-card p-3">
                             <span class="app-kpi-lbl">Incubation Standing</span>
                             <div class="app-kpi-val">Cohort 2022</div>
-                            <div class="app-kpi-sub text-success"><i class="fa-solid fa-check-circle"></i> Desks #8A - #8D</div>
+                            <div class="app-kpi-sub text-success"><i class="fa-solid fa-check text-success me-1"></i> Active Standing</div>
                         </div>
                     </div>
                 </div>
 
-                <!-- Milestones Table with Tap-to-Expand -->
+                <!-- Milestones Table -->
                 <div class="app-table-card mb-4">
-                    <div class="p-3 border-bottom d-flex justify-content-between align-items-center bg-white flex-wrap gap-2">
-                        <div>
-                            <h5 class="fw-bold font-15 mb-0">Incubation Milestones Tracker</h5>
-                            <span class="font-12 text-muted">Tap any milestone to expand verification audit trail and UC documents</span>
+                    <div class="table-toolbar">
+                        <div class="d-flex align-items-center gap-2">
+                            <span class="font-12 fw-bold text-dark"><i class="fa-solid fa-list-check text-secondary me-1.5"></i> Incubation Milestones Tracker</span>
+                            <span class="font-11 text-muted">Sprint audit trail and compliance verification</span>
                         </div>
-                        <span class="badge bg-primary-subtle text-primary font-11"><i class="fa-solid fa-award me-1"></i> Cohort Sprint 2026</span>
+                        <span class="badge bg-light text-secondary border font-10">Cohort Sprint 2026</span>
                     </div>
                     <div class="table-responsive">
                         <table class="app-table">
                             <thead>
                                 <tr>
-                                    <th style="width: 35%;">Sprint Goal / Deliverable</th>
-                                    <th style="width: 15%;">Target Date</th>
-                                    <th style="width: 20%;">Evaluation Status</th>
-                                    <th style="width: 30%;">Verification Remarks</th>
+                                    <th style="width: 38%;">Sprint Goal / Deliverable</th>
+                                    <th style="width: 14%;">Target Date</th>
+                                    <th style="width: 18%;">Evaluation Status</th>
+                                    <th style="width: 22%;">Verification Remarks</th>
+                                    <th style="width: 8%;" class="text-end pe-3">Action</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <!-- Milestone 1 -->
-                                <tr class="tr-parent" onclick="toggleExpandRow(this, event)">
+                                <tr class="tr-parent" id="tr-parent-ms-1" onclick="toggleExpandRow('ms-1', event)">
                                     <td>
-                                        <div class="d-flex align-items-center gap-2">
-                                            <i class="fa-solid fa-chevron-down text-muted expand-chevron font-11"></i>
-                                            <strong>1. MVP Platform Launch &amp; PlayStore Deployment</strong>
-                                        </div>
+                                        <div class="fw-semibold text-dark font-12">1. MVP Platform Launch &amp; PlayStore Deployment</div>
                                     </td>
-                                    <td><span class="badge bg-light text-dark border">Jul 2022</span></td>
-                                    <td><span class="font-12 fw-semibold text-success"><i class="fa-solid fa-circle font-8 me-1"></i> Completed &amp; Audited</span></td>
-                                    <td class="font-12 text-muted">Audited by CIMP-BIIF Incubation Manager</td>
+                                    <td><span class="badge bg-light text-secondary border font-10">Jul 2022</span></td>
+                                    <td><span class="status-pill status-completed">Completed &amp; Audited</span></td>
+                                    <td class="font-11 text-muted">Audited by CIMP-BIIF Incubation Manager</td>
+                                    <td class="text-end pe-3">
+                                        <button class="btn-icon-subtle no-row-click" onclick="toggleExpandRow('ms-1')">
+                                            <i class="fa-solid fa-chevron-down expand-chevron"></i>
+                                        </button>
+                                    </td>
                                 </tr>
-                                <tr class="tr-expand-tray">
-                                    <td colspan="4">
+                                <tr class="tr-expand-tray d-none" id="tr-tray-ms-1">
+                                    <td colspan="5">
                                         <div class="expand-content-wrap">
                                             <div class="row g-3">
                                                 <div class="col-md-7">
-                                                    <div class="p-2.5 bg-white border rounded-2 h-100">
-                                                        <div class="font-11 text-uppercase text-muted fw-bold mb-1">Deliverable Evidence &amp; Artifacts</div>
-                                                        <div class="font-12 text-dark mb-1">&bull; Android App live on Google PlayStore with 10k+ downloads.</div>
-                                                        <div class="font-12 text-dark mb-1">&bull; Direct worker OTP SMS gateway integrated via NIC/Govt standard API.</div>
-                                                        <div class="font-11 text-muted">Verification Hash: <code>VER-2022-DLC-01</code></div>
+                                                    <div class="p-3 bg-white border rounded-2 h-100 shadow-2xs">
+                                                        <div class="font-10 text-muted text-uppercase fw-bold mb-1">Deliverable Evidence &amp; Artifacts</div>
+                                                        <div class="font-12 text-secondary mb-1">&bull; Android App live on Google PlayStore with 10k+ downloads.</div>
+                                                        <div class="font-12 text-secondary mb-1">&bull; Direct worker OTP SMS gateway integrated via standard telecom API.</div>
+                                                        <div class="font-11 text-muted mt-2">Verification Code: <code>VER-2022-DLC-01</code></div>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-5">
-                                                    <div class="p-2.5 bg-white border rounded-2 h-100">
-                                                        <div class="font-11 text-uppercase text-muted fw-bold mb-1">Grant Linkage</div>
+                                                    <div class="p-3 bg-white border rounded-2 h-100 shadow-2xs">
+                                                        <div class="font-10 text-muted text-uppercase fw-bold mb-1">Grant Linkage</div>
                                                         <div class="font-12 text-success fw-bold">₹ 5,00,000 (Tranche-1)</div>
-                                                        <div class="font-11 text-muted">Utilization Certificate (UC) verified and approved by Chartered Accountant.</div>
+                                                        <div class="font-11 text-muted mt-1">Utilization Certificate (UC) verified and approved by Chartered Accountant.</div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -257,34 +590,36 @@
                                 </tr>
 
                                 <!-- Milestone 2 -->
-                                <tr class="tr-parent" onclick="toggleExpandRow(this, event)">
+                                <tr class="tr-parent" id="tr-parent-ms-2" onclick="toggleExpandRow('ms-2', event)">
                                     <td>
-                                        <div class="d-flex align-items-center gap-2">
-                                            <i class="fa-solid fa-chevron-down text-muted expand-chevron font-11"></i>
-                                            <strong>2. 1,000 Daily Wage Workers Verification &amp; KYC</strong>
-                                        </div>
+                                        <div class="fw-semibold text-dark font-12">2. 1,000 Daily Wage Workers Verification &amp; KYC</div>
                                     </td>
-                                    <td><span class="badge bg-light text-dark border">Dec 2022</span></td>
-                                    <td><span class="font-12 fw-semibold text-success"><i class="fa-solid fa-circle font-8 me-1"></i> Completed &amp; Audited</span></td>
-                                    <td class="font-12 text-muted">Field Data Verified in Patna Urban</td>
+                                    <td><span class="badge bg-light text-secondary border font-10">Dec 2022</span></td>
+                                    <td><span class="status-pill status-completed">Completed &amp; Audited</span></td>
+                                    <td class="font-11 text-muted">Field Data Verified in Patna Urban</td>
+                                    <td class="text-end pe-3">
+                                        <button class="btn-icon-subtle no-row-click" onclick="toggleExpandRow('ms-2')">
+                                            <i class="fa-solid fa-chevron-down expand-chevron"></i>
+                                        </button>
+                                    </td>
                                 </tr>
-                                <tr class="tr-expand-tray">
-                                    <td colspan="4">
+                                <tr class="tr-expand-tray d-none" id="tr-tray-ms-2">
+                                    <td colspan="5">
                                         <div class="expand-content-wrap">
                                             <div class="row g-3">
                                                 <div class="col-md-7">
-                                                    <div class="p-2.5 bg-white border rounded-2 h-100">
-                                                        <div class="font-11 text-uppercase text-muted fw-bold mb-1">Deliverable Evidence &amp; Artifacts</div>
-                                                        <div class="font-12 text-dark mb-1">&bull; 1,140 Aadhaar-linked KYC profiles verified across Patna labour chowks.</div>
-                                                        <div class="font-12 text-dark mb-1">&bull; Direct cash-to-bank settlement escrow active with partner bank.</div>
-                                                        <div class="font-11 text-muted">Verification Hash: <code>VER-2022-DLC-02</code></div>
+                                                    <div class="p-3 bg-white border rounded-2 h-100 shadow-2xs">
+                                                        <div class="font-10 text-muted text-uppercase fw-bold mb-1">Deliverable Evidence &amp; Artifacts</div>
+                                                        <div class="font-12 text-secondary mb-1">&bull; 1,140 Aadhaar-linked KYC profiles verified across Patna labour chowks.</div>
+                                                        <div class="font-12 text-secondary mb-1">&bull; Direct bank settlement escrow active with banking partner.</div>
+                                                        <div class="font-11 text-muted mt-2">Verification Code: <code>VER-2022-DLC-02</code></div>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-5">
-                                                    <div class="p-2.5 bg-white border rounded-2 h-100">
-                                                        <div class="font-11 text-uppercase text-muted fw-bold mb-1">Grant Linkage</div>
+                                                    <div class="p-3 bg-white border rounded-2 h-100 shadow-2xs">
+                                                        <div class="font-10 text-muted text-uppercase fw-bold mb-1">Grant Linkage</div>
                                                         <div class="font-12 text-success fw-bold">₹ 10,00,000 (Tranche-2)</div>
-                                                        <div class="font-11 text-muted">Tranche-2 seed grant released post field audit validation.</div>
+                                                        <div class="font-11 text-muted mt-1">Tranche-2 seed grant released post field audit validation.</div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -293,34 +628,36 @@
                                 </tr>
 
                                 <!-- Milestone 3 -->
-                                <tr class="tr-parent" onclick="toggleExpandRow(this, event)">
+                                <tr class="tr-parent" id="tr-parent-ms-3" onclick="toggleExpandRow('ms-3', event)">
                                     <td>
-                                        <div class="d-flex align-items-center gap-2">
-                                            <i class="fa-solid fa-chevron-down text-muted expand-chevron font-11"></i>
-                                            <strong>3. Series Seed Grant Tranche-3 Full Utilization</strong>
-                                        </div>
+                                        <div class="fw-semibold text-dark font-12">3. Series Seed Grant Tranche-3 Full Utilization</div>
                                     </td>
-                                    <td><span class="badge bg-light text-dark border">Mar 2023</span></td>
-                                    <td><span class="font-12 fw-semibold text-success"><i class="fa-solid fa-circle font-8 me-1"></i> Completed &amp; Audited</span></td>
-                                    <td class="font-12 text-muted">Final UC Submitted &amp; Audited</td>
+                                    <td><span class="badge bg-light text-secondary border font-10">Mar 2023</span></td>
+                                    <td><span class="status-pill status-completed">Completed &amp; Audited</span></td>
+                                    <td class="font-11 text-muted">Final UC Submitted &amp; Audited</td>
+                                    <td class="text-end pe-3">
+                                        <button class="btn-icon-subtle no-row-click" onclick="toggleExpandRow('ms-3')">
+                                            <i class="fa-solid fa-chevron-down expand-chevron"></i>
+                                        </button>
+                                    </td>
                                 </tr>
-                                <tr class="tr-expand-tray">
-                                    <td colspan="4">
+                                <tr class="tr-expand-tray d-none" id="tr-tray-ms-3">
+                                    <td colspan="5">
                                         <div class="expand-content-wrap">
                                             <div class="row g-3">
                                                 <div class="col-md-7">
-                                                    <div class="p-2.5 bg-white border rounded-2 h-100">
-                                                        <div class="font-11 text-uppercase text-muted fw-bold mb-1">Deliverable Evidence &amp; Artifacts</div>
-                                                        <div class="font-12 text-dark mb-1">&bull; ₹25 Lakhs cumulative seed capital fully reconciled and audited.</div>
-                                                        <div class="font-12 text-dark mb-1">&bull; Statutory filing (MCA, ROC, GST) up to date.</div>
-                                                        <div class="font-11 text-muted">Verification Hash: <code>VER-2023-DLC-03</code></div>
+                                                    <div class="p-3 bg-white border rounded-2 h-100 shadow-2xs">
+                                                        <div class="font-10 text-muted text-uppercase fw-bold mb-1">Deliverable Evidence &amp; Artifacts</div>
+                                                        <div class="font-12 text-secondary mb-1">&bull; ₹25 Lakhs cumulative seed capital fully reconciled and audited.</div>
+                                                        <div class="font-12 text-secondary mb-1">&bull; Statutory filing (MCA, ROC, GST) up to date.</div>
+                                                        <div class="font-11 text-muted mt-2">Verification Code: <code>VER-2023-DLC-03</code></div>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-5">
-                                                    <div class="p-2.5 bg-white border rounded-2 h-100">
-                                                        <div class="font-11 text-uppercase text-muted fw-bold mb-1">Grant Linkage</div>
+                                                    <div class="p-3 bg-white border rounded-2 h-100 shadow-2xs">
+                                                        <div class="font-10 text-muted text-uppercase fw-bold mb-1">Grant Linkage</div>
                                                         <div class="font-12 text-success fw-bold">₹ 10,00,000 (Tranche-3 Final)</div>
-                                                        <div class="font-11 text-muted">Full ₹25 Lakhs seed grant cycle successfully completed.</div>
+                                                        <div class="font-11 text-muted mt-1">Full ₹25 Lakhs seed grant cycle successfully completed.</div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -329,32 +666,36 @@
                                 </tr>
 
                                 <!-- Milestone 4 -->
-                                <tr class="tr-parent" onclick="toggleExpandRow(this, event)">
+                                <tr class="tr-parent" id="tr-parent-ms-4" onclick="toggleExpandRow('ms-4', event)">
                                     <td>
-                                        <div class="d-flex align-items-center gap-2">
-                                            <i class="fa-solid fa-chevron-down text-muted expand-chevron font-11"></i>
-                                            <strong>4. Expansion to 5 North Bihar Districts &amp; Contractor App</strong>
-                                        </div>
+                                        <div class="fw-semibold text-dark font-12">4. Expansion to 5 North Bihar Districts &amp; Contractor App</div>
                                     </td>
-                                    <td><span class="badge bg-light text-dark border">Target Q3 2026</span></td>
-                                    <td><span class="font-12 fw-semibold text-primary"><i class="fa-solid fa-circle font-8 me-1"></i> In Active Progress</span></td>
-                                    <td class="font-12 text-muted">Under Mentorship Review (Dr. Alok Kumar)</td>
+                                    <td><span class="badge bg-light text-secondary border font-10">Target Q3 2026</span></td>
+                                    <td><span class="status-pill status-active">In Active Progress</span></td>
+                                    <td class="font-11 text-muted">Under Mentorship Review (Dr. Alok Kumar)</td>
+                                    <td class="text-end pe-3">
+                                        <button class="btn-icon-subtle no-row-click" onclick="toggleExpandRow('ms-4')">
+                                            <i class="fa-solid fa-chevron-down expand-chevron"></i>
+                                        </button>
+                                    </td>
                                 </tr>
-                                <tr class="tr-expand-tray">
-                                    <td colspan="4">
+                                <tr class="tr-expand-tray d-none" id="tr-tray-ms-4">
+                                    <td colspan="5">
                                         <div class="expand-content-wrap">
                                             <div class="row g-3">
                                                 <div class="col-md-8">
-                                                    <div class="p-2.5 bg-white border rounded-2 h-100">
-                                                        <div class="font-11 text-uppercase text-muted fw-bold mb-1">Current Sprint Scope</div>
-                                                        <div class="font-12 text-dark mb-1">&bull; Onboarding district coordinators in Muzaffarpur, Darbhanga, Bhagalpur, and Gaya.</div>
-                                                        <div class="font-12 text-dark mb-1">&bull; Contractor monthly enterprise subscription billing pilot.</div>
+                                                    <div class="p-3 bg-white border rounded-2 h-100 shadow-2xs">
+                                                        <div class="font-10 text-muted text-uppercase fw-bold mb-1">Current Sprint Scope</div>
+                                                        <div class="font-12 text-secondary mb-1">&bull; Onboarding district coordinators in Muzaffarpur, Darbhanga, Bhagalpur, and Gaya.</div>
+                                                        <div class="font-12 text-secondary mb-1">&bull; Contractor monthly enterprise subscription billing pilot.</div>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-4">
-                                                    <div class="p-2.5 bg-white border rounded-2 h-100 d-flex flex-column justify-content-between">
-                                                        <div class="font-11 text-uppercase text-muted fw-bold mb-1">Support Needed</div>
-                                                        <div class="font-12 text-muted">Enterprise B2B Legal Contracts &amp; Mentor Strategy session.</div>
+                                                    <div class="p-3 bg-white border rounded-2 h-100 shadow-2xs d-flex flex-column justify-content-between">
+                                                        <div>
+                                                            <div class="font-10 text-muted text-uppercase fw-bold mb-1">Advisory Alignment</div>
+                                                            <div class="font-11 text-muted">Enterprise B2B Legal Contracts &amp; Mentor Strategy session.</div>
+                                                        </div>
                                                         <button class="btn btn-sm btn-outline-primary font-11 mt-2" onclick="switchStView('tab-st-mentors', document.getElementById('stNavMentors'))">Book Mentor Session</button>
                                                     </div>
                                                 </div>
@@ -370,100 +711,37 @@
 
             <!-- TAB 2: MONTHLY TRACTION -->
             <div class="app-tab-pane" id="tab-st-traction">
-                <div class="d-flex align-items-center justify-content-between mb-4 flex-wrap gap-2">
+                <div class="d-flex align-items-center justify-content-between mb-3 flex-wrap gap-2">
                     <div>
-                        <h3 class="fw-bold font-20 mb-1" style="font-family: 'Outfit', sans-serif;">Monthly Commercial Traction Records</h3>
-                        <p class="text-muted font-13 mb-0">Financial and operational reporting filed with CIMP-BIIF Secretariat. Tap any row to inspect breakdown.</p>
+                        <h3 class="page-header-title">Monthly Commercial Traction Records</h3>
+                        <p class="page-header-sub">Financial and operational reporting filed with CIMP-BIIF Secretariat.</p>
                     </div>
-                    <button class="app-btn-action" onclick="fileMonthlyTraction()">
+                    <button class="app-btn-action" onclick="openFileTractionModal()">
                         <i class="fa-solid fa-plus me-1"></i> File Monthly Report
                     </button>
                 </div>
 
                 <div class="app-table-card">
+                    <div class="table-toolbar">
+                        <div class="d-flex align-items-center gap-2">
+                            <span class="font-12 fw-bold text-dark"><i class="fa-solid fa-chart-line text-secondary me-1.5"></i> Verified Filings</span>
+                            <span class="font-11 text-muted" id="tblTractionCount">Showing filings</span>
+                        </div>
+                    </div>
+
                     <div class="table-responsive">
                         <table class="app-table">
                             <thead>
                                 <tr>
-                                    <th style="width: 20%;">Reporting Month</th>
+                                    <th style="width: 22%;">Reporting Month</th>
                                     <th style="width: 20%;">Monthly Revenue</th>
-                                    <th style="width: 20%;">Active Daily Workers</th>
+                                    <th style="width: 20%;">Active Users / Workers</th>
                                     <th style="width: 20%;">Full-Time Bihar Jobs</th>
-                                    <th style="width: 20%;" class="text-end pe-3">Secretariat Audit</th>
+                                    <th style="width: 18%;" class="text-end pe-3">Secretariat Status</th>
                                 </tr>
                             </thead>
-                            <tbody>
-                                <tr class="tr-parent" onclick="toggleExpandRow(this, event)">
-                                    <td>
-                                        <div class="d-flex align-items-center gap-2">
-                                            <i class="fa-solid fa-chevron-down text-muted expand-chevron font-11"></i>
-                                            <strong>August 2026</strong>
-                                        </div>
-                                    </td>
-                                    <td><strong class="text-dark">₹ 4,20,000</strong></td>
-                                    <td><span class="badge bg-light text-dark border font-12">5,200</span></td>
-                                    <td><span class="font-12 fw-semibold">28 Employees</span></td>
-                                    <td class="text-end pe-3"><span class="font-12 fw-semibold text-success"><i class="fa-solid fa-circle font-8 me-1"></i> Verified</span></td>
-                                </tr>
-                                <tr class="tr-expand-tray">
-                                    <td colspan="5">
-                                        <div class="expand-content-wrap">
-                                            <div class="row g-3">
-                                                <div class="col-md-6">
-                                                    <div class="p-2.5 bg-white border rounded-2">
-                                                        <div class="font-11 text-uppercase text-muted fw-bold mb-1">Revenue Composition</div>
-                                                        <div class="font-12 text-dark">Contractor Booking Fees: ₹ 3,10,000</div>
-                                                        <div class="font-12 text-dark">Enterprise Subscriptions: ₹ 1,10,000</div>
-                                                        <div class="font-11 text-muted mt-1">Bank Statement Verified: Yes (SBI Patna Main Branch)</div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <div class="p-2.5 bg-white border rounded-2">
-                                                        <div class="font-11 text-uppercase text-muted fw-bold mb-1">Incubation Facility Utilization</div>
-                                                        <div class="font-12 text-dark">Co-Working Desks: 4 Seats Occupied (Desk 8A-8D)</div>
-                                                        <div class="font-12 text-dark">Mentor Hours Consumed: 4.5 Hours in August</div>
-                                                        <div class="font-11 text-success mt-1"><i class="fa-solid fa-circle-check"></i> Clean Governance Compliance</div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </td>
-                                </tr>
-
-                                <tr class="tr-parent" onclick="toggleExpandRow(this, event)">
-                                    <td>
-                                        <div class="d-flex align-items-center gap-2">
-                                            <i class="fa-solid fa-chevron-down text-muted expand-chevron font-11"></i>
-                                            <strong>July 2026</strong>
-                                        </div>
-                                    </td>
-                                    <td><strong class="text-dark">₹ 3,95,000</strong></td>
-                                    <td><span class="badge bg-light text-dark border font-12">4,850</span></td>
-                                    <td><span class="font-12 fw-semibold">26 Employees</span></td>
-                                    <td class="text-end pe-3"><span class="font-12 fw-semibold text-success"><i class="fa-solid fa-circle font-8 me-1"></i> Verified</span></td>
-                                </tr>
-                                <tr class="tr-expand-tray">
-                                    <td colspan="5">
-                                        <div class="expand-content-wrap">
-                                            <div class="row g-3">
-                                                <div class="col-md-6">
-                                                    <div class="p-2.5 bg-white border rounded-2">
-                                                        <div class="font-11 text-uppercase text-muted fw-bold mb-1">Revenue Composition</div>
-                                                        <div class="font-12 text-dark">Contractor Booking Fees: ₹ 2,95,000</div>
-                                                        <div class="font-12 text-dark">Enterprise Subscriptions: ₹ 1,00,000</div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <div class="p-2.5 bg-white border rounded-2">
-                                                        <div class="font-11 text-uppercase text-muted fw-bold mb-1">Incubation Facility Utilization</div>
-                                                        <div class="font-12 text-dark">Co-Working Desks: 4 Seats Occupied</div>
-                                                        <div class="font-12 text-dark">Mentor Hours Consumed: 6.0 Hours in July</div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </td>
-                                </tr>
+                            <tbody id="tblTractionBody">
+                                <!-- Loaded dynamically -->
                             </tbody>
                         </table>
                     </div>
@@ -472,12 +750,20 @@
 
             <!-- TAB 3: BOOK MENTOR -->
             <div class="app-tab-pane" id="tab-st-mentors">
-                <div class="mb-4">
-                    <h3 class="fw-bold font-20 mb-1" style="font-family: 'Outfit', sans-serif;">Assigned Mentors &amp; Advisory Booking</h3>
-                    <p class="text-muted font-13 mb-0">Schedule 1-on-1 strategy sessions with your empaneled institutional mentors.</p>
+                <div class="d-flex align-items-center justify-content-between mb-3 flex-wrap gap-2">
+                    <div>
+                        <h3 class="page-header-title">Assigned Mentors &amp; Advisory Booking</h3>
+                        <p class="page-header-sub">Schedule 1-on-1 strategy sessions with empaneled institutional mentors.</p>
+                    </div>
                 </div>
 
                 <div class="app-table-card">
+                    <div class="table-toolbar">
+                        <div class="d-flex align-items-center gap-2">
+                            <span class="font-12 fw-bold text-dark"><i class="fa-solid fa-handshake-simple text-secondary me-1.5"></i> Advisory Council</span>
+                        </div>
+                    </div>
+
                     <div class="table-responsive">
                         <table class="app-table">
                             <thead>
@@ -491,18 +777,22 @@
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td><strong>Dr. Alok Kumar</strong></td>
-                                    <td class="text-muted font-12">Senior Advisory Faculty, CIMP</td>
-                                    <td><span class="badge bg-primary-subtle text-primary font-11">Strategy &amp; GTM Scaling</span></td>
-                                    <td>12 Hours / Month</td>
-                                    <td class="text-end pe-3"><button class="btn btn-sm btn-outline-primary font-11 py-1" onclick="bookSessionWith('Dr. Alok Kumar')">Book Session</button></td>
+                                    <td><strong class="font-12 text-dark">Dr. Alok Kumar</strong></td>
+                                    <td class="text-muted font-11">Senior Advisory Faculty, CIMP</td>
+                                    <td><span class="badge bg-light text-secondary border font-10">Strategy &amp; GTM Scaling</span></td>
+                                    <td class="font-12 text-secondary">12 Hours / Month</td>
+                                    <td class="text-end pe-3">
+                                        <button class="btn btn-sm btn-outline-secondary font-11 py-1 px-2.5" onclick="openBookMentorModal('Dr. Alok Kumar')">Book Session</button>
+                                    </td>
                                 </tr>
                                 <tr>
-                                    <td><strong>CA Ramesh Sharma</strong></td>
-                                    <td class="text-muted font-12">Financial Controller &amp; Partner</td>
-                                    <td><span class="badge bg-success-subtle text-success font-11">Taxation &amp; Valuation</span></td>
-                                    <td>8 Hours / Month</td>
-                                    <td class="text-end pe-3"><button class="btn btn-sm btn-outline-primary font-11 py-1" onclick="bookSessionWith('CA Ramesh Sharma')">Book Session</button></td>
+                                    <td><strong class="font-12 text-dark">CA Ramesh Sharma</strong></td>
+                                    <td class="text-muted font-11">Financial Controller &amp; Partner</td>
+                                    <td><span class="badge bg-light text-secondary border font-10">Taxation &amp; Valuation</span></td>
+                                    <td class="font-12 text-secondary">8 Hours / Month</td>
+                                    <td class="text-end pe-3">
+                                        <button class="btn btn-sm btn-outline-secondary font-11 py-1 px-2.5" onclick="openBookMentorModal('CA Ramesh Sharma')">Book Session</button>
+                                    </td>
                                 </tr>
                             </tbody>
                         </table>
@@ -533,11 +823,200 @@
         </nav>
     </div>
 
+    <!-- MODAL 1: FILE MONTHLY TRACTION -->
+    <div class="modal fade" id="modalFileTraction" tabindex="-1" aria-labelledby="modalFileTractionTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content border-0 shadow-lg" style="border-radius: 12px; overflow: hidden;">
+                <div class="modal-header border-bottom px-4 py-3" style="background: #FAFAFC;">
+                    <div>
+                        <h5 class="modal-title font-15 fw-bold text-dark" id="modalFileTractionTitle">File Monthly Traction Report</h5>
+                        <span class="font-11 text-muted">Submit official commercial metrics to CIMP-BIIF Secretariat</span>
+                    </div>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form id="formFileTraction" onsubmit="handleTractionSubmit(event)">
+                    <div class="modal-body p-4">
+                        <div class="row g-2 mb-3">
+                            <div class="col-6">
+                                <label class="form-label font-12 fw-semibold text-secondary">Reporting Month <span class="text-danger">*</span></label>
+                                <select class="form-select font-12" id="selTractionMonth" required>
+                                    <option value="September 2026">September 2026</option>
+                                    <option value="October 2026">October 2026</option>
+                                    <option value="November 2026">November 2026</option>
+                                </select>
+                            </div>
+                            <div class="col-6">
+                                <label class="form-label font-12 fw-semibold text-secondary">Gross Revenue (₹) <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control font-12" id="inpTractionRevenue" placeholder="e.g. ₹ 4,50,000" required>
+                            </div>
+                        </div>
+                        <div class="row g-2 mb-3">
+                            <div class="col-6">
+                                <label class="form-label font-12 fw-semibold text-secondary">Active Workers / Users <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control font-12" id="inpTractionUsers" placeholder="e.g. 5,400" required>
+                            </div>
+                            <div class="col-6">
+                                <label class="form-label font-12 fw-semibold text-secondary">Full-Time Bihar Jobs <span class="text-danger">*</span></label>
+                                <input type="number" class="form-control font-12" id="inpTractionJobs" placeholder="e.g. 30" required>
+                            </div>
+                        </div>
+                        <div class="mb-2">
+                            <label class="form-label font-12 fw-semibold text-secondary">Operational Highlights / Remark</label>
+                            <textarea class="form-control font-12" id="txtTractionNotes" rows="2" placeholder="Key enterprise contracts, cluster expansions..."></textarea>
+                        </div>
+                    </div>
+                    <div class="modal-footer border-top px-4 py-2.5 bg-light d-flex justify-content-between">
+                        <button type="button" class="btn btn-sm btn-outline-secondary font-12" data-bs-dismiss="modal">Cancel</button>
+                        <button type="submit" class="btn btn-sm btn-success font-12 fw-bold px-3">
+                            Submit Traction Filing
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL 2: BOOK MENTOR SESSION -->
+    <div class="modal fade" id="modalBookMentor" tabindex="-1" aria-labelledby="modalBookMentorTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content border-0 shadow-lg" style="border-radius: 12px; overflow: hidden;">
+                <div class="modal-header border-bottom px-4 py-3" style="background: #FAFAFC;">
+                    <div>
+                        <h5 class="modal-title font-15 fw-bold text-dark" id="modalBookMentorTitle">Book Advisory Consultation</h5>
+                        <span class="font-11 text-muted">Schedule dedicated 1-on-1 guidance with faculty mentor</span>
+                    </div>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form id="formBookMentor" onsubmit="handleBookMentorSubmit(event)">
+                    <div class="modal-body p-4">
+                        <div class="mb-3">
+                            <label class="form-label font-12 fw-semibold text-secondary">Institutional Advisor <span class="text-danger">*</span></label>
+                            <select class="form-select font-12" id="selMentorAdvisor" required>
+                                <option value="Dr. Alok Kumar">Dr. Alok Kumar (Strategy & GTM Scaling)</option>
+                                <option value="CA Ramesh Sharma">CA Ramesh Sharma (Taxation & Valuation)</option>
+                            </select>
+                        </div>
+                        <div class="row g-2 mb-3">
+                            <div class="col-6">
+                                <label class="form-label font-12 fw-semibold text-secondary">Preferred Date <span class="text-danger">*</span></label>
+                                <input type="date" class="form-control font-12" id="inpMentorDate" required>
+                            </div>
+                            <div class="col-6">
+                                <label class="form-label font-12 fw-semibold text-secondary">Preferred Slot <span class="text-danger">*</span></label>
+                                <select class="form-select font-12" id="selMentorSlot" required>
+                                    <option value="11:00 AM - 12:00 PM">11:00 AM - 12:00 PM</option>
+                                    <option value="03:00 PM - 04:00 PM" selected>03:00 PM - 04:00 PM</option>
+                                    <option value="05:00 PM - 06:00 PM">05:00 PM - 06:00 PM</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="mb-2">
+                            <label class="form-label font-12 fw-semibold text-secondary">Key Discussion Agenda / Question <span class="text-danger">*</span></label>
+                            <textarea class="form-control font-12" id="txtMentorAgenda" rows="3" placeholder="Outline specific challenges, metrics review, or strategic advice sought..." required></textarea>
+                        </div>
+                    </div>
+                    <div class="modal-footer border-top px-4 py-2.5 bg-light d-flex justify-content-between">
+                        <button type="button" class="btn btn-sm btn-outline-secondary font-12" data-bs-dismiss="modal">Cancel</button>
+                        <button type="submit" class="btn btn-sm btn-primary font-12 fw-bold px-3">
+                            Confirm Booking Request
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
     <!-- Scripts -->
     <script src="../../assets/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="../../assets/js/cimp-db.js"></script>
 
     <script>
+        // State
+        let expandedRowIds = new Set();
+        let tractionRecords = [
+            {
+                id: 'tr-aug-26',
+                month: 'August 2026',
+                revenue: '₹ 4,20,000',
+                users: '5,200',
+                jobs: '28 Employees',
+                status: 'Verified',
+                revDetails: 'Contractor Booking Fees: ₹ 3,10,000 | Enterprise Subscriptions: ₹ 1,10,000',
+                remark: 'Bank Statement Verified (SBI Patna Main Branch). Mentor Consultation Hours: 4.5 Hours.'
+            },
+            {
+                id: 'tr-jul-26',
+                month: 'July 2026',
+                revenue: '₹ 3,95,000',
+                users: '4,850',
+                jobs: '26 Employees',
+                status: 'Verified',
+                revDetails: 'Contractor Booking Fees: ₹ 2,95,000 | Enterprise Subscriptions: ₹ 1,00,000',
+                remark: 'Bank Statement Verified. Mentor Consultation Hours: 6.0 Hours in July.'
+            }
+        ];
+
+        function toggleExpandRow(entityId, evt) {
+            if (evt) {
+                const target = evt.target;
+                if (target.closest('a') || target.closest('button.no-row-click') || target.closest('input')) {
+                    return;
+                }
+            }
+            const rowEl = document.getElementById(`tr-parent-${entityId}`);
+            const trayEl = document.getElementById(`tr-tray-${entityId}`);
+            if (!rowEl || !trayEl) return;
+
+            if (expandedRowIds.has(entityId)) {
+                expandedRowIds.delete(entityId);
+                rowEl.classList.remove('is-expanded');
+                trayEl.classList.add('d-none');
+            } else {
+                expandedRowIds.add(entityId);
+                rowEl.classList.add('is-expanded');
+                trayEl.classList.remove('d-none');
+            }
+        }
+
+        function renderTractionTable() {
+            const tbody = document.getElementById('tblTractionBody');
+            if (!tbody) return;
+
+            const countEl = document.getElementById('tblTractionCount');
+            if (countEl) countEl.innerText = `Showing ${tractionRecords.length} filing${tractionRecords.length !== 1 ? 's' : ''}`;
+
+            let html = '';
+            tractionRecords.forEach(r => {
+                const isExpanded = expandedRowIds.has(r.id);
+                html += `
+                    <tr class="tr-parent ${isExpanded ? 'is-expanded' : ''}" id="tr-parent-${r.id}" onclick="toggleExpandRow('${r.id}', event)">
+                        <td><strong class="font-12 text-dark">${r.month}</strong></td>
+                        <td><strong class="text-dark font-12">${r.revenue}</strong></td>
+                        <td><span class="badge bg-light text-secondary border font-11">${r.users}</span></td>
+                        <td><span class="font-12 text-secondary fw-semibold">${r.jobs}</span></td>
+                        <td class="text-end pe-3">
+                            <span class="status-pill status-completed">${r.status}</span>
+                        </td>
+                    </tr>
+                    <tr class="tr-expand-tray ${isExpanded ? '' : 'd-none'}" id="tr-tray-${r.id}">
+                        <td colspan="5">
+                            <div class="expand-content-wrap">
+                                <div class="bg-white p-3 border rounded-2 shadow-2xs">
+                                    <div class="font-10 text-muted text-uppercase fw-bold mb-1">Revenue Breakdown &amp; Audit Trace</div>
+                                    <div class="font-12 text-dark mb-1">${r.revDetails}</div>
+                                    <div class="font-11 text-muted pt-1 border-top mt-2">
+                                        Secretariat Verification: ${r.remark}
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                `;
+            });
+            tbody.innerHTML = html;
+        }
+
+        // Navigation
         function toggleMobileSidebar() {
             const sidebar = document.getElementById('appSidebar');
             const backdrop = document.getElementById('sidebarBackdrop');
@@ -573,30 +1052,78 @@
             if (targetPane) targetPane.classList.add('active');
             if (btnEl) btnEl.classList.add('active');
 
-            // Sync mobile bottom bar
             document.querySelectorAll('.mobile-nav-btn').forEach(b => b.classList.remove('active'));
             if (tabId === 'tab-st-overview') document.getElementById('mStNavOverview')?.classList.add('active');
             else if (tabId === 'tab-st-traction') document.getElementById('mStNavTraction')?.classList.add('active');
             else if (tabId === 'tab-st-mentors') document.getElementById('mStNavMentors')?.classList.add('active');
         }
 
-        function toggleExpandRow(rowEl, evt) {
-            if (evt && (evt.target.closest('button') || evt.target.closest('a') || evt.target.closest('input') || evt.target.closest('select'))) {
-                return;
+        // Modals
+        let tractionModalInstance = null;
+        function openFileTractionModal() {
+            const modalEl = document.getElementById('modalFileTraction');
+            if (modalEl && window.bootstrap) {
+                if (!tractionModalInstance) tractionModalInstance = new bootstrap.Modal(modalEl);
+                tractionModalInstance.show();
             }
-            const nextRow = rowEl.nextElementSibling;
-            if (nextRow && nextRow.classList.contains('tr-expand-tray')) {
-                const isCurrentlyOpen = nextRow.classList.contains('show');
-                
-                // Toggle clicked row
-                if (isCurrentlyOpen) {
-                    nextRow.classList.remove('show');
-                    rowEl.classList.remove('is-expanded');
-                } else {
-                    nextRow.classList.add('show');
-                    rowEl.classList.add('is-expanded');
-                }
+        }
+
+        function handleTractionSubmit(e) {
+            e.preventDefault();
+            const month = document.getElementById('selTractionMonth')?.value || 'September 2026';
+            const rev = document.getElementById('inpTractionRevenue')?.value || '₹ 4,50,000';
+            const users = document.getElementById('inpTractionUsers')?.value || '5,400';
+            const jobs = document.getElementById('inpTractionJobs')?.value || '30';
+            const notes = document.getElementById('txtTractionNotes')?.value || 'Filing submitted.';
+
+            const newRec = {
+                id: 'tr-' + Date.now(),
+                month: month,
+                revenue: rev,
+                users: users,
+                jobs: jobs + ' Employees',
+                status: 'Verified',
+                revDetails: 'Gross Revenue: ' + rev + ' | Operational Highlights: ' + notes,
+                remark: 'Submitted to CIMP-BIIF Incubation Secretariat for statutory record.'
+            };
+
+            tractionRecords.unshift(newRec);
+            renderTractionTable();
+
+            if (tractionModalInstance) tractionModalInstance.hide();
+            document.getElementById('formFileTraction').reset();
+            switchStView('tab-st-traction', document.getElementById('stNavTraction'));
+        }
+
+        let mentorModalInstance = null;
+        function openBookMentorModal(advisorName = '') {
+            const selAdvisor = document.getElementById('selMentorAdvisor');
+            if (selAdvisor && advisorName) selAdvisor.value = advisorName;
+
+            const inpDate = document.getElementById('inpMentorDate');
+            if (inpDate && !inpDate.value) {
+                const d = new Date();
+                d.setDate(d.getDate() + 3);
+                inpDate.value = d.toISOString().split('T')[0];
             }
+
+            const modalEl = document.getElementById('modalBookMentor');
+            if (modalEl && window.bootstrap) {
+                if (!mentorModalInstance) mentorModalInstance = new bootstrap.Modal(modalEl);
+                mentorModalInstance.show();
+            }
+        }
+
+        function handleBookMentorSubmit(e) {
+            e.preventDefault();
+            const advisor = document.getElementById('selMentorAdvisor')?.value || 'Dr. Alok Kumar';
+            const date = document.getElementById('inpMentorDate')?.value || '';
+            const slot = document.getElementById('selMentorSlot')?.value || '';
+
+            if (mentorModalInstance) mentorModalInstance.hide();
+            document.getElementById('formBookMentor').reset();
+
+            alert(`Advisory session requested with ${advisor} on ${date} (${slot}). Calendar dispatch sent.`);
         }
 
         document.addEventListener('DOMContentLoaded', function () {
@@ -608,29 +1135,8 @@
                 window.CIMP_DB.syncDOMUserProfile();
             }
 
-            window.addEventListener('cimp:db_updated', function() {
-                if (window.CIMP_DB) window.CIMP_DB.syncDOMUserProfile();
-            });
+            renderTractionTable();
         });
-
-        function fileMonthlyTraction() {
-            const rev = prompt("Enter Gross Revenue for the month (e.g. ₹ 4,50,000):", "₹ 4,50,000");
-            if (!rev) return;
-            const workers = prompt("Enter Total Active Workers / Users Onboarded:", "5,400");
-            if (!workers) return;
-            const jobs = prompt("Enter Direct Full-Time Bihar Jobs:", "30");
-            if (rev && workers) {
-                alert("✅ Monthly traction filing submitted successfully to CIMP-BIIF Incubation Secretariat.");
-            }
-        }
-
-        function bookSessionWith(mentorName) {
-            const date = prompt(`Book 1-on-1 Advisory Session with ${mentorName}.\nEnter Preferred Date (e.g. 15 Sep 2026):`, "15 Sep 2026");
-            if (date) {
-                alert(`✅ Advisory session request with ${mentorName} for ${date} registered! Secretariat calendar invite dispatched to your email.`);
-            }
-        }
     </script>
 </body>
 </html>
-

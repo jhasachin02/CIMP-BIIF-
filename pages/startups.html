@@ -221,40 +221,71 @@
             <div class="filter-panel-card">
                 <div class="search-field-wrap">
                     <i class="fa-solid fa-magnifying-glass search-icon"></i>
-                    <input type="text" id="startup-search" placeholder="Search startups by name, founder, or sector...">
+                    <input type="text" id="startup-search" placeholder="Search startups by name, founder, district, or sector...">
                 </div>
                 
                 <div class="filter-dropdowns">
+                    <select id="filter-district" class="filter-select">
+                        <option value="">All Bihar Districts</option>
+                        <option value="Patna">Patna</option>
+                        <option value="Gaya">Gaya</option>
+                        <option value="Muzaffarpur">Muzaffarpur</option>
+                        <option value="Bhagalpur">Bhagalpur</option>
+                        <option value="Darbhanga">Darbhanga</option>
+                        <option value="Purnia">Purnia</option>
+                        <option value="Begusarai">Begusarai</option>
+                        <option value="Samastipur">Samastipur</option>
+                        <option value="Madhubani">Madhubani</option>
+                        <option value="Bhojpur">Bhojpur</option>
+                        <option value="Saran">Saran</option>
+                        <option value="Rohtas">Rohtas</option>
+                        <option value="Vaishali">Vaishali</option>
+                        <option value="Saharsa">Saharsa</option>
+                        <option value="Katihar">Katihar</option>
+                        <option value="Nalanda">Nalanda</option>
+                        <option value="Siwan">Siwan</option>
+                        <option value="Buxar">Buxar</option>
+                        <option value="West Champaran">West Champaran</option>
+                        <option value="East Champaran">East Champaran</option>
+                    </select>
+
                     <select id="filter-sector" class="filter-select">
                         <option value="">All Sectors</option>
                         <option value="AgriTech">AgriTech</option>
                         <option value="HealthTech">HealthTech</option>
-                        <option value="EduTech">EduTech</option>
+                        <option value="EdTech">EdTech</option>
                         <option value="FinTech">FinTech</option>
-                        <option value="Technology">Technology</option>
-                        <option value="CleanTech">CleanTech</option>
-                        <option value="E-commerce">E-commerce</option>
+                        <option value="CleanTech">CleanTech & Energy</option>
+                        <option value="FoodTech">FoodTech & Processing</option>
+                        <option value="SaaS">SaaS & Enterprise AI</option>
+                        <option value="Logistics">Logistics & Supply Chain</option>
+                        <option value="Waste Management">Waste Management</option>
+                        <option value="Drone & Robotics">Drone & Robotics</option>
+                        <option value="Mobility & EV">Mobility & EV</option>
+                        <option value="Technology">Technology & IoT</option>
                     </select>
                     
                     <select id="filter-stage" class="filter-select">
                         <option value="">All Stages</option>
                         <option value="Idea Stage">Idea Stage</option>
-                        <option value="Pre-Revenue">Pre-Revenue</option>
+                        <option value="Pre-Revenue">Pre-Revenue / Prototype</option>
                         <option value="Revenue Stage">Revenue Stage</option>
                         <option value="Scaling">Scaling / Growth</option>
                     </select>
                     
                     <select id="filter-status" class="filter-select">
-                        <option value="">All Statuses</option>
+                        <option value="">All Incubation Types</option>
                         <option value="Active">Active</option>
-                        <option value="Graduated">Graduated</option>
+                        <option value="Pre-Incubation">Pre-Incubation</option>
+                        <option value="Incubation">Incubation</option>
+                        <option value="Acceleration">Acceleration</option>
                     </select>
                 </div>
             </div>
 
             <!-- Result counter and controls -->
             <div class="directory-status-bar">
-                <span class="results-count" id="results-count">Showing 12 startups</span>
+                <span class="results-count" id="results-count">Showing 50 startups</span>
                 <span class="results-hint"><i class="fa-solid fa-circle-check text-success me-1"></i> Live Verified Directory</span>
             </div>
 

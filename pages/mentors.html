@@ -1,4 +1,4 @@
-﻿<!doctype html>
+<!doctype html>
 <html lang="en" dir="ltr">
 
     <head>
@@ -204,35 +204,74 @@
     </div>
     <div class="mobile-nav-backdrop" id="navBackdrop"></div><!--end header-->
     <!-- Navbar End -->
-        <!-- Hero Start -->
-    <section class="bg-half-170 d-table w-100 cover-background background-position-center-bottom" style="background: url('assets/images/banners/banner-06.jpg');">
-        <div class="bg-overlay bg-white opacity-1"></div>
-        <div class="container">
-            <div class="row my-3 justify-content-center">
-                <div class="col-lg-12 text-left">
-                    <div class="title-heading">
-                        <h1 class="font-weight-600 letter-spacing-1 mb-0 text-uppercase">Our Mentors</h1>
-                    </div>
-                </div>  <!--end col-->
-            </div><!--end row-->
-        </div> <!--end container-->
-    </section><!--end section-->
-    <!-- Hero End -->
+    <!-- Clean Minimalist Hero Banner -->
+    <section class="startups-hero-banner text-center text-white" style="background: linear-gradient(135deg, #0A192F 0%, #1E3A8A 50%, #0F172A 100%); padding: 75px 0 65px; position: relative;">
+        <div class="container position-relative" style="z-index: 2;">
+            <span class="badge bg-primary bg-opacity-25 text-white border border-white border-opacity-25 px-3 py-2 rounded-pill font-13 mb-3 fw-semibold">
+                <i class="fa-solid fa-graduation-cap me-1 text-warning"></i> Academic &amp; Industry Mentorship Panel
+            </span>
+            <h1 class="display-5 fw-bold text-white mb-3" style="letter-spacing: -0.02em;">Distinguished Mentors &amp; Advisors</h1>
+            <p class="text-white-50 font-16 mx-auto mb-0" style="max-width: 720px; line-height: 1.65;">
+                Meet our empanelled network of seasoned academicians, corporate executives, venture builders, and sector specialists guiding CIMP-BIIF founders from ideation to scale.
+            </p>
+        </div>
+    </section>
 
-    <!-- Team Start -->
-    <section class="section-two">
+    <!-- Mentors Directory Section -->
+    <section class="py-5" style="background: #F8FAFC; min-height: 70vh;">
         <div class="container">
-            <div class="row">
-                 
-                    <div class="col-8 mx-auto mt-4 pt-2 text-center">
-                        <div class="alert bg-soft-warning" role="alert">
-                            <h5 class="mb-0 font-weight-600 letter-spacing-1">No Mentor Available Right Now.</h5> 
-                        </div>
-                    </div>
-                    
+            
+            <!-- Filters Panel -->
+            <div class="filter-panel-card">
+                <div class="search-field-wrap">
+                    <i class="fa-solid fa-magnifying-glass search-icon"></i>
+                    <input type="text" id="mentor-search" placeholder="Search mentors by name, domain, expertise, or affiliation...">
+                </div>
+                
+                <div class="filter-dropdowns">
+                    <select id="filter-mentor-domain" class="filter-select">
+                        <option value="">All Domains</option>
+                        <option value="Agritech">Agritech &amp; Supply Chain</option>
+                        <option value="Fintech">Fintech &amp; Banking</option>
+                        <option value="Artificial Intelligence">AI &amp; Robotics</option>
+                        <option value="Intellectual Property">IPR &amp; Patents</option>
+                        <option value="Consumer">Consumer &amp; D2C</option>
+                        <option value="Healthcare">Healthcare &amp; Diagnostics</option>
+                        <option value="Renewable">CleanTech &amp; Renewable</option>
+                        <option value="MSME">MSME &amp; Govt Schemes</option>
+                        <option value="Corporate Governance">Finance &amp; Valuation</option>
+                    </select>
+
+                    <select id="filter-mentor-mode" class="filter-select">
+                        <option value="">All Mentorship Modes</option>
+                        <option value="Hybrid">Hybrid (Online &amp; In-Person)</option>
+                        <option value="Online">Online / Virtual</option>
+                        <option value="In-Person">In-Person Sessions</option>
+                    </select>
+
+                    <select id="filter-mentor-location" class="filter-select">
+                        <option value="">All Locations</option>
+                        <option value="Patna">Patna Base</option>
+                        <option value="New Delhi">New Delhi</option>
+                        <option value="Bengaluru">Bengaluru</option>
+                        <option value="Kolkata">Kolkata</option>
+                    </select>
+                </div>
             </div>
-        </div><!--end container-->
-    </section><!--end section-->
+
+            <!-- Result counter and controls -->
+            <div class="directory-status-bar">
+                <span class="results-count" id="mentors-results-count">Showing 30 Empanelled Mentors</span>
+                <span class="results-hint"><i class="fa-solid fa-circle-check text-success me-1"></i> Live Verified Advisory Board</span>
+            </div>
+
+            <!-- Mentors Grid Container (Dynamically rendered by clone-enhancements.js) -->
+            <div class="row g-4" id="mentors-grid">
+                <!-- Injected dynamically -->
+            </div>
+
+        </div>
+    </section>
     <!-- Team Start -->
 
     <!-- Footer Start -->
@@ -397,6 +436,9 @@
 <script src="../assets/js/plugins.init.js"></script><!--Note: All init js like tiny slider, counter, countdown, maintenance, lightbox, gallery, swiper slider, aos animation etc.-->
 <script src="../assets/js/app.js"></script><!--Note: All important javascript like page loader, menu, sticky menu, menu-toggler, one page menu etc. -->
     
+
+    <!-- CIMP-BIIF State Engine -->
+    <script src="../assets/js/cimp-db.js"></script>
 
     <!-- Clone Enhancements JS -->
     <script src="../assets/js/clone-enhancements.js"></script>

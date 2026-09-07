@@ -20,6 +20,395 @@
     
     <!-- Unified Admin CSS -->
     <link href="../../assets/css/admin-dashboard.css" rel="stylesheet" type="text/css">
+
+    <style>
+        /* Modern Executive SaaS Design System */
+        :root {
+            --mgr-teal: #0D9488;
+            --mgr-teal-dark: #0F766E;
+            --mgr-teal-light: #F0FDFA;
+            --mgr-teal-subtle: #CCFBF1;
+            --mgr-navy: #0F172A;
+            --mgr-slate-50: #F8FAFC;
+            --mgr-slate-100: #F1F5F9;
+            --mgr-slate-200: #E2E8F0;
+            --mgr-slate-300: #CBD5E1;
+            --mgr-slate-400: #94A3B8;
+            --mgr-slate-500: #64748B;
+            --mgr-slate-600: #475569;
+            --mgr-slate-700: #334155;
+            --mgr-slate-800: #1E293B;
+        }
+
+        body.admin-unified-body {
+            font-family: 'Plus Jakarta Sans', sans-serif !important;
+            background-color: #F8FAFC !important;
+            color: #0F172A !important;
+        }
+
+        /* Sidebar Brand & Navigation Refinement */
+        .app-sidebar {
+            background: #091222 !important;
+            border-right: 1px solid #1E293B !important;
+        }
+
+        .app-sidebar-brand {
+            padding: 22px 18px 18px !important;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06) !important;
+            text-align: left !important;
+            display: flex !important;
+            flex-direction: column !important;
+            align-items: flex-start !important;
+        }
+
+        .sidebar-brand-card {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: #FFFFFF;
+            padding: 6px 12px;
+            border-radius: 8px;
+            margin-bottom: 14px;
+        }
+
+        .app-sidebar-brand h4 {
+            font-family: 'Plus Jakarta Sans', sans-serif !important;
+            font-size: 15px !important;
+            font-weight: 700 !important;
+            color: #FFFFFF !important;
+            letter-spacing: -0.2px;
+            margin: 0 !important;
+        }
+
+        .app-sidebar-brand span {
+            font-size: 11px !important;
+            color: #94A3B8 !important;
+            font-weight: 500 !important;
+            letter-spacing: 0.3px;
+            margin-top: 3px !important;
+            display: block !important;
+        }
+
+        .app-nav-group {
+            padding: 16px 10px !important;
+        }
+
+        .app-nav-section-header {
+            font-size: 11px !important;
+            font-weight: 700 !important;
+            text-transform: uppercase !important;
+            letter-spacing: 0.8px !important;
+            color: #64748B !important;
+            padding: 6px 12px !important;
+            margin-bottom: 4px !important;
+            display: block;
+        }
+
+        .app-nav-btn {
+            display: flex !important;
+            align-items: center !important;
+            justify-content: space-between !important;
+            padding: 9px 12px !important;
+            border-radius: 7px !important;
+            color: #94A3B8 !important;
+            font-size: 12.5px !important;
+            font-weight: 500 !important;
+            transition: all 0.15s ease !important;
+            border: 1px solid transparent !important;
+            margin-bottom: 3px !important;
+            background: transparent !important;
+            width: 100% !important;
+            text-decoration: none !important;
+        }
+
+        .app-nav-btn:hover {
+            color: #FFFFFF !important;
+            background: rgba(255, 255, 255, 0.04) !important;
+        }
+
+        .app-nav-btn.active {
+            color: #FFFFFF !important;
+            background: rgba(13, 148, 136, 0.14) !important;
+            border-color: rgba(13, 148, 136, 0.3) !important;
+            font-weight: 600 !important;
+        }
+
+        .app-nav-btn.active .left-grp i {
+            color: var(--mgr-teal) !important;
+        }
+
+        .app-user-profile {
+            padding: 14px 16px !important;
+            border-top: 1px solid rgba(255, 255, 255, 0.06) !important;
+            background: rgba(0, 0, 0, 0.18) !important;
+        }
+
+        /* Topbar Refinement */
+        .app-topbar {
+            background: #FFFFFF !important;
+            border-bottom: 1px solid #E2E8F0 !important;
+            height: 60px !important;
+            padding: 0 24px !important;
+        }
+
+        /* Section Headings */
+        .page-header-title {
+            font-family: 'Outfit', sans-serif !important;
+            font-size: 20px !important;
+            font-weight: 700 !important;
+            color: #0F172A !important;
+            letter-spacing: -0.3px;
+            margin-bottom: 2px !important;
+        }
+
+        .page-header-sub {
+            font-size: 12.5px !important;
+            color: #64748B !important;
+            margin-bottom: 0 !important;
+        }
+
+        /* KPI Cards */
+        .app-kpi-card {
+            background: #FFFFFF !important;
+            border: 1px solid #E2E8F0 !important;
+            border-radius: 10px !important;
+            padding: 16px 18px !important;
+            box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04) !important;
+            transition: transform 0.15s ease, box-shadow 0.15s ease !important;
+        }
+
+        .app-kpi-card:hover {
+            box-shadow: 0 4px 12px rgba(15, 23, 42, 0.06) !important;
+        }
+
+        .app-kpi-lbl {
+            font-size: 11px !important;
+            font-weight: 600 !important;
+            text-transform: uppercase !important;
+            letter-spacing: 0.6px !important;
+            color: #64748B !important;
+            display: block !important;
+            margin-bottom: 6px !important;
+        }
+
+        .app-kpi-val {
+            font-family: 'Outfit', sans-serif !important;
+            font-size: 24px !important;
+            font-weight: 700 !important;
+            color: #0F172A !important;
+            letter-spacing: -0.5px;
+            line-height: 1.15 !important;
+        }
+
+        .app-kpi-sub {
+            font-size: 11.5px !important;
+            color: #64748B !important;
+            margin-top: 5px !important;
+            display: block !important;
+        }
+
+        /* Table Card & Modern Toolbar */
+        .app-table-card {
+            background: #FFFFFF !important;
+            border: 1px solid #E2E8F0 !important;
+            border-radius: 10px !important;
+            box-shadow: 0 1px 3px rgba(15, 23, 42, 0.04) !important;
+            overflow: hidden !important;
+            margin-bottom: 24px !important;
+        }
+
+        .table-toolbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            padding: 12px 16px;
+            background: #FAFAFC;
+            border-bottom: 1px solid #E2E8F0;
+            flex-wrap: wrap;
+        }
+
+        .table-toolbar-group {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .table-search-box {
+            position: relative;
+            min-width: 200px;
+        }
+
+        .table-search-box i {
+            position: absolute;
+            left: 11px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #94A3B8;
+            font-size: 11px;
+            pointer-events: none;
+        }
+
+        .table-search-box input {
+            width: 100%;
+            padding: 6px 12px 6px 30px;
+            font-size: 12px;
+            background: #FFFFFF;
+            border: 1px solid #CBD5E1;
+            border-radius: 6px;
+            color: #0F172A;
+            transition: all 0.15s ease;
+        }
+
+        .table-search-box input:focus {
+            border-color: var(--mgr-teal);
+            outline: none;
+            box-shadow: 0 0 0 2.5px rgba(13, 148, 136, 0.15);
+        }
+
+        .table-filter-select {
+            padding: 6px 26px 6px 10px;
+            font-size: 12px;
+            font-weight: 500;
+            color: #334155;
+            background-color: #FFFFFF;
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%2364748B' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/%3e%3c/svg%3e");
+            background-repeat: no-repeat;
+            background-position: right 8px center;
+            background-size: 10px 10px;
+            border: 1px solid #CBD5E1;
+            border-radius: 6px;
+            cursor: pointer;
+            outline: none;
+            transition: border-color 0.15s ease;
+        }
+
+        .table-filter-select:focus {
+            border-color: var(--mgr-teal);
+        }
+
+        /* Modern Tabular Layout */
+        .app-table {
+            width: 100% !important;
+            margin-bottom: 0 !important;
+            border-collapse: collapse !important;
+        }
+
+        .app-table th {
+            background: #F8FAFC !important;
+            color: #475569 !important;
+            font-size: 11px !important;
+            font-weight: 600 !important;
+            text-transform: uppercase !important;
+            letter-spacing: 0.6px !important;
+            padding: 10px 16px !important;
+            border-bottom: 1px solid #E2E8F0 !important;
+            white-space: nowrap !important;
+            vertical-align: middle !important;
+        }
+
+        .app-table td {
+            padding: 12px 16px !important;
+            font-size: 12.5px !important;
+            color: #1E293B !important;
+            border-bottom: 1px solid #F1F5F9 !important;
+            vertical-align: middle !important;
+        }
+
+        .app-table tbody tr {
+            transition: background-color 0.12s ease;
+        }
+
+        .app-table tbody tr:hover {
+            background-color: #F8FAFC !important;
+        }
+
+        .app-table tbody tr.is-expanded {
+            background-color: #F8FAFC !important;
+        }
+
+        /* Subtle Status Pills */
+        .status-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            padding: 2.5px 8px;
+            border-radius: 5px;
+            font-size: 11px;
+            font-weight: 600;
+            white-space: nowrap;
+            letter-spacing: 0.1px;
+        }
+
+        .status-pill::before {
+            content: "";
+            width: 5px;
+            height: 5px;
+            border-radius: 50%;
+        }
+
+        .status-active {
+            background: #ECFDF5;
+            color: #065F46;
+            border: 1px solid #A7F3D0;
+        }
+        .status-active::before { background: #10B981; }
+
+        .status-completed {
+            background: #EFF6FF;
+            color: #1E40AF;
+            border: 1px solid #BFDBFE;
+        }
+        .status-completed::before { background: #3B82F6; }
+
+        .status-pending {
+            background: #FFFBEB;
+            color: #92400E;
+            border: 1px solid #FDE68A;
+        }
+        .status-pending::before { background: #F59E0B; }
+
+        /* Subtle Action Buttons */
+        .btn-icon-subtle {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 28px;
+            height: 28px;
+            border-radius: 6px;
+            border: 1px solid transparent;
+            background: transparent;
+            color: #64748B;
+            transition: all 0.15s ease;
+            cursor: pointer;
+            padding: 0;
+        }
+
+        .btn-icon-subtle:hover {
+            background: #F1F5F9;
+            color: #0F172A;
+            border-color: #E2E8F0;
+        }
+
+        .expand-chevron {
+            transition: transform 0.2s ease;
+        }
+        .is-expanded .expand-chevron {
+            transform: rotate(180deg);
+        }
+
+        .tr-expand-tray td {
+            padding: 0 !important;
+            border-bottom: 1px solid #E2E8F0 !important;
+        }
+
+        .expand-content-wrap {
+            padding: 16px 20px;
+            background: #F8FAFC;
+            border-top: 1px solid #F1F5F9;
+        }
+    </style>
 </head>
 
 <body class="admin-unified-body">
@@ -35,56 +424,57 @@
                 <button class="btn btn-sm text-white-50 d-lg-none position-absolute top-0 end-0 m-2 p-1" onclick="toggleMobileSidebar()" title="Close Navigation Drawer" style="border: none; background: transparent;">
                     <i class="fa-solid fa-xmark font-20 text-white"></i>
                 </button>
-                <div class="app-sidebar-emblem">
-                    <img src="../../assets/images/CIMP-Icon.png" height="32" alt="CIMP Logo" style="object-fit: contain;">
-                    <div style="border-left: 1.5px solid #CBD5E1; height: 24px;"></div>
-                    <img src="../../assets/images/logo.png" height="28" alt="CIMP-BIIF Logo" style="object-fit: contain;">
+                <div class="sidebar-brand-card">
+                    <img src="../../assets/images/CIMP-Icon.png" height="24" alt="CIMP" style="object-fit: contain;">
+                    <div style="border-left: 1.5px solid #CBD5E1; height: 18px;"></div>
+                    <img src="../../assets/images/logo.png" height="20" alt="BIIF" style="object-fit: contain;">
                 </div>
                 <h4>CIMP - BIIF</h4>
-                <span>Mentor Advisory</span>
+                <span>Mentor Advisory Hub</span>
             </div>
 
             <!-- Page-Wise Structured Nav Tabs -->
             <div class="app-nav-group">
-                <span class="app-nav-header">Advisory Workspace</span>
+                <div class="app-nav-section-header">Advisory Workspace</div>
                 
                 <button class="app-nav-btn active" id="menNavOverview" onclick="switchMenView('tab-men-overview', this)">
                     <span class="left-grp">
-                        <i class="fa-solid fa-chalkboard-user font-14"></i>
+                        <i class="fa-solid fa-chart-pie font-14 me-2"></i>
                         <span>Advisory Overview</span>
                     </span>
                 </button>
 
                 <button class="app-nav-btn" id="menNavMentees" onclick="switchMenView('tab-men-mentees', this)">
                     <span class="left-grp">
-                        <i class="fa-solid fa-cubes font-14"></i>
-                        <span>Allotted Mentee Startups</span>
+                        <i class="fa-solid fa-cubes font-14 me-2"></i>
+                        <span>Allotted Startups</span>
                     </span>
+                    <span class="badge bg-secondary font-10" id="sidebarMenteeCount">4</span>
                 </button>
 
                 <button class="app-nav-btn" id="menNavSessions" onclick="switchMenView('tab-men-sessions', this)">
                     <span class="left-grp">
-                        <i class="fa-solid fa-calendar-check font-14"></i>
-                        <span>Completed Sessions</span>
+                        <i class="fa-solid fa-calendar-check font-14 me-2"></i>
+                        <span>Mentoring Sessions</span>
                     </span>
+                    <span class="badge bg-secondary font-10" id="sidebarSessionCount">2</span>
                 </button>
             </div>
         </div>
 
-        <!-- Logged In User Strip with Profile Edit -->
-        <!-- Logged In User Strip (Minimal Clean Workspace Identity) -->
+        <!-- Logged In User Strip -->
         <div class="app-user-profile">
             <div class="d-flex align-items-center gap-2 overflow-hidden">
-                <div class="d-flex align-items-center justify-content-center rounded-circle flex-shrink-0" style="width: 34px; height: 34px; background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.2);">
-                    <i class="fa-solid fa-graduation-cap text-white font-14"></i>
+                <div class="d-flex align-items-center justify-content-center rounded-circle flex-shrink-0" style="width: 32px; height: 32px; background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.2);">
+                    <i class="fa-solid fa-graduation-cap text-white font-13"></i>
                 </div>
                 <div class="overflow-hidden">
-                    <div class="font-12 fw-bold text-white text-truncate" id="sidebarUserName">Mentor</div>
-                    <div class="font-11 text-white-50 text-truncate" id="sidebarUserTitle">Faculty Mentor</div>
+                    <div class="font-12 fw-bold text-white text-truncate" id="sidebarUserName">Dr. Alok Kumar</div>
+                    <div class="font-10 text-white-50 text-truncate" id="sidebarUserTitle">Senior Faculty Mentor</div>
                 </div>
             </div>
             <div>
-                <a href="../../login.html" class="text-white-50 font-14 p-1 text-decoration-none" title="Sign Out">
+                <a href="../../login.html" class="text-white-50 font-13 p-1 text-decoration-none" title="Sign Out">
                     <i class="fa-solid fa-arrow-right-from-bracket"></i>
                 </a>
             </div>
@@ -94,57 +484,52 @@
     <!-- 2. Main Workspace Viewport -->
     <div class="app-main-wrap">
         
-        <!-- Topbar Header (Native Mobile App Bar on Mobile) -->
+        <!-- Topbar Header -->
         <header class="app-topbar">
             <!-- Mobile Left: Hamburger Drawer Toggle -->
-            <button class="btn btn-light d-lg-none p-0 rounded-circle border shadow-sm d-flex align-items-center justify-content-center" style="width: 38px; height: 38px; min-width: 38px;" onclick="toggleMobileSidebar()" title="Open Menu">
-                <i class="fa-solid fa-bars font-16 text-dark"></i>
+            <button class="btn btn-light d-lg-none p-0 rounded-circle border shadow-sm d-flex align-items-center justify-content-center" style="width: 36px; height: 36px; min-width: 36px;" onclick="toggleMobileSidebar()" title="Open Menu">
+                <i class="fa-solid fa-bars font-15 text-dark"></i>
             </button>
 
-            <!-- Mobile Center: Both Official Emblems & Logos -->
+            <!-- Mobile Center: Official Emblems -->
             <div class="d-flex d-lg-none align-items-center justify-content-center gap-1" style="cursor: pointer;" onclick="switchMenView('tab-men-overview')">
-                <img src="../../assets/images/CIMP-Icon.png" height="24" alt="CIMP Logo" style="object-fit: contain;">
-                <div style="border-left: 1.5px solid #CBD5E1; height: 18px; margin: 0 4px;"></div>
-                <img src="../../assets/images/logo.png" height="22" alt="CIMP - BIIF Logo" style="object-fit: contain;">
+                <img src="../../assets/images/CIMP-Icon.png" height="22" alt="CIMP Logo" style="object-fit: contain;">
+                <div style="border-left: 1.5px solid #CBD5E1; height: 16px; margin: 0 4px;"></div>
+                <img src="../../assets/images/logo.png" height="20" alt="CIMP - BIIF Logo" style="object-fit: contain;">
             </div>
 
             <!-- Desktop Left: Title -->
             <div class="d-none d-lg-flex align-items-center gap-2">
-                <h5 class="mb-0 fw-bold font-15 text-dark"><i class="fa-solid fa-graduation-cap text-primary me-2"></i> Faculty Advisory &amp; Venture Mentoring Console</h5>
+                <h5 class="mb-0 fw-bold font-14 text-dark"><i class="fa-solid fa-graduation-cap text-secondary me-2"></i> Faculty Advisory &amp; Venture Mentoring Console</h5>
             </div>
 
-            <!-- Right Controls: Action & Mobile Profile -->
+            <!-- Right Controls -->
             <div class="d-flex align-items-center gap-2 gap-sm-3">
-                <button class="app-btn-action d-none d-sm-inline-block" onclick="logAdvisorySession()">
+                <button class="app-btn-action" onclick="openLogSessionModal()">
                     <i class="fa-solid fa-plus me-1"></i> Log Mentoring Session
                 </button>
 
-                <!-- Executive Profile Dropdown (Desktop & Mobile) -->
+                <!-- Profile Dropdown -->
                 <div class="dropdown">
-                    <button class="btn p-1 d-flex align-items-center gap-2 rounded-pill border bg-white shadow-xs" type="button" id="userProfileDropdownBtn" data-bs-toggle="dropdown" aria-expanded="false" style="transition: all 0.2s ease;">
+                    <button class="btn p-1 d-flex align-items-center gap-2 rounded-pill border bg-white shadow-xs" type="button" id="userProfileDropdownBtn" data-bs-toggle="dropdown" aria-expanded="false">
                         <div class="position-relative">
-                            <div class="d-flex align-items-center justify-content-center rounded-circle text-white fw-bold shadow-xs" style="width: 34px; height: 34px; background: linear-gradient(135deg, #7C3AED 0%, #8B5CF6 100%); font-size: 13px;">
-                                <i class="fa-solid fa-graduation-cap"></i>
+                            <div class="d-flex align-items-center justify-content-center rounded-circle text-white fw-bold shadow-xs" style="width: 32px; height: 32px; background: #0D9488; font-size: 12px;">
+                                AK
                             </div>
-                            <span class="position-absolute bottom-0 end-0 bg-success border border-white rounded-circle" style="width: 9px; height: 9px;"></span>
                         </div>
                         <div class="d-none d-md-flex flex-column align-items-start pe-2 text-start" style="line-height: 1.15;">
-                            <span class="font-12 fw-bold text-dark text-truncate" style="max-width: 130px;" id="topbarUserName">Mentor</span>
+                            <span class="font-12 fw-bold text-dark text-truncate" style="max-width: 130px;" id="topbarUserName">Dr. Alok Kumar</span>
                             <span class="font-10 text-muted text-truncate" style="max-width: 130px;" id="topbarUserTitle">Faculty Mentor</span>
                         </div>
-                        <i class="fa-solid fa-chevron-down font-10 text-muted me-1 d-none d-md-inline-block"></i>
+                        <i class="fa-solid fa-chevron-down font-9 text-muted me-1 d-none d-md-inline-block"></i>
                     </button>
-                    <div class="dropdown-menu dropdown-menu-end shadow-lg border-0 p-2 mt-2" style="width: 260px; border-radius: 12px; z-index: 1060; box-shadow: 0 12px 32px rgba(15,23,42,0.14) !important;">
-                        <div class="px-3 py-2 bg-light rounded-3 mb-2">
-                            <div class="fw-bold font-13 text-dark text-truncate" id="dropdownUserName">Mentor</div>
-                            <div class="font-11 text-muted text-truncate" id="dropdownUserEmail">mentor@cimp.ac.in</div>
-                            <span class="badge bg-purple-subtle text-purple font-10 px-2 py-0.5 mt-1" id="dropdownUserRole">Mentor</span>
+                    <div class="dropdown-menu dropdown-menu-end shadow-lg border-0 p-2 mt-2" style="width: 240px; border-radius: 10px; z-index: 1060;">
+                        <div class="px-3 py-2 bg-light rounded-2 mb-2">
+                            <div class="fw-bold font-12 text-dark text-truncate" id="dropdownUserName">Dr. Alok Kumar</div>
+                            <div class="font-10 text-muted text-truncate" id="dropdownUserEmail">mentor@cimp.ac.in</div>
+                            <span class="badge bg-secondary font-9 px-2 py-0.5 mt-1" id="dropdownUserRole">Faculty Mentor</span>
                         </div>
-                        <a class="dropdown-item d-flex align-items-center gap-2 py-2 rounded-2 font-12 fw-semibold text-dark" href="javascript:void(0)" onclick="CIMP_DB.openProfileModal()">
-                            <i class="fa-regular fa-id-badge text-primary font-14"></i>
-                            <span>Edit Profile &amp; Password</span>
-                        </a>
-                        <a class="dropdown-item d-flex align-items-center gap-2 py-2 rounded-2 font-12 text-secondary" href="../../index.html" target="_blank">
+                        <a class="dropdown-item d-flex align-items-center gap-2 py-2 rounded-2 font-12 text-dark" href="../../index.html" target="_blank">
                             <i class="fa-solid fa-arrow-up-right-from-square font-12 text-muted"></i>
                             <span>Public Website</span>
                         </a>
@@ -163,201 +548,74 @@
 
             <!-- TAB 1: OVERVIEW -->
             <div class="app-tab-pane active" id="tab-men-overview">
-                <div class="mb-4">
-                    <h3 class="fw-bold font-20 mb-1" style="font-family: 'Outfit', sans-serif;">Mentor Advisory Summary</h3>
-                    <p class="text-muted font-13 mb-0">Overview of allotted ventures, advisory sprint commitments, and incubation milestones guidance.</p>
+                <div class="mb-3">
+                    <h3 class="page-header-title">Mentor Advisory Summary</h3>
+                    <p class="page-header-sub">Overview of allotted ventures, advisory sprint commitments, and incubation milestones guidance.</p>
                 </div>
 
-                <!-- 4 Clean Stats (2x2 Grid on Mobile) -->
+                <!-- 4 KPI Cards -->
                 <div class="row g-2 g-md-3 mb-3 mb-md-4">
                     <div class="col-6 col-lg-3">
-                        <div class="app-kpi-card p-2.5 p-md-3">
+                        <div class="app-kpi-card p-3">
                             <span class="app-kpi-lbl">Allotted Startups</span>
-                            <div class="app-kpi-val text-dark">4 Ventures</div>
-                            <div class="app-kpi-sub"><i class="fa-solid fa-rocket text-primary"></i> Active Cohort 2026</div>
+                            <div class="app-kpi-val text-dark" id="kpiAllottedCount">4 Ventures</div>
+                            <div class="app-kpi-sub"><i class="fa-solid fa-cube text-secondary me-1"></i> Active Portfolio</div>
                         </div>
                     </div>
                     <div class="col-6 col-lg-3">
-                        <div class="app-kpi-card p-2.5 p-md-3">
+                        <div class="app-kpi-card p-3">
                             <span class="app-kpi-lbl">Advisory Hours</span>
-                            <div class="app-kpi-val text-primary">48 Hours</div>
-                            <div class="app-kpi-sub text-success"><i class="fa-solid fa-circle-check"></i> 100% Target Met</div>
+                            <div class="app-kpi-val text-primary" id="kpiTotalHours">48 Hours</div>
+                            <div class="app-kpi-sub text-success"><i class="fa-solid fa-check text-success me-1"></i> Cohort Target Met</div>
                         </div>
                     </div>
                     <div class="col-6 col-lg-3">
-                        <div class="app-kpi-card p-2.5 p-md-3">
+                        <div class="app-kpi-card p-3">
                             <span class="app-kpi-lbl">Seed Grants Supported</span>
                             <div class="app-kpi-val text-dark">₹ 60.0 L</div>
-                            <div class="app-kpi-sub"><i class="fa-solid fa-shield-halved text-success"></i> Bihar Startup Policy</div>
+                            <div class="app-kpi-sub"><i class="fa-solid fa-shield text-secondary me-1"></i> Bihar Startup Policy</div>
                         </div>
                     </div>
                     <div class="col-6 col-lg-3">
-                        <div class="app-kpi-card p-2.5 p-md-3">
+                        <div class="app-kpi-card p-3">
                             <span class="app-kpi-lbl">Feedback Score</span>
                             <div class="app-kpi-val text-success">4.9 / 5.0</div>
-                            <div class="app-kpi-sub text-muted"><i class="fa-solid fa-star text-warning"></i> Founder Rating</div>
+                            <div class="app-kpi-sub text-muted"><i class="fa-solid fa-star text-warning me-1"></i> Founder Rating</div>
                         </div>
                     </div>
                 </div>
 
-                <!-- Mentees Quick Table with Tap-to-Expand -->
+                <!-- Mentees Table with Docked Toolbar -->
                 <div class="app-table-card">
-                    <div class="p-3 border-bottom d-flex justify-content-between align-items-center bg-white flex-wrap gap-2">
-                        <div>
-                            <h5 class="fw-bold font-15 mb-0">Allotted Mentee Portfolio</h5>
-                            <span class="font-12 text-muted">Tap any row to expand strategic dossier &amp; quick contact tools</span>
+                    <div class="table-toolbar">
+                        <div class="d-flex align-items-center gap-2">
+                            <span class="font-12 fw-bold text-dark"><i class="fa-solid fa-cubes text-secondary me-1.5"></i> Allotted Mentee Portfolio</span>
+                            <span class="font-11 text-muted" id="ovMenteeCount">Showing 4 ventures</span>
                         </div>
-                        <button class="btn btn-sm btn-outline-primary font-12" onclick="switchMenView('tab-men-mentees', document.getElementById('menNavMentees'))">
-                            View All Mentees <i class="fa-solid fa-arrow-right ms-1"></i>
-                        </button>
+                        <div class="table-toolbar-group">
+                            <div class="table-search-box">
+                                <i class="fa-solid fa-magnifying-glass"></i>
+                                <input type="text" id="searchOvMentee" placeholder="Filter mentee startups..." oninput="renderMentorOverviewTable()">
+                            </div>
+                            <button class="btn btn-sm btn-outline-secondary font-11 py-1 px-2 text-nowrap" onclick="switchMenView('tab-men-mentees', document.getElementById('menNavMentees'))">
+                                View Directory &rarr;
+                            </button>
+                        </div>
                     </div>
+
                     <div class="table-responsive">
                         <table class="app-table">
                             <thead>
                                 <tr>
-                                    <th style="width: 28%;">Startup Enterprise</th>
+                                    <th style="width: 30%;">Startup Enterprise</th>
                                     <th style="width: 20%;">Founder &amp; Contact</th>
-                                    <th style="width: 18%;">Sector &amp; Track</th>
-                                    <th style="width: 22%;">Current Sprint Milestone</th>
+                                    <th style="width: 18%;">Sector &amp; Stage</th>
+                                    <th style="width: 20%;">Current Sprint Milestone</th>
                                     <th style="width: 12%;" class="text-end pe-3">Action</th>
                                 </tr>
                             </thead>
-                            <tbody>
-                                <!-- Row 1 -->
-                                <tr class="tr-parent" onclick="toggleExpandRow(this, event)">
-                                    <td>
-                                        <div class="d-flex align-items-center gap-2">
-                                            <i class="fa-solid fa-chevron-down text-muted expand-chevron font-11"></i>
-                                            <div>
-                                                <strong>Patna AgriDrone Hub</strong>
-                                                <div class="font-11 text-muted">Agritech Solutions Pvt Ltd &bull; Patna</div>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <span class="font-12 fw-semibold text-dark">Vikramaditya Roy</span>
-                                        <div class="font-11 text-muted">+91 98350 11223</div>
-                                    </td>
-                                    <td>
-                                        <span class="badge bg-success-subtle text-success font-10">AgriTech</span>
-                                        <div class="font-11 text-muted mt-0.5">Physical (FabLab Desk 4B)</div>
-                                    </td>
-                                    <td>
-                                        <span class="font-12 text-dark fw-medium">DGCA Drone Certification &amp; Pilot</span>
-                                        <div class="font-11 text-warning"><i class="fa-solid fa-clock-rotate-left"></i> Sprint Target: 15 Sep 2026</div>
-                                    </td>
-                                    <td class="text-end pe-3" onclick="event.stopPropagation()">
-                                        <button class="btn btn-sm btn-outline-primary font-11 py-1" onclick="logAdvisorySessionFor('Patna AgriDrone Hub')">Log Session</button>
-                                    </td>
-                                </tr>
-                                <tr class="tr-expand-tray">
-                                    <td colspan="5">
-                                        <div class="expand-content-wrap">
-                                            <div class="row g-3">
-                                                <div class="col-md-4">
-                                                    <div class="p-2.5 bg-white border rounded-2 h-100">
-                                                        <div class="font-11 text-uppercase text-muted fw-bold mb-1">Founder Direct Reachout</div>
-                                                        <div class="fw-bold font-13 text-dark">Vikramaditya Roy</div>
-                                                        <div class="font-11 text-muted mb-2">vikram@agridrone.in | +91 98350 11223</div>
-                                                        <div class="d-flex gap-1">
-                                                            <a href="https://wa.me/919835011223" target="_blank" class="btn btn-sm btn-success font-11 py-1 px-2"><i class="fa-brands fa-whatsapp me-1"></i>WhatsApp</a>
-                                                            <a href="tel:+919835011223" class="btn btn-sm btn-light border font-11 py-1 px-2"><i class="fa-solid fa-phone me-1"></i>Call</a>
-                                                            <a href="mailto:vikram@agridrone.in" class="btn btn-sm btn-light border font-11 py-1 px-2"><i class="fa-solid fa-envelope me-1"></i>Email</a>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-5">
-                                                    <div class="p-2.5 bg-white border rounded-2 h-100">
-                                                        <div class="font-11 text-uppercase text-muted fw-bold mb-1">Incubation Track &amp; Support Matrix</div>
-                                                        <div class="font-12 text-dark mb-1"><strong>Facility Allotted:</strong> FabLab Precision Testing + 4 Dedicated Desks</div>
-                                                        <div class="font-12 text-dark mb-1"><strong>Bihar Seed Capital:</strong> ₹ 10 Lakhs (Tranche-1 Audited &amp; Utilized)</div>
-                                                        <div class="font-12 text-muted"><strong>Advisory Priority:</strong> DGCA Compliance, Farmer FPO Cluster Pricing Strategy, Pilot spray validation in Nalanda.</div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-3">
-                                                    <div class="p-2.5 bg-white border rounded-2 h-100 d-flex flex-column justify-content-between">
-                                                        <div>
-                                                            <div class="font-11 text-uppercase text-muted fw-bold mb-1">Advisory Status</div>
-                                                            <span class="badge bg-primary-subtle text-primary font-11 mb-2"><i class="fa-solid fa-handshake font-10 me-1"></i> 14 Advisory Hours Logged</span>
-                                                            <div class="font-11 text-muted">Next Scheduled Meeting: <strong>12 Sep 2026</strong></div>
-                                                        </div>
-                                                        <button class="btn btn-sm btn-primary font-11 w-100 mt-2" onclick="logAdvisorySessionFor('Patna AgriDrone Hub')">
-                                                            <i class="fa-solid fa-plus me-1"></i> Log Strategic Notes
-                                                        </button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </td>
-                                </tr>
-
-                                <!-- Row 2 -->
-                                <tr class="tr-parent" onclick="toggleExpandRow(this, event)">
-                                    <td>
-                                        <div class="d-flex align-items-center gap-2">
-                                            <i class="fa-solid fa-chevron-down text-muted expand-chevron font-11"></i>
-                                            <div>
-                                                <strong>Digital Labour Chowk</strong>
-                                                <div class="font-11 text-muted">DLC Tech Solutions Pvt Ltd &bull; Patna</div>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <span class="font-12 fw-semibold text-dark">Chandrashekhar Mandal</span>
-                                        <div class="font-11 text-muted">+91 94310 44556</div>
-                                    </td>
-                                    <td>
-                                        <span class="badge bg-primary-subtle text-primary font-10">Tech Platform</span>
-                                        <div class="font-11 text-muted mt-0.5">Physical (Desk 8A-8D)</div>
-                                    </td>
-                                    <td>
-                                        <span class="font-12 text-dark fw-medium">GTM Expansion &amp; Contractor Monetization</span>
-                                        <div class="font-11 text-success"><i class="fa-solid fa-circle-check"></i> On Track (Cohort 2022)</div>
-                                    </td>
-                                    <td class="text-end pe-3" onclick="event.stopPropagation()">
-                                        <button class="btn btn-sm btn-outline-primary font-11 py-1" onclick="logAdvisorySessionFor('Digital Labour Chowk')">Log Session</button>
-                                    </td>
-                                </tr>
-                                <tr class="tr-expand-tray">
-                                    <td colspan="5">
-                                        <div class="expand-content-wrap">
-                                            <div class="row g-3">
-                                                <div class="col-md-4">
-                                                    <div class="p-2.5 bg-white border rounded-2 h-100">
-                                                        <div class="font-11 text-uppercase text-muted fw-bold mb-1">Founder Direct Reachout</div>
-                                                        <div class="fw-bold font-13 text-dark">Chandrashekhar Mandal</div>
-                                                        <div class="font-11 text-muted mb-2">founder@abc.com | +91 94310 44556</div>
-                                                        <div class="d-flex gap-1">
-                                                            <a href="https://wa.me/919431044556" target="_blank" class="btn btn-sm btn-success font-11 py-1 px-2"><i class="fa-brands fa-whatsapp me-1"></i>WhatsApp</a>
-                                                            <a href="tel:+919431044556" class="btn btn-sm btn-light border font-11 py-1 px-2"><i class="fa-solid fa-phone me-1"></i>Call</a>
-                                                            <a href="mailto:founder@abc.com" class="btn btn-sm btn-light border font-11 py-1 px-2"><i class="fa-solid fa-envelope me-1"></i>Email</a>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-5">
-                                                    <div class="p-2.5 bg-white border rounded-2 h-100">
-                                                        <div class="font-11 text-uppercase text-muted fw-bold mb-1">Incubation Track &amp; Support Matrix</div>
-                                                        <div class="font-12 text-dark mb-1"><strong>Facility Allotted:</strong> 4 Dedicated Desks + Meeting Room Quota</div>
-                                                        <div class="font-12 text-dark mb-1"><strong>Bihar Seed Grant:</strong> ₹ 25 Lakhs (3 Tranches Fully Disbursed &amp; Utilized)</div>
-                                                        <div class="font-12 text-muted"><strong>Advisory Priority:</strong> Enterprise B2B SaaS contractor billing, GST automated reconciliation, Series-A readiness deck.</div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-3">
-                                                    <div class="p-2.5 bg-white border rounded-2 h-100 d-flex flex-column justify-content-between">
-                                                        <div>
-                                                            <div class="font-11 text-uppercase text-muted fw-bold mb-1">Advisory Status</div>
-                                                            <span class="badge bg-success-subtle text-success font-11 mb-2"><i class="fa-solid fa-handshake font-10 me-1"></i> 22 Advisory Hours Logged</span>
-                                                            <div class="font-11 text-muted">Last Session: <strong>28 Aug 2026</strong></div>
-                                                        </div>
-                                                        <button class="btn btn-sm btn-primary font-11 w-100 mt-2" onclick="logAdvisorySessionFor('Digital Labour Chowk')">
-                                                            <i class="fa-solid fa-plus me-1"></i> Log Strategic Notes
-                                                        </button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </td>
-                                </tr>
+                            <tbody id="tblMentorOverviewBody">
+                                <!-- Loaded dynamically -->
                             </tbody>
                         </table>
                     </div>
@@ -366,150 +624,47 @@
 
             <!-- TAB 2: MENTEES DIRECTORY -->
             <div class="app-tab-pane" id="tab-men-mentees">
-                <div class="d-flex align-items-center justify-content-between mb-4 flex-wrap gap-2">
+                <div class="d-flex align-items-center justify-content-between mb-3 flex-wrap gap-2">
                     <div>
-                        <h3 class="fw-bold font-20 mb-1" style="font-family: 'Outfit', sans-serif;">Allotted Mentee Directory</h3>
-                        <p class="text-muted font-13 mb-0">Detailed view of startups assigned for your domain guidance. Tap any row to view complete profile.</p>
+                        <h3 class="page-header-title">Allotted Mentee Directory</h3>
+                        <p class="page-header-sub">Detailed roster of startups assigned for your domain guidance and sprint reviews.</p>
                     </div>
-                    <button class="app-btn-action" onclick="logAdvisorySession()">
+                    <button class="app-btn-action" onclick="openLogSessionModal()">
                         <i class="fa-solid fa-plus me-1"></i> Log Consultation Session
                     </button>
                 </div>
 
                 <div class="app-table-card">
+                    <div class="table-toolbar">
+                        <div class="table-toolbar-group">
+                            <div class="table-search-box">
+                                <i class="fa-solid fa-magnifying-glass"></i>
+                                <input type="text" id="searchDirMentee" placeholder="Search startup, founder, sector..." oninput="renderMentorDirectoryTable()">
+                            </div>
+                            <select class="table-filter-select" id="filterMenteeSector" onchange="renderMentorDirectoryTable()">
+                                <option value="">All Sectors</option>
+                                <option value="AgriTech">AgriTech</option>
+                                <option value="Technology">Technology</option>
+                                <option value="HealthTech">HealthTech</option>
+                                <option value="FinTech">FinTech</option>
+                                <option value="CleanTech">CleanTech</option>
+                            </select>
+                        </div>
+                    </div>
+
                     <div class="table-responsive">
                         <table class="app-table">
                             <thead>
                                 <tr>
-                                    <th style="width: 25%;">Enterprise</th>
-                                    <th style="width: 22%;">Founder &amp; Contact</th>
+                                    <th style="width: 28%;">Enterprise &amp; Registration</th>
+                                    <th style="width: 22%;">Founder &amp; Location</th>
                                     <th style="width: 18%;">Sector &amp; Stage</th>
-                                    <th style="width: 20%;">Bihar Seed Grant Status</th>
-                                    <th style="width: 15%;" class="text-end pe-3">Action</th>
+                                    <th style="width: 18%;">Bihar Seed Grant</th>
+                                    <th style="width: 14%;" class="text-end pe-3">Action</th>
                                 </tr>
                             </thead>
-                            <tbody>
-                                <!-- Mentee Row 1 -->
-                                <tr class="tr-parent" onclick="toggleExpandRow(this, event)">
-                                    <td>
-                                        <div class="d-flex align-items-center gap-2">
-                                            <i class="fa-solid fa-chevron-down text-muted expand-chevron font-11"></i>
-                                            <div>
-                                                <strong>Patna AgriDrone Hub</strong>
-                                                <div class="font-11 text-muted">Patna, Bihar &bull; FabLab</div>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <span class="font-12 fw-semibold text-dark">Vikramaditya Roy</span>
-                                        <div class="font-11 text-muted">vikram@agridrone.in</div>
-                                    </td>
-                                    <td>
-                                        <span class="badge bg-success-subtle text-success font-10">AgriTech</span>
-                                        <div class="font-11 text-muted">Pre-Seed / Prototype</div>
-                                    </td>
-                                    <td>
-                                        <strong class="text-primary font-12">₹ 10 Lakhs Seed</strong>
-                                        <div class="font-11 text-muted">Tranche-1 UC Submitted</div>
-                                    </td>
-                                    <td class="text-end pe-3" onclick="event.stopPropagation()">
-                                        <button class="app-btn-action" style="padding:4px 10px; font-size:11px;" onclick="logAdvisorySessionFor('Patna AgriDrone Hub')">Log Session</button>
-                                    </td>
-                                </tr>
-                                <tr class="tr-expand-tray">
-                                    <td colspan="5">
-                                        <div class="expand-content-wrap">
-                                            <div class="row g-3">
-                                                <div class="col-md-6">
-                                                    <div class="p-3 bg-white border rounded-2">
-                                                        <div class="fw-bold font-13 text-dark mb-1">Patna AgriDrone Hub (Agritech Solutions Pvt Ltd)</div>
-                                                        <p class="font-12 text-muted mb-2">Autonomous drone spraying for paddy and maize crops with IoT multispectral sensor payload.</p>
-                                                        <div class="d-flex flex-wrap gap-2 font-11">
-                                                            <span class="badge bg-light text-dark border">CIN: U01111BR2025PTC071234</span>
-                                                            <span class="badge bg-light text-dark border">DPIIT: DIPP98765</span>
-                                                            <span class="badge bg-light text-dark border">Desks: #4B (FabLab)</span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <div class="p-3 bg-white border rounded-2">
-                                                        <div class="fw-bold font-13 text-dark mb-1">Key Advisory Checkpoints</div>
-                                                        <ul class="font-12 text-muted mb-2 ps-3" style="line-height: 1.6;">
-                                                            <li>DGCA Type Certification document filing support.</li>
-                                                            <li>Farmer cluster tariff model: ₹450 / acre vs manual ₹700 / acre.</li>
-                                                            <li>Hardware bill of materials (BOM) optimization with CIMP FabLab.</li>
-                                                        </ul>
-                                                        <div class="d-flex gap-2">
-                                                            <button class="btn btn-sm btn-outline-primary font-11" onclick="alert('Viewing Founder Pitch Deck Dossier...')"><i class="fa-solid fa-file-pdf me-1"></i>Pitch Deck</button>
-                                                            <button class="btn btn-sm btn-primary font-11" onclick="logAdvisorySessionFor('Patna AgriDrone Hub')"><i class="fa-solid fa-plus me-1"></i>Log 1-on-1 Notes</button>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </td>
-                                </tr>
-
-                                <!-- Mentee Row 2 -->
-                                <tr class="tr-parent" onclick="toggleExpandRow(this, event)">
-                                    <td>
-                                        <div class="d-flex align-items-center gap-2">
-                                            <i class="fa-solid fa-chevron-down text-muted expand-chevron font-11"></i>
-                                            <div>
-                                                <strong>Digital Labour Chowk</strong>
-                                                <div class="font-11 text-muted">Maurya Lok, Patna</div>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <span class="font-12 fw-semibold text-dark">Chandrashekhar Mandal</span>
-                                        <div class="font-11 text-muted">founder@abc.com</div>
-                                    </td>
-                                    <td>
-                                        <span class="badge bg-primary-subtle text-primary font-10">Technology</span>
-                                        <div class="font-11 text-muted">Commercial Growth</div>
-                                    </td>
-                                    <td>
-                                        <strong class="text-success font-12">₹ 25 Lakhs Seed</strong>
-                                        <div class="font-11 text-muted">Tranches 1-3 Completed</div>
-                                    </td>
-                                    <td class="text-end pe-3" onclick="event.stopPropagation()">
-                                        <button class="app-btn-action" style="padding:4px 10px; font-size:11px;" onclick="logAdvisorySessionFor('Digital Labour Chowk')">Log Session</button>
-                                    </td>
-                                </tr>
-                                <tr class="tr-expand-tray">
-                                    <td colspan="5">
-                                        <div class="expand-content-wrap">
-                                            <div class="row g-3">
-                                                <div class="col-md-6">
-                                                    <div class="p-3 bg-white border rounded-2">
-                                                        <div class="fw-bold font-13 text-dark mb-1">Digital Labour Chowk (DLC Tech Solutions Pvt Ltd)</div>
-                                                        <p class="font-12 text-muted mb-2">Daily wage worker discovery &amp; wage escrow platform connecting unorganized laborers with builders and contractors.</p>
-                                                        <div class="d-flex flex-wrap gap-2 font-11">
-                                                            <span class="badge bg-light text-dark border">CIN: U72900BR2022PTC058912</span>
-                                                            <span class="badge bg-light text-dark border">DPIIT: DIPP44321</span>
-                                                            <span class="badge bg-light text-dark border">Desk: 8A-8D</span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <div class="p-3 bg-white border rounded-2">
-                                                        <div class="fw-bold font-13 text-dark mb-1">Key Advisory Checkpoints</div>
-                                                        <ul class="font-12 text-muted mb-2 ps-3" style="line-height: 1.6;">
-                                                            <li>Institutional contractor subscription pricing model.</li>
-                                                            <li>Expanding from Patna to Muzaffarpur &amp; Bhagalpur clusters.</li>
-                                                            <li>Preparing institutional governance MIS for Series-A investors.</li>
-                                                        </ul>
-                                                        <div class="d-flex gap-2">
-                                                            <button class="btn btn-sm btn-outline-primary font-11" onclick="alert('Viewing Founder Pitch Deck Dossier...')"><i class="fa-solid fa-file-pdf me-1"></i>Pitch Deck</button>
-                                                            <button class="btn btn-sm btn-primary font-11" onclick="logAdvisorySessionFor('Digital Labour Chowk')"><i class="fa-solid fa-plus me-1"></i>Log 1-on-1 Notes</button>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </td>
-                                </tr>
+                            <tbody id="tblMentorDirectoryBody">
+                                <!-- Loaded dynamically -->
                             </tbody>
                         </table>
                     </div>
@@ -518,17 +673,24 @@
 
             <!-- TAB 3: SESSIONS -->
             <div class="app-tab-pane" id="tab-men-sessions">
-                <div class="d-flex align-items-center justify-content-between mb-4 flex-wrap gap-2">
+                <div class="d-flex align-items-center justify-content-between mb-3 flex-wrap gap-2">
                     <div>
-                        <h3 class="fw-bold font-20 mb-1" style="font-family: 'Outfit', sans-serif;">Completed Mentoring Sessions</h3>
-                        <p class="text-muted font-13 mb-0">Record of 1-on-1 consultations and strategic guidance meetings. Tap row to inspect action items.</p>
+                        <h3 class="page-header-title">Completed Mentoring Sessions</h3>
+                        <p class="page-header-sub">Record of 1-on-1 consultations, governance reviews, and strategic guidance meetings.</p>
                     </div>
-                    <button class="app-btn-action" onclick="logAdvisorySession()">
+                    <button class="app-btn-action" onclick="openLogSessionModal()">
                         <i class="fa-solid fa-plus me-1"></i> Log New Session
                     </button>
                 </div>
 
                 <div class="app-table-card">
+                    <div class="table-toolbar">
+                        <div class="d-flex align-items-center gap-2">
+                            <span class="font-12 fw-bold text-dark"><i class="fa-solid fa-calendar-check text-secondary me-1.5"></i> Session Audit Trail</span>
+                            <span class="font-11 text-muted" id="tblSessionCount">Showing 2 sessions</span>
+                        </div>
+                    </div>
+
                     <div class="table-responsive">
                         <table class="app-table">
                             <thead>
@@ -540,62 +702,8 @@
                                     <th style="width: 15%;" class="text-end pe-3">Status</th>
                                 </tr>
                             </thead>
-                            <tbody>
-                                <tr class="tr-parent" onclick="toggleExpandRow(this, event)">
-                                    <td><strong>28 Aug 2026</strong></td>
-                                    <td>
-                                        <div class="d-flex align-items-center gap-2">
-                                            <i class="fa-solid fa-chevron-down text-muted expand-chevron font-11"></i>
-                                            <div>
-                                                <strong>Digital Labour Chowk</strong>
-                                                <div class="font-11 text-muted">Chandrashekhar Mandal</div>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td><span class="badge bg-light text-dark border">90 Mins</span></td>
-                                    <td class="font-12 text-muted">Reviewed contractor onboarding unit economics and institutional pricing structure.</td>
-                                    <td class="text-end pe-3"><span class="font-12 fw-semibold text-success"><i class="fa-solid fa-circle font-8 me-1"></i> Logged &amp; Verified</span></td>
-                                </tr>
-                                <tr class="tr-expand-tray">
-                                    <td colspan="5">
-                                        <div class="expand-content-wrap">
-                                            <div class="p-3 bg-white border rounded-2">
-                                                <div class="fw-bold font-13 text-dark mb-1">Session Action Items &amp; Deliverables</div>
-                                                <div class="font-12 text-muted mb-2">1. Finalize SaaS subscription model for large construction builders with 14-day free pilot.</div>
-                                                <div class="font-12 text-muted mb-2">2. Implement SMS worker dispatch fallback for low-connectivity rural zones.</div>
-                                                <div class="font-11 text-muted">Signed by: <strong>Dr. Alok Kumar (Mentor)</strong> &bull; Verified by: <strong>Incubation Manager (CIMP-BIIF)</strong></div>
-                                            </div>
-                                        </div>
-                                    </td>
-                                </tr>
-
-                                <tr class="tr-parent" onclick="toggleExpandRow(this, event)">
-                                    <td><strong>21 Aug 2026</strong></td>
-                                    <td>
-                                        <div class="d-flex align-items-center gap-2">
-                                            <i class="fa-solid fa-chevron-down text-muted expand-chevron font-11"></i>
-                                            <div>
-                                                <strong>Patna AgriDrone Hub</strong>
-                                                <div class="font-11 text-muted">Vikramaditya Roy</div>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td><span class="badge bg-light text-dark border">60 Mins</span></td>
-                                    <td class="font-12 text-muted">Formulated pilot spray demonstration roadmap for Gaya &amp; Nalanda farmer clusters.</td>
-                                    <td class="text-end pe-3"><span class="font-12 fw-semibold text-success"><i class="fa-solid fa-circle font-8 me-1"></i> Logged &amp; Verified</span></td>
-                                </tr>
-                                <tr class="tr-expand-tray">
-                                    <td colspan="5">
-                                        <div class="expand-content-wrap">
-                                            <div class="p-3 bg-white border rounded-2">
-                                                <div class="fw-bold font-13 text-dark mb-1">Session Action Items &amp; Deliverables</div>
-                                                <div class="font-12 text-muted mb-2">1. Secure DGCA remote pilot license endorsement for 2 field technicians.</div>
-                                                <div class="font-12 text-muted mb-2">2. Schedule field demonstration in coordination with Bihar Agriculture Dept.</div>
-                                                <div class="font-11 text-muted">Signed by: <strong>Dr. Alok Kumar (Mentor)</strong> &bull; Verified by: <strong>Incubation Manager (CIMP-BIIF)</strong></div>
-                                            </div>
-                                        </div>
-                                    </td>
-                                </tr>
+                            <tbody id="tblMentorSessionsBody">
+                                <!-- Loaded dynamically -->
                             </tbody>
                         </table>
                     </div>
@@ -607,7 +715,7 @@
         <!-- Native Mobile Bottom Navigation Bar -->
         <nav class="app-mobile-bottom-bar d-lg-none">
             <button class="mobile-nav-btn active" id="mMenNavOverview" onclick="switchMenMobileTab('tab-men-overview', this)">
-                <i class="fa-solid fa-chalkboard-user"></i>
+                <i class="fa-solid fa-chart-pie"></i>
                 <span>Overview</span>
             </button>
             <button class="mobile-nav-btn" id="mMenNavMentees" onclick="switchMenMobileTab('tab-men-mentees', this)">
@@ -625,11 +733,449 @@
         </nav>
     </div>
 
+    <!-- MODAL: LOG MENTORING SESSION -->
+    <div class="modal fade" id="modalLogSession" tabindex="-1" aria-labelledby="modalLogSessionTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content border-0 shadow-lg" style="border-radius: 12px; overflow: hidden;">
+                <div class="modal-header border-bottom px-4 py-3" style="background: #FAFAFC;">
+                    <div>
+                        <h5 class="modal-title font-15 fw-bold text-dark" id="modalLogSessionTitle">Log Mentoring Consultation</h5>
+                        <span class="font-11 text-muted">Record advisory notes, sprint review, and action deliverables</span>
+                    </div>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form id="formLogSession" onsubmit="handleSessionSubmit(event)">
+                    <div class="modal-body p-4">
+                        <div class="mb-3">
+                            <label class="form-label font-12 fw-semibold text-secondary">Allotted Mentee Startup <span class="text-danger">*</span></label>
+                            <select class="form-select font-12" id="selSessionVenture" required>
+                                <!-- Populated dynamically -->
+                            </select>
+                        </div>
+                        <div class="row g-2 mb-3">
+                            <div class="col-6">
+                                <label class="form-label font-12 fw-semibold text-secondary">Consultation Date <span class="text-danger">*</span></label>
+                                <input type="date" class="form-control font-12" id="inpSessionDate" required>
+                            </div>
+                            <div class="col-6">
+                                <label class="form-label font-12 fw-semibold text-secondary">Session Duration <span class="text-danger">*</span></label>
+                                <select class="form-select font-12" id="selSessionDuration" required>
+                                    <option value="30 Mins">30 Minutes</option>
+                                    <option value="45 Mins">45 Minutes</option>
+                                    <option value="60 Mins" selected>60 Minutes (1 Hour)</option>
+                                    <option value="90 Mins">90 Minutes (1.5 Hours)</option>
+                                    <option value="120 Mins">120 Minutes (2 Hours)</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label font-12 fw-semibold text-secondary">Advisory Focus / Domain Agenda <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control font-12" id="inpSessionAgenda" placeholder="e.g. GTM Strategy, Pilot Testing, Seed Fund Utilization" required>
+                        </div>
+                        <div class="mb-2">
+                            <label class="form-label font-12 fw-semibold text-secondary">Key Guidance &amp; Action Deliverables <span class="text-danger">*</span></label>
+                            <textarea class="form-control font-12" id="txtSessionNotes" rows="3" placeholder="Document specific recommendations and next sprint milestones..." required></textarea>
+                        </div>
+                    </div>
+                    <div class="modal-footer border-top px-4 py-2.5 bg-light d-flex justify-content-between">
+                        <button type="button" class="btn btn-sm btn-outline-secondary font-12" data-bs-dismiss="modal">Cancel</button>
+                        <button type="submit" class="btn btn-sm btn-success font-12 fw-bold px-3">
+                            Save Consultation Log
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
     <!-- Scripts -->
     <script src="../../assets/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="../../assets/js/cimp-db.js"></script>
 
     <script>
+        // State
+        let expandedRowIds = new Set();
+        let mentorSessions = [
+            {
+                id: 'sess-1',
+                date: '28 Aug 2026',
+                venture: 'Digital Labour Chowk',
+                founder: 'Chandrashekhar Mandal',
+                duration: '90 Mins',
+                agenda: 'Contractor onboarding unit economics and institutional pricing structure.',
+                deliverables: '1. Finalize SaaS subscription model for large construction builders with 14-day free pilot.\n2. Implement SMS worker dispatch fallback for low-connectivity rural zones.',
+                status: 'Verified'
+            },
+            {
+                id: 'sess-2',
+                date: '21 Aug 2026',
+                venture: 'Patna AgriDrone Hub',
+                founder: 'Vikramaditya Roy',
+                duration: '60 Mins',
+                agenda: 'Formulated pilot spray demonstration roadmap for farmer clusters in Gaya & Nalanda.',
+                deliverables: '1. Secure DGCA remote pilot license endorsement for 2 field technicians.\n2. Schedule field demonstration in coordination with Bihar Agriculture Dept.',
+                status: 'Verified'
+            }
+        ];
+
+        // Seed mentee ventures
+        const defaultMentees = [
+            {
+                id: 'ST-001',
+                name: 'Patna AgriDrone Hub',
+                legalName: 'Agritech Solutions Pvt Ltd',
+                founder: 'Vikramaditya Roy',
+                phone: '+91 98350 11223',
+                email: 'vikram@agridrone.in',
+                sector: 'AgriTech',
+                stage: 'Prototype',
+                district: 'Patna',
+                fundingRaised: '₹ 10 Lakhs',
+                fundingRemark: '₹10,00,000 Seed Grant Sanctioned under Bihar Startup Policy',
+                regNoBihar: 'SB2025010001',
+                dpiit: 'Recognized',
+                sprintMilestone: 'DGCA Drone Certification & Cluster Pilot',
+                sprintTarget: '15 Sep 2026'
+            },
+            {
+                id: 'ST-002',
+                name: 'Digital Labour Chowk',
+                legalName: 'DLC Tech Solutions Pvt Ltd',
+                founder: 'Chandrashekhar Mandal',
+                phone: '+91 94310 44556',
+                email: 'founder@abc.com',
+                sector: 'Technology',
+                stage: 'Revenue Stage',
+                district: 'Patna',
+                fundingRaised: '₹ 25 Lakhs',
+                fundingRemark: '₹25,00,000 Seed Grant Disbursed & Utilized under Bihar Startup Policy',
+                regNoBihar: 'SB2022010045',
+                dpiit: 'Recognized',
+                sprintMilestone: 'GTM Expansion & Contractor Monetization',
+                sprintTarget: '30 Sep 2026'
+            },
+            {
+                id: 'ST-007',
+                name: 'MedVeda Telehealth',
+                legalName: 'MedVeda Health Pvt Ltd',
+                founder: 'Dr. Sneha Verma',
+                phone: '+91 98355 77889',
+                email: 'sneha@medveda.in',
+                sector: 'HealthTech',
+                stage: 'Pre-Revenue',
+                district: 'Muzaffarpur',
+                fundingRaised: '₹ 10 Lakhs',
+                fundingRemark: 'Tranche-1 Disbursed under Bihar Startup Policy',
+                regNoBihar: 'SB2025010007',
+                dpiit: 'Recognized',
+                sprintMilestone: 'EHR Cloud & Rural Clinic Integration',
+                sprintTarget: '20 Oct 2026'
+            },
+            {
+                id: 'ST-011',
+                name: 'GraminPay Financial',
+                legalName: 'GraminPay FinServ Pvt Ltd',
+                founder: 'Rishi Ranjan',
+                phone: '+91 94301 22334',
+                email: 'rishi@graminpay.in',
+                sector: 'FinTech',
+                stage: 'Revenue Stage',
+                district: 'Gaya',
+                fundingRaised: '₹ 15 Lakhs',
+                fundingRemark: 'Tranches 1 & 2 Audited under Bihar Startup Policy',
+                regNoBihar: 'SB2024010011',
+                dpiit: 'Recognized',
+                sprintMilestone: 'BC Agent Network Scaling in Magadh Cluster',
+                sprintTarget: '10 Nov 2026'
+            }
+        ];
+
+        function getMenteeVentures() {
+            if (window.CIMP_DB && typeof window.CIMP_DB.getStartups === 'function') {
+                const all = window.CIMP_DB.getStartups();
+                if (all && all.length >= 3) {
+                    return all.slice(0, 4).map((s, idx) => ({
+                        id: s.id,
+                        name: s.name,
+                        legalName: s.legalName || (s.name + ' Pvt Ltd'),
+                        founder: s.founder,
+                        phone: s.phone || '+91 98350 11223',
+                        email: s.email || 'founder@cimp.ac.in',
+                        sector: s.sector || 'Technology',
+                        stage: s.stage || 'Revenue Stage',
+                        district: s.district || 'Patna',
+                        fundingRaised: s.fundingRaised || '₹ 10 Lakhs',
+                        fundingRemark: s.fundingRemark || 'Bihar Startup Policy Sanctioned Grant',
+                        regNoBihar: s.regNoBihar || s.id,
+                        dpiit: s.dpiit || 'Recognized',
+                        sprintMilestone: defaultMentees[idx % defaultMentees.length].sprintMilestone,
+                        sprintTarget: defaultMentees[idx % defaultMentees.length].sprintTarget
+                    }));
+                }
+            }
+            return defaultMentees;
+        }
+
+        // Toggle row detail tray
+        function toggleExpandRow(entityId, evt) {
+            if (evt) {
+                const target = evt.target;
+                if (target.closest('a') || target.closest('button.no-row-click') || target.closest('input')) {
+                    return;
+                }
+            }
+            const rowEl = document.getElementById(`tr-parent-${entityId}`);
+            const trayEl = document.getElementById(`tr-tray-${entityId}`);
+            if (!rowEl || !trayEl) return;
+
+            if (expandedRowIds.has(entityId)) {
+                expandedRowIds.delete(entityId);
+                rowEl.classList.remove('is-expanded');
+                trayEl.classList.add('d-none');
+            } else {
+                expandedRowIds.add(entityId);
+                rowEl.classList.add('is-expanded');
+                trayEl.classList.remove('d-none');
+            }
+        }
+
+        // Render Tab 1 Overview Table
+        function renderMentorOverviewTable() {
+            const tbody = document.getElementById('tblMentorOverviewBody');
+            if (!tbody) return;
+
+            const searchVal = (document.getElementById('searchOvMentee')?.value || '').trim().toLowerCase();
+            let list = getMenteeVentures();
+            if (searchVal) {
+                list = list.filter(m => m.name.toLowerCase().includes(searchVal) || m.founder.toLowerCase().includes(searchVal) || m.sector.toLowerCase().includes(searchVal));
+            }
+
+            const countEl = document.getElementById('ovMenteeCount');
+            if (countEl) countEl.innerText = `Showing ${list.length} venture${list.length !== 1 ? 's' : ''}`;
+
+            if (list.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="5" class="text-center py-4 text-muted font-12">No matching mentee startups found.</td></tr>`;
+                return;
+            }
+
+            let html = '';
+            list.forEach(m => {
+                const isExpanded = expandedRowIds.has(m.id);
+                html += `
+                    <tr class="tr-parent ${isExpanded ? 'is-expanded' : ''}" id="tr-parent-${m.id}" onclick="toggleExpandRow('${m.id}', event)">
+                        <td>
+                            <div>
+                                <span class="interactive-title font-13 fw-semibold text-dark d-block">${m.name}</span>
+                                <div class="font-11 text-muted mt-0.5">${m.legalName} &bull; ${m.district}, Bihar</div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="font-12 fw-semibold text-dark">${m.founder}</div>
+                            <div class="font-11 text-muted">${m.phone}</div>
+                        </td>
+                        <td>
+                            <span class="badge bg-light text-secondary border font-10 px-2 py-0.5">${m.sector}</span>
+                            <div class="font-11 text-muted mt-0.5">${m.stage}</div>
+                        </td>
+                        <td>
+                            <div class="font-12 fw-medium text-dark">${m.sprintMilestone}</div>
+                            <div class="font-11 text-warning mt-0.5"><i class="fa-solid fa-clock-rotate-left me-1"></i> Target: ${m.sprintTarget}</div>
+                        </td>
+                        <td class="text-end pe-3">
+                            <div class="d-flex align-items-center justify-content-end gap-1.5">
+                                <button class="btn btn-sm btn-outline-secondary font-11 py-1 px-2 no-row-click" onclick="openLogSessionModal('${m.name}')" title="Log Mentoring Session">
+                                    Log Session
+                                </button>
+                                <button class="btn-icon-subtle no-row-click" onclick="toggleExpandRow('${m.id}')" title="Expand Dossier">
+                                    <i class="fa-solid fa-chevron-down expand-chevron"></i>
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr class="tr-expand-tray ${isExpanded ? '' : 'd-none'}" id="tr-tray-${m.id}">
+                        <td colspan="5">
+                            <div class="expand-content-wrap">
+                                <div class="row g-3">
+                                    <div class="col-md-5">
+                                        <div class="bg-white p-3 rounded-2 border h-100 shadow-2xs">
+                                            <div class="font-10 text-muted text-uppercase fw-bold mb-1.5">Founder Direct Connect</div>
+                                            <div class="fw-bold font-13 text-dark">${m.founder}</div>
+                                            <div class="font-11 text-muted mb-2">${m.email} | ${m.phone}</div>
+                                            <div class="d-flex gap-1.5 flex-wrap pt-2 border-top">
+                                                <a href="tel:${m.phone.replace(/\s+/g, '')}" class="btn btn-sm btn-light border font-11 py-1 px-2 text-secondary" title="Call"><i class="fa-solid fa-phone me-1"></i> Call</a>
+                                                <a href="https://wa.me/${m.phone.replace(/\D/g, '')}?text=Hello%20${encodeURIComponent(m.founder)},%20CIMP-BIIF%20Faculty%20Advisory" target="_blank" class="btn btn-sm btn-light border font-11 py-1 px-2 text-success" title="WhatsApp"><i class="fa-brands fa-whatsapp me-1"></i> WhatsApp</a>
+                                                <a href="mailto:${m.email}?subject=CIMP-BIIF%20Advisory%20Session%20-${encodeURIComponent(m.name)}" class="btn btn-sm btn-light border font-11 py-1 px-2 text-secondary" title="Email"><i class="fa-solid fa-envelope me-1"></i> Email</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-7">
+                                        <div class="bg-white p-3 rounded-2 border h-100 shadow-2xs d-flex flex-column justify-content-between">
+                                            <div>
+                                                <div class="font-10 text-muted text-uppercase fw-bold mb-1.5">Institutional Support &amp; Grant Status</div>
+                                                <div class="font-12 text-dark mb-1"><strong>Bihar Seed Capital:</strong> ${m.fundingRaised} (${m.fundingRemark})</div>
+                                                <div class="font-11 text-muted mb-2"><strong>Compliance:</strong> Bihar Reg: ${m.regNoBihar} &bull; DPIIT: ${m.dpiit}</div>
+                                            </div>
+                                            <div class="pt-2 border-top d-flex justify-content-between align-items-center">
+                                                <span class="badge bg-light text-secondary border font-10">Incubation Cohort 2026</span>
+                                                <button class="btn btn-sm btn-outline-primary font-11 py-1 px-2.5" onclick="openLogSessionModal('${m.name}')">
+                                                    <i class="fa-solid fa-plus me-1"></i> Log Strategic Notes
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                `;
+            });
+            tbody.innerHTML = html;
+        }
+
+        // Render Tab 2 Directory Table
+        function renderMentorDirectoryTable() {
+            const tbody = document.getElementById('tblMentorDirectoryBody');
+            if (!tbody) return;
+
+            const searchVal = (document.getElementById('searchDirMentee')?.value || '').trim().toLowerCase();
+            const sectorFilter = document.getElementById('filterMenteeSector')?.value || '';
+
+            let list = getMenteeVentures();
+            if (searchVal) {
+                list = list.filter(m => m.name.toLowerCase().includes(searchVal) || m.founder.toLowerCase().includes(searchVal) || m.sector.toLowerCase().includes(searchVal));
+            }
+            if (sectorFilter) {
+                list = list.filter(m => m.sector.toLowerCase() === sectorFilter.toLowerCase());
+            }
+
+            if (list.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="5" class="text-center py-4 text-muted font-12">No matching mentee startups found.</td></tr>`;
+                return;
+            }
+
+            let html = '';
+            list.forEach(m => {
+                const isExpanded = expandedRowIds.has(m.id + '-dir');
+                html += `
+                    <tr class="tr-parent ${isExpanded ? 'is-expanded' : ''}" id="tr-parent-${m.id}-dir" onclick="toggleExpandRow('${m.id}-dir', event)">
+                        <td>
+                            <div>
+                                <span class="interactive-title font-13 fw-semibold text-dark d-block">${m.name}</span>
+                                <div class="font-11 text-muted mt-0.5"><span class="fw-semibold text-secondary">Reg:</span> ${m.regNoBihar}</div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="font-12 fw-semibold text-dark">${m.founder}</div>
+                            <div class="font-11 text-muted">${m.district}, Bihar</div>
+                        </td>
+                        <td>
+                            <span class="badge bg-light text-secondary border font-10 px-2 py-0.5">${m.sector}</span>
+                            <div class="font-11 text-muted mt-0.5">${m.stage}</div>
+                        </td>
+                        <td>
+                            <div class="font-12 fw-bold text-primary">${m.fundingRaised}</div>
+                            <div class="font-11 text-muted">Bihar Startup Policy</div>
+                        </td>
+                        <td class="text-end pe-3">
+                            <div class="d-flex align-items-center justify-content-end gap-1.5">
+                                <button class="btn btn-sm btn-outline-secondary font-11 py-1 px-2 no-row-click" onclick="openLogSessionModal('${m.name}')">
+                                    Log Session
+                                </button>
+                                <button class="btn-icon-subtle no-row-click" onclick="toggleExpandRow('${m.id}-dir')">
+                                    <i class="fa-solid fa-chevron-down expand-chevron"></i>
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr class="tr-expand-tray ${isExpanded ? '' : 'd-none'}" id="tr-tray-${m.id}-dir">
+                        <td colspan="5">
+                            <div class="expand-content-wrap">
+                                <div class="row g-3">
+                                    <div class="col-md-6">
+                                        <div class="bg-white p-3 rounded-2 border h-100 shadow-2xs">
+                                            <div class="font-10 text-muted text-uppercase fw-bold mb-1.5">Venture Profile &amp; Incorporation</div>
+                                            <div class="fw-bold font-13 text-dark mb-1">${m.name} (${m.legalName})</div>
+                                            <div class="font-11 text-secondary mb-2">CIN: U72900BR2022PTC054321 &bull; DPIIT: ${m.dpiit}</div>
+                                            <div class="d-flex gap-1.5 flex-wrap">
+                                                <a href="tel:${m.phone.replace(/\s+/g, '')}" class="btn btn-sm btn-light border font-11 py-1 px-2 text-secondary"><i class="fa-solid fa-phone me-1"></i> Call</a>
+                                                <a href="mailto:${m.email}" class="btn btn-sm btn-light border font-11 py-1 px-2 text-secondary"><i class="fa-solid fa-envelope me-1"></i> Email</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="bg-white p-3 rounded-2 border h-100 shadow-2xs">
+                                            <div class="font-10 text-muted text-uppercase fw-bold mb-1.5">Key Advisory Checkpoints</div>
+                                            <div class="font-11 text-secondary mb-2">1. Regulatory compliance &amp; government certification support.</div>
+                                            <div class="font-11 text-secondary mb-2">2. Unit economics, pricing model, and pilot cluster validation in Bihar.</div>
+                                            <button class="btn btn-sm btn-primary font-11 py-1 px-3 mt-1" onclick="openLogSessionModal('${m.name}')">
+                                                <i class="fa-solid fa-plus me-1"></i> Log 1-on-1 Consultation
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                `;
+            });
+            tbody.innerHTML = html;
+        }
+
+        // Render Tab 3 Sessions Table
+        function renderMentorSessionsTable() {
+            const tbody = document.getElementById('tblMentorSessionsBody');
+            if (!tbody) return;
+
+            const countEl = document.getElementById('tblSessionCount');
+            if (countEl) countEl.innerText = `Showing ${mentorSessions.length} session${mentorSessions.length !== 1 ? 's' : ''}`;
+
+            const sideBadge = document.getElementById('sidebarSessionCount');
+            if (sideBadge) sideBadge.innerText = mentorSessions.length;
+
+            if (mentorSessions.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="5" class="text-center py-4 text-muted font-12">No completed sessions logged yet.</td></tr>`;
+                return;
+            }
+
+            let html = '';
+            mentorSessions.forEach(s => {
+                const isExpanded = expandedRowIds.has(s.id);
+                html += `
+                    <tr class="tr-parent ${isExpanded ? 'is-expanded' : ''}" id="tr-parent-${s.id}" onclick="toggleExpandRow('${s.id}', event)">
+                        <td><strong class="font-12 text-dark">${s.date}</strong></td>
+                        <td>
+                            <div>
+                                <span class="interactive-title font-13 fw-semibold text-dark d-block">${s.venture}</span>
+                                <div class="font-11 text-muted mt-0.5">${s.founder}</div>
+                            </div>
+                        </td>
+                        <td><span class="badge bg-light text-dark border font-10 px-2 py-0.5">${s.duration}</span></td>
+                        <td class="font-12 text-muted" style="line-height: 1.4;">${s.agenda}</td>
+                        <td class="text-end pe-3">
+                            <span class="status-pill status-active">
+                                ${s.status || 'Verified'}
+                            </span>
+                        </td>
+                    </tr>
+                    <tr class="tr-expand-tray ${isExpanded ? '' : 'd-none'}" id="tr-tray-${s.id}">
+                        <td colspan="5">
+                            <div class="expand-content-wrap">
+                                <div class="bg-white p-3 border rounded-2 shadow-2xs">
+                                    <div class="font-10 text-muted text-uppercase fw-bold mb-1">Session Action Items &amp; Deliverables</div>
+                                    <p class="font-12 text-secondary mb-2" style="white-space: pre-line; line-height: 1.5;">${s.deliverables}</p>
+                                    <div class="font-11 text-muted pt-2 border-top">
+                                        Signed by: <strong>Dr. Alok Kumar (Mentor)</strong> &bull; Verified by: <strong>Incubation Manager (CIMP-BIIF)</strong>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                `;
+            });
+            tbody.innerHTML = html;
+        }
+
+        // Navigation
         function toggleMobileSidebar() {
             const sidebar = document.getElementById('appSidebar');
             const backdrop = document.getElementById('sidebarBackdrop');
@@ -665,32 +1211,71 @@
             if (targetPane) targetPane.classList.add('active');
             if (btnEl) btnEl.classList.add('active');
 
-            // Sync mobile bottom bar
             document.querySelectorAll('.mobile-nav-btn').forEach(b => b.classList.remove('active'));
             if (tabId === 'tab-men-overview') document.getElementById('mMenNavOverview')?.classList.add('active');
             else if (tabId === 'tab-men-mentees') document.getElementById('mMenNavMentees')?.classList.add('active');
             else if (tabId === 'tab-men-sessions') document.getElementById('mMenNavSessions')?.classList.add('active');
         }
 
-        function toggleExpandRow(rowEl, evt) {
-            if (evt && (evt.target.closest('button') || evt.target.closest('a') || evt.target.closest('input') || evt.target.closest('select'))) {
-                return;
+        // Modal Handler
+        let sessionModalInstance = null;
+        function openLogSessionModal(presetVenture = '') {
+            const selVenture = document.getElementById('selSessionVenture');
+            if (selVenture) {
+                const mentees = getMenteeVentures();
+                selVenture.innerHTML = mentees.map(m => `<option value="${m.name}" ${m.name === presetVenture ? 'selected' : ''}>${m.name} (${m.founder})</option>`).join('');
             }
-            const nextRow = rowEl.nextElementSibling;
-            if (nextRow && nextRow.classList.contains('tr-expand-tray')) {
-                const isCurrentlyOpen = nextRow.classList.contains('show');
-                
-                // Toggle clicked row
-                if (isCurrentlyOpen) {
-                    nextRow.classList.remove('show');
-                    rowEl.classList.remove('is-expanded');
-                } else {
-                    nextRow.classList.add('show');
-                    rowEl.classList.add('is-expanded');
-                }
+
+            const inpDate = document.getElementById('inpSessionDate');
+            if (inpDate && !inpDate.value) {
+                const today = new Date().toISOString().split('T')[0];
+                inpDate.value = today;
+            }
+
+            const modalEl = document.getElementById('modalLogSession');
+            if (modalEl && window.bootstrap) {
+                if (!sessionModalInstance) sessionModalInstance = new bootstrap.Modal(modalEl);
+                sessionModalInstance.show();
             }
         }
 
+        function handleSessionSubmit(e) {
+            e.preventDefault();
+            const venture = document.getElementById('selSessionVenture')?.value || 'Patna AgriDrone Hub';
+            const dateVal = document.getElementById('inpSessionDate')?.value || new Date().toISOString().split('T')[0];
+            const duration = document.getElementById('selSessionDuration')?.value || '60 Mins';
+            const agenda = document.getElementById('inpSessionAgenda')?.value || 'Consultation Session';
+            const notes = document.getElementById('txtSessionNotes')?.value || 'Guidance provided.';
+
+            const dateFormatted = new Date(dateVal).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
+            const mentees = getMenteeVentures();
+            const matched = mentees.find(m => m.name === venture);
+            const founder = matched ? matched.founder : 'Founder';
+
+            const newSession = {
+                id: 'sess-' + Date.now(),
+                date: dateFormatted,
+                venture: venture,
+                founder: founder,
+                duration: duration,
+                agenda: agenda,
+                deliverables: notes,
+                status: 'Verified'
+            };
+
+            mentorSessions.unshift(newSession);
+            renderMentorSessionsTable();
+
+            if (sessionModalInstance) {
+                sessionModalInstance.hide();
+            }
+
+            // Reset form
+            document.getElementById('formLogSession').reset();
+            switchMenView('tab-men-sessions', document.getElementById('menNavSessions'));
+        }
+
+        // Initialize on load
         document.addEventListener('DOMContentLoaded', function () {
             if (window.CIMP_DB) {
                 const curUser = window.CIMP_DB.getCurrentUser();
@@ -700,26 +1285,10 @@
                 window.CIMP_DB.syncDOMUserProfile();
             }
 
-            window.addEventListener('cimp:db_updated', function() {
-                if (window.CIMP_DB) window.CIMP_DB.syncDOMUserProfile();
-            });
+            renderMentorOverviewTable();
+            renderMentorDirectoryTable();
+            renderMentorSessionsTable();
         });
-
-        function logAdvisorySessionFor(ventureName) {
-            const venture = prompt("Enter Mentee Venture Name:", ventureName || "Digital Labour Chowk");
-            if (!venture) return;
-            const duration = prompt("Enter Session Duration (e.g. 60 Mins, 90 Mins):", "60 Mins");
-            if (!duration) return;
-            const notes = prompt("Enter Key Strategic Guidance / Action Items:", "Reviewed GTM strategy and Bihar cluster expansion roadmap.");
-            if (venture && duration) {
-                alert(`✅ Mentoring session (${duration}) with ${venture} logged successfully to Incubation Secretariat!`);
-            }
-        }
-
-        function logAdvisorySession() {
-            logAdvisorySessionFor("Digital Labour Chowk");
-        }
     </script>
 </body>
 </html>
-
