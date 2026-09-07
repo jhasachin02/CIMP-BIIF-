@@ -626,61 +626,88 @@ document.addEventListener("DOMContentLoaded", function () {
         return [];
     }
 
+    function getCleanInitials(name) {
+        const clean = (name || 'M')
+            .replace(/\b(Dr|Prof|Adv|Mr|Ms)\b\.?/gi, '')
+            .replace(/[()]/g, '')
+            .trim();
+        const parts = clean.split(/\s+/).filter(Boolean);
+        if (parts.length >= 2) {
+            return (parts[0][0] + parts[parts.length - 1][0]).toUpperCase();
+        }
+        return (parts[0] ? parts[0].slice(0, 2) : 'M').toUpperCase();
+    }
+
     function renderMentorItem(m) {
-        const initials = (m.name || 'M')
-            .replace(/^(Dr\.|Prof\.|Adv\.)\s*/i, '')
-            .trim()
-            .split(' ')
-            .map(n => n[0])
-            .slice(0, 2)
-            .join('')
-            .toUpperCase() || 'M';
+        const initials = getCleanInitials(m.name);
 
         const bgColors = ['#1E3A8A', '#0D9488', '#B45309', '#4F46E5', '#C2410C', '#2E7D32', '#6366F1', '#0891B2'];
         const charCodeSum = (m.id || 'MEN').split('').reduce((acc, c) => acc + c.charCodeAt(0), 0);
         const brandColor = bgColors[charCodeSum % bgColors.length];
-        const expStr = m.experience || '10+ Years';
         const locationBase = (m.location || 'Patna').split('/')[0].trim();
         const modeClean = (m.mode || 'Hybrid').includes('Hybrid') ? 'Hybrid' : ((m.mode || '').includes('Online') ? 'Online' : 'In-Person');
-        const expertisePills = (m.expertise || []).slice(0, 3).map(e => `<span class="badge bg-light text-dark border font-11">${e}</span>`).join(' ');
+        const hasPhoto = Boolean(m.photo || m.avatar);
+        const photoSrc = m.photo || m.avatar || '';
 
         return `
             <div class="col-lg-4 col-md-6 col-12 mentor-card-item" data-name="${(m.name || '').toLowerCase()}" data-domain="${(m.primaryDomain || '').toLowerCase()}" data-mode="${modeClean.toLowerCase()}" data-location="${locationBase.toLowerCase()}" data-affiliation="${(m.title || m.affiliation || '').toLowerCase()}" data-expertise="${(m.expertise || []).join(' ').toLowerCase()}">
-                <div class="card border-0 rounded-4 shadow-sm h-100 p-4 transition-all" style="background:#FFFFFF; border:1px solid #E2E8F0 !important; transition: transform 0.25s ease, box-shadow 0.25s ease;">
-                    <div class="d-flex align-items-center gap-3 mb-3">
-                        <div style="width:58px; height:58px; border-radius:50%; background: linear-gradient(135deg, ${brandColor} 0%, ${brandColor}CC 100%); color:#FFFFFF; display:flex; align-items:center; justify-content:center; font-weight:800; font-size:19px; box-shadow: 0 4px 12px ${brandColor}33; font-family:'Outfit', sans-serif; flex-shrink:0;">
-                            ${initials}
-                        </div>
-                        <div style="min-width:0;">
-                            <h5 class="fw-bold mb-0 text-navy text-truncate font-16" title="${m.name}">${m.name}</h5>
-                            <span class="badge bg-soft-primary text-primary font-11 mt-1"><i class="fa fa-briefcase me-1"></i> ${expStr} Exp</span>
-                        </div>
+                <div class="card border-0 rounded-4 shadow-sm h-100 p-4 text-center transition-all mentor-card-elite" style="background:#FFFFFF; border:1px solid #E2E8F0 !important; transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;">
+                    
+                    <!-- Center Profile Picture / Avatar -->
+                    <div class="position-relative d-inline-block mb-3 mx-auto">
+                        ${hasPhoto ? `
+                            <img src="${photoSrc}" alt="${m.name}" class="rounded-circle object-fit-cover shadow-sm" style="width:88px; height:88px; border:3px solid #FFFFFF; box-shadow:0 6px 18px rgba(15,23,42,0.12); display:block;" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                            <div class="mentor-avatar-fallback rounded-circle text-white font-outfit fw-bold shadow-sm" style="display:none; width:88px; height:88px; background:linear-gradient(135deg, ${brandColor} 0%, ${brandColor}DD 100%); align-items:center; justify-content:center; font-size:26px; border:3px solid #FFFFFF; box-shadow:0 6px 18px ${brandColor}33;">
+                                ${initials}
+                            </div>
+                        ` : `
+                            <div class="mentor-avatar-fallback rounded-circle text-white font-outfit fw-bold shadow-sm d-flex align-items-center justify-content-center" style="width:88px; height:88px; background:linear-gradient(135deg, ${brandColor} 0%, ${brandColor}DD 100%); font-size:26px; border:3px solid #FFFFFF; box-shadow:0 6px 18px ${brandColor}33;">
+                                ${initials}
+                            </div>
+                        `}
                     </div>
 
-                    <p class="font-13 text-secondary mb-2" style="display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; min-height:38px; line-height:1.45;" title="${m.title || m.affiliation}">
+                    <!-- Mentor Name & Institutional Affiliation -->
+                    <h5 class="fw-bold mb-1 text-navy font-16" title="${m.name}" style="letter-spacing:-0.2px;">${m.name}</h5>
+                    <p class="font-12 text-secondary mb-2.5 mx-auto" style="max-width:290px; min-height:36px; line-height:1.45; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden;" title="${m.title || m.affiliation}">
                         ${m.title || m.affiliation}
                     </p>
 
-                    <div class="d-flex flex-wrap gap-1 mb-3" style="min-height:28px;">
-                        ${expertisePills}
+                    <!-- Primary Domain Pill -->
+                    <div class="mb-3">
+                        <span class="badge px-3 py-1.5 rounded-pill font-11 fw-semibold" style="background:#F0FDFA; color:#0F766E; border:1px solid #CCFBF1;">
+                            ${m.primaryDomain || 'Incubation Advisory'}
+                        </span>
                     </div>
 
-                    <div class="border-top pt-3 mt-auto">
-                        <div class="d-flex align-items-center justify-content-between font-12 text-muted mb-3">
-                            <span><i class="fa fa-location-dot text-danger me-1"></i> ${locationBase}</span>
-                            <span class="badge bg-soft-info text-info font-11">${modeClean} Mode</span>
-                        </div>
+                    <!-- Centered Social Profiles -->
+                    <div class="d-flex align-items-center justify-content-center gap-2 mb-4">
+                        ${m.linkedin ? `
+                            <a href="${m.linkedin}" target="_blank" class="btn btn-sm rounded-circle d-inline-flex align-items-center justify-content-center border" style="width:34px; height:34px; background:#F8FAFC; color:#0A66C2; border-color:#E2E8F0 !important;" title="LinkedIn Profile" aria-label="LinkedIn">
+                                <i class="fab fa-linkedin-in font-13"></i>
+                            </a>
+                        ` : `
+                            <span class="btn btn-sm rounded-circle d-inline-flex align-items-center justify-content-center border opacity-50" style="width:34px; height:34px; background:#F8FAFC; color:#94A3B8; border-color:#E2E8F0 !important;" title="LinkedIn profile not provided">
+                                <i class="fab fa-linkedin-in font-13"></i>
+                            </span>
+                        `}
+                        ${m.twitter ? `
+                            <a href="${m.twitter}" target="_blank" class="btn btn-sm rounded-circle d-inline-flex align-items-center justify-content-center border" style="width:34px; height:34px; background:#F8FAFC; color:#0F172A; border-color:#E2E8F0 !important;" title="Twitter / X Profile" aria-label="Twitter">
+                                <i class="fab fa-x-twitter font-12"></i>
+                            </a>
+                        ` : ''}
+                        ${m.email ? `
+                            <a href="mailto:${m.email}" class="btn btn-sm rounded-circle d-inline-flex align-items-center justify-content-center border" style="width:34px; height:34px; background:#F8FAFC; color:#475569; border-color:#E2E8F0 !important;" title="Send Official Email" aria-label="Email">
+                                <i class="fa fa-envelope font-12"></i>
+                            </a>
+                        ` : ''}
+                    </div>
 
-                        <div class="d-flex gap-2">
-                            <button class="btn btn-primary btn-sm flex-grow-1 font-12 fw-semibold py-2" onclick="openMentorModal('${m.id}')">
-                                <i class="fa fa-user-circle me-1"></i> Full Bio &amp; Profile
-                            </button>
-                            ${m.linkedin ? `
-                                <a href="${m.linkedin}" target="_blank" class="btn btn-outline-secondary btn-sm px-3 font-13" title="LinkedIn Profile" aria-label="LinkedIn">
-                                    <i class="fab fa-linkedin text-primary"></i>
-                                </a>
-                            ` : ''}
-                        </div>
+                    <!-- Card Action Footer -->
+                    <div class="border-top pt-3 mt-auto">
+                        <button class="btn btn-outline-primary btn-sm w-100 rounded-pill py-2 font-12 fw-semibold" onclick="openMentorModal('${m.id}')">
+                            <i class="fa-solid fa-user-circle me-1"></i> View Full Bio &amp; Scope
+                        </button>
                     </div>
                 </div>
             </div>
@@ -704,85 +731,87 @@ document.addEventListener("DOMContentLoaded", function () {
             document.body.appendChild(modal);
         }
 
-        const initials = (mentor.name || 'M')
-            .replace(/^(Dr\.|Prof\.|Adv\.)\s*/i, '')
-            .trim()
-            .split(' ')
-            .map(n => n[0])
-            .slice(0, 2)
-            .join('')
-            .toUpperCase() || 'M';
+        const initials = getCleanInitials(mentor.name);
 
         const bgColors = ['#1E3A8A', '#0D9488', '#B45309', '#4F46E5', '#C2410C', '#2E7D32', '#6366F1'];
         const charCodeSum = (mentor.id || 'MEN').split('').reduce((acc, c) => acc + c.charCodeAt(0), 0);
         const brandColor = bgColors[charCodeSum % bgColors.length];
-        const allExpertiseTags = (mentor.expertise || []).map(e => `<span class="badge bg-soft-primary text-primary font-12 px-2 py-1">${e}</span>`).join(' ');
+        const allExpertiseTags = (mentor.expertise || []).map(e => `<span class="badge bg-light text-dark border font-12 px-2.5 py-1.5">${e}</span>`).join(' ');
         const contactUrl = window.location.pathname.includes('/pages/') ? `contact-us.html?subject=Mentorship+Advisory+with+${encodeURIComponent(mentor.name)}` : `pages/contact-us.html?subject=Mentorship+Advisory+with+${encodeURIComponent(mentor.name)}`;
+        const hasPhoto = Boolean(mentor.photo || mentor.avatar);
+        const photoSrc = mentor.photo || mentor.avatar || '';
 
         modal.innerHTML = `
             <div class="startup-modal-box" style="max-width: 650px;">
-                <div class="modal-head-banner" style="background: linear-gradient(135deg, #0A192F 0%, #1E3A8A 100%);">
-                    <h3 class="fw-bold mb-1 text-white font-22">${mentor.name}</h3>
-                    <p class="mb-0 text-white-50 font-13"><i class="fa-solid fa-graduation-cap text-warning me-1"></i> ${mentor.primaryDomain || 'Advisory'} · CIMP-BIIF Mentorship Board</p>
+                <div class="modal-head-banner" style="background: linear-gradient(135deg, #0A192F 0%, #1E3A8A 100%); padding: 22px 24px;">
+                    <h3 class="fw-bold mb-1 text-white font-20">${mentor.name}</h3>
+                    <p class="mb-0 text-white-50 font-12">${mentor.primaryDomain || 'Incubation Advisory'} &bull; CIMP-BIIF Mentorship Board</p>
                     <button class="modal-close-icon" onclick="document.getElementById('mentor-detail-modal').style.display='none'">✕</button>
                 </div>
-                <div class="modal-content-area" style="max-height: 78vh; overflow-y: auto;">
+                <div class="modal-content-area" style="max-height: 78vh; overflow-y: auto; padding: 24px;">
                     <div class="d-flex align-items-center gap-3 mb-4">
-                        <div style="width:68px; height:68px; border-radius:50%; background: linear-gradient(135deg, ${brandColor} 0%, ${brandColor}DD 100%); color:#FFFFFF; display:flex; align-items:center; justify-content:center; font-weight:800; font-size:24px; box-shadow: 0 4px 15px ${brandColor}33; font-family:'Outfit', sans-serif; flex-shrink:0;">
-                            ${initials}
-                        </div>
+                        ${hasPhoto ? `
+                            <img src="${photoSrc}" alt="${mentor.name}" style="width:72px; height:72px; border-radius:50%; object-fit:cover; border:2px solid #E2E8F0; box-shadow:0 4px 12px rgba(0,0,0,0.1); flex-shrink:0;" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                            <div style="display:none; width:72px; height:72px; border-radius:50%; background: linear-gradient(135deg, ${brandColor} 0%, ${brandColor}DD 100%); color:#FFFFFF; align-items:center; justify-content:center; font-weight:800; font-size:24px; box-shadow: 0 4px 15px ${brandColor}33; font-family:'Outfit', sans-serif; flex-shrink:0;">
+                                ${initials}
+                            </div>
+                        ` : `
+                            <div style="width:72px; height:72px; border-radius:50%; background: linear-gradient(135deg, ${brandColor} 0%, ${brandColor}DD 100%); color:#FFFFFF; display:flex; align-items:center; justify-content:center; font-weight:800; font-size:24px; box-shadow: 0 4px 15px ${brandColor}33; font-family:'Outfit', sans-serif; flex-shrink:0;">
+                                ${initials}
+                            </div>
+                        `}
                         <div>
-                            <h5 class="fw-bold text-navy mb-1">${mentor.name}</h5>
-                            <p class="text-secondary font-13 mb-1"><i class="fa-solid fa-university text-primary me-1"></i> ${mentor.title || mentor.affiliation}</p>
-                            ${mentor.qualification ? `<p class="text-muted font-12 mb-0"><i class="fa-solid fa-certificate text-warning me-1"></i> ${mentor.qualification}</p>` : ''}
+                            <h5 class="fw-bold text-navy mb-1 font-16">${mentor.name}</h5>
+                            <p class="text-secondary font-13 mb-1">${mentor.title || mentor.affiliation}</p>
+                            ${mentor.qualification ? `<p class="text-muted font-11 mb-0">${mentor.qualification}</p>` : ''}
                         </div>
                     </div>
 
                     <div class="row g-2 mb-4 text-center">
                         <div class="col-4">
                             <div class="p-2 border rounded-3 bg-light">
-                                <span class="d-block font-11 text-muted text-uppercase fw-bold">Experience</span>
+                                <span class="d-block font-10 text-muted text-uppercase fw-bold">Experience</span>
                                 <strong class="font-13 text-navy">${mentor.experience || '10+ Years'}</strong>
                             </div>
                         </div>
                         <div class="col-4">
                             <div class="p-2 border rounded-3 bg-light">
-                                <span class="d-block font-11 text-muted text-uppercase fw-bold">Location</span>
+                                <span class="d-block font-10 text-muted text-uppercase fw-bold">Location</span>
                                 <strong class="font-13 text-navy">${mentor.location || 'Patna'}</strong>
                             </div>
                         </div>
                         <div class="col-4">
                             <div class="p-2 border rounded-3 bg-light">
-                                <span class="d-block font-11 text-muted text-uppercase fw-bold">Session Mode</span>
+                                <span class="d-block font-10 text-muted text-uppercase fw-bold">Session Mode</span>
                                 <strong class="font-13 text-primary">${mentor.mode || 'Hybrid'}</strong>
                             </div>
                         </div>
                     </div>
 
                     <div class="mb-4">
-                        <h6 class="fw-bold text-navy mb-2 font-14"><i class="fa-solid fa-star text-warning me-1"></i> Core Domain &amp; Expertise</h6>
-                        <div class="d-flex flex-wrap gap-1">
+                        <h6 class="fw-bold text-navy mb-2 font-13 text-uppercase text-muted">Core Domain &amp; Expertise</h6>
+                        <div class="d-flex flex-wrap gap-1.5">
                             ${allExpertiseTags}
                         </div>
                     </div>
 
                     <div class="mb-4 p-3 bg-light rounded-3 border">
-                        <h6 class="fw-bold text-navy mb-2 font-14"><i class="fa-solid fa-align-left text-primary me-1"></i> Mentor Bio &amp; Advisory Scope</h6>
+                        <h6 class="fw-bold text-navy mb-2 font-13 text-uppercase text-muted">Mentor Bio &amp; Advisory Scope</h6>
                         <p class="text-secondary font-13 mb-0" style="line-height:1.7; text-align:justify;">
                             ${mentor.bio || 'Distinguished mentor on the advisory board of CIMP Business Innovation and Incubation Foundation.'}
                         </p>
                     </div>
 
-                    <div class="d-flex gap-3 flex-wrap">
-                        <a href="${contactUrl}" class="btn btn-primary flex-grow-1 py-2 font-13 fw-semibold">
-                            <i class="fa-solid fa-calendar-check me-1"></i> Request Mentoring Clinic
+                    <div class="d-flex gap-2 flex-wrap">
+                        <a href="${contactUrl}" class="btn btn-primary flex-grow-1 py-2 font-12 fw-semibold rounded-2">
+                            <i class="fa-solid fa-calendar-check me-1"></i> Request Mentoring Session
                         </a>
                         ${mentor.linkedin ? `
-                        <a href="${mentor.linkedin}" target="_blank" class="btn btn-outline-secondary px-3 py-2 font-13" title="View LinkedIn Profile">
+                        <a href="${mentor.linkedin}" target="_blank" class="btn btn-outline-secondary px-3 py-2 font-12 rounded-2" title="View LinkedIn Profile">
                             <i class="fab fa-linkedin text-primary me-1"></i> LinkedIn
                         </a>
                         ` : ''}
-                        <button class="btn btn-outline-secondary px-4 py-2 font-13" onclick="document.getElementById('mentor-detail-modal').style.display='none'">Close</button>
+                        <button class="btn btn-outline-secondary px-4 py-2 font-12 rounded-2" onclick="document.getElementById('mentor-detail-modal').style.display='none'">Close</button>
                     </div>
                 </div>
             </div>
@@ -857,6 +886,12 @@ document.addEventListener("DOMContentLoaded", function () {
 
         window.addEventListener("cimp:db_updated", function () {
             renderLiveMentorsGrid();
+        });
+
+        window.addEventListener("storage", function (e) {
+            if (e.key && e.key.includes("mentors")) {
+                renderLiveMentorsGrid();
+            }
         });
     }
 

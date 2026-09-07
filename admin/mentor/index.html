@@ -459,6 +459,13 @@
                     </span>
                     <span class="badge bg-secondary font-10" id="sidebarSessionCount">2</span>
                 </button>
+
+                <button class="app-nav-btn" id="menNavProfile" onclick="switchMenView('tab-men-profile', this)">
+                    <span class="left-grp">
+                        <i class="fa-solid fa-id-badge font-14 me-2"></i>
+                        <span>My Public Profile</span>
+                    </span>
+                </button>
             </div>
         </div>
 
@@ -529,9 +536,13 @@
                             <div class="font-10 text-muted text-truncate" id="dropdownUserEmail">mentor@cimp.ac.in</div>
                             <span class="badge bg-secondary font-9 px-2 py-0.5 mt-1" id="dropdownUserRole">Faculty Mentor</span>
                         </div>
-                        <a class="dropdown-item d-flex align-items-center gap-2 py-2 rounded-2 font-12 text-dark" href="../../index.html" target="_blank">
+                        <a class="dropdown-item d-flex align-items-center gap-2 py-2 rounded-2 font-12 text-dark" href="javascript:void(0)" onclick="switchMenView('tab-men-profile', document.getElementById('menNavProfile'))">
+                            <i class="fa-solid fa-id-badge font-12 text-primary"></i>
+                            <span>Edit Public Profile</span>
+                        </a>
+                        <a class="dropdown-item d-flex align-items-center gap-2 py-2 rounded-2 font-12 text-dark" href="../../pages/mentors.html" target="_blank">
                             <i class="fa-solid fa-arrow-up-right-from-square font-12 text-muted"></i>
-                            <span>Public Website</span>
+                            <span>Public Mentors Directory</span>
                         </a>
                         <hr class="dropdown-divider my-1">
                         <a class="dropdown-item d-flex align-items-center gap-2 py-2 rounded-2 font-12 fw-semibold text-danger" href="../../login.html">
@@ -710,6 +721,193 @@
                 </div>
             </div>
 
+            <!-- TAB 4: MY PUBLIC DIRECTORY PROFILE -->
+            <div class="app-tab-pane" id="tab-men-profile">
+                <div class="d-flex align-items-center justify-content-between flex-wrap gap-2 mb-3">
+                    <div>
+                        <h3 class="page-header-title">Public Directory Profile</h3>
+                        <p class="page-header-sub">Manage your public credentials, photo, advisory focus, and social coordinates published on the CIMP-BIIF live website.</p>
+                    </div>
+                    <div class="d-flex align-items-center gap-2">
+                        <div class="d-flex align-items-center gap-1.5 bg-white border rounded-2 px-2.5 py-1.5 shadow-2xs">
+                            <span class="font-11 text-muted fw-semibold">Profile Identity:</span>
+                            <select id="selProfileSwitcher" class="border-0 font-12 fw-bold text-dark bg-transparent" style="outline: none; cursor: pointer;" onchange="loadSelectedMentorProfile(this.value)">
+                                <!-- Populated dynamically from CIMP_DB.getMentors() -->
+                            </select>
+                        </div>
+                        <a href="../../pages/mentors.html" target="_blank" class="btn btn-sm btn-outline-primary font-12 fw-semibold px-3 py-1.5 rounded-2">
+                            <i class="fa-solid fa-arrow-up-right-from-square me-1"></i> View on Live Website
+                        </a>
+                    </div>
+                </div>
+
+
+                <div class="row g-4">
+                    <!-- Left Column: Live Website Card Preview -->
+                    <div class="col-lg-5 col-xl-4">
+                        <div class="app-table-card p-3 sticky-top" style="top: 80px;">
+                            <div class="d-flex align-items-center justify-content-between mb-3 pb-2 border-bottom">
+                                <span class="font-11 text-muted text-uppercase fw-bold"><i class="fa-solid fa-eye me-1 text-primary"></i> Live Website Card Preview</span>
+                                <span class="badge bg-light text-secondary border font-10">pages/mentors.html</span>
+                            </div>
+                            
+                            <div id="mentorLivePreviewCard">
+                                <!-- Rendered dynamically with live inputs -->
+                            </div>
+
+                            <div class="mt-3 pt-3 border-top text-center font-11 text-muted">
+                                <i class="fa-solid fa-arrows-rotate me-1 text-teal"></i> Updates preview automatically as you type
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right Column: Profile Editor Form -->
+                    <div class="col-lg-7 col-xl-8">
+                        <div class="app-table-card p-4">
+                            <form id="formMentorProfile" onsubmit="handleMentorProfileSave(event)">
+                                
+                                <!-- Photo Upload & Controls -->
+                                <div class="p-3 bg-light rounded-3 border mb-4">
+                                    <div class="d-flex align-items-center justify-content-between flex-wrap gap-1 mb-2">
+                                        <label class="form-label font-11 fw-bold text-muted text-uppercase mb-0">Profile Picture / Avatar</label>
+                                        <span class="font-11 text-muted"><i class="fa-solid fa-circle-info text-secondary me-1"></i>Max 1 MB (JPG, PNG, WebP)</span>
+                                    </div>
+                                    <div class="d-flex align-items-center gap-3 flex-wrap">
+                                        <div id="profilePhotoPreviewWrap" style="width: 72px; height: 72px;" class="position-relative flex-shrink-0">
+                                            <!-- Preview avatar -->
+                                        </div>
+                                        <div class="flex-grow-1" style="min-width: 220px;">
+                                            <div class="d-flex gap-2 mb-2">
+                                                <label class="btn btn-sm btn-primary font-12 fw-semibold px-3 py-1.5 rounded-2 mb-0" style="cursor: pointer;">
+                                                    <i class="fa-solid fa-upload me-1"></i> Upload Image
+                                                    <input type="file" id="inpProfilePhotoFile" accept="image/png, image/jpeg, image/webp" class="d-none" onchange="handleProfilePhotoUpload(event)">
+                                                </label>
+                                                <button type="button" class="btn btn-sm btn-light border font-12 py-1.5 px-2.5 text-danger" onclick="clearProfilePhoto()">
+                                                    <i class="fa-solid fa-trash-can me-1"></i> Use Initials
+                                                </button>
+                                            </div>
+                                            <div class="input-group input-group-sm">
+                                                <span class="input-group-text bg-white font-11 text-muted"><i class="fa-solid fa-link"></i></span>
+                                                <input type="url" class="form-control font-12" id="inpProfilePhotoUrl" placeholder="Or enter direct image URL (https://...)" oninput="handlePhotoUrlInput(this.value)">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Basic Identity -->
+                                <div class="row g-3 mb-3">
+                                    <div class="col-md-7">
+                                        <label class="form-label font-12 fw-semibold text-secondary">Full Name (with Prefix) <span class="text-danger">*</span></label>
+                                        <input type="text" class="form-control font-12" id="inpProfName" placeholder="e.g. Dr. Arvind Swaminathan" required oninput="updateLivePreview()">
+                                    </div>
+                                    <div class="col-md-5">
+                                        <label class="form-label font-12 fw-semibold text-secondary">Primary Sector / Domain <span class="text-danger">*</span></label>
+                                        <select class="form-select font-12" id="selProfDomain" required onchange="updateLivePreview()">
+                                            <option value="Agritech">Agritech</option>
+                                            <option value="Fintech">Fintech Infrastructure</option>
+                                            <option value="Artificial Intelligence">Artificial Intelligence &amp; DeepTech</option>
+                                            <option value="Healthcare">Healthcare &amp; Diagnostics</option>
+                                            <option value="Consumer &amp; D2C">Consumer &amp; D2C Brands</option>
+                                            <option value="CleanTech">CleanTech &amp; Renewable</option>
+                                            <option value="IPR &amp; Patents">Intellectual Property &amp; Patents</option>
+                                            <option value="Corporate Governance">Finance &amp; Corporate Valuation</option>
+                                            <option value="MSME Schemes">MSME &amp; State Policies</option>
+                                            <option value="Supply Chain">Supply Chain &amp; Logistics</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label class="form-label font-12 fw-semibold text-secondary">Designation &amp; Current Institutional Affiliation <span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control font-12" id="inpProfAffiliation" placeholder="e.g. Professor of Practice, IIM &amp; Former Chief Strategy Officer, AgriNext Global" required oninput="updateLivePreview()">
+                                </div>
+
+                                <div class="row g-3 mb-3">
+                                    <div class="col-md-4">
+                                        <label class="form-label font-12 fw-semibold text-secondary">Years of Experience</label>
+                                        <input type="text" class="form-control font-12" id="inpProfExperience" placeholder="e.g. 22 Years" oninput="updateLivePreview()">
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label class="form-label font-12 fw-semibold text-secondary">Base Location</label>
+                                        <input type="text" class="form-control font-12" id="inpProfLocation" placeholder="e.g. Patna / New Delhi" oninput="updateLivePreview()">
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label class="form-label font-12 fw-semibold text-secondary">Mentorship Session Mode</label>
+                                        <select class="form-select font-12" id="selProfMode" onchange="updateLivePreview()">
+                                            <option value="Hybrid (Online &amp; In-Person)">Hybrid (Online &amp; In-Person)</option>
+                                            <option value="Online / Virtual">Online / Virtual</option>
+                                            <option value="In-Person">In-Person Only</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label class="form-label font-12 fw-semibold text-secondary">Core Expertise Tags <span class="text-muted font-11">(Comma-separated, displayed in bio &amp; advisory scope modal)</span></label>
+                                    <input type="text" class="form-control font-12" id="inpProfExpertise" placeholder="e.g. Agritech, Supply Chain Management, Rural Markets, FPOs" oninput="updateLivePreview()">
+                                </div>
+
+                                <div class="mb-3">
+                                    <label class="form-label font-12 fw-semibold text-secondary">Academic Credentials / Degrees</label>
+                                    <input type="text" class="form-control font-12" id="inpProfQualification" placeholder="e.g. Ph.D. in Agribusiness Management (IARI), MBA (IIM Ahmedabad)" oninput="updateLivePreview()">
+                                </div>
+
+                                <!-- Social Coordinates -->
+                                <div class="p-3 bg-light rounded-3 border mb-3">
+                                    <label class="form-label font-11 fw-bold text-muted text-uppercase d-block mb-2">Social &amp; Professional Contact Coordinates</label>
+                                    <div class="row g-2">
+                                        <div class="col-md-6">
+                                            <div class="input-group input-group-sm">
+                                                <span class="input-group-text bg-white text-primary font-12"><i class="fab fa-linkedin-in"></i></span>
+                                                <input type="url" class="form-control font-12" id="inpProfLinkedin" placeholder="https://linkedin.com/in/username" oninput="updateLivePreview()">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="input-group input-group-sm">
+                                                <span class="input-group-text bg-white text-dark font-12"><i class="fab fa-x-twitter"></i></span>
+                                                <input type="url" class="form-control font-12" id="inpProfTwitter" placeholder="https://x.com/username" oninput="updateLivePreview()">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="input-group input-group-sm">
+                                                <span class="input-group-text bg-white text-secondary font-12"><i class="fa-solid fa-envelope"></i></span>
+                                                <input type="email" class="form-control font-12" id="inpProfEmail" placeholder="official@mentor-domain.in" oninput="updateLivePreview()">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="input-group input-group-sm">
+                                                <span class="input-group-text bg-white text-secondary font-12"><i class="fa-solid fa-phone"></i></span>
+                                                <input type="tel" class="form-control font-12" id="inpProfPhone" placeholder="+91 98765 43210">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Detailed Bio -->
+                                <div class="mb-4">
+                                    <label class="form-label font-12 fw-semibold text-secondary">Comprehensive Bio &amp; Advisory Scope <span class="text-danger">*</span></label>
+                                    <textarea class="form-control font-12" id="txtProfBio" rows="5" placeholder="Write full biographical summary, professional advisory philosophy, and specific value provided to incubatees..." required></textarea>
+                                </div>
+
+                                <!-- Action Buttons -->
+                                <div class="d-flex align-items-center justify-content-between pt-3 border-top flex-wrap gap-2">
+                                    <div class="d-flex align-items-center gap-2">
+                                        <button type="submit" class="btn btn-primary px-4 py-2 font-13 fw-bold rounded-2 shadow-sm">
+                                            <i class="fa-solid fa-cloud-arrow-up me-1.5"></i> Save &amp; Publish to Directory
+                                        </button>
+                                        <button type="button" class="btn btn-light border px-3 py-2 font-13 text-secondary rounded-2" onclick="revertProfileChanges()">
+                                            Discard Changes
+                                        </button>
+                                    </div>
+                                    <div id="profileSaveStatus" class="font-12 fw-semibold text-success d-none">
+                                        <i class="fa-solid fa-check-circle me-1"></i> Saved &amp; Live Synchronized!
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </main>
 
         <!-- Native Mobile Bottom Navigation Bar -->
@@ -725,6 +923,10 @@
             <button class="mobile-nav-btn" id="mMenNavSessions" onclick="switchMenMobileTab('tab-men-sessions', this)">
                 <i class="fa-solid fa-calendar-check"></i>
                 <span>Sessions</span>
+            </button>
+            <button class="mobile-nav-btn" id="mMenNavProfile" onclick="switchMenMobileTab('tab-men-profile', this)">
+                <i class="fa-solid fa-id-badge"></i>
+                <span>Profile</span>
             </button>
             <button class="mobile-nav-btn" onclick="toggleMobileSidebar()">
                 <i class="fa-solid fa-bars"></i>
@@ -1198,6 +1400,7 @@
             if (tabId === 'tab-men-overview') desktopBtn = document.getElementById('menNavOverview');
             else if (tabId === 'tab-men-mentees') desktopBtn = document.getElementById('menNavMentees');
             else if (tabId === 'tab-men-sessions') desktopBtn = document.getElementById('menNavSessions');
+            else if (tabId === 'tab-men-profile') desktopBtn = document.getElementById('menNavProfile');
 
             switchMenView(tabId, desktopBtn);
             closeMobileSidebarIfOpen();
@@ -1215,7 +1418,288 @@
             if (tabId === 'tab-men-overview') document.getElementById('mMenNavOverview')?.classList.add('active');
             else if (tabId === 'tab-men-mentees') document.getElementById('mMenNavMentees')?.classList.add('active');
             else if (tabId === 'tab-men-sessions') document.getElementById('mMenNavSessions')?.classList.add('active');
+            else if (tabId === 'tab-men-profile') {
+                document.getElementById('mMenNavProfile')?.classList.add('active');
+                initProfileEditor();
+            }
         }
+
+        // ==========================================
+        // MENTOR SELF-SERVICE PROFILE EDITOR
+        // ==========================================
+        let currentEditingMentorId = 'MENTOR-2026-001';
+        let profileEditorInitialized = false;
+
+        function getCleanInitialsLocal(name) {
+            const clean = (name || 'M')
+                .replace(/\b(Dr|Prof|Adv|Mr|Ms)\b\.?/gi, '')
+                .replace(/[()]/g, '')
+                .trim();
+            const parts = clean.split(/\s+/).filter(Boolean);
+            if (parts.length >= 2) {
+                return (parts[0][0] + parts[parts.length - 1][0]).toUpperCase();
+            }
+            return (parts[0] ? parts[0].slice(0, 2) : 'M').toUpperCase();
+        }
+
+        function initProfileEditor() {
+            if (!window.CIMP_DB) return;
+            const mentors = window.CIMP_DB.getMentors();
+            const selSwitcher = document.getElementById('selProfileSwitcher');
+            if (selSwitcher && mentors && mentors.length > 0) {
+                selSwitcher.innerHTML = mentors.map(m => `
+                    <option value="${m.id}" ${m.id === currentEditingMentorId ? 'selected' : ''}>
+                        ${m.name} (${m.primaryDomain || 'Advisory'})
+                    </option>
+                `).join('');
+            }
+            loadSelectedMentorProfile(currentEditingMentorId);
+            profileEditorInitialized = true;
+        }
+
+        function loadSelectedMentorProfile(mentorId) {
+            if (!window.CIMP_DB) return;
+            currentEditingMentorId = mentorId;
+            const mentor = window.CIMP_DB.getMentorById(mentorId) || window.CIMP_DB.getMentors()[0];
+            if (!mentor) return;
+
+            const elName = document.getElementById('inpProfName');
+            if (elName) elName.value = mentor.name || '';
+            const elDomain = document.getElementById('selProfDomain');
+            if (elDomain) elDomain.value = mentor.primaryDomain || 'Agritech';
+            const elAffil = document.getElementById('inpProfAffiliation');
+            if (elAffil) elAffil.value = mentor.title || mentor.affiliation || '';
+            const elExp = document.getElementById('inpProfExperience');
+            if (elExp) elExp.value = mentor.experience || '10+ Years';
+            const elLoc = document.getElementById('inpProfLocation');
+            if (elLoc) elLoc.value = mentor.location || 'Patna';
+            const elMode = document.getElementById('selProfMode');
+            if (elMode) elMode.value = mentor.mode || 'Hybrid (Online & In-Person)';
+            const elExpTags = document.getElementById('inpProfExpertise');
+            if (elExpTags) elExpTags.value = Array.isArray(mentor.expertise) ? mentor.expertise.join(', ') : (mentor.expertise || '');
+            const elQual = document.getElementById('inpProfQualification');
+            if (elQual) elQual.value = mentor.qualification || '';
+            const elLi = document.getElementById('inpProfLinkedin');
+            if (elLi) elLi.value = mentor.linkedin || '';
+            const elTw = document.getElementById('inpProfTwitter');
+            if (elTw) elTw.value = mentor.twitter || '';
+            const elEm = document.getElementById('inpProfEmail');
+            if (elEm) elEm.value = mentor.email || '';
+            const elPh = document.getElementById('inpProfPhone');
+            if (elPh) elPh.value = mentor.phone || '';
+            const elBio = document.getElementById('txtProfBio');
+            if (elBio) elBio.value = mentor.bio || '';
+            const elPhoto = document.getElementById('inpProfilePhotoUrl');
+            if (elPhoto) elPhoto.value = mentor.photo || mentor.avatar || '';
+
+            updateLivePreview();
+        }
+
+        function updateLivePreview() {
+            const name = document.getElementById('inpProfName')?.value || 'Mentor Name';
+            const domain = document.getElementById('selProfDomain')?.value || 'Advisory';
+            const affiliation = document.getElementById('inpProfAffiliation')?.value || 'Institutional Advisor, CIMP-BIIF';
+            const exp = document.getElementById('inpProfExperience')?.value || '10+ Years';
+            const loc = document.getElementById('inpProfLocation')?.value || 'Patna';
+            const mode = document.getElementById('selProfMode')?.value || 'Hybrid';
+            const modeClean = mode.includes('Hybrid') ? 'Hybrid' : (mode.includes('Online') ? 'Online' : 'In-Person');
+            const expTags = (document.getElementById('inpProfExpertise')?.value || 'Advisory, Strategy')
+                .split(',')
+                .map(t => t.trim())
+                .filter(Boolean)
+                .slice(0, 3);
+            const linkedin = document.getElementById('inpProfLinkedin')?.value || '';
+            const twitter = document.getElementById('inpProfTwitter')?.value || '';
+            const email = document.getElementById('inpProfEmail')?.value || '';
+            const photoUrl = document.getElementById('inpProfilePhotoUrl')?.value || '';
+
+            const initials = getCleanInitialsLocal(name);
+            const brandColor = '#0D9488';
+
+            // 1. Update Preview Wrap in form
+            const previewWrap = document.getElementById('profilePhotoPreviewWrap');
+            if (previewWrap) {
+                if (photoUrl) {
+                    previewWrap.innerHTML = `
+                        <img src="${photoUrl}" alt="Avatar Preview" class="rounded-circle object-fit-cover shadow-sm border" style="width:72px; height:72px;" onerror="this.src='../../assets/images/favicon.png'">
+                    `;
+                } else {
+                    previewWrap.innerHTML = `
+                        <div class="rounded-circle text-white font-outfit fw-bold shadow-sm d-flex align-items-center justify-content-center" style="width:72px; height:72px; background:linear-gradient(135deg, ${brandColor} 0%, ${brandColor}DD 100%); font-size:22px; border:2px solid #E2E8F0;">
+                            ${initials}
+                        </div>
+                    `;
+                }
+            }
+
+            // 2. Update Live Card Preview (matches pages/mentors.html clean structured layout)
+            const cardEl = document.getElementById('mentorLivePreviewCard');
+            if (cardEl) {
+                cardEl.innerHTML = `
+                    <div class="card border-0 rounded-4 shadow-sm p-4 text-center transition-all mentor-card-elite" style="background:#FFFFFF; border:1px solid #E2E8F0 !important;">
+                        <!-- Center Avatar -->
+                        <div class="position-relative d-inline-block mb-3 mx-auto">
+                            ${photoUrl ? `
+                                <img src="${photoUrl}" alt="${name}" class="rounded-circle object-fit-cover shadow-sm" style="width:88px; height:88px; border:3px solid #FFFFFF; box-shadow:0 6px 18px rgba(15,23,42,0.12); display:block;" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                                <div class="mentor-avatar-fallback rounded-circle text-white font-outfit fw-bold shadow-sm" style="display:none; width:88px; height:88px; background:linear-gradient(135deg, ${brandColor} 0%, ${brandColor}DD 100%); align-items:center; justify-content:center; font-size:26px; border:3px solid #FFFFFF; box-shadow:0 6px 18px ${brandColor}33;">
+                                    ${initials}
+                                </div>
+                            ` : `
+                                <div class="mentor-avatar-fallback rounded-circle text-white font-outfit fw-bold shadow-sm d-flex align-items-center justify-content-center" style="width:88px; height:88px; background:linear-gradient(135deg, ${brandColor} 0%, ${brandColor}DD 100%); font-size:26px; border:3px solid #FFFFFF; box-shadow:0 6px 18px ${brandColor}33;">
+                                    ${initials}
+                                </div>
+                            `}
+                        </div>
+
+                        <!-- Name & Affiliation -->
+                        <h5 class="fw-bold mb-1 text-navy font-16" title="${name}" style="letter-spacing:-0.2px;">${name}</h5>
+                        <p class="font-12 text-secondary mb-2.5 mx-auto" style="max-width:280px; min-height:36px; line-height:1.45; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden;" title="${affiliation}">
+                            ${affiliation}
+                        </p>
+
+                        <!-- Primary Domain Pill -->
+                        <div class="mb-3">
+                            <span class="badge px-3 py-1.5 rounded-pill font-11 fw-semibold" style="background:#F0FDFA; color:#0F766E; border:1px solid #CCFBF1;">
+                                ${domain || 'Incubation Advisory'}
+                            </span>
+                        </div>
+
+                        <!-- Centered Social Profiles -->
+                        <div class="d-flex align-items-center justify-content-center gap-2 mb-4">
+                            ${linkedin ? `
+                                <a href="${linkedin}" target="_blank" class="btn btn-sm rounded-circle d-inline-flex align-items-center justify-content-center border" style="width:34px; height:34px; background:#F8FAFC; color:#0A66C2; border-color:#E2E8F0 !important;" title="LinkedIn Profile">
+                                    <i class="fab fa-linkedin-in font-13"></i>
+                                </a>
+                            ` : `
+                                <span class="btn btn-sm rounded-circle d-inline-flex align-items-center justify-content-center border opacity-50" style="width:34px; height:34px; background:#F8FAFC; color:#94A3B8; border-color:#E2E8F0 !important;">
+                                    <i class="fab fa-linkedin-in font-13"></i>
+                                </span>
+                            `}
+                            ${twitter ? `
+                                <a href="${twitter}" target="_blank" class="btn btn-sm rounded-circle d-inline-flex align-items-center justify-content-center border" style="width:34px; height:34px; background:#F8FAFC; color:#0F172A; border-color:#E2E8F0 !important;" title="Twitter / X Profile">
+                                    <i class="fab fa-x-twitter font-12"></i>
+                                </a>
+                            ` : ''}
+                            ${email ? `
+                                <a href="mailto:${email}" class="btn btn-sm rounded-circle d-inline-flex align-items-center justify-content-center border" style="width:34px; height:34px; background:#F8FAFC; color:#475569; border-color:#E2E8F0 !important;" title="Send Official Email">
+                                    <i class="fa fa-envelope font-12"></i>
+                                </a>
+                            ` : ''}
+                        </div>
+
+                        <!-- Action Footer -->
+                        <div class="border-top pt-3 mt-auto">
+                            <button class="btn btn-outline-primary btn-sm w-100 rounded-pill py-2 font-12 fw-semibold" type="button">
+                                <i class="fa-solid fa-user-circle me-1"></i> View Full Bio &amp; Scope
+                            </button>
+                        </div>
+                    </div>
+                `;
+            }
+        }
+
+        function handleProfilePhotoUpload(event) {
+            const file = event.target.files && event.target.files[0];
+            if (!file) return;
+
+            const maxBytes = 1 * 1024 * 1024; // Strict 1 MB maximum limit
+            if (file.size > maxBytes) {
+                alert(`File size (${(file.size / (1024 * 1024)).toFixed(2)} MB) exceeds the 1 MB maximum limit.\nPlease choose an image smaller than 1 MB.`);
+                event.target.value = '';
+                return;
+            }
+
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                const dataUrl = e.target.result;
+                const inpUrl = document.getElementById('inpProfilePhotoUrl');
+                if (inpUrl) inpUrl.value = dataUrl;
+                updateLivePreview();
+            };
+            reader.readAsDataURL(file);
+        }
+
+        function handlePhotoUrlInput(url) {
+            updateLivePreview();
+        }
+
+        function clearProfilePhoto() {
+            const inpUrl = document.getElementById('inpProfilePhotoUrl');
+            const inpFile = document.getElementById('inpProfilePhotoFile');
+            if (inpUrl) inpUrl.value = '';
+            if (inpFile) inpFile.value = '';
+            updateLivePreview();
+        }
+
+        function revertProfileChanges() {
+            loadSelectedMentorProfile(currentEditingMentorId);
+        }
+
+        function handleMentorProfileSave(e) {
+            e.preventDefault();
+            if (!window.CIMP_DB) return;
+
+            const existing = window.CIMP_DB.getMentorById(currentEditingMentorId) || {};
+            const expertiseArr = (document.getElementById('inpProfExpertise')?.value || '')
+                .split(',')
+                .map(s => s.trim())
+                .filter(Boolean);
+
+            const updatedMentor = Object.assign({}, existing, {
+                id: currentEditingMentorId,
+                name: document.getElementById('inpProfName')?.value.trim(),
+                primaryDomain: document.getElementById('selProfDomain')?.value.trim(),
+                affiliation: document.getElementById('inpProfAffiliation')?.value.trim(),
+                title: document.getElementById('inpProfAffiliation')?.value.trim(),
+                experience: document.getElementById('inpProfExperience')?.value.trim(),
+                location: document.getElementById('inpProfLocation')?.value.trim(),
+                mode: document.getElementById('selProfMode')?.value.trim(),
+                expertise: expertiseArr,
+                qualification: document.getElementById('inpProfQualification')?.value.trim(),
+                linkedin: document.getElementById('inpProfLinkedin')?.value.trim(),
+                twitter: document.getElementById('inpProfTwitter')?.value.trim(),
+                email: document.getElementById('inpProfEmail')?.value.trim(),
+                phone: document.getElementById('inpProfPhone')?.value.trim(),
+                bio: document.getElementById('txtProfBio')?.value.trim(),
+                photo: document.getElementById('inpProfilePhotoUrl')?.value.trim(),
+                avatar: document.getElementById('inpProfilePhotoUrl')?.value.trim()
+            });
+
+            window.CIMP_DB.saveMentor(updatedMentor);
+
+            // Update switcher option text
+            const selSwitcher = document.getElementById('selProfileSwitcher');
+            if (selSwitcher && selSwitcher.selectedOptions[0]) {
+                selSwitcher.selectedOptions[0].text = `${updatedMentor.name} (${updatedMentor.primaryDomain || 'Advisory'})`;
+            }
+
+            // Show confirmation badge
+            const statusEl = document.getElementById('profileSaveStatus');
+            if (statusEl) {
+                statusEl.classList.remove('d-none');
+                setTimeout(() => {
+                    statusEl.classList.add('d-none');
+                }, 4000);
+            }
+
+            updateLivePreview();
+        }
+
+        // Initialize on load
+        document.addEventListener('DOMContentLoaded', function () {
+            if (window.CIMP_DB) {
+                const curUser = window.CIMP_DB.getCurrentUser();
+                if (!curUser || curUser.role !== 'Mentor') {
+                    window.CIMP_DB.setCurrentUser('usr-mentor');
+                }
+                window.CIMP_DB.syncDOMUserProfile();
+            }
+
+            renderMentorOverviewTable();
+            renderMentorDirectoryTable();
+            renderMentorSessionsTable();
+            initProfileEditor();
+        });
 
         // Modal Handler
         let sessionModalInstance = null;
@@ -1275,20 +1759,7 @@
             switchMenView('tab-men-sessions', document.getElementById('menNavSessions'));
         }
 
-        // Initialize on load
-        document.addEventListener('DOMContentLoaded', function () {
-            if (window.CIMP_DB) {
-                const curUser = window.CIMP_DB.getCurrentUser();
-                if (!curUser || curUser.role !== 'Mentor') {
-                    window.CIMP_DB.setCurrentUser('usr-mentor');
-                }
-                window.CIMP_DB.syncDOMUserProfile();
-            }
 
-            renderMentorOverviewTable();
-            renderMentorDirectoryTable();
-            renderMentorSessionsTable();
-        });
     </script>
 </body>
 </html>

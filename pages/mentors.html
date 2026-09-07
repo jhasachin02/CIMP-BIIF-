@@ -207,9 +207,6 @@
     <!-- Clean Minimalist Hero Banner -->
     <section class="startups-hero-banner text-center text-white" style="background: linear-gradient(135deg, #0A192F 0%, #1E3A8A 50%, #0F172A 100%); padding: 75px 0 65px; position: relative;">
         <div class="container position-relative" style="z-index: 2;">
-            <span class="badge bg-primary bg-opacity-25 text-white border border-white border-opacity-25 px-3 py-2 rounded-pill font-13 mb-3 fw-semibold">
-                <i class="fa-solid fa-graduation-cap me-1 text-warning"></i> Academic &amp; Industry Mentorship Panel
-            </span>
             <h1 class="display-5 fw-bold text-white mb-3" style="letter-spacing: -0.02em;">Distinguished Mentors &amp; Advisors</h1>
             <p class="text-white-50 font-16 mx-auto mb-0" style="max-width: 720px; line-height: 1.65;">
                 Meet our empanelled network of seasoned academicians, corporate executives, venture builders, and sector specialists guiding CIMP-BIIF founders from ideation to scale.
@@ -403,21 +400,39 @@
 
 
 <style>
+    .mentor-card-elite {
+        transition: transform 0.22s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.22s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.22s ease !important;
+    }
+    .mentor-card-elite:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 12px 28px rgba(15, 23, 42, 0.08) !important;
+        border-color: #CBD5E1 !important;
+    }
+    .mentor-card-elite .btn-outline-primary {
+        color: #1E3A8A;
+        border-color: #CBD5E1;
+        background: #F8FAFC;
+    }
+    .mentor-card-elite .btn-outline-primary:hover {
+        color: #FFFFFF;
+        background: #1E3A8A;
+        border-color: #1E3A8A;
+    }
     .popup-modal .btn-close {
-    position: absolute;
-    right: 15px;
-    top: 15px;
-    color: #8d97ad;
-    font-size: 30px;
-    background: #ffffff;
-    width: 32px;
-    height: 32px;
-    text-align: center;
-    display: block;
-    border-radius: 100%;
-    line-height: 24px;
-    opacity: 1;
-}
+        position: absolute;
+        right: 15px;
+        top: 15px;
+        color: #8d97ad;
+        font-size: 30px;
+        background: #ffffff;
+        width: 32px;
+        height: 32px;
+        text-align: center;
+        display: block;
+        border-radius: 100%;
+        line-height: 24px;
+        opacity: 1;
+    }
 </style>
 
 
