@@ -23,7 +23,7 @@ npm-debug.log*
 yarn-debug.log*
 
 # Build outputs & Temp
-dist/
+/dist/
 build/
 .cache/
 temp/
